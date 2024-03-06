@@ -1,0 +1,783 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570B2B94124F00EDAF30 /* NetworkError.swift */; };
+		60DA570E2B94132E00EDAF30 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570D2B94132E00EDAF30 /* Endpoint.swift */; };
+		60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570F2B94147C00EDAF30 /* TargetType.swift */; };
+		60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA57122B94152000EDAF30 /* HttpHeaderField.swift */; };
+		60DA571D2B94182D00EDAF30 /* MarketTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA571C2B94182D00EDAF30 /* MarketTarget.swift */; };
+		60DA571F2B941B5500EDAF30 /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA571E2B941B5500EDAF30 /* Market.swift */; };
+		60DA57222B94285C00EDAF30 /* MarketRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA57212B94285C00EDAF30 /* MarketRepository.swift */; };
+		60DA57242B942AAF00EDAF30 /* GetMarketUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA57232B942AAF00EDAF30 /* GetMarketUseCase.swift */; };
+		60DA57262B942C5E00EDAF30 /* MarketMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA57252B942C5E00EDAF30 /* MarketMainViewModel.swift */; };
+		60E696832B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696822B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift */; };
+		60E696852B94E30F009DD235 /* MarketAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696842B94E30F009DD235 /* MarketAuthRepository.swift */; };
+		60E696872B94E476009DD235 /* MarketAuthTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696862B94E476009DD235 /* MarketAuthTarget.swift */; };
+		60E696892B94E6BD009DD235 /* MarketAuthReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696882B94E6BD009DD235 /* MarketAuthReview.swift */; };
+		60E6968B2B94EC6A009DD235 /* MarketAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E6968A2B94EC6A009DD235 /* MarketAuthService.swift */; };
+		60E6968E2B95FD6D009DD235 /* MarketAuthReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E6968D2B95FD6D009DD235 /* MarketAuthReviewViewModel.swift */; };
+		60E696942B97A9D6009DD235 /* MarketRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696932B97A9D6009DD235 /* MarketRepositoryInterface.swift */; };
+		60E696962B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696952B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift */; };
+		60E6969A2B97B46F009DD235 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 60E696992B97B46F009DD235 /* Swinject */; };
+		60E6969C2B97B46F009DD235 /* Swinject-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 60E6969B2B97B46F009DD235 /* Swinject-Dynamic */; };
+		60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A22B97BDC9009DD235 /* ViewAssembly.swift */; };
+		60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */; };
+		60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A82B97BEAE009DD235 /* DependencyInjector.swift */; };
+		60E696AD2B97CC88009DD235 /* DataAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696AC2B97CC88009DD235 /* DataAssembly.swift */; };
+		60E696AF2B97CDE2009DD235 /* DomainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696AE2B97CDE2009DD235 /* DomainAssembly.swift */; };
+		60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B02B98958C009DD235 /* ButtonLabelComponent.swift */; };
+		60E696B52B98C583009DD235 /* Bundle++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B42B98C583009DD235 /* Bundle++.swift */; };
+		60E696B72B98C5AD009DD235 /* PrivateToken.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60E696B62B98C5AD009DD235 /* PrivateToken.plist */; };
+		E58425D32B42AEC5002C7B3F /* NoticeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */; };
+		E58425D52B42B4A3002C7B3F /* NoticeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */; };
+		E58425D72B42B552002C7B3F /* NoticeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D62B42B552002C7B3F /* NoticeDetailView.swift */; };
+		E58425D92B42B56D002C7B3F /* NoticePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D82B42B56D002C7B3F /* NoticePostView.swift */; };
+		E5C503982B467F7500F47989 /* GetMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C503972B467F7500F47989 /* GetMarket.swift */; };
+		E5C5039B2B467FFD00F47989 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E5C5039A2B467FFD00F47989 /* Alamofire */; };
+		E5C503A02B46920A00F47989 /* GetMarketAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C5039F2B46920A00F47989 /* GetMarketAuth.swift */; };
+		E5C503A32B46975200F47989 /* MarketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C503A22B46975200F47989 /* MarketService.swift */; };
+		E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD82592B34DCCA00A026C2 /* MatQ_AdminApp.swift */; };
+		E5DD825C2B34DCCA00A026C2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD825B2B34DCCA00A026C2 /* MainView.swift */; };
+		E5DD825E2B34DCCB00A026C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5DD825D2B34DCCB00A026C2 /* Assets.xcassets */; };
+		E5DD82612B34DCCB00A026C2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5DD82602B34DCCB00A026C2 /* Preview Assets.xcassets */; };
+		E5DD826B2B35090700A026C2 /* MarketAuthReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD826A2B35090700A026C2 /* MarketAuthReviewView.swift */; };
+		E5DD826D2B35093200A026C2 /* BusinessRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD826C2B35093200A026C2 /* BusinessRegistrationView.swift */; };
+		E5DD826F2B35095300A026C2 /* IdentificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD826E2B35095300A026C2 /* IdentificationView.swift */; };
+		E5DD82712B35098800A026C2 /* MarketDetailInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD82702B35098800A026C2 /* MarketDetailInfoView.swift */; };
+		E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD82732B3509A700A026C2 /* PopupComponent.swift */; };
+		E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD82752B3509F600A026C2 /* InfoComponent.swift */; };
+		E5DD82782B350A0700A026C2 /* MarketComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD82772B350A0700A026C2 /* MarketComponent.swift */; };
+		E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD827A2B350A9E00A026C2 /* NavigationStackRouter.swift */; };
+		E5DD827D2B350C0E00A026C2 /* MarketMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD827C2B350C0E00A026C2 /* MarketMainView.swift */; };
+		E5DD827F2B350D7200A026C2 /* NavigationBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD827E2B350D7200A026C2 /* NavigationBarComponent.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		60DA570B2B94124F00EDAF30 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		60DA570D2B94132E00EDAF30 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		60DA570F2B94147C00EDAF30 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		60DA57122B94152000EDAF30 /* HttpHeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHeaderField.swift; sourceTree = "<group>"; };
+		60DA571C2B94182D00EDAF30 /* MarketTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketTarget.swift; sourceTree = "<group>"; };
+		60DA571E2B941B5500EDAF30 /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
+		60DA57212B94285C00EDAF30 /* MarketRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketRepository.swift; sourceTree = "<group>"; };
+		60DA57232B942AAF00EDAF30 /* GetMarketUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMarketUseCase.swift; sourceTree = "<group>"; };
+		60DA57252B942C5E00EDAF30 /* MarketMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketMainViewModel.swift; sourceTree = "<group>"; };
+		60E696822B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMarketReviewMaterialsUseCase.swift; sourceTree = "<group>"; };
+		60E696842B94E30F009DD235 /* MarketAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketAuthRepository.swift; sourceTree = "<group>"; };
+		60E696862B94E476009DD235 /* MarketAuthTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketAuthTarget.swift; sourceTree = "<group>"; };
+		60E696882B94E6BD009DD235 /* MarketAuthReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketAuthReview.swift; sourceTree = "<group>"; };
+		60E6968A2B94EC6A009DD235 /* MarketAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketAuthService.swift; sourceTree = "<group>"; };
+		60E6968D2B95FD6D009DD235 /* MarketAuthReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketAuthReviewViewModel.swift; sourceTree = "<group>"; };
+		60E696932B97A9D6009DD235 /* MarketRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketRepositoryInterface.swift; sourceTree = "<group>"; };
+		60E696952B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketAuthRepositoryInterface.swift; sourceTree = "<group>"; };
+		60E696A22B97BDC9009DD235 /* ViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAssembly.swift; sourceTree = "<group>"; };
+		60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelAssembly.swift; sourceTree = "<group>"; };
+		60E696A82B97BEAE009DD235 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
+		60E696AC2B97CC88009DD235 /* DataAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAssembly.swift; sourceTree = "<group>"; };
+		60E696AE2B97CDE2009DD235 /* DomainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainAssembly.swift; sourceTree = "<group>"; };
+		60E696B02B98958C009DD235 /* ButtonLabelComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelComponent.swift; sourceTree = "<group>"; };
+		60E696B42B98C583009DD235 /* Bundle++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle++.swift"; sourceTree = "<group>"; };
+		60E696B62B98C5AD009DD235 /* PrivateToken.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivateToken.plist; sourceTree = "<group>"; };
+		E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeMainView.swift; sourceTree = "<group>"; };
+		E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeComponent.swift; sourceTree = "<group>"; };
+		E58425D62B42B552002C7B3F /* NoticeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailView.swift; sourceTree = "<group>"; };
+		E58425D82B42B56D002C7B3F /* NoticePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostView.swift; sourceTree = "<group>"; };
+		E5C503972B467F7500F47989 /* GetMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMarket.swift; sourceTree = "<group>"; };
+		E5C5039E2B468FDB00F47989 /* MatQ-Admin-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MatQ-Admin-Info.plist"; path = "MatQ_Admin/Resources/MatQ-Admin-Info.plist"; sourceTree = SOURCE_ROOT; };
+		E5C5039F2B46920A00F47989 /* GetMarketAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMarketAuth.swift; sourceTree = "<group>"; };
+		E5C503A22B46975200F47989 /* MarketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketService.swift; sourceTree = "<group>"; };
+		E5DD82562B34DCCA00A026C2 /* MatQ_Admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatQ_Admin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5DD82592B34DCCA00A026C2 /* MatQ_AdminApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatQ_AdminApp.swift; sourceTree = "<group>"; };
+		E5DD825B2B34DCCA00A026C2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E5DD825D2B34DCCB00A026C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E5DD82602B34DCCB00A026C2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E5DD826A2B35090700A026C2 /* MarketAuthReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketAuthReviewView.swift; sourceTree = "<group>"; };
+		E5DD826C2B35093200A026C2 /* BusinessRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessRegistrationView.swift; sourceTree = "<group>"; };
+		E5DD826E2B35095300A026C2 /* IdentificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentificationView.swift; sourceTree = "<group>"; };
+		E5DD82702B35098800A026C2 /* MarketDetailInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketDetailInfoView.swift; sourceTree = "<group>"; };
+		E5DD82732B3509A700A026C2 /* PopupComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupComponent.swift; sourceTree = "<group>"; };
+		E5DD82752B3509F600A026C2 /* InfoComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoComponent.swift; sourceTree = "<group>"; };
+		E5DD82772B350A0700A026C2 /* MarketComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketComponent.swift; sourceTree = "<group>"; };
+		E5DD827A2B350A9E00A026C2 /* NavigationStackRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackRouter.swift; sourceTree = "<group>"; };
+		E5DD827C2B350C0E00A026C2 /* MarketMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketMainView.swift; sourceTree = "<group>"; };
+		E5DD827E2B350D7200A026C2 /* NavigationBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarComponent.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E5DD82532B34DCCA00A026C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60E6969C2B97B46F009DD235 /* Swinject-Dynamic in Frameworks */,
+				E5C5039B2B467FFD00F47989 /* Alamofire in Frameworks */,
+				60E6969A2B97B46F009DD235 /* Swinject in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		60DA56FD2B940C4500EDAF30 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD82592B34DCCA00A026C2 /* MatQ_AdminApp.swift */,
+				60E696972B97AFBA009DD235 /* DI */,
+				60E696B32B98C571009DD235 /* Extension */,
+				E5DD82792B350A6A00A026C2 /* Router */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		60DA56FE2B940C9C00EDAF30 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD82722B35099000A026C2 /* Component */,
+				E5DD82682B3508BF00A026C2 /* View */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		60DA56FF2B940D3300EDAF30 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				60DA57002B940D3C00EDAF30 /* Network */,
+				60DA57022B940D5200EDAF30 /* Repository */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		60DA57002B940D3C00EDAF30 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				60DA57142B94168A00EDAF30 /* API */,
+				60DA57112B94150F00EDAF30 /* Base */,
+				60DA570A2B94121C00EDAF30 /* Service */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		60DA57022B940D5200EDAF30 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				60DA57212B94285C00EDAF30 /* MarketRepository.swift */,
+				60E696842B94E30F009DD235 /* MarketAuthRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		60DA57032B940D8000EDAF30 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				60DA57042B940DAE00EDAF30 /* Entity */,
+				60E696922B97A9A3009DD235 /* Interface */,
+				60DA57052B940DB600EDAF30 /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		60DA57042B940DAE00EDAF30 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				60DA571E2B941B5500EDAF30 /* Market.swift */,
+				60E696882B94E6BD009DD235 /* MarketAuthReview.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		60DA57052B940DB600EDAF30 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				60DA57232B942AAF00EDAF30 /* GetMarketUseCase.swift */,
+				60E696822B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		60DA57072B9411F500EDAF30 /* Endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				60DA570D2B94132E00EDAF30 /* Endpoint.swift */,
+			);
+			path = Endpoint;
+			sourceTree = "<group>";
+		};
+		60DA570A2B94121C00EDAF30 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E5C503A22B46975200F47989 /* MarketService.swift */,
+				60E6968A2B94EC6A009DD235 /* MarketAuthService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		60DA57112B94150F00EDAF30 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				60DA570B2B94124F00EDAF30 /* NetworkError.swift */,
+				60DA57122B94152000EDAF30 /* HttpHeaderField.swift */,
+				60DA570F2B94147C00EDAF30 /* TargetType.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		60DA57142B94168A00EDAF30 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				60DA57172B9416BC00EDAF30 /* DTO */,
+				60DA57072B9411F500EDAF30 /* Endpoint */,
+				60E6969D2B97B7C1009DD235 /* Target */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		60DA57172B9416BC00EDAF30 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				E5C503972B467F7500F47989 /* GetMarket.swift */,
+				E5C5039F2B46920A00F47989 /* GetMarketAuth.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		60DA57272B942C8A00EDAF30 /* MarketMain */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD827C2B350C0E00A026C2 /* MarketMainView.swift */,
+				60DA57252B942C5E00EDAF30 /* MarketMainViewModel.swift */,
+			);
+			path = MarketMain;
+			sourceTree = "<group>";
+		};
+		60E6968C2B95FD5B009DD235 /* MarketAuthReview */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD826A2B35090700A026C2 /* MarketAuthReviewView.swift */,
+				60E6968D2B95FD6D009DD235 /* MarketAuthReviewViewModel.swift */,
+				60E696912B96124C009DD235 /* SubView */,
+			);
+			path = MarketAuthReview;
+			sourceTree = "<group>";
+		};
+		60E696912B96124C009DD235 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD826C2B35093200A026C2 /* BusinessRegistrationView.swift */,
+				E5DD82702B35098800A026C2 /* MarketDetailInfoView.swift */,
+				E5DD826E2B35095300A026C2 /* IdentificationView.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		60E696922B97A9A3009DD235 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				60E696932B97A9D6009DD235 /* MarketRepositoryInterface.swift */,
+				60E696952B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		60E696972B97AFBA009DD235 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				60E696A82B97BEAE009DD235 /* DependencyInjector.swift */,
+				60E696AC2B97CC88009DD235 /* DataAssembly.swift */,
+				60E696AE2B97CDE2009DD235 /* DomainAssembly.swift */,
+				60E696A22B97BDC9009DD235 /* ViewAssembly.swift */,
+				60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		60E6969D2B97B7C1009DD235 /* Target */ = {
+			isa = PBXGroup;
+			children = (
+				60DA571C2B94182D00EDAF30 /* MarketTarget.swift */,
+				60E696862B94E476009DD235 /* MarketAuthTarget.swift */,
+			);
+			path = Target;
+			sourceTree = "<group>";
+		};
+		60E696B32B98C571009DD235 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				60E696B42B98C583009DD235 /* Bundle++.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		E58425D02B42AE9D002C7B3F /* Market */ = {
+			isa = PBXGroup;
+			children = (
+				60DA57272B942C8A00EDAF30 /* MarketMain */,
+				60E6968C2B95FD5B009DD235 /* MarketAuthReview */,
+			);
+			path = Market;
+			sourceTree = "<group>";
+		};
+		E58425D12B42AEAA002C7B3F /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */,
+				E58425D82B42B56D002C7B3F /* NoticePostView.swift */,
+				E58425D62B42B552002C7B3F /* NoticeDetailView.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
+		E5DD824D2B34DCCA00A026C2 = {
+			isa = PBXGroup;
+			children = (
+				E5DD82582B34DCCA00A026C2 /* MatQ_Admin */,
+				E5DD82572B34DCCA00A026C2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E5DD82572B34DCCA00A026C2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD82562B34DCCA00A026C2 /* MatQ_Admin.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E5DD82582B34DCCA00A026C2 /* MatQ_Admin */ = {
+			isa = PBXGroup;
+			children = (
+				60DA56FD2B940C4500EDAF30 /* App */,
+				60DA56FF2B940D3300EDAF30 /* Data */,
+				60DA57032B940D8000EDAF30 /* Domain */,
+				60DA56FE2B940C9C00EDAF30 /* Presentation */,
+				E5DD82672B3508B100A026C2 /* Resources */,
+				E5DD825F2B34DCCB00A026C2 /* Preview Content */,
+			);
+			path = MatQ_Admin;
+			sourceTree = "<group>";
+		};
+		E5DD825F2B34DCCB00A026C2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD82602B34DCCB00A026C2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E5DD82672B3508B100A026C2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD825D2B34DCCB00A026C2 /* Assets.xcassets */,
+				E5C5039E2B468FDB00F47989 /* MatQ-Admin-Info.plist */,
+				60E696B62B98C5AD009DD235 /* PrivateToken.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E5DD82682B3508BF00A026C2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD825B2B34DCCA00A026C2 /* MainView.swift */,
+				E58425D02B42AE9D002C7B3F /* Market */,
+				E58425D12B42AEAA002C7B3F /* Notice */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E5DD82722B35099000A026C2 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD82732B3509A700A026C2 /* PopupComponent.swift */,
+				E5DD82752B3509F600A026C2 /* InfoComponent.swift */,
+				E5DD82772B350A0700A026C2 /* MarketComponent.swift */,
+				E5DD827E2B350D7200A026C2 /* NavigationBarComponent.swift */,
+				E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */,
+				60E696B02B98958C009DD235 /* ButtonLabelComponent.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		E5DD82792B350A6A00A026C2 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD827A2B350A9E00A026C2 /* NavigationStackRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E5DD82552B34DCCA00A026C2 /* MatQ_Admin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5DD82642B34DCCB00A026C2 /* Build configuration list for PBXNativeTarget "MatQ_Admin" */;
+			buildPhases = (
+				E5DD82522B34DCCA00A026C2 /* Sources */,
+				E5DD82532B34DCCA00A026C2 /* Frameworks */,
+				E5DD82542B34DCCA00A026C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MatQ_Admin;
+			packageProductDependencies = (
+				E5C5039A2B467FFD00F47989 /* Alamofire */,
+				60E696992B97B46F009DD235 /* Swinject */,
+				60E6969B2B97B46F009DD235 /* Swinject-Dynamic */,
+			);
+			productName = MatQ_Admin;
+			productReference = E5DD82562B34DCCA00A026C2 /* MatQ_Admin.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E5DD824E2B34DCCA00A026C2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1510;
+				LastUpgradeCheck = 1510;
+				TargetAttributes = {
+					E5DD82552B34DCCA00A026C2 = {
+						CreatedOnToolsVersion = 15.1;
+					};
+				};
+			};
+			buildConfigurationList = E5DD82512B34DCCA00A026C2 /* Build configuration list for PBXProject "MatQ_Admin" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E5DD824D2B34DCCA00A026C2;
+			packageReferences = (
+				E5C503992B467FFD00F47989 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */,
+			);
+			productRefGroup = E5DD82572B34DCCA00A026C2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E5DD82552B34DCCA00A026C2 /* MatQ_Admin */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E5DD82542B34DCCA00A026C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5DD82612B34DCCB00A026C2 /* Preview Assets.xcassets in Resources */,
+				E5DD825E2B34DCCB00A026C2 /* Assets.xcassets in Resources */,
+				60E696B72B98C5AD009DD235 /* PrivateToken.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E5DD82522B34DCCA00A026C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60E696962B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift in Sources */,
+				60DA571D2B94182D00EDAF30 /* MarketTarget.swift in Sources */,
+				E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */,
+				60E696872B94E476009DD235 /* MarketAuthTarget.swift in Sources */,
+				60DA57242B942AAF00EDAF30 /* GetMarketUseCase.swift in Sources */,
+				60E6968E2B95FD6D009DD235 /* MarketAuthReviewViewModel.swift in Sources */,
+				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
+				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
+				60E696AF2B97CDE2009DD235 /* DomainAssembly.swift in Sources */,
+				60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */,
+				60E696892B94E6BD009DD235 /* MarketAuthReview.swift in Sources */,
+				E58425D92B42B56D002C7B3F /* NoticePostView.swift in Sources */,
+				E5C503A02B46920A00F47989 /* GetMarketAuth.swift in Sources */,
+				E5DD825C2B34DCCA00A026C2 /* MainView.swift in Sources */,
+				E58425D32B42AEC5002C7B3F /* NoticeMainView.swift in Sources */,
+				E5DD826F2B35095300A026C2 /* IdentificationView.swift in Sources */,
+				60E6968B2B94EC6A009DD235 /* MarketAuthService.swift in Sources */,
+				E5DD82782B350A0700A026C2 /* MarketComponent.swift in Sources */,
+				E5DD82712B35098800A026C2 /* MarketDetailInfoView.swift in Sources */,
+				60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */,
+				60E696832B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift in Sources */,
+				60DA570E2B94132E00EDAF30 /* Endpoint.swift in Sources */,
+				60DA57222B94285C00EDAF30 /* MarketRepository.swift in Sources */,
+				60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */,
+				60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */,
+				60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */,
+				60E696B52B98C583009DD235 /* Bundle++.swift in Sources */,
+				E5C503A32B46975200F47989 /* MarketService.swift in Sources */,
+				60DA571F2B941B5500EDAF30 /* Market.swift in Sources */,
+				60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */,
+				E58425D52B42B4A3002C7B3F /* NoticeComponent.swift in Sources */,
+				E58425D72B42B552002C7B3F /* NoticeDetailView.swift in Sources */,
+				E5DD826B2B35090700A026C2 /* MarketAuthReviewView.swift in Sources */,
+				E5C503982B467F7500F47989 /* GetMarket.swift in Sources */,
+				60E696852B94E30F009DD235 /* MarketAuthRepository.swift in Sources */,
+				E5DD827D2B350C0E00A026C2 /* MarketMainView.swift in Sources */,
+				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
+				60DA57262B942C5E00EDAF30 /* MarketMainViewModel.swift in Sources */,
+				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
+				E5DD826D2B35093200A026C2 /* BusinessRegistrationView.swift in Sources */,
+				60E696AD2B97CC88009DD235 /* DataAssembly.swift in Sources */,
+				E5DD827F2B350D7200A026C2 /* NavigationBarComponent.swift in Sources */,
+				60E696942B97A9D6009DD235 /* MarketRepositoryInterface.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E5DD82622B34DCCB00A026C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E5DD82632B34DCCB00A026C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E5DD82652B34DCCB00A026C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MatQ_Admin/Preview Content\"";
+				DEVELOPMENT_TEAM = 6CNX5P6BQG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MatQ_Admin/Resources/MatQ-Admin-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.077tech.MatQ-Admin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E5DD82662B34DCCB00A026C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MatQ_Admin/Preview Content\"";
+				DEVELOPMENT_TEAM = 6CNX5P6BQG;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MatQ_Admin/Resources/MatQ-Admin-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.077tech.MatQ-Admin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E5DD82512B34DCCA00A026C2 /* Build configuration list for PBXProject "MatQ_Admin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5DD82622B34DCCB00A026C2 /* Debug */,
+				E5DD82632B34DCCB00A026C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5DD82642B34DCCB00A026C2 /* Build configuration list for PBXNativeTarget "MatQ_Admin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5DD82652B34DCCB00A026C2 /* Debug */,
+				E5DD82662B34DCCB00A026C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
+		E5C503992B467FFD00F47989 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		60E696992B97B46F009DD235 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		60E6969B2B97B46F009DD235 /* Swinject-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = "Swinject-Dynamic";
+		};
+		E5C5039A2B467FFD00F47989 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5C503992B467FFD00F47989 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = E5DD824E2B34DCCA00A026C2 /* Project object */;
+}
