@@ -35,6 +35,9 @@
 		60E696B52B98C583009DD235 /* Bundle++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B42B98C583009DD235 /* Bundle++.swift */; };
 		60E696B72B98C5AD009DD235 /* PrivateToken.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60E696B62B98C5AD009DD235 /* PrivateToken.plist */; };
 		60E696B92B99CAEF009DD235 /* PutMarketReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B82B99CAEF009DD235 /* PutMarketReviewUseCase.swift */; };
+		60E696BB2B9A1BFE009DD235 /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BA2B9A1BFE009DD235 /* GetImage.swift */; };
+		60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */; };
+		60E696BF2B9A1FC1009DD235 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BE2B9A1FC1009DD235 /* ImageService.swift */; };
 		E58425D32B42AEC5002C7B3F /* NoticeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */; };
 		E58425D52B42B4A3002C7B3F /* NoticeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */; };
 		E58425D72B42B552002C7B3F /* NoticeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D62B42B552002C7B3F /* NoticeDetailView.swift */; };
@@ -86,6 +89,9 @@
 		60E696B42B98C583009DD235 /* Bundle++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle++.swift"; sourceTree = "<group>"; };
 		60E696B62B98C5AD009DD235 /* PrivateToken.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivateToken.plist; sourceTree = "<group>"; };
 		60E696B82B99CAEF009DD235 /* PutMarketReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutMarketReviewUseCase.swift; sourceTree = "<group>"; };
+		60E696BA2B9A1BFE009DD235 /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
+		60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTarget.swift; sourceTree = "<group>"; };
+		60E696BE2B9A1FC1009DD235 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeMainView.swift; sourceTree = "<group>"; };
 		E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeComponent.swift; sourceTree = "<group>"; };
 		E58425D62B42B552002C7B3F /* NoticeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailView.swift; sourceTree = "<group>"; };
@@ -215,6 +221,7 @@
 			children = (
 				E5C503A22B46975200F47989 /* MarketService.swift */,
 				60E6968A2B94EC6A009DD235 /* MarketAuthService.swift */,
+				60E696BE2B9A1FC1009DD235 /* ImageService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -244,6 +251,7 @@
 			children = (
 				E5C503972B467F7500F47989 /* GetMarket.swift */,
 				E5C5039F2B46920A00F47989 /* GetMarketAuth.swift */,
+				60E696BA2B9A1BFE009DD235 /* GetImage.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -303,6 +311,7 @@
 			children = (
 				60DA571C2B94182D00EDAF30 /* MarketTarget.swift */,
 				60E696862B94E476009DD235 /* MarketAuthTarget.swift */,
+				60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */,
 			);
 			path = Target;
 			sourceTree = "<group>";
@@ -526,13 +535,16 @@
 				E58425D52B42B4A3002C7B3F /* NoticeComponent.swift in Sources */,
 				E58425D72B42B552002C7B3F /* NoticeDetailView.swift in Sources */,
 				E5DD826B2B35090700A026C2 /* MarketAuthReviewView.swift in Sources */,
+				60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */,
 				E5C503982B467F7500F47989 /* GetMarket.swift in Sources */,
+				60E696BF2B9A1FC1009DD235 /* ImageService.swift in Sources */,
 				60E696852B94E30F009DD235 /* MarketAuthRepository.swift in Sources */,
 				E5DD827D2B350C0E00A026C2 /* MarketMainView.swift in Sources */,
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
 				60DA57262B942C5E00EDAF30 /* MarketMainViewModel.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
 				E5DD826D2B35093200A026C2 /* BusinessRegistrationView.swift in Sources */,
+				60E696BB2B9A1BFE009DD235 /* GetImage.swift in Sources */,
 				60E696AD2B97CC88009DD235 /* DataAssembly.swift in Sources */,
 				E5DD827F2B350D7200A026C2 /* NavigationBarComponent.swift in Sources */,
 				60E696942B97A9D6009DD235 /* MarketRepositoryInterface.swift in Sources */,

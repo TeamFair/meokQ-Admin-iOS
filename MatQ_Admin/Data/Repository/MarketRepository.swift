@@ -6,13 +6,16 @@
 //
 
 import Combine
+import UIKit
 
 final class MarketRepository: MarketRepositoryInterface {
     
     let marketService: MarketServiceInterface
+    let imageService: ImageServiceInterface
     
-    init(marketService: MarketServiceInterface) {
+    init(marketService: MarketServiceInterface, imageService: ImageServiceInterface) {
         self.marketService = marketService
+        self.imageService = imageService
     }
     
     func getMarketList(page: Int) async -> AnyPublisher<[Market], NetworkError> {
