@@ -10,9 +10,7 @@ import SwiftUI
 struct MarketAuthReviewView: View {
     @EnvironmentObject var router: NavigationStackCoordinator
     @StateObject var vm : MarketAuthReviewViewModel
-    
-    @State private var inputValue: String = ""
-    
+        
     var body: some View {
         VStack(spacing: 16) {
             NavigationBarComponent(navigationTitle: vm.items.name, isNotRoot: true)
@@ -32,6 +30,9 @@ struct MarketAuthReviewView: View {
         }
         .task {
             await vm.getMarketInfo()
+        }
+        .alert(isPresented: $vm.showingAlert) {
+            Alert(title: Text("Error"), message: Text(vm.feedbackMessage), dismissButton: .default(Text("OK")))
         }
     }
     
@@ -82,7 +83,8 @@ struct MarketAuthReviewView: View {
             Text("반려 사유")
                 .font(.headline)
             
-            TextField("반려 사유를 입력해주세요", text: $inputValue)
+            TextField("반려 사유를 입력해주세요", text: $vm.comment)
+                .padding()
                 .frame(height: 140)
                 .frame(maxWidth: .infinity)
                 .font(.body)
@@ -96,13 +98,17 @@ struct MarketAuthReviewView: View {
     private var buttonArea: some View {
         HStack(alignment: .center) {
             Button {
-                
+                Task {
+                    await vm.putMarketReviewAuth(reviewResult: .reject)
+                }
             } label: {
                 ButtonLabelComponent(title: "반려", type: .secondary)
             }
             
             Button {
-                
+                Task {
+                    await vm.putMarketReviewAuth(reviewResult: .approve)
+                }
             } label: {
                 ButtonLabelComponent(title: "승인", type: .primary)
             }

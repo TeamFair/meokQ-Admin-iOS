@@ -33,7 +33,7 @@ extension GetMarketAuthResponse {
 struct PutReviewMarketAuthRequest: Encodable {
     var recordId: String
     var comment: String?
-    var reviewResult: ReviewResult
+    var reviewResult: String
 }
 
 enum ReviewResult: Encodable {
