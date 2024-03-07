@@ -22,6 +22,7 @@ final class ViewModelAssembly: Assembly {
         ) -> MarketAuthReviewViewModel in
             return .init(
                 marketAuthUseCase: resolver.resolve(FetchMarketReviewMaterialsUseCaseInterface.self)!, 
+                putMarketAuthUseCase: resolver.resolve(PutMarketReviewUseCaseInterface.self)!,
                 marketId: arg
             )
         })

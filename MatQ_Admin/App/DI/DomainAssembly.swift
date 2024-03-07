@@ -24,5 +24,11 @@ final class DomainAssembly: Assembly {
                 marketAuthRepository: resolver.resolve(MarketAuthRepositoryInterface.self)!
             )
         })
+        
+        container.register(PutMarketReviewUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> PutMarketReviewUseCase in
+            return .init(marketAuthRepository: resolver.resolve(MarketAuthRepositoryInterface.self)!)
+        })
     }
 }

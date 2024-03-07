@@ -34,6 +34,7 @@
 		60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B02B98958C009DD235 /* ButtonLabelComponent.swift */; };
 		60E696B52B98C583009DD235 /* Bundle++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B42B98C583009DD235 /* Bundle++.swift */; };
 		60E696B72B98C5AD009DD235 /* PrivateToken.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60E696B62B98C5AD009DD235 /* PrivateToken.plist */; };
+		60E696B92B99CAEF009DD235 /* PutMarketReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B82B99CAEF009DD235 /* PutMarketReviewUseCase.swift */; };
 		E58425D32B42AEC5002C7B3F /* NoticeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */; };
 		E58425D52B42B4A3002C7B3F /* NoticeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */; };
 		E58425D72B42B552002C7B3F /* NoticeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D62B42B552002C7B3F /* NoticeDetailView.swift */; };
@@ -84,6 +85,7 @@
 		60E696B02B98958C009DD235 /* ButtonLabelComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelComponent.swift; sourceTree = "<group>"; };
 		60E696B42B98C583009DD235 /* Bundle++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle++.swift"; sourceTree = "<group>"; };
 		60E696B62B98C5AD009DD235 /* PrivateToken.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivateToken.plist; sourceTree = "<group>"; };
+		60E696B82B99CAEF009DD235 /* PutMarketReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutMarketReviewUseCase.swift; sourceTree = "<group>"; };
 		E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeMainView.swift; sourceTree = "<group>"; };
 		E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeComponent.swift; sourceTree = "<group>"; };
 		E58425D62B42B552002C7B3F /* NoticeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailView.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				60DA57232B942AAF00EDAF30 /* GetMarketUseCase.swift */,
+				60E696B82B99CAEF009DD235 /* PutMarketReviewUseCase.swift */,
 				60E696822B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift */,
 			);
 			path = UseCase;
@@ -355,7 +358,6 @@
 				60DA57032B940D8000EDAF30 /* Domain */,
 				60DA56FE2B940C9C00EDAF30 /* Presentation */,
 				E5DD82672B3508B100A026C2 /* Resources */,
-				E5DD825F2B34DCCB00A026C2 /* Preview Content */,
 			);
 			path = MatQ_Admin;
 			sourceTree = "<group>";
@@ -371,6 +373,7 @@
 		E5DD82672B3508B100A026C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E5DD825F2B34DCCB00A026C2 /* Preview Content */,
 				E5DD825D2B34DCCB00A026C2 /* Assets.xcassets */,
 				E5C5039E2B468FDB00F47989 /* MatQ-Admin-Info.plist */,
 				60E696B62B98C5AD009DD235 /* PrivateToken.plist */,
@@ -510,6 +513,7 @@
 				E5DD82712B35098800A026C2 /* MarketDetailInfoView.swift in Sources */,
 				60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */,
 				60E696832B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift in Sources */,
+				60E696B92B99CAEF009DD235 /* PutMarketReviewUseCase.swift in Sources */,
 				60DA570E2B94132E00EDAF30 /* Endpoint.swift in Sources */,
 				60DA57222B94285C00EDAF30 /* MarketRepository.swift in Sources */,
 				60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */,
@@ -664,7 +668,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MatQ_Admin/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MatQ_Admin/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CNX5P6BQG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -695,7 +699,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"MatQ_Admin/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MatQ_Admin/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CNX5P6BQG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

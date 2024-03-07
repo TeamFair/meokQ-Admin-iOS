@@ -5,7 +5,7 @@
 //  Created by Lee Jinhee on 3/4/24.
 //
 
-import Foundation
+import Combine
 
 final class MarketAuthRepository: MarketAuthRepositoryInterface {
     
@@ -27,15 +27,17 @@ final class MarketAuthRepository: MarketAuthRepositoryInterface {
         }
     }
     
-    func putMarketAuthReview(recordId: String, comment: String?, reviewResult: ReviewResult) async throws -> Bool {
-        let request = PutReviewMarketAuthRequest(recordId: recordId, comment: comment, reviewResult: reviewResult)
+    func putMarketAuthReview(recordId: String, comment: String?, reviewResult: ReviewResult) async -> AnyPublisher<Bool, NetworkError> {
+        let request = PutReviewMarketAuthRequest(recordId: recordId, comment: comment, reviewResult: reviewResult.statusText)
         let result = await self.marketAuthService.putMarketReview(request: request)
         
-        switch result {
-        case .success(let bool):
-            return bool
-        case .failure:
-            throw NetworkError.serverError
-        }
+        return Future<Bool, NetworkError> { promise in
+            switch result {
+            case .success(let bool):
+                promise(.success(bool))
+            case .failure:
+                promise(.failure(NetworkError.serverError))
+            }
+        }.eraseToAnyPublisher()
     }
 }

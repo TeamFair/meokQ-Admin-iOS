@@ -10,7 +10,7 @@ import Foundation
 
 protocol MarketAuthReviewViewModelInput {
     func getMarketInfo() async
-    func putMarketReviewAuth() async
+    func putMarketReviewAuth(reviewResult: ReviewResult) async
 }
 
 protocol MarketAuthReviewViewModelOutput {
@@ -19,19 +19,40 @@ protocol MarketAuthReviewViewModelOutput {
 }
 
 final class MarketAuthReviewViewModel: MarketAuthReviewViewModelInput, MarketAuthReviewViewModelOutput, ObservableObject {
-
+    
     private let fetchMarketMaterialsUseCase: FetchMarketReviewMaterialsUseCaseInterface
+    private let putMarketAuthUseCase: PutMarketReviewUseCaseInterface
+    
     let marketId: String
-
+    
     // MARK: Output
     var items: MarketAuthReviewItemViewModel = MarketAuthReviewItemViewModel(marketId: "", name: "", marketAuth: .init(recordId: "", marketId: "", operator: .init(name: "", birthdate: "", idcardImage: .init(imageId: "", location: "")), license: .init(licenseId: "", licenseImage: .init(imageId: "", location: ""), ownerName: "", marketName: "", address: "", postalCode: "")), marketDetail: .init(marketId: "", logoImage: "", name: "", district: "", phone: "", address: "", status: "", marketTime: []))
-
+    
+    @Published var comment: String = ""
+    @Published var feedbackMessage: String = ""
+    @Published var showingAlert = false
+    
     var error = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
     
-    init(marketAuthUseCase: FetchMarketReviewMaterialsUseCaseInterface, marketId: String) {
+    init(marketAuthUseCase: FetchMarketReviewMaterialsUseCaseInterface,
+         putMarketAuthUseCase: PutMarketReviewUseCaseInterface,
+         marketId: String
+    ) {
         self.fetchMarketMaterialsUseCase = marketAuthUseCase
+        self.putMarketAuthUseCase = putMarketAuthUseCase
         self.marketId = marketId
+        
+        handleError()
+    }
+    
+    func handleError() {
+        error
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] errorMessage in
+                self?.feedbackMessage = errorMessage
+                self?.showingAlert.toggle()
+            }.store(in: &cancellables)
     }
     
     func getMarketInfo() async {
@@ -51,8 +72,20 @@ final class MarketAuthReviewViewModel: MarketAuthReviewViewModelInput, MarketAut
         }
     }
     
-    func putMarketReviewAuth() async {
-
+    func putMarketReviewAuth(reviewResult: ReviewResult) async {
+        await putMarketAuthUseCase.putMarketReview(recordId: items.marketAuth.recordId, comment: comment, reviewResult: reviewResult)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    // TODO: Dismiss
+                    print("well finished")
+                case .failure(let error):
+                    self.error.send("\(error.localizedDescription)") //Fail to review Markets
+                }
+            } receiveValue: { result in
+                dump(result)
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -61,7 +94,7 @@ struct MarketAuthReviewItemViewModel: Equatable {
     let name: String
     let marketAuth: MarketAuth // TODO: 옵셔널
     let marketDetail: MarketDetail
-  
+    
     init(marketId: String, name: String, marketAuth: MarketAuth, marketDetail: MarketDetail) {
         self.marketId = marketId
         self.name = name
