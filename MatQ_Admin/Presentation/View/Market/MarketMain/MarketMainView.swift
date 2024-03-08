@@ -22,7 +22,7 @@ struct MarketMainView: View {
                     Button {
                         router.push(.MarketAuthReviewView(marketId: item.marketId))
                     } label: {
-                        MarketComponent(marketImage: item.logoImageId, marketName: item.name)
+                        MarketComponent(marketImage: item.logoImage ?? .testimage, marketName: item.name)
                     }
                 }
                 Spacer(minLength: 60)
