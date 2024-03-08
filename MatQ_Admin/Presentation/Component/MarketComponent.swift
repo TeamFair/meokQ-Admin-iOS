@@ -9,18 +9,18 @@ import SwiftUI
 
 struct MarketComponent: View {
     
-    let marketImage : String
+    let marketImage : UIImage
     let marketName : String
     
     var body: some View {
         HStack(spacing: 0){
             // TODO: 이미지 연결
-//            Image(marketImage)
-//                .resizable()
-//                .frame(width: 76, height: 76)
-//                .cornerRadius(10)
-//                .padding(.trailing, 14)
-//            
+            Image(uiImage: marketImage)
+                .resizable()
+                .frame(width: 76, height: 76)
+                .cornerRadius(10)
+                .padding(.trailing, 14)
+            
                 Text(marketName)
                     .bold()
                     .font(.system(size: 15))
@@ -45,5 +45,5 @@ struct MarketComponent: View {
 }
 
 #Preview {
-    MarketComponent(marketImage: "testimage", marketName: "커피크라운")
+    MarketComponent(marketImage: .testimage, marketName: "커피크라운")
 }

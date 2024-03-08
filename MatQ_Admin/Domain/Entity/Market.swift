@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import UIKit
 
 /// 메인 뷰 사용
 struct Market {
     let marketId: String
     let logoImageId: String
+    var logoImage: UIImage?
     let name: String
     let status: String
 }

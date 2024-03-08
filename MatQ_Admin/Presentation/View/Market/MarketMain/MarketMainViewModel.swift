@@ -6,6 +6,7 @@
 //
 
 import Combine
+import UIKit
 
 protocol MarketMainViewModelInput {
     func getMarketList(page: Int) async
@@ -64,11 +65,13 @@ final class MarketMainViewModel: MarketMainViewModelInput, MarketMainViewModelOu
 struct MarketItemViewModel: Equatable {
     let marketId: String
     let logoImageId: String
+    let logoImage: UIImage?
     let name: String
     
     init(market: Market) {
         self.marketId = market.marketId
         self.logoImageId = market.logoImageId
+        self.logoImage = market.logoImage
         self.name = market.name
     }
 }

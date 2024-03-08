@@ -25,13 +25,19 @@ final class DataAssembly: Assembly {
             return .init()
         })
         
+        container.register(ImageServiceInterface.self, factory: { (
+            resolver: Resolver
+        ) -> ImageService in
+            return .init()
+        })
         
         // MARK: - Repository
         
         container.register(MarketRepositoryInterface.self, factory: { (
             resolver: Resolver
         ) -> MarketRepository in
-            return .init(marketService: resolver.resolve(MarketServiceInterface.self)!)
+            return .init(marketService: resolver.resolve(MarketServiceInterface.self)!,
+                         imageService: resolver.resolve(ImageServiceInterface.self)!)
         })
         
         container.register(MarketAuthRepositoryInterface.self, factory: { (

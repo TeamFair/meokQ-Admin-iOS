@@ -26,7 +26,7 @@ struct GetMarketListResponse: Decodable {
 
 extension GetMarketListResponse {
     var toDomain: [Market] {
-        return self.data.map { Market(marketId: $0.marketId, logoImageId: $0.logoImageId ?? "nil", name: $0.name, status: $0.status) }
+        return self.data.map { Market(marketId: $0.marketId, logoImageId: $0.logoImageId ?? "", logoImage: nil, name: $0.name, status: $0.status) }
     }
 }
 
