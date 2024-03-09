@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60B357372B9B6C130052418A /* GetNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B357362B9B6C130052418A /* GetNotice.swift */; };
+		60B357392B9B6D830052418A /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B357382B9B6D830052418A /* Notice.swift */; };
+		60B3573B2B9B70450052418A /* NoticeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B3573A2B9B70450052418A /* NoticeTarget.swift */; };
+		60B3573D2B9B740B0052418A /* NoticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B3573C2B9B740B0052418A /* NoticeService.swift */; };
+		60B3573F2B9B75BA0052418A /* NoticeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B3573E2B9B75BA0052418A /* NoticeRepository.swift */; };
+		60B357412B9B75E30052418A /* NoticeRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B357402B9B75E30052418A /* NoticeRepositoryInterface.swift */; };
 		60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570B2B94124F00EDAF30 /* NetworkError.swift */; };
 		60DA570E2B94132E00EDAF30 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570D2B94132E00EDAF30 /* Endpoint.swift */; };
 		60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570F2B94147C00EDAF30 /* TargetType.swift */; };
@@ -63,6 +69,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		60B357362B9B6C130052418A /* GetNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNotice.swift; sourceTree = "<group>"; };
+		60B357382B9B6D830052418A /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		60B3573A2B9B70450052418A /* NoticeTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTarget.swift; sourceTree = "<group>"; };
+		60B3573C2B9B740B0052418A /* NoticeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeService.swift; sourceTree = "<group>"; };
+		60B3573E2B9B75BA0052418A /* NoticeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRepository.swift; sourceTree = "<group>"; };
+		60B357402B9B75E30052418A /* NoticeRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeRepositoryInterface.swift; sourceTree = "<group>"; };
 		60DA570B2B94124F00EDAF30 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		60DA570D2B94132E00EDAF30 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		60DA570F2B94147C00EDAF30 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
@@ -175,6 +187,7 @@
 			children = (
 				60DA57212B94285C00EDAF30 /* MarketRepository.swift */,
 				60E696842B94E30F009DD235 /* MarketAuthRepository.swift */,
+				60B3573E2B9B75BA0052418A /* NoticeRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -194,6 +207,7 @@
 			children = (
 				60DA571E2B941B5500EDAF30 /* Market.swift */,
 				60E696882B94E6BD009DD235 /* MarketAuthReview.swift */,
+				60B357382B9B6D830052418A /* Notice.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -222,6 +236,7 @@
 				E5C503A22B46975200F47989 /* MarketService.swift */,
 				60E6968A2B94EC6A009DD235 /* MarketAuthService.swift */,
 				60E696BE2B9A1FC1009DD235 /* ImageService.swift */,
+				60B3573C2B9B740B0052418A /* NoticeService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -252,6 +267,7 @@
 				E5C503972B467F7500F47989 /* GetMarket.swift */,
 				E5C5039F2B46920A00F47989 /* GetMarketAuth.swift */,
 				60E696BA2B9A1BFE009DD235 /* GetImage.swift */,
+				60B357362B9B6C130052418A /* GetNotice.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -290,6 +306,7 @@
 			children = (
 				60E696932B97A9D6009DD235 /* MarketRepositoryInterface.swift */,
 				60E696952B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift */,
+				60B357402B9B75E30052418A /* NoticeRepositoryInterface.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -312,6 +329,7 @@
 				60DA571C2B94182D00EDAF30 /* MarketTarget.swift */,
 				60E696862B94E476009DD235 /* MarketAuthTarget.swift */,
 				60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */,
+				60B3573A2B9B70450052418A /* NoticeTarget.swift */,
 			);
 			path = Target;
 			sourceTree = "<group>";
@@ -503,18 +521,22 @@
 			files = (
 				60E696962B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift in Sources */,
 				60DA571D2B94182D00EDAF30 /* MarketTarget.swift in Sources */,
+				60B3573B2B9B70450052418A /* NoticeTarget.swift in Sources */,
 				E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */,
 				60E696872B94E476009DD235 /* MarketAuthTarget.swift in Sources */,
 				60DA57242B942AAF00EDAF30 /* GetMarketUseCase.swift in Sources */,
 				60E6968E2B95FD6D009DD235 /* MarketAuthReviewViewModel.swift in Sources */,
+				60B3573F2B9B75BA0052418A /* NoticeRepository.swift in Sources */,
 				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
 				60E696AF2B97CDE2009DD235 /* DomainAssembly.swift in Sources */,
 				60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */,
 				60E696892B94E6BD009DD235 /* MarketAuthReview.swift in Sources */,
 				E58425D92B42B56D002C7B3F /* NoticePostView.swift in Sources */,
+				60B357372B9B6C130052418A /* GetNotice.swift in Sources */,
 				E5C503A02B46920A00F47989 /* GetMarketAuth.swift in Sources */,
 				E5DD825C2B34DCCA00A026C2 /* MainView.swift in Sources */,
+				60B3573D2B9B740B0052418A /* NoticeService.swift in Sources */,
 				E58425D32B42AEC5002C7B3F /* NoticeMainView.swift in Sources */,
 				E5DD826F2B35095300A026C2 /* IdentificationView.swift in Sources */,
 				60E6968B2B94EC6A009DD235 /* MarketAuthService.swift in Sources */,
@@ -524,6 +546,7 @@
 				60E696832B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift in Sources */,
 				60E696B92B99CAEF009DD235 /* PutMarketReviewUseCase.swift in Sources */,
 				60DA570E2B94132E00EDAF30 /* Endpoint.swift in Sources */,
+				60B357392B9B6D830052418A /* Notice.swift in Sources */,
 				60DA57222B94285C00EDAF30 /* MarketRepository.swift in Sources */,
 				60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */,
 				60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */,
@@ -541,6 +564,7 @@
 				60E696852B94E30F009DD235 /* MarketAuthRepository.swift in Sources */,
 				E5DD827D2B350C0E00A026C2 /* MarketMainView.swift in Sources */,
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
+				60B357412B9B75E30052418A /* NoticeRepositoryInterface.swift in Sources */,
 				60DA57262B942C5E00EDAF30 /* MarketMainViewModel.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
 				E5DD826D2B35093200A026C2 /* BusinessRegistrationView.swift in Sources */,

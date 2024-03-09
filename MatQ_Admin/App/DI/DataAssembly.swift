@@ -31,6 +31,13 @@ final class DataAssembly: Assembly {
             return .init()
         })
         
+        container.register(NoticeServiceInterface.self, factory: { (
+            resolver: Resolver
+        ) -> NoticeService in
+            return .init()
+        })
+        
+        
         // MARK: - Repository
         
         container.register(MarketRepositoryInterface.self, factory: { (
@@ -44,6 +51,12 @@ final class DataAssembly: Assembly {
             resolver: Resolver
         ) -> MarketAuthRepository in
             return .init(marketAuthService: resolver.resolve(MarketAuthServiceInterface.self)!)
+        })
+        
+        container.register(NoticeRepositoryInterface.self, factory: { (
+            resolver: Resolver
+        ) -> NoticeRepository in
+            return .init(noticeService: resolver.resolve(NoticeServiceInterface.self)!)
         })
     }
 }
