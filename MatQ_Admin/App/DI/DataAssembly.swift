@@ -17,25 +17,29 @@ final class DataAssembly: Assembly {
             resolver: Resolver
         ) -> MarketService in
             return .init()
-        })
+        }).inObjectScope(.container)
+
         
         container.register(MarketAuthServiceInterface.self, factory: { (
             resolver: Resolver
         ) -> MarketAuthService in
             return .init()
-        })
+        }).inObjectScope(.container)
+
         
         container.register(ImageServiceInterface.self, factory: { (
             resolver: Resolver
         ) -> ImageService in
             return .init()
-        })
+        }).inObjectScope(.container)
+
         
         container.register(NoticeServiceInterface.self, factory: { (
             resolver: Resolver
         ) -> NoticeService in
             return .init()
-        })
+        }).inObjectScope(.container)
+
         
         
         // MARK: - Repository
@@ -45,18 +49,21 @@ final class DataAssembly: Assembly {
         ) -> MarketRepository in
             return .init(marketService: resolver.resolve(MarketServiceInterface.self)!,
                          imageService: resolver.resolve(ImageServiceInterface.self)!)
-        })
+        }).inObjectScope(.container)
+
         
         container.register(MarketAuthRepositoryInterface.self, factory: { (
             resolver: Resolver
         ) -> MarketAuthRepository in
             return .init(marketAuthService: resolver.resolve(MarketAuthServiceInterface.self)!)
-        })
+        }).inObjectScope(.container)
+
         
         container.register(NoticeRepositoryInterface.self, factory: { (
             resolver: Resolver
         ) -> NoticeRepository in
             return .init(noticeService: resolver.resolve(NoticeServiceInterface.self)!)
-        })
+        }).inObjectScope(.container)
+
     }
 }

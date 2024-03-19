@@ -16,7 +16,6 @@ struct MainView: View {
     }
     @ObservedObject var coordinator: NavigationStackCoordinator
     @State private var selectedTab: Tab = .market
-    var injector: Injector?
     
     var body: some View {
         NavigationStack(path: $coordinator.paths) {
@@ -33,6 +32,7 @@ struct MainView: View {
                     }
                     .tag(Tab.notice)
             }
+            .tint(.tintYellow)
             .environmentObject(coordinator)
             .navigationDestination(for: Path.self) { path in
                 coordinator.buildScene(path: path)
@@ -43,6 +43,27 @@ struct MainView: View {
     }
 }
 
-#Preview {
-    MainView(coordinator: .init(.MarketMainView))
+//#Preview {
+//    MainView(coordinator: .init(.MarketMainView))
+//}
+
+
+import Swinject
+
+class AppInject {
+    private let injector: DependencyInjector
+    @ObservedObject var coordinator: NavigationStackCoordinator = NavigationStackCoordinator(.MarketMainView)
+    
+    init() {
+        injector = DependencyInjector(container: Container())
+        // coordinator = NavigationStackCoordinator(.MarketMainView)
+        coordinator.injector = injector
+        
+        injector.assemble([
+            DataAssembly(),
+            DomainAssembly(),
+            ViewModelAssembly(),
+            ViewAssembly()
+        ])
+    }
 }

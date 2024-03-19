@@ -18,14 +18,13 @@ enum HTTPHeaderField: String {
         case .authentication:
             return Bundle.main.adminAuthToken
         case .contentType:
-            return ""
+            return type.json.rawValue
         case .acceptType:
-            return "application/json"
+            return type.json.rawValue
         }
     }
+    
+    enum type: String {
+        case json = "application/json"
+    }
 }
-
-enum ContentType: String {
-    case json = "Application/json"
-}
-

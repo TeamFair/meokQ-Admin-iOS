@@ -20,9 +20,9 @@ struct InfoComponent: View {
                 Text(content)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.body)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.textPrimary)
                     .padding()
-                    .background(.regularMaterial)
+                    .background(.bgComponent)
             }
             // TODO: 이미지 연결
 //            if image = imageName {

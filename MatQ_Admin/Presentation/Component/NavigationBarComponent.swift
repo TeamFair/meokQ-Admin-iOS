@@ -20,7 +20,7 @@ struct NavigationBarComponent: View {
                     router.pop()
                 } label: {
                     Image(systemName: "chevron.left")
-                        .foregroundColor(.black)
+                        .foregroundColor(.textSecondary)
                 }
                 .opacity(isNotRoot ? 1 : 0)
                 .padding()
@@ -32,7 +32,7 @@ struct NavigationBarComponent: View {
                 .bold()
         }
         .frame(height: 45)
-        .background(.white)
+        .background(.bg)
     }
 }
 

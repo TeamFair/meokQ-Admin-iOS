@@ -32,7 +32,9 @@ public class NavigationStackCoordinator: ObservableObject {
     }
 
     func pop() {
-        paths.removeLast(1)
+        if !paths.isEmpty {
+            paths.removeLast(1)
+        }
     }
 
     func popToRoot() {
@@ -61,9 +63,8 @@ public class NavigationStackCoordinator: ObservableObject {
             injector?.resolve(NoticeMainView.self)
         case .NoticePostView:
             injector?.resolve(NoticePostView.self)
-        case .NoticeDetailView:
-            injector?.resolve(NoticeDetailView.self)
-        
+        case .NoticeDetailView(let notice):
+            injector?.resolve(NoticeDetailView.self, argument: notice)
         }
     }
     
@@ -83,7 +84,7 @@ enum Path: Hashable {
     //Notice
     case NoticeMainView
     case NoticePostView
-    case NoticeDetailView
+    case NoticeDetailView(notice: Notice)
     
     func hash(into hasher: inout Hasher) {
         switch self {

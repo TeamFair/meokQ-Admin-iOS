@@ -19,21 +19,22 @@ struct NoticeComponent: View {
                     .bold()
                     .font(.system(size: 15))
                     .padding(.bottom, 8)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.textPrimary)
                 Text(timeStamp)
                     .font(.system(size: 12))
-                    .foregroundStyle(.gray400)
+                    .foregroundStyle(.textSecondary)
             }
             Spacer()
             Image(systemName: "chevron.right")
-                .foregroundStyle(.gray400)
+                .font(.system(size: 12))
+                .foregroundStyle(.textSecondary)
         }
         .padding()
         .frame(height: 80)
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .foregroundStyle(.white)
+                .foregroundStyle(.bgComponent)
         )
         .frame(height: 80)
     }

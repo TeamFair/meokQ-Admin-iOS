@@ -44,6 +44,14 @@
 		60E696BB2B9A1BFE009DD235 /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BA2B9A1BFE009DD235 /* GetImage.swift */; };
 		60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */; };
 		60E696BF2B9A1FC1009DD235 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BE2B9A1FC1009DD235 /* ImageService.swift */; };
+		60EC51EA2B9C67DB002CBCA3 /* NoticeMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51E92B9C67DB002CBCA3 /* NoticeMainViewModel.swift */; };
+		60EC51EC2B9C6BC5002CBCA3 /* GetNoticeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51EB2B9C6BC5002CBCA3 /* GetNoticeUseCase.swift */; };
+		60EC51EE2B9C763F002CBCA3 /* NoticePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51ED2B9C763F002CBCA3 /* NoticePostViewModel.swift */; };
+		60EC51F02B9C76C8002CBCA3 /* PostNoticeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51EF2B9C76C8002CBCA3 /* PostNoticeUseCase.swift */; };
+		60EC51F82B9CB075002CBCA3 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 60EC51F72B9CB075002CBCA3 /* Swinject */; };
+		60EC51FA2B9CC239002CBCA3 /* NoticeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51F92B9CC239002CBCA3 /* NoticeDetailViewModel.swift */; };
+		60EC51FC2B9CC312002CBCA3 /* DeleteNoticeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51FB2B9CC312002CBCA3 /* DeleteNoticeUseCase.swift */; };
+		60EC52002B9D99CE002CBCA3 /* View++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51FF2B9D99CE002CBCA3 /* View++.swift */; };
 		E58425D32B42AEC5002C7B3F /* NoticeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */; };
 		E58425D52B42B4A3002C7B3F /* NoticeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */; };
 		E58425D72B42B552002C7B3F /* NoticeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D62B42B552002C7B3F /* NoticeDetailView.swift */; };
@@ -104,6 +112,13 @@
 		60E696BA2B9A1BFE009DD235 /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
 		60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTarget.swift; sourceTree = "<group>"; };
 		60E696BE2B9A1FC1009DD235 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		60EC51E92B9C67DB002CBCA3 /* NoticeMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeMainViewModel.swift; sourceTree = "<group>"; };
+		60EC51EB2B9C6BC5002CBCA3 /* GetNoticeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoticeUseCase.swift; sourceTree = "<group>"; };
+		60EC51ED2B9C763F002CBCA3 /* NoticePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostViewModel.swift; sourceTree = "<group>"; };
+		60EC51EF2B9C76C8002CBCA3 /* PostNoticeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostNoticeUseCase.swift; sourceTree = "<group>"; };
+		60EC51F92B9CC239002CBCA3 /* NoticeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailViewModel.swift; sourceTree = "<group>"; };
+		60EC51FB2B9CC312002CBCA3 /* DeleteNoticeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteNoticeUseCase.swift; sourceTree = "<group>"; };
+		60EC51FF2B9D99CE002CBCA3 /* View++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View++.swift"; sourceTree = "<group>"; };
 		E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeMainView.swift; sourceTree = "<group>"; };
 		E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeComponent.swift; sourceTree = "<group>"; };
 		E58425D62B42B552002C7B3F /* NoticeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailView.swift; sourceTree = "<group>"; };
@@ -218,6 +233,9 @@
 				60DA57232B942AAF00EDAF30 /* GetMarketUseCase.swift */,
 				60E696B82B99CAEF009DD235 /* PutMarketReviewUseCase.swift */,
 				60E696822B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift */,
+				60EC51EB2B9C6BC5002CBCA3 /* GetNoticeUseCase.swift */,
+				60EC51EF2B9C76C8002CBCA3 /* PostNoticeUseCase.swift */,
+				60EC51FB2B9CC312002CBCA3 /* DeleteNoticeUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -338,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				60E696B42B98C583009DD235 /* Bundle++.swift */,
+				60EC51FF2B9D99CE002CBCA3 /* View++.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -355,8 +374,11 @@
 			isa = PBXGroup;
 			children = (
 				E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */,
+				60EC51E92B9C67DB002CBCA3 /* NoticeMainViewModel.swift */,
 				E58425D82B42B56D002C7B3F /* NoticePostView.swift */,
+				60EC51ED2B9C763F002CBCA3 /* NoticePostViewModel.swift */,
 				E58425D62B42B552002C7B3F /* NoticeDetailView.swift */,
+				60EC51F92B9CC239002CBCA3 /* NoticeDetailViewModel.swift */,
 			);
 			path = Notice;
 			sourceTree = "<group>";
@@ -519,9 +541,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60EC51EE2B9C763F002CBCA3 /* NoticePostViewModel.swift in Sources */,
 				60E696962B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift in Sources */,
 				60DA571D2B94182D00EDAF30 /* MarketTarget.swift in Sources */,
 				60B3573B2B9B70450052418A /* NoticeTarget.swift in Sources */,
+				60EC51EC2B9C6BC5002CBCA3 /* GetNoticeUseCase.swift in Sources */,
 				E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */,
 				60E696872B94E476009DD235 /* MarketAuthTarget.swift in Sources */,
 				60DA57242B942AAF00EDAF30 /* GetMarketUseCase.swift in Sources */,
@@ -529,6 +553,7 @@
 				60B3573F2B9B75BA0052418A /* NoticeRepository.swift in Sources */,
 				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
+				60EC51F02B9C76C8002CBCA3 /* PostNoticeUseCase.swift in Sources */,
 				60E696AF2B97CDE2009DD235 /* DomainAssembly.swift in Sources */,
 				60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */,
 				60E696892B94E6BD009DD235 /* MarketAuthReview.swift in Sources */,
@@ -536,11 +561,14 @@
 				60B357372B9B6C130052418A /* GetNotice.swift in Sources */,
 				E5C503A02B46920A00F47989 /* GetMarketAuth.swift in Sources */,
 				E5DD825C2B34DCCA00A026C2 /* MainView.swift in Sources */,
+				60EC51EA2B9C67DB002CBCA3 /* NoticeMainViewModel.swift in Sources */,
+				60EC51FA2B9CC239002CBCA3 /* NoticeDetailViewModel.swift in Sources */,
 				60B3573D2B9B740B0052418A /* NoticeService.swift in Sources */,
 				E58425D32B42AEC5002C7B3F /* NoticeMainView.swift in Sources */,
 				E5DD826F2B35095300A026C2 /* IdentificationView.swift in Sources */,
 				60E6968B2B94EC6A009DD235 /* MarketAuthService.swift in Sources */,
 				E5DD82782B350A0700A026C2 /* MarketComponent.swift in Sources */,
+				60EC52002B9D99CE002CBCA3 /* View++.swift in Sources */,
 				E5DD82712B35098800A026C2 /* MarketDetailInfoView.swift in Sources */,
 				60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */,
 				60E696832B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift in Sources */,
@@ -571,6 +599,7 @@
 				60E696BB2B9A1BFE009DD235 /* GetImage.swift in Sources */,
 				60E696AD2B97CC88009DD235 /* DataAssembly.swift in Sources */,
 				E5DD827F2B350D7200A026C2 /* NavigationBarComponent.swift in Sources */,
+				60EC51FC2B9CC312002CBCA3 /* DeleteNoticeUseCase.swift in Sources */,
 				60E696942B97A9D6009DD235 /* MarketRepositoryInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -721,6 +750,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.077tech.MatQ-Admin";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.077tech.MatQ-Admin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -807,7 +837,6 @@
 			package = 60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
 		};
-		60E6969B2B97B46F009DD235 /* Swinject-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = "Swinject-Dynamic";

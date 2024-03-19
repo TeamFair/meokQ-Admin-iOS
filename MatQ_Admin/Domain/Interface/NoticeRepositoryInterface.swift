@@ -8,7 +8,7 @@
 import Combine
 
 protocol NoticeRepositoryInterface {
-    func getNotice(target: NoticeTargetType, page: Int) async throws -> AnyPublisher<[Notice], NetworkError>
+    func getNotice(target: NoticeTargetType, page: Int) async -> AnyPublisher<[Notice], NetworkError>
     func postNotice(title: String, content: String, target: NoticeTargetType) async -> AnyPublisher<Bool, NetworkError>
     func deleteNotice(noticeId: String) async -> AnyPublisher<Bool, NetworkError>
 }

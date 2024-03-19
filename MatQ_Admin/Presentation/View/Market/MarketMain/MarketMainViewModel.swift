@@ -28,9 +28,17 @@ final class MarketMainViewModel: MarketMainViewModelInput, MarketMainViewModelOu
     @Published var errorMessage: String = ""
     @Published var showingAlert = false
     
+    @Published var viewState: ViewState = .loading
+
     var error = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
-
+    
+    enum ViewState {
+        case empty
+        case loading
+        case loaded
+    }
+    
     init(marketUseCase: GetMarketUseCaseInterface) {
         self.marketUseCase = marketUseCase
         
@@ -46,16 +54,22 @@ final class MarketMainViewModel: MarketMainViewModelInput, MarketMainViewModelOu
             .sink { completion in
                 switch completion {
                 case .finished:
-                    print("well finished")
-                case .failure(let error):
-                    print(error)
+                    print("GETMARETLIST")
+                    self.viewState = self.items.isEmpty ? .empty : .loaded
+                case .failure:
                     self.error.send("Fail to load Markets")
+                    self.viewState = .empty
                 }
             } receiveValue: { [weak self] result in
+                if page == 0 {
+                    self?.items = []
+                    self?.marketList = []
+                }
+                
                 for item in result.map(MarketItemViewModel.init) {
                     self?.items.append(item)
                 }
-                // TODO: 페이지네이션, refresh에는 초기화
+                // TODO: 페이지네이션
                 self?.marketList += result
             }
             .store(in: &cancellables)

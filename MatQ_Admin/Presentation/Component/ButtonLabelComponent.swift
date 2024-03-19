@@ -19,9 +19,9 @@ struct ButtonLabelComponent: View {
         var fgColor: Color {
             switch self {
             case .primary:
-                Color.gray400
+                Color.black.opacity(0.8)
             case .secondary:
-                Color.gray400
+                Color.black.opacity(0.8)
             case .delete:
                 Color.white
             }
