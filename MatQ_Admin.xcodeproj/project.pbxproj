@@ -30,8 +30,6 @@
 		60E6968E2B95FD6D009DD235 /* MarketAuthReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E6968D2B95FD6D009DD235 /* MarketAuthReviewViewModel.swift */; };
 		60E696942B97A9D6009DD235 /* MarketRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696932B97A9D6009DD235 /* MarketRepositoryInterface.swift */; };
 		60E696962B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696952B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift */; };
-		60E6969A2B97B46F009DD235 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 60E696992B97B46F009DD235 /* Swinject */; };
-		60E6969C2B97B46F009DD235 /* Swinject-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 60E6969B2B97B46F009DD235 /* Swinject-Dynamic */; };
 		60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A22B97BDC9009DD235 /* ViewAssembly.swift */; };
 		60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */; };
 		60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A82B97BEAE009DD235 /* DependencyInjector.swift */; };
@@ -75,6 +73,19 @@
 		E5DD827D2B350C0E00A026C2 /* MarketMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD827C2B350C0E00A026C2 /* MarketMainView.swift */; };
 		E5DD827F2B350D7200A026C2 /* NavigationBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD827E2B350D7200A026C2 /* NavigationBarComponent.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		60EC51F42B9CAE5A002CBCA3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		60B357362B9B6C130052418A /* GetNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNotice.swift; sourceTree = "<group>"; };
@@ -149,9 +160,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60E6969C2B97B46F009DD235 /* Swinject-Dynamic in Frameworks */,
 				E5C5039B2B467FFD00F47989 /* Alamofire in Frameworks */,
-				60E6969A2B97B46F009DD235 /* Swinject in Frameworks */,
+				60EC51F82B9CB075002CBCA3 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +371,13 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		60EC51F12B9CAE5A002CBCA3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E58425D02B42AE9D002C7B3F /* Market */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +405,7 @@
 			children = (
 				E5DD82582B34DCCA00A026C2 /* MatQ_Admin */,
 				E5DD82572B34DCCA00A026C2 /* Products */,
+				60EC51F12B9CAE5A002CBCA3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -471,6 +489,7 @@
 				E5DD82522B34DCCA00A026C2 /* Sources */,
 				E5DD82532B34DCCA00A026C2 /* Frameworks */,
 				E5DD82542B34DCCA00A026C2 /* Resources */,
+				60EC51F42B9CAE5A002CBCA3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -479,8 +498,6 @@
 			name = MatQ_Admin;
 			packageProductDependencies = (
 				E5C5039A2B467FFD00F47989 /* Alamofire */,
-				60E696992B97B46F009DD235 /* Swinject */,
-				60E6969B2B97B46F009DD235 /* Swinject-Dynamic */,
 			);
 			productName = MatQ_Admin;
 			productReference = E5DD82562B34DCCA00A026C2 /* MatQ_Admin.app */;
@@ -512,7 +529,7 @@
 			mainGroup = E5DD824D2B34DCCA00A026C2;
 			packageReferences = (
 				E5C503992B467FFD00F47989 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */,
+				60EC51F62B9CB075002CBCA3 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = E5DD82572B34DCCA00A026C2 /* Products */;
 			projectDirPath = "";
@@ -663,7 +680,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -732,12 +749,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"MatQ_Admin/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = 6CNX5P6BQG;
+				DEVELOPMENT_TEAM = VJUK3HBJ2M;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphoneos*]" = x86_64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MatQ_Admin/Resources/MatQ-Admin-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "맛Q 관리자용";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -749,8 +770,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.077tech.MatQ-Admin";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.077tech.MatQ-Admin";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.teamfair.MatQ-Admin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -764,12 +785,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"MatQ_Admin/Resources/Preview Content\"";
-				DEVELOPMENT_TEAM = 6CNX5P6BQG;
+				DEVELOPMENT_TEAM = VJUK3HBJ2M;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MatQ_Admin/Resources/MatQ-Admin-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "맛Q 관리자용";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -781,7 +804,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.077tech.MatQ-Admin";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.teamfair.MatQ-Admin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -813,7 +836,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+		60EC51F62B9CB075002CBCA3 /* XCRemoteSwiftPackageReference "Swinject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Swinject/Swinject";
 			requirement = {
@@ -832,14 +855,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		60E696992B97B46F009DD235 /* Swinject */ = {
+		60EC51F72B9CB075002CBCA3 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */;
+			package = 60EC51F62B9CB075002CBCA3 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
-		};
-			isa = XCSwiftPackageProductDependency;
-			package = 60E696982B97B46F009DD235 /* XCRemoteSwiftPackageReference "Swinject" */;
-			productName = "Swinject-Dynamic";
 		};
 		E5C5039A2B467FFD00F47989 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
