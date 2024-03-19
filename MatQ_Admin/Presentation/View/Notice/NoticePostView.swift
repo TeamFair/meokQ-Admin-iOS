@@ -8,50 +8,112 @@
 import SwiftUI
 
 struct NoticePostView: View {
-    
-    @State private var selectedTarget = "CUSTOMER"
-    @State private var inputValue: String = ""
+    @EnvironmentObject var router: NavigationStackCoordinator
+    @ObservedObject var vm: NoticePostViewModel
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             NavigationBarComponent(navigationTitle: "공지사항", isNotRoot: true)
             
-            VStack(alignment: .leading) {
-                Text("공지할 대상")
-                    .font(.system(size: 19))
-                    .bold()
-                
-                Picker("대상 선택", selection: $selectedTarget) {
-                    Text("CUSTOMER").tag("CUSTOMER")
-                    Text("BOSS").tag("BOSS")
+            ScrollView {
+                Form {
+                    VStack(alignment: .leading, spacing: 20) {
+                        targetView
+                        
+                        writeTitleView
+                        
+                        writeContentView
+                    }
                 }
-                .pickerStyle(MenuPickerStyle())
-                .padding(.bottom)
-                
-                Text("공지사항 작성")
-                    .font(.system(size: 19))
-                    .bold()
-                    .padding(.bottom)
-                
-                TextEditor(text: $inputValue)
-                    .frame(height: 200)
-                    .border(Color.gray, width: 1)
-                
-                Spacer()
-                
-                Button {
-                    print("공지 등록하기")
-                } label: {
-                    ButtonLabelComponent(title: "공지 등록하기", type: .primary)
-                }
-                .background(Color.yellow)
-                .cornerRadius(10)
+                .formStyle(.columns)
             }
-            .padding(20)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 20)
+            .tint(.tintYellow)
+
+            Spacer()
+            
+            Button {
+                Task {
+                    await vm.postNotice()
+                }
+            } label: {
+                ButtonLabelComponent(title: "공지 등록하기", type: vm.buttonAble ? .primary : .secondary)
+                    .padding(20)
+            }
+            .disabled(!vm.buttonAble)
+        }
+        .onTapGesture {
+            self.textEditEnding()
+        }
+        .alert(isPresented: $vm.showingErrorAlert) {
+            Alert(title: Text("공지 작성 에러"),
+                  message: Text(vm.feedbackMessage),
+                  dismissButton: .default(Text("OK")))
+        }
+        .alert(isPresented: $vm.showingSuccessAlert) {
+            Alert(title: Text("공지 작성 성공"),
+                  message: Text(vm.feedbackMessage),
+                  dismissButton: .default(Text("OK"), action: {
+                router.pop()
+            }))
+        }
+    }
+    
+    private var targetView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("공지할 대상")
+                .font(.headline)
+            
+            Picker("", selection: $vm.target) {
+                Text("All").tag(NoticeTargetType.ALL)
+                Text("CUSTOMER").tag(NoticeTargetType.CUSTOMER)
+                Text("BOSS").tag(NoticeTargetType.BOSS)
+                Text("ADMIN").tag(NoticeTargetType.ADMIN)
+            }
+            .labelsHidden()
+            .pickerStyle(MenuPickerStyle())
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .foregroundStyle(.grayF4)
+            )
+        }
+    }
+    
+    private var writeTitleView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("공지 제목")
+                .font(.headline)
+            
+            TextField("공지 제목을 입력해주세요", text: $vm.title, axis: .vertical)
+                .padding()
+                .frame(minHeight: 50)
+                .font(.body)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundStyle(.grayF4)
+                )
+        }
+    }
+    
+    private var writeContentView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("공지 내용")
+                .font(.headline)
+            
+            TextField("공지 내용을 입력해주세요", text: $vm.content, axis: .vertical)
+                .padding()
+                .frame(minHeight: 200, alignment: .topLeading)
+                .font(.body)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundStyle(.grayF4)
+                )
+                .keyboardType(.default)
         }
     }
 }
 
 #Preview {
-    NoticePostView()
+    NoticePostView(vm: NoticePostViewModel(noticeUseCase: PostNoticeUseCase(noticeRepository: NoticeRepository(noticeService: NoticeService()))))
 }

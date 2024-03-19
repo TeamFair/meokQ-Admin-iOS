@@ -17,7 +17,6 @@ struct MarketAuthService: MarketAuthServiceInterface {
         let taskRequest = AF.request(MarketAuthTarget.getMarketAuth(request))
            .validate(statusCode: 200..<300)
             .serializingDecodable(GetMarketAuthResponse.self)
-       await dump(taskRequest.response.response)
        switch await taskRequest.result {
         case .success(let response):
             return .success(response.toDomain)

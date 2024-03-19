@@ -7,7 +7,7 @@
 
 import Combine
 
-enum NoticeTargetType: String {
+enum NoticeTargetType: String, CaseIterable {
     case ALL
     case BOSS
     case CUSTOMER
@@ -21,7 +21,8 @@ final class NoticeRepository: NoticeRepositoryInterface {
     init(noticeService: NoticeServiceInterface) {
         self.noticeService = noticeService
     }
-    func getNotice(target: NoticeTargetType, page: Int) async throws -> AnyPublisher<[Notice], NetworkError> {
+    
+    func getNotice(target: NoticeTargetType, page: Int) async -> AnyPublisher<[Notice], NetworkError> {
         let request = GetNoticeRequest(page: page, target: target.rawValue)
         let result = await self.noticeService.getNoticeList(request: request)
         

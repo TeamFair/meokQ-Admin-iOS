@@ -28,7 +28,9 @@ extension TargetType {
         }
         urlRequest.setValue(HTTPHeaderField.acceptType.value, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
         urlRequest.setValue(HTTPHeaderField.authentication.value, forHTTPHeaderField: HTTPHeaderField.authentication.rawValue)
-        
+        if urlRequest.method == .post {
+            urlRequest.setValue(HTTPHeaderField.contentType.value, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+        }
         switch parameters {
         case .query(let request):
             let params = request?.toDictionary() ?? [:]

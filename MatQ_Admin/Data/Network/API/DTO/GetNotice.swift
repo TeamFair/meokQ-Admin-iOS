@@ -55,8 +55,10 @@ struct PostNoticeRequest: Codable {
 }
 
 // MARK: PostNoticeResponse
-struct PostNoticeResponse: Decodable {
-    let data: [PostNoticeRequest]
+struct PostNoticeResponse: Codable {
+    let data: PostNoticeRequest?
+    let errorStatus: String?
+    let errMessage: String?
     let status: String
     let message: String
 }

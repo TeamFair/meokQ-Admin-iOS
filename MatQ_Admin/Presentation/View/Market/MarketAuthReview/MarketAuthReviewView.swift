@@ -9,24 +9,30 @@ import SwiftUI
 
 struct MarketAuthReviewView: View {
     @EnvironmentObject var router: NavigationStackCoordinator
-    @StateObject var vm : MarketAuthReviewViewModel
+    @ObservedObject var vm : MarketAuthReviewViewModel
         
     var body: some View {
         VStack(spacing: 16) {
             NavigationBarComponent(navigationTitle: vm.items.name, isNotRoot: true)
             
-            VStack(alignment: .leading, spacing: 48) {
-                infoSectionComponent(.businessRegistration)
-                infoSectionComponent(.identification)
-                infoSectionComponent(.marketDetail)
-                
-                rejectTextFieldArea
-                
-                Spacer()
-                
-                buttonArea
+            ScrollView {
+                VStack(alignment: .leading, spacing: 48) {
+                    infoSectionComponent(.businessRegistration)
+                    infoSectionComponent(.identification)
+                    infoSectionComponent(.marketDetail)
+                    
+                    rejectTextFieldArea
+                }
+                .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 20)
+            Spacer()
+            
+            buttonArea
+                .padding(.horizontal, 20)
+        }
+        .padding(.bottom, 20)
+        .onTapGesture {
+            self.textEditEnding()
         }
         .task {
             await vm.getMarketInfo()
@@ -83,15 +89,16 @@ struct MarketAuthReviewView: View {
             Text("반려 사유")
                 .font(.headline)
             
-            TextField("반려 사유를 입력해주세요", text: $vm.comment)
+            TextField("반려 사유를 입력해주세요", text: $vm.comment, axis: .vertical)
                 .padding()
-                .frame(height: 140)
+                .frame(height: 140, alignment: .topLeading)
                 .frame(maxWidth: .infinity)
                 .font(.body)
                 .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .foregroundStyle(.grayF4)
+                    RoundedRectangle(cornerRadius: 16)
+                        .foregroundStyle(.bgComponent)
                 )
+                .tint(.tintYellow)
         }
     }
     
