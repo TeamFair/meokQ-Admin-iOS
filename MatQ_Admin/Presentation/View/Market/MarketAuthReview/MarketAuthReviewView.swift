@@ -96,7 +96,7 @@ struct MarketAuthReviewView: View {
                 .font(.body)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
-                        .foregroundStyle(.bgComponent)
+                        .foregroundStyle(.componentPrimary)
                 )
                 .tint(.tintYellow)
         }

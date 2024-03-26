@@ -35,7 +35,7 @@ struct MarketComponent: View {
         .frame(height: 108)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .foregroundStyle(.bgComponent)
+                .foregroundStyle(.componentSecondary)
         )
         .shadow(color: .black.opacity(0.05), radius: 12)
         .padding(.horizontal, 20)

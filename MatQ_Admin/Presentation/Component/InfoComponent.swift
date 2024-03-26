@@ -22,7 +22,10 @@ struct InfoComponent: View {
                     .font(.body)
                     .foregroundStyle(.textPrimary)
                     .padding()
-                    .background(.bgComponent)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .foregroundStyle(.componentPrimary)
+                    )
             }
             // TODO: 이미지 연결
 //            if image = imageName {
