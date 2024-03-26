@@ -19,11 +19,12 @@ struct MarketDetailInfoView: View {
                     .font(.title3.bold())
                 
                 HStack(alignment: .center) {
-                    // TODO: 이미지 연결
-                    Image(marketDetail.logoImage)
-                        .resizable()
-                        .frame(width:98, height:98)
-                        .cornerRadius(20)
+                    if let image =  marketDetail.logoImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width:98, height:98)
+                            .cornerRadius(20)
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 
@@ -97,5 +98,5 @@ enum 요일: CaseIterable {
 }
 
 #Preview {
-    MarketDetailInfoView(marketDetail: .init(marketId: "id000", logoImage: "", name: "MARKET", district: "111110000", phone: "010-3030-3030", address: "서울틀별시", status: "", marketTime: [.init(weekDay: "월", openTime: "08:00", closeTime: "21:00", holidayYn: "N")]))
+    MarketDetailInfoView(marketDetail: .init(marketId: "id000", logoImageId: "", logoImage: nil, name: "MARKET", district: "111110000", phone: "010-3030-3030", address: "서울틀별시", status: "", marketTime: [.init(weekDay: "월", openTime: "08:00", closeTime: "21:00", holidayYn: "N")]))
 }

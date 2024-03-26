@@ -25,7 +25,7 @@ struct GetMarketAuthResponse: Decodable {
 
 extension GetMarketAuthResponse {
     var toDomain: [MarketAuth] {
-        return self.data.map { MarketAuth(recordId: $0.recordId, marketId: $0.marketId, operator: $0.operator, license: $0.license) }
+        return self.data.map { MarketAuth(recordId: $0.recordId, marketId: $0.marketId, operator: Operator(awsOperator: $0.operator), license: License(awsLicense: $0.license)) }
     }
 }
 
@@ -58,14 +58,14 @@ struct PutReviewMarketAuthResponse: Decodable {
 
 
 // MARK: - GetMarketAuth
-struct GetMarketAuth : Codable {
+struct GetMarketAuth: Codable {
     let recordId, marketId: String
     let reviewResult : String?
     let comment: String?
-    let `operator`: Operator
-    let license: License
+    let `operator`: AwsOperator
+    let license: AwsLicense
     
-    init(recordId: String, marketId: String, reviewResult: String, comment: String?, operator: Operator, license: License) {
+    init(recordId: String, marketId: String, reviewResult: String, comment: String?, operator: AwsOperator, license: AwsLicense) {
         self.recordId = recordId
         self.marketId = marketId
         self.reviewResult = reviewResult
@@ -75,21 +75,22 @@ struct GetMarketAuth : Codable {
     }
 }
 
-// MARK: - Operator
-struct Operator : Codable, Equatable {
+// MARK: - AwsOperator
+
+struct AwsOperator: Codable, Equatable {
     let name : String
     let birthdate: String
     let idcardImage: AwsImage
 }
 
 // MARK: - AwsImage
-struct AwsImage : Codable, Equatable {
+struct AwsImage: Codable, Equatable {
     let imageId, location: String
 }
 
-// MARK: - License
-struct License : Codable, Equatable {
+// MARK: - AwsLicense
+struct AwsLicense: Codable, Equatable {
     let licenseId: String
     let licenseImage: AwsImage
-    let ownerName, marketName, address, postalCode: String
+    let ownerName, marketName, address, postalCode: String, salesType: String? // TODO: 배포 시 옵셔널 해제
 }

@@ -15,14 +15,14 @@ struct IdentificationView: View {
     var body: some View {
         NavigationBarComponent(navigationTitle: "신분증", isNotRoot: true)
         
-        ScrollView{
+        ScrollView(.vertical){
             VStack(alignment: .leading){
                 Text("신분증")
                     .font(.title3.bold())
 
                 InfoComponent(titleName: "성함", contentName: operatorData.name)
                 InfoComponent(titleName: "생년월일", contentName: operatorData.birthdate)
-                InfoComponent(titleName: "신분증 이미지", imageName: operatorData.idcardImage.imageId)
+                InfoComponent(titleName: "신분증 이미지", uiImage: operatorData.idcardUIImage)
                 Text("주민등록번호 뒤 7자리가 기재된 공간 마스킹 필요\n주민등록번호 뒷자리를 지우지 않은 신분증은 즉시 파기되며 요청 반려")
                     .font(.footnote)
             }

@@ -43,7 +43,7 @@ struct GetMarketDetailResponse: Decodable {
 
 extension GetMarketDetailResponse {
     var toDomain: MarketDetail {
-        return MarketDetail(marketId: data.marketId, logoImage: data.logoImageId, name: data.name, district: data.district, phone: data.phone, address: data.address, status: data.status, marketTime: data.marketTimes)
+        return MarketDetail(marketId: data.marketId, logoImageId: data.logoImageId, logoImage: nil, name: data.name, district: data.district, phone: data.phone, address: data.address, status: data.status, marketTime: data.marketTimes)
     }
 }
 

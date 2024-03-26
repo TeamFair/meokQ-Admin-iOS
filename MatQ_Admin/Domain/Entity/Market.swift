@@ -20,7 +20,8 @@ struct Market {
 /// 인증 들어갈 때 사용
 struct MarketDetail: Equatable {
     let marketId: String
-    let logoImage: String
+    let logoImageId: String
+    var logoImage: UIImage?
     let name: String
     let district: String
     let phone: String

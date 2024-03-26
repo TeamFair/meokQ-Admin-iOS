@@ -55,7 +55,8 @@ final class DataAssembly: Assembly {
         container.register(MarketAuthRepositoryInterface.self, factory: { (
             resolver: Resolver
         ) -> MarketAuthRepository in
-            return .init(marketAuthService: resolver.resolve(MarketAuthServiceInterface.self)!)
+            return .init(marketAuthService: resolver.resolve(MarketAuthServiceInterface.self)!,
+                         imageService: resolver.resolve(ImageServiceInterface.self)!)
         }).inObjectScope(.container)
 
         

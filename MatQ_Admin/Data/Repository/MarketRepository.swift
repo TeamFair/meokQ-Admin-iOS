@@ -77,8 +77,9 @@ final class MarketRepository: MarketRepositoryInterface {
     func getMarketDetail(marketId: String) async throws -> MarketDetail {
         let result = await self.marketService.fetchMarketDetail(request: GetMarketDetailRequest(marketId: marketId))
         switch result {
-        case .success(let movies):
-            return movies
+        case .success(var data):
+            data.logoImage = await loadImage(imageId: data.logoImageId)
+            return data
         case .failure:
             throw NetworkError.serverError
         }
