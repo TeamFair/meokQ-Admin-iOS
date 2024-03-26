@@ -26,7 +26,7 @@ final class MarketAuthReviewViewModel: MarketAuthReviewViewModelInput, MarketAut
     let marketId: String
     
     // MARK: Output
-    var items: MarketAuthReviewItemViewModel = MarketAuthReviewItemViewModel(marketId: "", name: "", marketAuth: .init(recordId: "", marketId: "", operator: .init(name: "", birthdate: "", idcardImage: .init(imageId: "", location: "")), license: .init(licenseId: "", licenseImage: .init(imageId: "", location: ""), ownerName: "", marketName: "", address: "", postalCode: "")), marketDetail: .init(marketId: "", logoImage: "", name: "", district: "", phone: "", address: "", status: "", marketTime: []))
+    var items: MarketAuthReviewItemViewModel = MarketAuthReviewItemViewModel(marketId: "", name: "", marketAuth: .init(recordId: "", marketId: "", operator: .init(name: "", birthdate: "", idcardImage: .init(imageId: "", location: "")), license: .init(licenseId: "", licenseImage: .init(imageId: "", location: ""), ownerName: "", marketName: "", address: "", postalCode: "", salesType: "")), marketDetail: .init(marketId: "", logoImageId: "", logoImage: nil, name: "", district: "", phone: "", address: "", status: "", marketTime: []))
     
     @Published var comment: String = ""
     @Published var feedbackMessage: String = ""
@@ -64,9 +64,8 @@ final class MarketAuthReviewViewModel: MarketAuthReviewViewModelInput, MarketAut
                 return
             }
             
-            let authItemViewModel = MarketAuthReviewItemViewModel(marketId: marketId, name: detailResult.name, marketAuth: authResult, marketDetail: detailResult)
-            
-            self.items = authItemViewModel
+            self.items = MarketAuthReviewItemViewModel(marketId: marketId, name: detailResult.name, marketAuth: authResult, marketDetail: detailResult)
+
         } catch {
             self.error.send("Fail to load market")
         }

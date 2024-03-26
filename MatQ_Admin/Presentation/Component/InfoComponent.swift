@@ -10,7 +10,7 @@ import SwiftUI
 struct InfoComponent: View {
     let titleName : String
     var contentName : String?
-    var imageName: String?
+    var uiImage: UIImage?
     
     var body: some View {
         VStack(alignment: .leading){
@@ -22,16 +22,20 @@ struct InfoComponent: View {
                     .font(.body)
                     .foregroundStyle(.textPrimary)
                     .padding()
-                    .background(.bgComponent)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .foregroundStyle(.componentPrimary)
+                    )
             }
-            // TODO: 이미지 연결
-//            if image = imageName {
-//               AsyncImage(url: imageName)
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .font(.body)
-//                    .padding()
-//                    .background(.regularMaterial)
-//            }
+            
+            if let image = uiImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width:98, height:98)
+                    .cornerRadius(12)
+                    .frame(maxWidth: .infinity)
+                    .background(.regularMaterial)
+            }
             
         }
         .padding(.bottom, 16)

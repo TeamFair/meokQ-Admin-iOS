@@ -34,7 +34,7 @@ struct MarketMainView: View {
         .alert(isPresented: $vm.showingAlert) {
             Alert(title: Text("Error"), message: Text(vm.errorMessage), dismissButton: .default(Text("OK")))
         }
-        .background(Color.gray.opacity(0.05))
+        .background(.bgSecondary)
     }
     
     private var marketListView: some View {

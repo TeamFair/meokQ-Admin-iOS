@@ -6,13 +6,16 @@
 //
 
 import Combine
+import UIKit
 
 final class MarketAuthRepository: MarketAuthRepositoryInterface {
     
     let marketAuthService: MarketAuthServiceInterface
-    
-    init(marketAuthService: MarketAuthServiceInterface) {
+    let imageService: ImageServiceInterface
+
+    init(marketAuthService: MarketAuthServiceInterface, imageService: ImageServiceInterface) {
         self.marketAuthService = marketAuthService
+        self.imageService = imageService
     }
     
     func getMarketAuth(marketId: String) async throws -> [MarketAuth] {
@@ -20,7 +23,11 @@ final class MarketAuthRepository: MarketAuthRepositoryInterface {
         let result = await self.marketAuthService.getMarketAuth(request: request)
         
         switch result {
-        case .success(let markets):
+        case .success(var markets):
+            if let imageId = markets.first?.license.licenseImage.imageId {
+                markets[0].license.image = await loadImage(imageId: imageId)
+                markets[0].operator.idcardUIImage = await loadImage(imageId: imageId)
+            }
             return markets
         case .failure:
             throw NetworkError.serverError
@@ -39,5 +46,18 @@ final class MarketAuthRepository: MarketAuthRepositoryInterface {
                 promise(.failure(NetworkError.serverError))
             }
         }.eraseToAnyPublisher()
+    }
+        
+    private func loadImage(imageId: String) async -> UIImage? {
+        guard imageId != "" else  { return nil }
+        
+        let imageResponse = await self.imageService.getImage(request: .init(imageId: imageId))
+        
+        switch imageResponse {
+        case .success(let uiImage):
+            return uiImage
+        case .failure:
+            return nil
+        }
     }
 }

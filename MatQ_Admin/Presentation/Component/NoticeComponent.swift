@@ -34,7 +34,7 @@ struct NoticeComponent: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .foregroundStyle(.bgComponent)
+                .foregroundStyle(.componentPrimary)
         )
         .frame(height: 80)
     }

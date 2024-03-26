@@ -21,12 +21,12 @@ struct BusinessRegistrationView: View {
                     .font(.title3.bold())
 
                 InfoComponent(titleName: "영업신고증 고유번호", contentName: license.licenseId)
-                InfoComponent(titleName: "영업의 종류", contentName: license.licenseId) // TODO: 백 수정시 변경
+                InfoComponent(titleName: "영업의 종류", contentName: license.salesType)
                 InfoComponent(titleName: "대표자", contentName: license.ownerName)
                 InfoComponent(titleName: "영업소 명칭 (상호명)", contentName: license.marketName)
                 InfoComponent(titleName: "소재지", contentName: license.address)
                 InfoComponent(titleName: "우편번호", contentName: license.postalCode)
-                InfoComponent(titleName: "영업신고증 이미지", imageName: license.licenseImage.imageId)
+                InfoComponent(titleName: "영업신고증 이미지", uiImage: license.image)
 
             }
             .padding(.horizontal)
