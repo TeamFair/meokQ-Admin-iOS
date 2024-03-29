@@ -83,11 +83,11 @@ Dependencies/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
-meokQ-Admin-iOS/fastlane/.env
-meokQ-Admin-iOS/fastlane/report.xml
-meokQ-Admin-iOS/fastlane/Preview.html
-meokQ-Admin-iOS/fastlane/screenshots/**/*.png
-meokQ-Admin-iOS/fastlane/test_output
+fastlane/.env
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
 
 # Code Injection
 #
@@ -97,6 +97,5 @@ meokQ-Admin-iOS/fastlane/test_output
 iOSInjectionProject/
 
 # Private
-meokQ-Admin-iOS/MatQ_Admin/Resources/PrivateToken.plist
-
+MatQ_Admin/Resources/PrivateToken.plist
 
