@@ -8,9 +8,9 @@
 import SwiftUI
 import Swinject
 
-
 struct MainView: View {
     enum Tab {
+        case quest
         case market
         case notice
     }
@@ -20,6 +20,11 @@ struct MainView: View {
     var body: some View {
         NavigationStack(path: $coordinator.paths) {
             TabView(selection: $selectedTab) {
+                coordinator.buildInitialScene(path: .QuestMainView)
+                    .tabItem {
+                        Label("퀘스트", systemImage: "checkerboard.rectangle")
+                    }
+                    .tag(Tab.market)
                 coordinator.buildInitialScene()
                     .tabItem {
                         Label("마켓", systemImage: "house")
@@ -43,27 +48,6 @@ struct MainView: View {
     }
 }
 
-//#Preview {
-//    MainView(coordinator: .init(.MarketMainView))
-//}
-
-
-import Swinject
-
-class AppInject {
-    private let injector: DependencyInjector
-    @ObservedObject var coordinator: NavigationStackCoordinator = NavigationStackCoordinator(.MarketMainView)
-    
-    init() {
-        injector = DependencyInjector(container: Container())
-        // coordinator = NavigationStackCoordinator(.MarketMainView)
-        coordinator.injector = injector
-        
-        injector.assemble([
-            DataAssembly(),
-            DomainAssembly(),
-            ViewModelAssembly(),
-            ViewAssembly()
-        ])
-    }
+#Preview {
+    MainView(coordinator: .init(.MarketMainView))
 }

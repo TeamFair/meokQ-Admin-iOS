@@ -45,6 +45,10 @@ public class NavigationStackCoordinator: ObservableObject {
     func buildScene(path: Path) -> some View {
         
         switch path {
+        case .QuestMainView:
+            injector?.resolve(QuestMainView.self)
+        case .QuestDetailView(let type, let quest):
+            injector?.resolve(QuestDetailView.self, argument1: type, argument2: quest)
         case .MarketMainView:
             injector?.resolve(MarketMainView.self)
         case .MarketAuthReviewView(let marketId):
@@ -71,6 +75,9 @@ public class NavigationStackCoordinator: ObservableObject {
 }
 
 enum Path: Hashable {
+    //Market
+    case QuestMainView
+    case QuestDetailView(type: QuestDetailViewModel.ViewType, quest: Quest)
     
     //Market
     case MarketMainView
@@ -88,6 +95,10 @@ enum Path: Hashable {
     
     func hash(into hasher: inout Hasher) {
         switch self {
+        case .QuestMainView:
+            hasher.combine("QuestMainView")
+        case .QuestDetailView:
+            hasher.combine("QuestDetailView")
         case .MarketMainView:
             hasher.combine("MarketMainView")
         case .MarketAuthReviewView(_):
@@ -115,6 +126,8 @@ enum Path: Hashable {
     
     static func == (lhs: Path, rhs: Path) -> Bool {
         switch (lhs, rhs) {
+        case (.QuestMainView, .QuestDetailView):
+            return true
         case (.MarketMainView, .MarketMainView):
             return true
         case (.MarketAuthReviewView, .MarketAuthReviewView):
