@@ -38,9 +38,12 @@ struct NoticePostView: View {
                     await vm.postNotice()
                 }
             } label: {
-                ButtonLabelComponent(title: "공지 등록하기", type: vm.buttonAble ? .primary : .secondary)
+                Text("공지 등록하기")
+                    
+//                IS_ButonView(title: "공지 등록하기", type: vm.buttonAble ? .primary : .secondary)
                     .padding(20)
             }
+            .ilsangButtonStyle(type: .primary)
             .disabled(!vm.buttonAble)
         }
         .onTapGesture {

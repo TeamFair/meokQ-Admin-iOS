@@ -10,6 +10,21 @@ import Swinject
 final class ViewModelAssembly: Assembly {
     
     func assemble(container: Container) {
+        container.register(QuestMainViewModel.self, factory: { (
+            resolver: Resolver
+        ) -> QuestMainViewModel in
+            return .init()
+        }).inObjectScope(.container)      
+        
+        container.register(QuestDetailViewModel.self, factory: { (
+            resolver: Resolver,
+            arg1: QuestDetailViewModel.ViewType,
+            arg2: Quest
+        ) -> QuestDetailViewModel in
+            return .init(viewType: arg1, questDetail: arg2)
+        }).inObjectScope(.transient)
+        
+        
         container.register(MarketMainViewModel.self, factory: { (
             resolver: Resolver
         ) -> MarketMainViewModel in

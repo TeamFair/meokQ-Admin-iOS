@@ -19,7 +19,7 @@ struct ButtonLabelComponent: View {
         var fgColor: Color {
             switch self {
             case .primary:
-                Color.black.opacity(0.8)
+                Color.white
             case .secondary:
                 Color.black.opacity(0.8)
             case .delete:
@@ -30,7 +30,7 @@ struct ButtonLabelComponent: View {
         var bgColor: Color {
             switch self {
             case .primary:
-                Color.main
+                Color.primaryPurple
             case .secondary:
                 Color.gray100
             case .delete:
@@ -38,7 +38,7 @@ struct ButtonLabelComponent: View {
             }
         }
     }
-
+    
     var body: some View {
         Text(title)
             .frame(maxWidth: .infinity)
@@ -48,13 +48,5 @@ struct ButtonLabelComponent: View {
             .background(type.bgColor)
             .cornerRadius(12)
     }
-}
-
-
-#Preview {
-    VStack {
-        ButtonLabelComponent(title: "공지 삭제하기", type: .primary)
-        ButtonLabelComponent(title: "공지 삭제하기", type: .secondary)
-        ButtonLabelComponent(title: "공지 삭제하기", type: .delete)
-    }
+    
 }
