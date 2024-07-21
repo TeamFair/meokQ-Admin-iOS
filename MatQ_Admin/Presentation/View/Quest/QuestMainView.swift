@@ -36,6 +36,12 @@ struct QuestMainView: View {
             .padding(20)
         }
         .background(.bgSecondary)
+        .task {
+            await vm.getQuestList(page: 0)
+        }
+        .alert(isPresented: $vm.showingAlert) {
+            Alert(title: Text("Error"), message: Text(vm.errorMessage), dismissButton: .default(Text("OK")))
+        }
     }
     
     private var marketListView: some View {
@@ -52,10 +58,11 @@ struct QuestMainView: View {
                                     Quest(
                                         questId: $0.questId,
                                         missionTitle: $0.missionTitle,
-                                        rewardTitle: $0.rewardTitle,
+                                        quantity: $0.quantity,
                                         status: $0.status,
-                                        publisher: $0.publisher,
-                                        logoImageId: $0.logoImageId,
+                                        writer: $0.writer,
+                                        image: $0.image,
+                                        logoImageId: $0.logoImageId ?? "",
                                         expireDate: $0.expireDate
                                     )
                                 })!
@@ -67,9 +74,12 @@ struct QuestMainView: View {
             }
             Spacer(minLength: 60)
         }
+        .refreshable {
+            await vm.getQuestList(page: 0)
+        }
     }
 }
 
-#Preview {
-    QuestMainView(vm: QuestMainViewModel())
-}
+//#Preview {
+//    QuestMainView(vm: QuestMainViewModel())
+//}

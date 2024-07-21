@@ -9,25 +9,77 @@ import Foundation
 import Combine
 import SwiftUI
 
-final class QuestMainViewModel: ObservableObject {
+
+protocol QuestMainViewModelInput {
+    func getQuestList(page: Int) async
+}
+
+protocol QuestMainViewModelOutput {
+    var items: [QuestMainViewModelItem] { get }
+    var error: PassthroughSubject<String, Never> { get }
+}
+
+final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutput, ObservableObject {
+    private let questUseCase: GetQuestUseCaseInterface
     
     var questList: [Quest] = [Quest.mockData1, Quest.mockData2]
-
-    @Published var items: [QuestMainViewModelItem] = [.mockData1, .mockData2]
+    private var currentPage: Int = 0
+    
+    @Published var items: [QuestMainViewModelItem] = []
+    @Published var errorMessage: String = ""
+    @Published var showingAlert = false
     @Published var viewState: ViewState = .loaded
-
     
     enum ViewState {
         case empty
         case loading
         case loaded
     }
+    
+    var error = PassthroughSubject<String, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    
+    init(questUseCase: GetQuestUseCaseInterface) {
+        self.questUseCase = questUseCase
+        
+        error.sink { [weak self] errorMessage in
+            self?.errorMessage = errorMessage
+            self?.showingAlert.toggle()
+        }.store(in: &cancellables)
+    }
+
+    @MainActor
+    func getQuestList(page: Int) async {
+        await questUseCase.getQuestList(page: page)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    self.viewState = self.items.isEmpty ? .empty : .loaded
+                case .failure:
+                    self.error.send("Fail to load Quest")
+                    self.viewState = .empty
+                }
+            } receiveValue: { [weak self] result in
+                if page == 0 {
+                    self?.items = []
+                    self?.questList = []
+                }
+                
+                for item in result.map(QuestMainViewModelItem.init) {
+                    self?.items.append(item)
+                }
+                // TODO: 페이지네이션
+                self?.questList += result
+            }
+            .store(in: &cancellables)
+    }
 }
 
 struct QuestMainViewModelItem {
     let questId: String
     let questTitle: String
-    let logoImageId: String
+    let logoImageId: String?
     let logoImage: UIImage?
     let expireDate: String
     
@@ -42,9 +94,9 @@ struct QuestMainViewModelItem {
     init(quest: Quest) {
         self.questId = quest.questId
         self.questTitle = quest.missionTitle
-        self.logoImageId = quest.logoImageId ?? "" // TODO: 수정
+        self.logoImageId = quest.logoImageId
         self.expireDate = quest.expireDate
-        self.logoImage = nil // TODO: 수정
+        self.logoImage = quest.image // TODO: 수정
     }
     
     static var mockData1 = QuestMainViewModelItem.init(quest: .mockData1)

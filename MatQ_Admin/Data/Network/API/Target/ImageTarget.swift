@@ -10,6 +10,7 @@ import Foundation
 
 enum ImageTarget {
     case getImage(GetImageRequest)
+    case postImage(PostImageRequest)
     case deleteImage(DeleteImageRequest)
 }
 
@@ -22,6 +23,7 @@ extension ImageTarget: TargetType {
     var method: HTTPMethod {
         switch self {
         case .getImage: return .get
+        case .postImage: return .post
         case .deleteImage: return .delete
         }
     }
@@ -29,6 +31,7 @@ extension ImageTarget: TargetType {
     var path: String? {
         switch self {
         case .getImage(let request): return request.imageId
+        case .postImage: return nil
         case .deleteImage(let request): return request.imageId
         }
     }
@@ -36,6 +39,7 @@ extension ImageTarget: TargetType {
     var parameters: RequestParams {
         switch self {
         case .getImage: return .query(.none)
+        case .postImage(let request): return .queryAndBody(query: request.type, body: request.data)
         case .deleteImage: return .query(.none)
         }
     }
