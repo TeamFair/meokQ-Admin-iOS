@@ -10,7 +10,7 @@ import Swinject
 
 class AppInject {
     private let injector: DependencyInjector
-    @ObservedObject var coordinator: NavigationStackCoordinator = NavigationStackCoordinator(.MarketMainView)
+    @ObservedObject var coordinator: NavigationStackCoordinator = NavigationStackCoordinator(.QuestMainView)
     
     init() {
         injector = DependencyInjector(container: Container())
