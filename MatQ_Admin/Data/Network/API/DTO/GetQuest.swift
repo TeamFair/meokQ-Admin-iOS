@@ -13,12 +13,7 @@ struct GetQuestRequest: Encodable {
     let page: Int
     let size: Int = 10
     let creatorRole: String = "ADMIN"
-//    let searchDto: SearchDTO
 }
-
-//struct SearchDTO: Encodable {
-//    let creatorRole: String = "ADMIN"
-//}
 
 typealias GetQuestResponse = ResponseWithPage<[GetQuestResponseData]>
 struct GetQuestResponseData: Decodable {

@@ -11,25 +11,19 @@ import Swinject
 struct MainView: View {
     enum Tab {
         case quest
-        case market
         case notice
     }
     @ObservedObject var coordinator: NavigationStackCoordinator
-    @State private var selectedTab: Tab = .market
+    @State private var selectedTab: Tab = .quest
     
     var body: some View {
         NavigationStack(path: $coordinator.paths) {
             TabView(selection: $selectedTab) {
-                coordinator.buildInitialScene(path: .QuestMainView)
+                coordinator.buildInitialScene()
                     .tabItem {
                         Label("퀘스트", systemImage: "checkerboard.rectangle")
                     }
-                    .tag(Tab.market)
-                coordinator.buildInitialScene()
-                    .tabItem {
-                        Label("마켓", systemImage: "house")
-                    }
-                    .tag(Tab.market)
+                    .tag(Tab.quest)
                 
                 coordinator.buildInitialScene(path: .NoticeMainView)
                     .tabItem {
@@ -49,5 +43,5 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView(coordinator: .init(.MarketMainView))
+    MainView(coordinator: .init(.QuestMainView))
 }

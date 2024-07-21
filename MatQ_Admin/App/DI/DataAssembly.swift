@@ -18,19 +18,6 @@ final class DataAssembly: Assembly {
         ) -> QuestService in
             return .init()
         }).inObjectScope(.container)
-        
-        container.register(MarketServiceInterface.self, factory: { (
-            resolver: Resolver
-        ) -> MarketService in
-            return .init()
-        }).inObjectScope(.container)
-
-        
-        container.register(MarketAuthServiceInterface.self, factory: { (
-            resolver: Resolver
-        ) -> MarketAuthService in
-            return .init()
-        }).inObjectScope(.container)
 
         
         container.register(ImageServiceInterface.self, factory: { (
@@ -55,21 +42,6 @@ final class DataAssembly: Assembly {
         ) -> QuestRepository in
             return .init(questService: resolver.resolve(QuestServiceInterface.self)!,
                          imageService:  resolver.resolve(ImageServiceInterface.self)!)
-        }).inObjectScope(.container)
-
-          container.register(MarketRepositoryInterface.self, factory: { (
-            resolver: Resolver
-        ) -> MarketRepository in
-            return .init(marketService: resolver.resolve(MarketServiceInterface.self)!,
-                         imageService: resolver.resolve(ImageServiceInterface.self)!)
-        }).inObjectScope(.container)
-
-        
-        container.register(MarketAuthRepositoryInterface.self, factory: { (
-            resolver: Resolver
-        ) -> MarketAuthRepository in
-            return .init(marketAuthService: resolver.resolve(MarketAuthServiceInterface.self)!,
-                         imageService: resolver.resolve(ImageServiceInterface.self)!)
         }).inObjectScope(.container)
 
         

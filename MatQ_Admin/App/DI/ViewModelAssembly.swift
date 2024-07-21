@@ -26,24 +26,6 @@ final class ViewModelAssembly: Assembly {
                          postQuestUseCase: resolver.resolve(PostQuestUseCaseInterface.self)!,
                          deleteQuestUseCase: resolver.resolve(DeleteQuestUseCaseInterface.self)!)
         }).inObjectScope(.transient)
-        
-        
-        container.register(MarketMainViewModel.self, factory: { (
-            resolver: Resolver
-        ) -> MarketMainViewModel in
-            return .init(marketUseCase: resolver.resolve(GetMarketUseCaseInterface.self)!)
-        }).inObjectScope(.container)
-        
-        container.register(MarketAuthReviewViewModel.self, factory: { (
-            resolver: Resolver,
-            arg: String
-        ) -> MarketAuthReviewViewModel in
-            return .init(
-                marketAuthUseCase: resolver.resolve(FetchMarketReviewMaterialsUseCaseInterface.self)!, 
-                putMarketAuthUseCase: resolver.resolve(PutMarketReviewUseCaseInterface.self)!,
-                marketId: arg
-            )
-        }).inObjectScope(.container)
 
         container.register(NoticeMainViewModel.self, factory: { (
             resolver: Resolver
