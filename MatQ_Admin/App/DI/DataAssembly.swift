@@ -13,6 +13,12 @@ final class DataAssembly: Assembly {
         
         // MARK: - SERVICE
         
+        container.register(QuestServiceInterface.self, factory: { (
+            resolver: Resolver
+        ) -> QuestService in
+            return .init()
+        }).inObjectScope(.container)
+        
         container.register(MarketServiceInterface.self, factory: { (
             resolver: Resolver
         ) -> MarketService in
@@ -44,7 +50,14 @@ final class DataAssembly: Assembly {
         
         // MARK: - Repository
         
-        container.register(MarketRepositoryInterface.self, factory: { (
+        container.register(QuestRepositoryInterface.self, factory: { (
+            resolver: Resolver
+        ) -> QuestRepository in
+            return .init(questService: resolver.resolve(QuestServiceInterface.self)!,
+                         imageService:  resolver.resolve(ImageServiceInterface.self)!)
+        }).inObjectScope(.container)
+
+          container.register(MarketRepositoryInterface.self, factory: { (
             resolver: Resolver
         ) -> MarketRepository in
             return .init(marketService: resolver.resolve(MarketServiceInterface.self)!,

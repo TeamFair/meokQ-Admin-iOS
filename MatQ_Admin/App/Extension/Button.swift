@@ -16,8 +16,10 @@ struct IS_ButonStyle: ButtonStyle {
             .padding(.vertical, 16)
             .foregroundColor(type.fgColor)
             .font(.headline)
-            .background(type.bgColor)
+            .background(configuration.isPressed ? type.bgColor.opacity(0.7) : type.bgColor)
             .cornerRadius(12)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
     }
     
     

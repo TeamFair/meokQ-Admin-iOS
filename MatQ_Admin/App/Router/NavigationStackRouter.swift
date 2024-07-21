@@ -75,7 +75,7 @@ public class NavigationStackCoordinator: ObservableObject {
 }
 
 enum Path: Hashable {
-    //Market
+    //Quest
     case QuestMainView
     case QuestDetailView(type: QuestDetailViewModel.ViewType, quest: Quest)
     

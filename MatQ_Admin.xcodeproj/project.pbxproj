@@ -59,6 +59,15 @@
 		60EC51FA2B9CC239002CBCA3 /* NoticeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51F92B9CC239002CBCA3 /* NoticeDetailViewModel.swift */; };
 		60EC51FC2B9CC312002CBCA3 /* DeleteNoticeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51FB2B9CC312002CBCA3 /* DeleteNoticeUseCase.swift */; };
 		60EC52002B9D99CE002CBCA3 /* View++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51FF2B9D99CE002CBCA3 /* View++.swift */; };
+		60F27DED2C45691F00711A53 /* GetQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEC2C45691F00711A53 /* GetQuest.swift */; };
+		60F27DEF2C45F1A900711A53 /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEE2C45F1A900711A53 /* CommonResponse.swift */; };
+		60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF02C45FADC00711A53 /* QuestTarget.swift */; };
+		60F27DF32C45FD0E00711A53 /* QuestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF22C45FD0E00711A53 /* QuestService.swift */; };
+		60F27DF52C4602DD00711A53 /* GetQuestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF42C4602DD00711A53 /* GetQuestUseCase.swift */; };
+		60F27DF72C46031A00711A53 /* QuestRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */; };
+		60F27DF92C46039400711A53 /* QuestRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF82C46039400711A53 /* QuestRepository.swift */; };
+		60F27DFB2C4616D500711A53 /* PostQuestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DFA2C4616D500711A53 /* PostQuestUseCase.swift */; };
+		60F27DFD2C461B2B00711A53 /* DeleteQuestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DFC2C461B2B00711A53 /* DeleteQuestUseCase.swift */; };
 		E58425D32B42AEC5002C7B3F /* NoticeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */; };
 		E58425D52B42B4A3002C7B3F /* NoticeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */; };
 		E58425D72B42B552002C7B3F /* NoticeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58425D62B42B552002C7B3F /* NoticeDetailView.swift */; };
@@ -148,6 +157,15 @@
 		60EC51F92B9CC239002CBCA3 /* NoticeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailViewModel.swift; sourceTree = "<group>"; };
 		60EC51FB2B9CC312002CBCA3 /* DeleteNoticeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteNoticeUseCase.swift; sourceTree = "<group>"; };
 		60EC51FF2B9D99CE002CBCA3 /* View++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View++.swift"; sourceTree = "<group>"; };
+		60F27DEC2C45691F00711A53 /* GetQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetQuest.swift; sourceTree = "<group>"; };
+		60F27DEE2C45F1A900711A53 /* CommonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponse.swift; sourceTree = "<group>"; };
+		60F27DF02C45FADC00711A53 /* QuestTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTarget.swift; sourceTree = "<group>"; };
+		60F27DF22C45FD0E00711A53 /* QuestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestService.swift; sourceTree = "<group>"; };
+		60F27DF42C4602DD00711A53 /* GetQuestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetQuestUseCase.swift; sourceTree = "<group>"; };
+		60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRepositoryInterface.swift; sourceTree = "<group>"; };
+		60F27DF82C46039400711A53 /* QuestRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRepository.swift; sourceTree = "<group>"; };
+		60F27DFA2C4616D500711A53 /* PostQuestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostQuestUseCase.swift; sourceTree = "<group>"; };
+		60F27DFC2C461B2B00711A53 /* DeleteQuestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteQuestUseCase.swift; sourceTree = "<group>"; };
 		E58425D22B42AEC5002C7B3F /* NoticeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeMainView.swift; sourceTree = "<group>"; };
 		E58425D42B42B4A3002C7B3F /* NoticeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeComponent.swift; sourceTree = "<group>"; };
 		E58425D62B42B552002C7B3F /* NoticeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailView.swift; sourceTree = "<group>"; };
@@ -243,6 +261,7 @@
 				60DA57212B94285C00EDAF30 /* MarketRepository.swift */,
 				60E696842B94E30F009DD235 /* MarketAuthRepository.swift */,
 				60B3573E2B9B75BA0052418A /* NoticeRepository.swift */,
+				60F27DF82C46039400711A53 /* QuestRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -272,6 +291,9 @@
 			isa = PBXGroup;
 			children = (
 				60DA57232B942AAF00EDAF30 /* GetMarketUseCase.swift */,
+				60F27DF42C4602DD00711A53 /* GetQuestUseCase.swift */,
+				60F27DFA2C4616D500711A53 /* PostQuestUseCase.swift */,
+				60F27DFC2C461B2B00711A53 /* DeleteQuestUseCase.swift */,
 				60E696B82B99CAEF009DD235 /* PutMarketReviewUseCase.swift */,
 				60E696822B94E1BB009DD235 /* FetchMarketReviewMaterialsUseCase.swift */,
 				60EC51EB2B9C6BC5002CBCA3 /* GetNoticeUseCase.swift */,
@@ -296,6 +318,7 @@
 				60E6968A2B94EC6A009DD235 /* MarketAuthService.swift */,
 				60E696BE2B9A1FC1009DD235 /* ImageService.swift */,
 				60B3573C2B9B740B0052418A /* NoticeService.swift */,
+				60F27DF22C45FD0E00711A53 /* QuestService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -326,7 +349,9 @@
 				E5C503972B467F7500F47989 /* GetMarket.swift */,
 				E5C5039F2B46920A00F47989 /* GetMarketAuth.swift */,
 				60E696BA2B9A1BFE009DD235 /* GetImage.swift */,
+				60F27DEC2C45691F00711A53 /* GetQuest.swift */,
 				60B357362B9B6C130052418A /* GetNotice.swift */,
+				60F27DEE2C45F1A900711A53 /* CommonResponse.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -366,6 +391,7 @@
 				60E696932B97A9D6009DD235 /* MarketRepositoryInterface.swift */,
 				60E696952B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift */,
 				60B357402B9B75E30052418A /* NoticeRepositoryInterface.swift */,
+				60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -390,6 +416,7 @@
 				60E696862B94E476009DD235 /* MarketAuthTarget.swift */,
 				60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */,
 				60B3573A2B9B70450052418A /* NoticeTarget.swift */,
+				60F27DF02C45FADC00711A53 /* QuestTarget.swift */,
 			);
 			path = Target;
 			sourceTree = "<group>";
@@ -598,6 +625,7 @@
 				60E696962B97AA0F009DD235 /* MarketAuthRepositoryInterface.swift in Sources */,
 				60DA571D2B94182D00EDAF30 /* MarketTarget.swift in Sources */,
 				60B3573B2B9B70450052418A /* NoticeTarget.swift in Sources */,
+				60F27DF32C45FD0E00711A53 /* QuestService.swift in Sources */,
 				60EC51EC2B9C6BC5002CBCA3 /* GetNoticeUseCase.swift in Sources */,
 				E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */,
 				608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */,
@@ -606,17 +634,21 @@
 				60E6968E2B95FD6D009DD235 /* MarketAuthReviewViewModel.swift in Sources */,
 				60B3573F2B9B75BA0052418A /* NoticeRepository.swift in Sources */,
 				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
+				60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */,
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
 				60EC51F02B9C76C8002CBCA3 /* PostNoticeUseCase.swift in Sources */,
+				60F27DFD2C461B2B00711A53 /* DeleteQuestUseCase.swift in Sources */,
 				608EBF972C390C5200B862CC /* QuestDetailViewModel.swift in Sources */,
 				608EBF952C38758100B862CC /* QuestItemView.swift in Sources */,
 				60E696AF2B97CDE2009DD235 /* DomainAssembly.swift in Sources */,
 				608EBF932C3872D700B862CC /* Quest.swift in Sources */,
 				60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */,
 				60E696892B94E6BD009DD235 /* MarketAuthReview.swift in Sources */,
+				60F27DED2C45691F00711A53 /* GetQuest.swift in Sources */,
 				E58425D92B42B56D002C7B3F /* NoticePostView.swift in Sources */,
 				60B357372B9B6C130052418A /* GetNotice.swift in Sources */,
 				608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */,
+				60F27DFB2C4616D500711A53 /* PostQuestUseCase.swift in Sources */,
 				E5C503A02B46920A00F47989 /* GetMarketAuth.swift in Sources */,
 				E5DD825C2B34DCCA00A026C2 /* MainView.swift in Sources */,
 				608EBF912C3871DF00B862CC /* QuestMainViewModel.swift in Sources */,
@@ -644,12 +676,15 @@
 				60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */,
 				E58425D52B42B4A3002C7B3F /* NoticeComponent.swift in Sources */,
 				E58425D72B42B552002C7B3F /* NoticeDetailView.swift in Sources */,
+				60F27DEF2C45F1A900711A53 /* CommonResponse.swift in Sources */,
 				E5DD826B2B35090700A026C2 /* MarketAuthReviewView.swift in Sources */,
+				60F27DF72C46031A00711A53 /* QuestRepositoryInterface.swift in Sources */,
 				60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */,
 				E5C503982B467F7500F47989 /* GetMarket.swift in Sources */,
 				60E696BF2B9A1FC1009DD235 /* ImageService.swift in Sources */,
 				60E696852B94E30F009DD235 /* MarketAuthRepository.swift in Sources */,
 				608EBF992C39166F00B862CC /* TextFieldComponent.swift in Sources */,
+				60F27DF52C4602DD00711A53 /* GetQuestUseCase.swift in Sources */,
 				E5DD827D2B350C0E00A026C2 /* MarketMainView.swift in Sources */,
 				608EBF8A2C38709800B862CC /* AppInject.swift in Sources */,
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
@@ -657,6 +692,7 @@
 				60DA57262B942C5E00EDAF30 /* MarketMainViewModel.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
 				E5DD826D2B35093200A026C2 /* BusinessRegistrationView.swift in Sources */,
+				60F27DF92C46039400711A53 /* QuestRepository.swift in Sources */,
 				60E696BB2B9A1BFE009DD235 /* GetImage.swift in Sources */,
 				60E696AD2B97CC88009DD235 /* DataAssembly.swift in Sources */,
 				E5DD827F2B350D7200A026C2 /* NavigationBarComponent.swift in Sources */,
