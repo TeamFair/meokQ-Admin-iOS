@@ -16,7 +16,10 @@ enum QuestTarget {
 
 extension QuestTarget: TargetType {
     var baseURL: String {
-        return URL.makeEndPoint(.admin(endPoint: "quest"))
+        switch self {
+        case .getQuest, .postQuest: return URL.makeEndPoint(.admin(endPoint: "quest"))
+        case .deleteQuest(let request): return URL.makeEndPoint(.admin(endPoint: "quest/\(request.deleteType.rawValue)"))
+        }
     }
     
     var method: HTTPMethod {
@@ -39,7 +42,7 @@ extension QuestTarget: TargetType {
         switch self {
         case .getQuest(let request): return .query(request)
         case .postQuest(let request): return .body(request)
-        case .deleteQuest(let request): return .query(request)
+        case .deleteQuest(let request): return .query(request.questId)
         }
     }
 }

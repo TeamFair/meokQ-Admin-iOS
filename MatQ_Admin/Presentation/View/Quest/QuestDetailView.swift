@@ -17,11 +17,20 @@ struct QuestDetailView: View {
         VStack(spacing: 16) {
             NavigationBarComponent(navigationTitle: vm.viewType.title, isNotRoot: true)
                 .overlay(alignment: .trailing) {
-                    Button {
-                        vm.deleteData(questId: vm.editedItems.questId)
-                    } label: {
-                        Image(systemName: "trash")
-                            .foregroundStyle(.primaryPurple)
+                    HStack(spacing: 20) {
+                        Button {
+                            vm.deleteData(questId: vm.editedItems.questId, type: .soft)
+                        } label: {
+                            Image(systemName: "eraser")
+                                .foregroundStyle(.primaryPurple)
+                        }
+                        
+                        Button {
+                            vm.deleteData(questId: vm.editedItems.questId, type: .hard)
+                        } label: {
+                            Image(systemName: "trash")
+                                .foregroundStyle(.primaryPurple)
+                        }
                     }
                     .opacity(vm.viewType == .edit ? 1 : 0)
                     .padding(.trailing, 20)
