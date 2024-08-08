@@ -30,8 +30,7 @@ struct GetQuestResponseData: Decodable {
 // MARK: - 퀘스트 등록
 struct PostQuestRequest: Encodable {
     let writer: String
-    let imageId: String = "IMMA2024072114492808"
-    // let imageId: String = "IMQU2024071520500801" //coocker
+    let imageId: String
     let missions: [Mission]
     let rewards: [Reward]
     let expireDate: String

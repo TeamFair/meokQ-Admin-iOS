@@ -22,6 +22,6 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
     
     // TODO: 여기서 PostQuestResponse 이 모델을 알아야하나?
     func postQuest(writer: String, imageId: String, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<PostQuestResponse, NetworkError> {
-        self.questRepository.postQuest(questRequest: PostQuestRequest(writer: writer, /*imageId: imageId,*/ missions: [.init(content: missionTitle)], rewards: [.init(quantity: quantity)], expireDate: expireDate))
+        self.questRepository.postQuest(questRequest: PostQuestRequest(writer: writer, imageId: imageId, missions: [.init(content: missionTitle)], rewards: [.init(quantity: quantity)], expireDate: expireDate))
     }
 }

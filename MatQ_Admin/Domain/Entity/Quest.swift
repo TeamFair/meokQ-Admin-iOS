@@ -42,15 +42,16 @@ struct Quest {
     init() {
         self.questId = UUID().uuidString
         self.missionTitle = ""
-        self.quantity = 0
+        self.quantity = 50
         self.status = ""
-        self.writer = ""
-        self.image = nil
-        self.logoImageId = ""
-        self.expireDate = "2024-12-31"
+        self.writer = "일상"
+        self.image = .testimage
+        self.logoImageId = Quest.defaultLogoImageId
+        self.expireDate = "2030-12-31"
     }
     
     static let initialData = Quest.init()
     static let mockData1 = Quest.init(questId: UUID().uuidString, missionTitle: "밥먹기", quantity: 50, status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31")
     static let mockData2 = Quest.init(questId: UUID().uuidString, missionTitle: "커피 마시기", quantity: 50, status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31")
+    static let defaultLogoImageId = "IMMA2024072114492808"
 }
