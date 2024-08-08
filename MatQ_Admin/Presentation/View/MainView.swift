@@ -31,7 +31,7 @@ struct MainView: View {
                     }
                     .tag(Tab.notice)
             }
-            .tint(.tintYellow)
+            .tint(.primaryPurple)
             .environmentObject(coordinator)
             .navigationDestination(for: Path.self) { path in
                 coordinator.buildScene(path: path)

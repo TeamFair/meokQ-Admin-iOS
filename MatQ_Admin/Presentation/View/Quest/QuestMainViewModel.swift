@@ -51,6 +51,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
 
     @MainActor
     func getQuestList(page: Int) async {
+        viewState = .loading
         await questUseCase.getQuestList(page: page)
             .sink { completion in
                 switch completion {
@@ -71,6 +72,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
                 }
                 // TODO: 페이지네이션
                 self?.questList += result
+                self?.viewState = .loaded
             }
             .store(in: &cancellables)
     }
@@ -81,13 +83,15 @@ struct QuestMainViewModelItem {
     let questTitle: String
     let logoImageId: String?
     let logoImage: UIImage?
+    let status: String
     let expireDate: String
     
-    init(questId: String, questTitle: String, logoImageId: String, logoImage: UIImage?, expireDate: String) {
+    init(questId: String, questTitle: String, logoImageId: String, logoImage: UIImage?, status: String, expireDate: String) {
         self.questId = questId
         self.questTitle = questTitle
         self.logoImageId = logoImageId
         self.logoImage = logoImage
+        self.status = status
         self.expireDate = expireDate
     }
     
@@ -97,6 +101,7 @@ struct QuestMainViewModelItem {
         self.logoImageId = quest.logoImageId
         self.expireDate = quest.expireDate
         self.logoImage = quest.image // TODO: 수정
+        self.status = quest.status
     }
     
     static var mockData1 = QuestMainViewModelItem.init(quest: .mockData1)
