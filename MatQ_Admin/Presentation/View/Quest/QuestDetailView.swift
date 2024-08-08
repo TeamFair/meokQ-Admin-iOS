@@ -7,19 +7,18 @@
 
 import SwiftUI
 import Combine
+import PhotosUI
 
 struct QuestDetailView: View {
     @EnvironmentObject var router: NavigationStackCoordinator
     @StateObject var vm : QuestDetailViewModel
-    
-    let input: PassthroughSubject<QuestDetailViewModel.Input, Never> = .init()
     
     var body: some View {
         VStack(spacing: 16) {
             NavigationBarComponent(navigationTitle: vm.viewType.title, isNotRoot: true)
                 .overlay(alignment: .trailing) {
                     Button {
-                        self.input.send(.deleteData(vm.editedItems.questId))
+                        vm.deleteData(questId: vm.editedItems.questId)
                     } label: {
                         Image(systemName: "trash")
                             .foregroundStyle(.primaryPurple)
@@ -40,59 +39,25 @@ struct QuestDetailView: View {
             
             Button {
                 // TODO: 퀘스트 수정 API 연결
-                self.input.send(.createData(vm.editedItems))
+                vm.createData(data: vm.editedItems)
             } label: {
                 Text(vm.viewType.buttonTitle)
             }
             .ilsangButtonStyle(type: .primary)
-            .opacity(vm.viewType == .edit ? 1 : 0)
-
+            .opacity(vm.viewType == .edit ? 0 : 1)
             .padding(.horizontal, 20)
-        }
-        .padding(.bottom, 20)
-        .task {
-            self.bind()
         }
         .alert(isPresented: $vm.showAlert) {
             Alert(
                 title: Text(vm.alertTitle),
-                message: Text(vm.errorMessage),
+                message: Text(vm.alertMessage),
                 dismissButton: .default(Text("확인")) {
                     if vm.alertTitle == "퀘스트 추가 성공" || vm.alertTitle == "퀘스트 삭제 성공" {
-                        print("HEREE")
-                        self.input.send(.dismiss)
+                        router.pop()
                     }
                 }
             )
         }
-    }
-    
-    func bind() {
-        let output = vm.transform(input: input.eraseToAnyPublisher())
-        
-        output.sink { event in
-            switch event {
-            case .createSuccess(let message):
-                vm.alertTitle = "퀘스트 추가 성공"
-                vm.errorMessage = message
-                vm.showAlert = true
-            case .createFail(let error):
-                vm.alertTitle = "퀘스트 추가 실패"
-                vm.errorMessage = error.localizedDescription
-                vm.showAlert = true
-            case .deleteSuccess(let message):
-                vm.alertTitle = "퀘스트 삭제 성공"
-                vm.errorMessage = message
-                vm.showAlert = true
-            case .deleteFail(let error):
-                vm.alertTitle = "퀘스트 삭제 실패"
-                vm.errorMessage = error.localizedDescription
-                vm.showAlert = true
-            case .dismiss:
-                router.pop()
-            }
-        }
-        .store(in: &vm.subscriptions)
     }
 }
 
