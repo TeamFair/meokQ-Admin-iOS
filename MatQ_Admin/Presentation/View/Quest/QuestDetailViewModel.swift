@@ -77,9 +77,8 @@ final class QuestDetailViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    // 의존성 주입 받은 서비스에서 발생한 삭제 이벤트를 전달 받는 메서드
-    private func deleteData(questId: String) {
-        deleteQuestUseCase.deleteQuest(questId: questId)
+    func deleteData(questId: String, type: QuestDeleteType) {
+        deleteQuestUseCase.deleteQuest(questId: questId, type: type)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 삭제 실패"
@@ -113,4 +112,9 @@ struct QuestDetailViewModelItem: Equatable {
         self.imageId = quest.logoImageId
         self.questImage = quest.image
     }
+}
+
+enum QuestDeleteType: String, Encodable {
+    case hard
+    case soft
 }

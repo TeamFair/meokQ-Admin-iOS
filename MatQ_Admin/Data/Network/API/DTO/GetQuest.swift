@@ -53,7 +53,12 @@ typealias PostQuestResponse = ResponseWithoutData
 
 // MARK: - 퀘스트 삭제
 struct DeleteQuestRequest: Encodable {
-    let questId: String
+    let questId: QuestId
+    let deleteType: QuestDeleteType
+    
+    struct QuestId: Encodable {
+        let questId: String
+    }
 }
 
 typealias DeleteQuestResponse = ResponseWithoutData
