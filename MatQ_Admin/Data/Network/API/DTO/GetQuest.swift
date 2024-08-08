@@ -11,7 +11,7 @@ import UIKit
 // MARK: - 퀘스트 목록 조회
 struct GetQuestRequest: Encodable {
     let page: Int
-    let size: Int = 10
+    let size: Int = 30
     let creatorRole: String = "ADMIN"
 }
 
@@ -30,8 +30,7 @@ struct GetQuestResponseData: Decodable {
 // MARK: - 퀘스트 등록
 struct PostQuestRequest: Encodable {
     let writer: String
-    let imageId: String = "IMMA2024072114492808"
-    // let imageId: String = "IMQU2024071520500801" //coocker
+    let imageId: String
     let missions: [Mission]
     let rewards: [Reward]
     let expireDate: String
