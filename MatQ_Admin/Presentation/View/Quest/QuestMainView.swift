@@ -33,7 +33,8 @@ struct QuestMainView: View {
                 Text("퀘스트 생성")
             }
             .ilsangButtonStyle(type: .primary)
-            .padding(20)
+            .padding(.horizontal)
+            .padding(.vertical, 8)
         }
         .background(.bgSecondary)
         .task {
@@ -69,7 +70,8 @@ struct QuestMainView: View {
                         )
                     )
                 } label: {
-                    QuestItemView(questImage: item.logoImage ?? .testimage, missionTitle: item.questTitle, expireDate: item.expireDate)
+                    QuestItemView(questImage: item.logoImage ?? .nullimage, missionTitle: item.questTitle, expireDate: item.expireDate)
+                        .opacity(item.status == "DELETED" ? 0.3 : 1)
                 }
             }
             Spacer(minLength: 60)
