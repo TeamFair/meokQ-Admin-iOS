@@ -20,7 +20,7 @@ final class DomainAssembly: Assembly {
         container.register(PostQuestUseCaseInterface.self, factory: { (
             resolver: Resolver
         ) -> PostQuestUseCase in
-            return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!)
+            return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!, imageService: resolver.resolve(ImageServiceInterface.self)!)
         }).inObjectScope(.container)
         
         container.register(DeleteQuestUseCaseInterface.self, factory: { (

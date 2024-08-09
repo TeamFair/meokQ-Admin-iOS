@@ -9,4 +9,5 @@ enum NetworkError: Error {
     case decodingError
     case serverError
     case unknownError
+    case invalidImageData
 }

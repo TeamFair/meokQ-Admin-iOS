@@ -15,8 +15,12 @@ struct GetImageRequest: Encodable {
 
 // MARK: - 이미지 등록
 struct PostImageRequest: Encodable {
-    let type: String
+    let type: ImageType = ImageType()
     let data: Data
+    
+    struct ImageType: Encodable {
+        let type: String = "QUEST_IMAGE"
+    }
 }
 
 typealias PostImageResponse =  Response<PostImageResponseData>

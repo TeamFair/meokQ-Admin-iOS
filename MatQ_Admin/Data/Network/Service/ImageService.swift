@@ -11,7 +11,7 @@ import UIKit
 
 protocol ImageServiceInterface {
     func getImage(request: GetImageRequest) async -> Result<UIImage, NetworkError>
-    func postImage(request: PostImageRequest) async -> Result<String, NetworkError>
+    func postImage(request: PostImageRequest) -> AnyPublisher<String, NetworkError>
     func deleteImage(request: DeleteImageRequest) async -> Result<String, NetworkError>
 }
 
@@ -31,35 +31,26 @@ struct ImageService: ImageServiceInterface {
         }
     }
     
-    func postImage(request: PostImageRequest) async -> Result<String, NetworkError> {
-        // TODO: 호출 전에 압축 & 다운샘플링 하기
-        // 이미지 압축 & 다운샘플링
-//        var uiImage = request.data
-//        var currentCompressionQuality: CGFloat = 0.5
-//        if image.size.width > 3000 || image.size.height > 3000 {
-//            guard let downSampledImage = image.downSample(scale: 0.8) else {
-//                return .failure(NetworkError.invalidImageData)
-//            }
-//            uiImage = downSampledImage
-//        }
-//        let imageData = uiImage.jpegData(compressionQuality: currentCompressionQuality) ?? Data()
-        
-        let imageData = request.data
-        let taskRequest = await AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(imageData,
+    func postImage(request: PostImageRequest) -> AnyPublisher<String, NetworkError> {
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(request.data,
                                      withName: "file",
                                      fileName: "image.png",
                                      mimeType: "image/jpeg")
-        }, with: ImageTarget.postImage(request))
-            .serializingDecodable(PostImageResponseData.self)
-            .response
-        
-        switch  taskRequest.result {
-        case .success(let res):
-            return .success(res.imageId)
-        case .failure:
-            return .failure(NetworkError.serverError)
+        }, with: ImageTarget.postImage(request).urlRequest!)
+        .validate(statusCode: 200..<300)
+        .publishDecodable(type: PostImageResponse.self)
+        .tryMap { response in
+            // imageId가 존재하는지 확인
+            guard let imageId = response.value?.data.imageId else {
+                throw NetworkError.invalidImageData
+            }
+            return imageId
         }
+        .mapError { error in
+            return NetworkError.serverError
+        }
+        .eraseToAnyPublisher()
     }
     
     func deleteImage(request: DeleteImageRequest) async -> Result<String, NetworkError> {
@@ -68,7 +59,7 @@ struct ImageService: ImageServiceInterface {
         
         switch await request.result {
         case .success(let response):
-            return .success(response.status ?? "DeleteImageSuccess")
+            return .success(response.status)
         case .failure:
             return .failure(NetworkError.serverError)
         }

@@ -7,6 +7,7 @@
 
 import Combine
 import UIKit
+import _PhotosUI_SwiftUI
 
 final class QuestDetailViewModel: ObservableObject {
     enum ViewType {
@@ -41,10 +42,19 @@ final class QuestDetailViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var alertTitle: String = ""
     @Published var alertMessage: String = ""
-    @Published var photosPickerItem: PhotosPickerItem?
     
     var subscriptions = Set<AnyCancellable>()
     
+    @Published var photosPickerItem: PhotosPickerItem? {
+        didSet {
+            Task {
+                if let imageDataTransferable = try? await photosPickerItem?.loadTransferable(type: ImageDataTransferable.self) {
+                    self.editedItems.questImage = imageDataTransferable.uiImage
+                }
+            }
+        }
+    }
+
     init(viewType: ViewType, questDetail: Quest, postQuestUseCase: PostQuestUseCaseInterface, deleteQuestUseCase: DeleteQuestUseCaseInterface) {
         self.viewType = viewType
         self.questDetail = questDetail
@@ -58,11 +68,7 @@ final class QuestDetailViewModel: ObservableObject {
     let deleteQuestUseCase: DeleteQuestUseCaseInterface
     
     func createData(data: QuestDetailViewModelItem) {
-        guard let imageId = data.imageId else {
-            // TODO: 에러처리
-            return
-        }
-        postQuestUseCase.postQuest(writer: data.writer, imageId: imageId, missionTitle: data.questTitle, quantity: Int(data.xpCount)!, expireDate: data.expireDate)
+        postQuestUseCase.postQuest(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, quantity: Int(data.xpCount)!, expireDate: data.expireDate)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 추가 실패"

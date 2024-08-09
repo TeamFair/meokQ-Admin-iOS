@@ -39,7 +39,7 @@ extension ImageTarget: TargetType {
     var parameters: RequestParams {
         switch self {
         case .getImage: return .query(.none)
-        case .postImage(let request): return .queryAndBody(query: request.type, body: request.data)
+        case .postImage(let request): return .query(request.type)
         case .deleteImage: return .query(.none)
         }
     }
