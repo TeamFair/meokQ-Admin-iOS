@@ -35,12 +35,14 @@ struct TextFieldComponent: View {
 
 struct ImageFieldComponent: View {
     let titleName : String
-    @Binding var uiImage: UIImage?
+    let uiImage: UIImage?
     
     var body: some View {
         VStack(alignment: .leading){
             Text(titleName)
                 .font(.subheadline).bold()
+                .multilineTextAlignment(.leading)
+                .foregroundStyle(.textPrimary)
 
             if let image = uiImage {
                 Image(uiImage: image)
@@ -52,7 +54,8 @@ struct ImageFieldComponent: View {
                 RoundedRectangle(cornerRadius: 12)
                     .frame(width: 160, height: 160)
                     .cornerRadius(12)
-                    .background(.regularMaterial)
+                    .foregroundStyle(.regularMaterial)
+                    .frame(maxWidth: .infinity)
             }
         }
         .frame(maxWidth: .infinity)
@@ -61,5 +64,8 @@ struct ImageFieldComponent: View {
 }
 
 #Preview {
-    TextFieldComponent(titleName: "Title", contentPlaceholder: "Placeholder", content: .constant("Test"))
+    VStack {
+        TextFieldComponent(titleName: "TextField", contentPlaceholder: "Placeholder", content: .constant("Test"))
+        ImageFieldComponent(titleName: "ImageField", uiImage: (.testimage))
+    }
 }

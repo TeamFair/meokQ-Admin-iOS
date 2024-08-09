@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */; };
+		601048712C652FC20028662D /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
 		608EBF8A2C38709800B862CC /* AppInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF892C38709800B862CC /* AppInject.swift */; };
 		608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF8C2C38716100B862CC /* QuestMainView.swift */; };
 		608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF8E2C38716900B862CC /* QuestDetailView.swift */; };
@@ -83,6 +85,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataTransferable.swift; sourceTree = "<group>"; };
+		601048702C652FC20028662D /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
 		608EBF892C38709800B862CC /* AppInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInject.swift; sourceTree = "<group>"; };
 		608EBF8C2C38716100B862CC /* QuestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMainView.swift; sourceTree = "<group>"; };
 		608EBF8E2C38716900B862CC /* QuestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDetailView.swift; sourceTree = "<group>"; };
@@ -158,6 +162,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60004FEE2C662348009AECF2 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		608EBF8B2C38715500B862CC /* Quest */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +188,7 @@
 				E5DD82592B34DCCA00A026C2 /* MatQ_AdminApp.swift */,
 				60E696972B97AFBA009DD235 /* DI */,
 				60E696B32B98C571009DD235 /* Extension */,
+				60004FEE2C662348009AECF2 /* Helper */,
 				E5DD82792B350A6A00A026C2 /* Router */,
 			);
 			path = App;
@@ -337,6 +350,7 @@
 				60E696B42B98C583009DD235 /* Bundle++.swift */,
 				60EC51FF2B9D99CE002CBCA3 /* View++.swift */,
 				608EBF9A2C393C2600B862CC /* Button.swift */,
+				601048702C652FC20028662D /* UIImage++.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -560,7 +574,9 @@
 				E58425D52B42B4A3002C7B3F /* NoticeComponent.swift in Sources */,
 				E58425D72B42B552002C7B3F /* NoticeDetailView.swift in Sources */,
 				60F27DEF2C45F1A900711A53 /* CommonResponse.swift in Sources */,
+				601048712C652FC20028662D /* UIImage++.swift in Sources */,
 				60F27DF72C46031A00711A53 /* QuestRepositoryInterface.swift in Sources */,
+				60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */,
 				60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */,
 				60E696BF2B9A1FC1009DD235 /* ImageService.swift in Sources */,
 				608EBF992C39166F00B862CC /* TextFieldComponent.swift in Sources */,
@@ -726,7 +742,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.teamfair.MatQ-Admin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -766,7 +782,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.teamfair.MatQ-Admin";
 				PRODUCT_NAME = "$(TARGET_NAME)";

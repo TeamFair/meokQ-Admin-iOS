@@ -14,7 +14,7 @@ struct QuestDetailView: View {
     @StateObject var vm : QuestDetailViewModel
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 8) {
             NavigationBarComponent(navigationTitle: vm.viewType.title, isNotRoot: true)
                 .overlay(alignment: .trailing) {
                     HStack(spacing: 20) {
@@ -41,20 +41,28 @@ struct QuestDetailView: View {
                     TextFieldComponent(titleName: "리워드 XP", contentPlaceholder: String(vm.items.xpCount), content: $vm.editedItems.xpCount)
                     TextFieldComponent(titleName: "작성자", contentPlaceholder: vm.items.writer, content: $vm.editedItems.writer)
                     TextFieldComponent(titleName: "만료 기한", contentPlaceholder: vm.items.expireDate, content: $vm.editedItems.expireDate)
-                    ImageFieldComponent(titleName: "퀘스트 이미지", uiImage: $vm.editedItems.questImage)
+                    
+                    if vm.viewType == .publish {
+                        PhotosPicker(selection: $vm.photosPickerItem, matching: .any(of: [.images, .screenshots])) {
+                            ImageFieldComponent(titleName: "퀘스트 이미지", uiImage: vm.editedItems.questImage)
+                        }
+                    } else {
+                        ImageFieldComponent(titleName: "퀘스트 이미지", uiImage: vm.items.questImage)
+                    }
                 }
                 .padding(.horizontal, 20)
             }
             
-            Button {
-                // TODO: 퀘스트 수정 API 연결
-                vm.createData(data: vm.editedItems)
-            } label: {
-                Text(vm.viewType.buttonTitle)
+            if vm.viewType == .publish {
+                Button {
+                    // TODO: 퀘스트 수정 API 연결
+                    vm.createData(data: vm.editedItems)
+                } label: {
+                    Text(vm.viewType.buttonTitle)
+                }
+                .ilsangButtonStyle(type: .primary)
+                .padding(.horizontal, 20)
             }
-            .ilsangButtonStyle(type: .primary)
-            .opacity(vm.viewType == .edit ? 0 : 1)
-            .padding(.horizontal, 20)
         }
         .alert(isPresented: $vm.showAlert) {
             Alert(
