@@ -30,6 +30,9 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
     @Published var showingAlert = false
     @Published var viewState: ViewState = .loaded
     
+    @AppStorage("port") var port = "9090"
+    @Published var portText = ""
+    
     enum ViewState {
         case empty
         case loading
