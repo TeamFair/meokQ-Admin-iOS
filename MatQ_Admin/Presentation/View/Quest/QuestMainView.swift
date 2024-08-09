@@ -14,6 +14,26 @@ struct QuestMainView: View {
     var body: some View {
         VStack(spacing: 0) {
             NavigationBarComponent(navigationTitle: "퀘스트", isNotRoot: false)
+                .overlay(alignment: .trailing) {
+                    Button {
+                        vm.showingAlert = true
+                    } label: {
+                        Image(systemName: "terminal")
+                    }
+                    .padding(.trailing, 20)
+                }
+                .alert("포트번호 변경", isPresented: $vm.showingAlert, actions: {
+                    TextField("\(vm.port)", text: $vm.portText)
+                    
+                    Button("변경", action: {
+                        vm.port = vm.portText
+                    })
+                    .disabled(vm.portText == "")
+                    
+                    Button("취소", role: .cancel, action: {})
+                }, message: {
+                    Text("변경할 포트번호을 작성해주세요.")
+                })
             
             switch vm.viewState {
             case .empty:

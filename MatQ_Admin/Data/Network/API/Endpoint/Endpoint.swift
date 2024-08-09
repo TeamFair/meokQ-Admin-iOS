@@ -8,10 +8,9 @@
 import Foundation
 
 extension URL {
-    static let baseURL = "http://43.202.229.190"
-    static let port = "9090"
     static func makeEndPoint(_ target: EndPointTarget) -> String {
-        return baseURL + ":" + port + "/api/" + target.type + "/" + target.endPoint
+        let baseURL = NetworkConfiguration.shared.completeBaseURL
+        return baseURL + "/api/" + target.type + "/" + target.endPoint
     }
 }
 

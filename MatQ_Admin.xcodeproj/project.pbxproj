@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */; };
+		60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FF12C662495009AECF2 /* NetworkConfiguration.swift */; };
 		601048712C652FC20028662D /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
 		608EBF8A2C38709800B862CC /* AppInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF892C38709800B862CC /* AppInject.swift */; };
 		608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF8C2C38716100B862CC /* QuestMainView.swift */; };
@@ -86,6 +87,7 @@
 
 /* Begin PBXFileReference section */
 		60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataTransferable.swift; sourceTree = "<group>"; };
+		60004FF12C662495009AECF2 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		601048702C652FC20028662D /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
 		608EBF892C38709800B862CC /* AppInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInject.swift; sourceTree = "<group>"; };
 		608EBF8C2C38716100B862CC /* QuestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMainView.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				60DA570D2B94132E00EDAF30 /* Endpoint.swift */,
+				60004FF12C662495009AECF2 /* NetworkConfiguration.swift */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				608EBF912C3871DF00B862CC /* QuestMainViewModel.swift in Sources */,
 				60EC51EA2B9C67DB002CBCA3 /* NoticeMainViewModel.swift in Sources */,
 				60EC51FA2B9CC239002CBCA3 /* NoticeDetailViewModel.swift in Sources */,
+				60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */,
 				60B3573D2B9B740B0052418A /* NoticeService.swift in Sources */,
 				E58425D32B42AEC5002C7B3F /* NoticeMainView.swift in Sources */,
 				60EC52002B9D99CE002CBCA3 /* View++.swift in Sources */,
