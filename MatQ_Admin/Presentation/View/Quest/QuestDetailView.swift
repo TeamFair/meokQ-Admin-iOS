@@ -19,14 +19,18 @@ struct QuestDetailView: View {
                 .overlay(alignment: .trailing) {
                     HStack(spacing: 20) {
                         Button {
-                            vm.deleteData(questId: vm.editedItems.questId, type: .soft)
+                            vm.showAlert = true
+                            vm.selectedDeleteType = .soft
+                            vm.activeAlertType = .delete
                         } label: {
                             Image(systemName: "eraser")
                                 .foregroundStyle(.primaryPurple)
                         }
                         
                         Button {
-                            vm.deleteData(questId: vm.editedItems.questId, type: .hard)
+                            vm.showAlert = true
+                            vm.selectedDeleteType = .hard
+                            vm.activeAlertType = .delete
                         } label: {
                             Image(systemName: "trash")
                                 .foregroundStyle(.primaryPurple)
@@ -65,15 +69,29 @@ struct QuestDetailView: View {
             }
         }
         .alert(isPresented: $vm.showAlert) {
-            Alert(
-                title: Text(vm.alertTitle),
-                message: Text(vm.alertMessage),
-                dismissButton: .default(Text("확인")) {
-                    if vm.alertTitle == "퀘스트 추가 성공" || vm.alertTitle == "퀘스트 삭제 성공" {
-                        router.pop()
+            switch vm.activeAlertType {
+            case .delete:
+                Alert(
+                    title: Text("퀘스트를 삭제하시겠습니까?"),
+                    message: Text("퀘스트를 복구할 수 없습니다."),
+                    primaryButton: .cancel(Text("취소")),
+                    secondaryButton: .destructive(Text("삭제")) {
+                        vm.deleteData(questId: vm.editedItems.questId, type: vm.selectedDeleteType)
                     }
-                }
-            )
+                )
+            case .result:
+                Alert(
+                    title: Text(vm.alertTitle),
+                    message: Text(vm.alertMessage),
+                    dismissButton: .default(Text("확인")) {
+                        if vm.alertTitle == "퀘스트 추가 성공" || vm.alertTitle == "퀘스트 삭제 성공" {
+                            router.pop()
+                        }
+                    }
+                )
+            case .none:
+                Alert(title: Text(""))
+            }
         }
     }
 }
