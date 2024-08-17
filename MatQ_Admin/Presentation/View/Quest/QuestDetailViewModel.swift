@@ -39,9 +39,26 @@ final class QuestDetailViewModel: ObservableObject {
     let items: QuestDetailViewModelItem
     @Published var editedItems: QuestDetailViewModelItem
     
-    @Published var showAlert: Bool = false
+    // 퀘스트 추가&삭제 Alert 관련
     @Published var alertTitle: String = ""
     @Published var alertMessage: String = ""
+    @Published var showAlert: Bool = false
+    @Published var activeAlertType: ActiveAlertType?
+    @Published var selectedDeleteType: QuestDeleteType = .hard
+    
+    enum ActiveAlertType: Identifiable {
+        case delete
+        case result
+        
+        var id: Int {
+            switch self {
+            case .delete:
+                return 1
+            case .result:
+                return 2
+            }
+        }
+    }
     
     var subscriptions = Set<AnyCancellable>()
     
@@ -73,11 +90,13 @@ final class QuestDetailViewModel: ObservableObject {
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 추가 실패"
                     self?.alertMessage = error.localizedDescription
+                    self?.activeAlertType = .result
                     self?.showAlert = true
                 }
             } receiveValue: { [weak self] _ in
                 self?.alertTitle = "퀘스트 추가 성공"
                 self?.alertMessage = "퀘스트가 성공적으로 추가되었습니다"
+                self?.activeAlertType = .result
                 self?.showAlert = true
             }
             .store(in: &subscriptions)
@@ -89,11 +108,13 @@ final class QuestDetailViewModel: ObservableObject {
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 삭제 실패"
                     self?.alertMessage = error.localizedDescription
+                    self?.activeAlertType = .result
                     self?.showAlert = true
                 }
             } receiveValue: { [weak self] _ in
                 self?.alertTitle = "퀘스트 삭제 성공"
                 self?.alertMessage = "퀘스트가 성공적으로 삭제되었습니다"
+                self?.activeAlertType = .result
                 self?.showAlert = true
             }
             .store(in: &subscriptions)
