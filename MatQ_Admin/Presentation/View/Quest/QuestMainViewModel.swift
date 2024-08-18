@@ -52,10 +52,10 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
         }.store(in: &cancellables)
     }
 
-    @MainActor
-    func getQuestList(page: Int) async {
+    func getQuestList(page: Int) {
         viewState = .loading
-        await questUseCase.getQuestList(page: page)
+        questUseCase.getQuestList(page: page)
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
                 case .finished:

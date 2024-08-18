@@ -8,7 +8,7 @@
 import Combine
 
 protocol GetQuestUseCaseInterface {
-    func getQuestList(page: Int) async -> AnyPublisher<[Quest], NetworkError>
+    func getQuestList(page: Int) -> AnyPublisher<[Quest], NetworkError>
 }
 
 final class GetQuestUseCase: GetQuestUseCaseInterface {
@@ -19,8 +19,8 @@ final class GetQuestUseCase: GetQuestUseCaseInterface {
         self.questRepository = questRepository
     }
     
-    func getQuestList(page: Int) async -> AnyPublisher<[Quest], NetworkError> {
-        return await self.questRepository.getQuestList(page: page)
+    func getQuestList(page: Int) -> AnyPublisher<[Quest], NetworkError> {
+        self.questRepository.getQuestList(page: page)
             .map { questResponseImageDataList in
                 questResponseImageDataList.map { Quest(quest: $0) }
             }
