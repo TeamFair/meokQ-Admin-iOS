@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 final class QuestRepository: QuestRepositoryInterface {
- 
+    
     let questService: QuestServiceInterface
     let imageService: ImageServiceInterface
     
@@ -18,70 +18,63 @@ final class QuestRepository: QuestRepositoryInterface {
         self.imageService = imageService
     }
     
-    func getQuestList(page: Int) async -> AnyPublisher<[GetQuestResponseImageData], NetworkError> {
+    func getQuestList(page: Int) -> AnyPublisher<[GetQuestResponseImageData], NetworkError> {
         let request = GetQuestRequest(page: page)
         
-        do {
-            let questListResponse = await self.questService.getQuestList(request: request)
-            let mappedData = try await mapImagesAsync(questListResponse)
-            return Result.Publisher(.success(mappedData))
-                .eraseToAnyPublisher()
-        } catch {
-            return Result.Publisher(.failure(NetworkError.unknownError))
-                .eraseToAnyPublisher()
-        }
-    }
-    
-    private func loadImage(imageId: String) async -> UIImage? {
-        guard imageId != "" else  { return nil }
-        
-        let imageResponse = await self.imageService.getImage(request: .init(imageId: imageId))
-        
-        switch imageResponse {
-        case .success(let uiImage):
-            return uiImage
-        case .failure:
-            return nil
-        }
-    }
-    
-    private func mapImagesAsync(_ questListResponse: Result<[GetQuestResponseData], NetworkError>) async throws -> [GetQuestResponseImageData] {
-        switch questListResponse {
-        case .success(let res):
-            var modifiedResponse = [GetQuestResponseImageData]()
-            try await withThrowingTaskGroup(of: GetQuestResponseImageData.self) { group in
-                for quest in res {
-                    group.addTask {
-                        let uiImage = await self.updateQuestImage(quest)
-                        var modifiedQuest = GetQuestResponseImageData(quest: quest)
-                        modifiedQuest.image = uiImage
-                        return modifiedQuest
-                    }
+        return questService.getQuestList(request: request)
+            .flatMap { [weak self] questListResponse -> AnyPublisher<[GetQuestResponseImageData], NetworkError> in
+                guard let self = self else {
+                    return Fail(error: .unknownError)
+                        .eraseToAnyPublisher()
                 }
-            
-                for try await modifiedQuest in group {
-                    modifiedResponse.append(modifiedQuest)
-                }
+                return self.mapImages(questListResponse)
             }
-            return modifiedResponse
-        case .failure(let error):
-            throw error
-        }
+            .eraseToAnyPublisher()
     }
-    private func updateQuestImage(_ quest: GetQuestResponseData) async -> UIImage? {
-        guard let imageId = quest.imageId else { return nil }
-        let image = await self.loadImage(imageId: imageId)
-        return image
+    
+    private func loadImage(imageId: String) -> AnyPublisher<UIImage?, Never> {
+        guard !imageId.isEmpty else {
+            return Just(nil).eraseToAnyPublisher()
+        }
+        
+        return imageService.getImage(request: .init(imageId: imageId))
+            .map { uiImage in
+                return Optional(uiImage) // UIImage를 UIImage?로 변환
+            }
+            .replaceError(with: nil)
+            .eraseToAnyPublisher()
+    }
+    
+    private func mapImages(_ questListResponse: [GetQuestResponseData]) -> AnyPublisher<[GetQuestResponseImageData], NetworkError> {
+        let publishers = questListResponse.map { quest -> AnyPublisher<GetQuestResponseImageData, Never> in
+            return self.updateQuestImage(quest)
+                .map { uiImage in
+                    var modifiedQuest = GetQuestResponseImageData(quest: quest)
+                    modifiedQuest.image = uiImage
+                    return modifiedQuest
+                }
+                .eraseToAnyPublisher()
+        }
+        
+        return Publishers.MergeMany(publishers)
+            .collect()
+            .setFailureType(to: NetworkError.self)
+            .eraseToAnyPublisher()
+    }
+    
+    private func updateQuestImage(_ quest: GetQuestResponseData) -> AnyPublisher<UIImage?, Never> {
+        guard let imageId = quest.imageId else {
+            return Just(nil).eraseToAnyPublisher()
+        }
+        return loadImage(imageId: imageId)
     }
     
     func postQuest(questRequest: PostQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError> {
-        let response = self.questService.postQuest(request: questRequest)
-        return response
+        questService.postQuest(request: questRequest)
     }
     
     func deleteQuest(questRequest: DeleteQuestRequest) -> AnyPublisher<DeleteQuestResponse, NetworkError> {
-        let response = self.questService.deleteQuest(request: questRequest)
-        return response
+        questService.deleteQuest(request: questRequest)
     }
 }
 

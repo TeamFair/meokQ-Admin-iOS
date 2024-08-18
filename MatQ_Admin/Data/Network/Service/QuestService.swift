@@ -10,23 +10,24 @@ import Combine
 import Foundation
 
 protocol QuestServiceInterface {
-    func getQuestList(request: GetQuestRequest) async -> Result<[GetQuestResponseData], NetworkError>
+    func getQuestList(request: GetQuestRequest) -> AnyPublisher<[GetQuestResponseData], NetworkError>
     func postQuest(request: PostQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError>
     func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError>
 }
 
 struct QuestService: QuestServiceInterface {
-    func getQuestList(request: GetQuestRequest) async -> Result<[GetQuestResponseData], NetworkError> {
-        let taskRequest = AF.request(QuestTarget.getQuest(request))
+    func getQuestList(request: GetQuestRequest) -> AnyPublisher<[GetQuestResponseData], NetworkError> {
+        AF.request(QuestTarget.getQuest(request))
             .validate(statusCode: 200..<300)
-            .serializingDecodable(ResponseWithPage<[GetQuestResponseData]>.self)
-        
-        switch await taskRequest.result {
-        case .success(let response):
-            return .success(response.data)
-        case .failure:
-            return .failure(NetworkError.serverError)
-        }
+            .publishDecodable(type: ResponseWithPage<[GetQuestResponseData]>.self)
+            .tryMap { response in
+                guard let value = response.value else {
+                    throw NetworkError.serverError
+                }
+                return value.data
+            }
+            .mapError { _ in NetworkError.serverError }
+            .eraseToAnyPublisher()
     }
     
     func postQuest(request: PostQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError> {
@@ -34,7 +35,6 @@ struct QuestService: QuestServiceInterface {
             .validate(statusCode: 200..<300)
             .publishDecodable(type: PostQuestResponse.self)
             .value()
-            .print("", to: nil)
             .mapError { error in
                 print(error.localizedDescription)
                 return NetworkError.serverError
@@ -44,7 +44,7 @@ struct QuestService: QuestServiceInterface {
     }
     
     func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError> {
-        return AF.request(QuestTarget.deleteQuest(request))
+        AF.request(QuestTarget.deleteQuest(request))
             .validate(statusCode: 200..<300)
             .publishDecodable(type: DeleteQuestResponse.self)
             .value()
