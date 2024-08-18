@@ -8,7 +8,7 @@
 import Combine
 
 protocol QuestRepositoryInterface {
-    func getQuestList(page: Int) async -> AnyPublisher<[GetQuestResponseImageData], NetworkError>
+    func getQuestList(page: Int) -> AnyPublisher<[GetQuestResponseImageData], NetworkError>
     func postQuest(questRequest: PostQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError>
     func deleteQuest(questRequest: DeleteQuestRequest) -> AnyPublisher<DeleteQuestResponse, NetworkError>
 }
