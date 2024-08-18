@@ -16,17 +16,23 @@ protocol QuestServiceInterface {
 }
 
 struct QuestService: QuestServiceInterface {
+    private let networkService: NetworkServiceInterface
+    
+    init(networkService: NetworkServiceInterface) {
+        self.networkService = networkService
+    }
+    
     func getQuestList(request: GetQuestRequest) -> AnyPublisher<[GetQuestResponseData], NetworkError> {
-        NetworkUtils.request(QuestTarget.getQuest(request), as: ResponseWithPage<[GetQuestResponseData]>.self)
+        networkService.request(QuestTarget.getQuest(request), as: ResponseWithPage<[GetQuestResponseData]>.self)
             .map { $0.data }
             .eraseToAnyPublisher()
     }
     
     func postQuest(request: PostQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError> {
-        NetworkUtils.request(QuestTarget.postQuest(request), as: PostQuestResponse.self)
+        networkService.request(QuestTarget.postQuest(request), as: PostQuestResponse.self)
     }
 
     func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<DeleteQuestResponse, NetworkError> {
-        NetworkUtils.request(QuestTarget.deleteQuest(request), as: DeleteQuestResponse.self)
+        networkService.request(QuestTarget.deleteQuest(request), as: DeleteQuestResponse.self)
     }
 }

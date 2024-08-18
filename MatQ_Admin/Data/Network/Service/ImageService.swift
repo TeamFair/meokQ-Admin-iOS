@@ -16,12 +16,18 @@ protocol ImageServiceInterface {
 }
 
 struct ImageService: ImageServiceInterface {
+    private let networkService: NetworkServiceInterface
+    
+    init(networkService: NetworkServiceInterface) {
+        self.networkService = networkService
+    }
+    
     func getImage(request: GetImageRequest) -> AnyPublisher<UIImage, NetworkError> {
-        NetworkUtils.requestImage(ImageTarget.getImage(request))
+        networkService.requestImage(ImageTarget.getImage(request))
     }
     
     func postImage(request: PostImageRequest) -> AnyPublisher<String, NetworkError> {
-        NetworkUtils.upload(ImageTarget.postImage(request).urlRequest!, multipartFormData: { multipartFormData in
+        networkService.upload(ImageTarget.postImage(request).urlRequest!, multipartFormData: { multipartFormData in
             multipartFormData.append(request.data,
                                      withName: "file",
                                      fileName: "image.png",
@@ -36,7 +42,7 @@ struct ImageService: ImageServiceInterface {
     }
     
     func deleteImage(request: DeleteImageRequest) -> AnyPublisher<String, NetworkError> {
-        NetworkUtils.request(ImageTarget.deleteImage(request), as: DeleteImageResponse.self)
+        networkService.request(ImageTarget.deleteImage(request), as: DeleteImageResponse.self)
             .map { $0.status }
             .eraseToAnyPublisher()
     }

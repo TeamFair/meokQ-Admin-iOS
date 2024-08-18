@@ -12,18 +12,24 @@ final class DataAssembly: Assembly {
     func assemble(container: Container) {
         
         // MARK: - SERVICE
+        container.register(NetworkServiceInterface.self, factory: { (
+            resolver: Resolver
+        ) -> NetworkService in
+            return .init()
+        }).inObjectScope(.container)
+
         
         container.register(QuestServiceInterface.self, factory: { (
             resolver: Resolver
         ) -> QuestService in
-            return .init()
+            return .init(networkService: resolver.resolve(NetworkServiceInterface.self)!)
         }).inObjectScope(.container)
 
         
         container.register(ImageServiceInterface.self, factory: { (
             resolver: Resolver
         ) -> ImageService in
-            return .init()
+            return .init(networkService: resolver.resolve(NetworkServiceInterface.self)!)
         }).inObjectScope(.container)
 
         
