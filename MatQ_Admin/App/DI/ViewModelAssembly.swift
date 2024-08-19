@@ -26,31 +26,5 @@ final class ViewModelAssembly: Assembly {
                          postQuestUseCase: resolver.resolve(PostQuestUseCaseInterface.self)!,
                          deleteQuestUseCase: resolver.resolve(DeleteQuestUseCaseInterface.self)!)
         }).inObjectScope(.transient)
-
-        container.register(NoticeMainViewModel.self, factory: { (
-            resolver: Resolver
-        ) -> NoticeMainViewModel in
-            return .init(
-                noticeUseCase: resolver.resolve(GetNoticeUseCaseInterface.self)!
-            )
-        }).inObjectScope(.container)
-        
-        container.register(NoticePostViewModel.self, factory: { (
-            resolver: Resolver
-        ) -> NoticePostViewModel in
-            return .init(
-                noticeUseCase: resolver.resolve(PostNoticeUseCaseInterface.self)!
-            )
-        }).inObjectScope(.container)
-
-        container.register(NoticeDetailViewModel.self, factory: { (
-            resolver: Resolver,
-            arg: Notice
-        ) -> NoticeDetailViewModel in
-            return .init(
-                noticeUseCase: resolver.resolve(DeleteNoticeUseCaseInterface.self)!,
-                notice: arg
-            )
-        }).inObjectScope(.container)
     }
 }
