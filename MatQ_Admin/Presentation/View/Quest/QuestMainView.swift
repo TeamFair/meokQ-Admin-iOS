@@ -54,11 +54,11 @@ struct QuestMainView: View {
             }
             .ilsangButtonStyle(type: .primary)
             .padding(.horizontal)
-            .padding(.vertical, 8)
+            .padding(.bottom, 12)
         }
         .background(.bgSecondary)
         .task {
-            await vm.getQuestList(page: 0)
+            vm.getQuestList(page: 0)
         }
         .alert(isPresented: $vm.showingAlert) {
             Alert(title: Text("Error"), message: Text(vm.errorMessage), dismissButton: .default(Text("OK")))
