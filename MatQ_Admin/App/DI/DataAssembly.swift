@@ -27,14 +27,6 @@ final class DataAssembly: Assembly {
         }).inObjectScope(.container)
 
         
-        container.register(NoticeServiceInterface.self, factory: { (
-            resolver: Resolver
-        ) -> NoticeService in
-            return .init()
-        }).inObjectScope(.container)
-
-        
-        
         // MARK: - Repository
         
         container.register(QuestRepositoryInterface.self, factory: { (
@@ -43,13 +35,5 @@ final class DataAssembly: Assembly {
             return .init(questService: resolver.resolve(QuestServiceInterface.self)!,
                          imageService:  resolver.resolve(ImageServiceInterface.self)!)
         }).inObjectScope(.container)
-
-        
-        container.register(NoticeRepositoryInterface.self, factory: { (
-            resolver: Resolver
-        ) -> NoticeRepository in
-            return .init(noticeService: resolver.resolve(NoticeServiceInterface.self)!)
-        }).inObjectScope(.container)
-
     }
 }

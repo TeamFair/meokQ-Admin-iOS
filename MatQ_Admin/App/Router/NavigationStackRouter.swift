@@ -43,18 +43,11 @@ public class NavigationStackCoordinator: ObservableObject {
     
     @ViewBuilder
     func buildScene(path: Path) -> some View {
-        
         switch path {
         case .QuestMainView:
             injector?.resolve(QuestMainView.self)
         case .QuestDetailView(let type, let quest):
             injector?.resolve(QuestDetailView.self, argument1: type, argument2: quest)
-        case .NoticeMainView:
-            injector?.resolve(NoticeMainView.self)
-        case .NoticePostView:
-            injector?.resolve(NoticePostView.self)
-        case .NoticeDetailView(let notice):
-            injector?.resolve(NoticeDetailView.self, argument: notice)
         }
     }
     
@@ -65,35 +58,20 @@ enum Path: Hashable {
     case QuestMainView
     case QuestDetailView(type: QuestDetailViewModel.ViewType, quest: Quest)
     
-    //Notice
-    case NoticeMainView
-    case NoticePostView
-    case NoticeDetailView(notice: Notice)
-    
     func hash(into hasher: inout Hasher) {
         switch self {
         case .QuestMainView:
             hasher.combine("QuestMainView")
         case .QuestDetailView:
             hasher.combine("QuestDetailView")
-        case .NoticeMainView:
-            hasher.combine("NoticeMainView")
-        case .NoticePostView:
-            hasher.combine("NoticePostView")
-        case .NoticeDetailView:
-            hasher.combine("NoticeDetailView")
         }
     }
     
     static func == (lhs: Path, rhs: Path) -> Bool {
         switch (lhs, rhs) {
-        case (.QuestMainView, .QuestDetailView):
+        case (.QuestMainView, .QuestMainView):
             return true
-        case (.NoticeMainView, .NoticeMainView):
-            return true
-        case (.NoticePostView, .NoticePostView):
-            return true
-        case (.NoticeDetailView, .NoticeDetailView):
+        case (.QuestDetailView, .QuestDetailView):
             return true
         default:
             return false

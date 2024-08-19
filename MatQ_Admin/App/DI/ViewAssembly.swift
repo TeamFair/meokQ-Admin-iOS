@@ -25,28 +25,5 @@ final class ViewAssembly: Assembly {
         ) -> QuestDetailView in
             return .init(vm: resolver.resolve(QuestDetailViewModel.self, arguments: arg1, arg2)!)
         }).inObjectScope(.transient)
-        
-     
-        // MARK: - Notice View
-        
-        container.register(NoticeMainView.self, factory: { (
-            resolver: Resolver
-        ) -> NoticeMainView in
-            return .init(vm: resolver.resolve(NoticeMainViewModel.self)!)
-        }).inObjectScope(.container)
-        
-        container.register(NoticePostView.self, factory: { (
-            resolver: Resolver
-        ) -> NoticePostView in
-            return .init(vm: resolver.resolve(NoticePostViewModel.self)!)
-        }).inObjectScope(.container)
-
-        
-        container.register(NoticeDetailView.self, factory: { (
-            resolver: Resolver,
-            arg: Notice
-        ) -> NoticeDetailView in
-            return .init(vm: resolver.resolve(NoticeDetailViewModel.self, argument: arg)!)
-        }).inObjectScope(.container)
     }
 }
