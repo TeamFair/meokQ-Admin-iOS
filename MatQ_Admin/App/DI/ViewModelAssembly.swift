@@ -10,6 +10,8 @@ import Swinject
 final class ViewModelAssembly: Assembly {
     
     func assemble(container: Container) {
+        // MARK: - Quest
+
         container.register(QuestMainViewModel.self, factory: { (
             resolver: Resolver
         ) -> QuestMainViewModel in
@@ -26,5 +28,21 @@ final class ViewModelAssembly: Assembly {
                          postQuestUseCase: resolver.resolve(PostQuestUseCaseInterface.self)!,
                          deleteQuestUseCase: resolver.resolve(DeleteQuestUseCaseInterface.self)!)
         }).inObjectScope(.transient)
+        
+        
+        // MARK: - Manage
+        container.register(ManageMainViewModel.self, factory: { (
+            resolver: Resolver
+        ) -> ManageMainViewModel in
+            return .init()
+        }).inObjectScope(.container)
+        
+        // TODO: Challenge 구조체로 변경
+        container.register(ManageDetailViewModel.self, factory: { (
+            resolver: Resolver,
+            arg1: Quest
+        ) -> ManageDetailViewModel in
+            return .init(challengeDetail: arg1)
+        }).inObjectScope(.container)
     }
 }

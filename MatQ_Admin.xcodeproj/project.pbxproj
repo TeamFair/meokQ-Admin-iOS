@@ -26,6 +26,11 @@
 		60DB54B12C7272E400AEDFE9 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B02C7272E400AEDFE9 /* NetworkService.swift */; };
 		60DB54B52C73763F00AEDFE9 /* ImageRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B42C73763F00AEDFE9 /* ImageRepositoryInterface.swift */; };
 		60DB54B82C73788900AEDFE9 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B72C73788900AEDFE9 /* ImageRepository.swift */; };
+		60DB54BB2C7384D900AEDFE9 /* ManageMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54BA2C7384D900AEDFE9 /* ManageMainView.swift */; };
+		60DB54BD2C73852900AEDFE9 /* ManageMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54BC2C73852900AEDFE9 /* ManageMainViewModel.swift */; };
+		60DB54BF2C73876600AEDFE9 /* ManageListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54BE2C73876600AEDFE9 /* ManageListItemView.swift */; };
+		60DB54C12C7393DB00AEDFE9 /* ManageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54C02C7393DB00AEDFE9 /* ManageDetailView.swift */; };
+		60DB54C32C73940100AEDFE9 /* ManageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54C22C73940100AEDFE9 /* ManageDetailViewModel.swift */; };
 		60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A22B97BDC9009DD235 /* ViewAssembly.swift */; };
 		60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */; };
 		60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A82B97BEAE009DD235 /* DependencyInjector.swift */; };
@@ -92,6 +97,11 @@
 		60DB54B02C7272E400AEDFE9 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		60DB54B42C73763F00AEDFE9 /* ImageRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryInterface.swift; sourceTree = "<group>"; };
 		60DB54B72C73788900AEDFE9 /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
+		60DB54BA2C7384D900AEDFE9 /* ManageMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMainView.swift; sourceTree = "<group>"; };
+		60DB54BC2C73852900AEDFE9 /* ManageMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageMainViewModel.swift; sourceTree = "<group>"; };
+		60DB54BE2C73876600AEDFE9 /* ManageListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageListItemView.swift; sourceTree = "<group>"; };
+		60DB54C02C7393DB00AEDFE9 /* ManageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDetailView.swift; sourceTree = "<group>"; };
+		60DB54C22C73940100AEDFE9 /* ManageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDetailViewModel.swift; sourceTree = "<group>"; };
 		60E696A22B97BDC9009DD235 /* ViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAssembly.swift; sourceTree = "<group>"; };
 		60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelAssembly.swift; sourceTree = "<group>"; };
 		60E696A82B97BEAE009DD235 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -284,6 +294,18 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
+		60DB54B92C7384B400AEDFE9 /* Manage */ = {
+			isa = PBXGroup;
+			children = (
+				60DB54BA2C7384D900AEDFE9 /* ManageMainView.swift */,
+				60DB54BC2C73852900AEDFE9 /* ManageMainViewModel.swift */,
+				60DB54C02C7393DB00AEDFE9 /* ManageDetailView.swift */,
+				60DB54C22C73940100AEDFE9 /* ManageDetailViewModel.swift */,
+				60DB54BE2C73876600AEDFE9 /* ManageListItemView.swift */,
+			);
+			path = Manage;
+			sourceTree = "<group>";
+		};
 		60E696922B97A9A3009DD235 /* RepositoryInterface */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +408,7 @@
 			children = (
 				E5DD825B2B34DCCA00A026C2 /* MainView.swift */,
 				608EBF8B2C38715500B862CC /* Quest */,
+				60DB54B92C7384B400AEDFE9 /* Manage */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -493,6 +516,7 @@
 				60F27DF32C45FD0E00711A53 /* QuestDataSource.swift in Sources */,
 				E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */,
 				608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */,
+				60DB54C12C7393DB00AEDFE9 /* ManageDetailView.swift in Sources */,
 				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
 				60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */,
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
@@ -521,7 +545,10 @@
 				60F27DEF2C45F1A900711A53 /* CommonResponse.swift in Sources */,
 				601048712C652FC20028662D /* UIImage++.swift in Sources */,
 				60F27DF72C46031A00711A53 /* QuestRepositoryInterface.swift in Sources */,
+				60DB54BB2C7384D900AEDFE9 /* ManageMainView.swift in Sources */,
 				60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */,
+				60DB54BF2C73876600AEDFE9 /* ManageListItemView.swift in Sources */,
+				60DB54C32C73940100AEDFE9 /* ManageDetailViewModel.swift in Sources */,
 				60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */,
 				60E696BF2B9A1FC1009DD235 /* ImageDataSource.swift in Sources */,
 				608EBF992C39166F00B862CC /* TextFieldComponent.swift in Sources */,
@@ -530,6 +557,7 @@
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
 				60DB54B82C73788900AEDFE9 /* ImageRepository.swift in Sources */,
+				60DB54BD2C73852900AEDFE9 /* ManageMainViewModel.swift in Sources */,
 				60F27DF92C46039400711A53 /* QuestRepository.swift in Sources */,
 				60E696BB2B9A1BFE009DD235 /* ImageModel.swift in Sources */,
 				60E696AD2B97CC88009DD235 /* DataAssembly.swift in Sources */,

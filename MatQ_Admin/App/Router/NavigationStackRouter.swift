@@ -48,6 +48,11 @@ public class NavigationStackCoordinator: ObservableObject {
             injector?.resolve(QuestMainView.self)
         case .QuestDetailView(let type, let quest):
             injector?.resolve(QuestDetailView.self, argument1: type, argument2: quest)
+        case .ManageMainView:
+            injector?.resolve(ManageMainView.self)
+        case .ManageDetailView(let quest):
+            // TODO: CHALLENGE로 수정
+            injector?.resolve(ManageDetailView.self, argument: quest)
         }
     }
     
@@ -58,12 +63,20 @@ enum Path: Hashable {
     case QuestMainView
     case QuestDetailView(type: QuestDetailViewModel.ViewType, quest: Quest)
     
+    //Manage
+    case ManageMainView
+    case ManageDetailView(quest: Quest)
+    
     func hash(into hasher: inout Hasher) {
         switch self {
         case .QuestMainView:
             hasher.combine("QuestMainView")
         case .QuestDetailView:
             hasher.combine("QuestDetailView")
+        case .ManageMainView:
+            hasher.combine("ManageMainView")
+        case .ManageDetailView:
+            hasher.combine("ManageDetailView")
         }
     }
     
@@ -72,6 +85,10 @@ enum Path: Hashable {
         case (.QuestMainView, .QuestMainView):
             return true
         case (.QuestDetailView, .QuestDetailView):
+            return true
+        case (.ManageMainView, .ManageMainView):
+            return true
+        case (.ManageDetailView, .ManageDetailView):
             return true
         default:
             return false

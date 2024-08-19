@@ -11,6 +11,7 @@ import Swinject
 struct MainView: View {
     enum Tab {
         case quest
+        case manage
     }
     @ObservedObject var coordinator: NavigationStackCoordinator
     @State private var selectedTab: Tab = .quest
@@ -24,11 +25,11 @@ struct MainView: View {
                     }
                     .tag(Tab.quest)
                 
-//                coordinator.buildInitialScene(path: .ManageMainView)
-//                    .tabItem {
-//                        Label("관리", systemImage: "tray.full.fill")
-//                    }
-//                    .tag(Tab.manage)
+                coordinator.buildInitialScene(path: .ManageMainView)
+                    .tabItem {
+                        Label("관리", systemImage: "tray.full.fill")
+                    }
+                    .tag(Tab.manage)
             }
             .tint(.primaryPurple)
             .environmentObject(coordinator)

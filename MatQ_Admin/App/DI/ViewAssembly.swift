@@ -25,5 +25,22 @@ final class ViewAssembly: Assembly {
         ) -> QuestDetailView in
             return .init(vm: resolver.resolve(QuestDetailViewModel.self, arguments: arg1, arg2)!)
         }).inObjectScope(.transient)
+        
+        
+        // MARK: - Manage View
+        
+        container.register(ManageMainView.self, factory: { (
+            resolver: Resolver
+        ) -> ManageMainView in
+            return .init(vm: resolver.resolve(ManageMainViewModel.self)!)
+        }).inObjectScope(.container)
+        
+        container.register(ManageDetailView.self, factory: { (
+            resolver: Resolver,
+            arg1: Quest
+        ) -> ManageDetailView in
+            return .init(vm: resolver.resolve(ManageDetailViewModel.self, argument: arg1)!)
+        }).inObjectScope(.transient)
+
     }
 }
