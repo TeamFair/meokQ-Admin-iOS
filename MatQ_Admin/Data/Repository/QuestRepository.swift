@@ -91,8 +91,8 @@ struct GetQuestResponseImageData {
     init(quest: GetQuestResponseData) {
         self.questId = quest.questId
         self.writer = quest.writer
-        self.quantity = quest.quantity
-        self.missionTitle = quest.missionTitle
+        self.quantity = quest.quantity ?? 0
+        self.missionTitle = quest.missionTitle ?? "불러올 수 없습니다"
         self.status = quest.status
         self.expireDate = quest.expireDate
         self.image = nil
