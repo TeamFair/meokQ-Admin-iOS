@@ -13,9 +13,20 @@ struct MatQ_AdminApp: App {
     
     var appInject = AppInject()
     
+    init() {
+        setTabBarAppearance()
+    }
+    
     var body: some Scene {
         WindowGroup {
             MainView(coordinator: appInject.coordinator)
         }
+    }
+    
+    func setTabBarAppearance() {
+        let appearance = UITabBarAppearance()
+        appearance.backgroundColor = UIColor(.white)
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
     }
 }
