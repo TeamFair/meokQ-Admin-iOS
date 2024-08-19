@@ -29,6 +29,7 @@
 		60DA570E2B94132E00EDAF30 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570D2B94132E00EDAF30 /* Endpoint.swift */; };
 		60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570F2B94147C00EDAF30 /* TargetType.swift */; };
 		60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA57122B94152000EDAF30 /* HttpHeaderField.swift */; };
+		60DB54B12C7272E400AEDFE9 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B02C7272E400AEDFE9 /* NetworkService.swift */; };
 		60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A22B97BDC9009DD235 /* ViewAssembly.swift */; };
 		60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */; };
 		60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A82B97BEAE009DD235 /* DependencyInjector.swift */; };
@@ -108,6 +109,7 @@
 		60DA570D2B94132E00EDAF30 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		60DA570F2B94147C00EDAF30 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		60DA57122B94152000EDAF30 /* HttpHeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHeaderField.swift; sourceTree = "<group>"; };
+		60DB54B02C7272E400AEDFE9 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		60E696A22B97BDC9009DD235 /* ViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAssembly.swift; sourceTree = "<group>"; };
 		60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelAssembly.swift; sourceTree = "<group>"; };
 		60E696A82B97BEAE009DD235 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		60DA570A2B94121C00EDAF30 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				60DB54B02C7272E400AEDFE9 /* NetworkService.swift */,
 				60E696BE2B9A1FC1009DD235 /* ImageService.swift */,
 				60B3573C2B9B740B0052418A /* NoticeService.swift */,
 				60F27DF22C45FD0E00711A53 /* QuestService.swift */,
@@ -558,6 +561,7 @@
 				E58425D92B42B56D002C7B3F /* NoticePostView.swift in Sources */,
 				60B357372B9B6C130052418A /* GetNotice.swift in Sources */,
 				608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */,
+				60DB54B12C7272E400AEDFE9 /* NetworkService.swift in Sources */,
 				60F27DFB2C4616D500711A53 /* PostQuestUseCase.swift in Sources */,
 				E5DD825C2B34DCCA00A026C2 /* MainView.swift in Sources */,
 				608EBF912C3871DF00B862CC /* QuestMainViewModel.swift in Sources */,

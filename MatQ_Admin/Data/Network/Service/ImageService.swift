@@ -16,55 +16,34 @@ protocol ImageServiceInterface {
 }
 
 struct ImageService: ImageServiceInterface {
+    private let networkService: NetworkServiceInterface
+    
+    init(networkService: NetworkServiceInterface) {
+        self.networkService = networkService
+    }
+    
     func getImage(request: GetImageRequest) -> AnyPublisher<UIImage, NetworkError> {
-        AF.request(ImageTarget.getImage(request))
-            .validate(statusCode: 200..<300)
-            .publishData()
-            .tryMap { response in
-                guard let data = response.data, let image = UIImage(data: data) else {
-                    throw NetworkError.decodingError
-                }
-                return image
-            }
-            .mapError { error in
-                return NetworkError.serverError
-            }
-            .eraseToAnyPublisher()
+        networkService.requestImage(ImageTarget.getImage(request))
     }
     
     func postImage(request: PostImageRequest) -> AnyPublisher<String, NetworkError> {
-        AF.upload(multipartFormData: { multipartFormData in
+        networkService.upload(ImageTarget.postImage(request).urlRequest!, multipartFormData: { multipartFormData in
             multipartFormData.append(request.data,
                                      withName: "file",
                                      fileName: "image.png",
                                      mimeType: "image/jpeg")
-        }, with: ImageTarget.postImage(request).urlRequest!)
-        .validate(statusCode: 200..<300)
-        .publishDecodable(type: PostImageResponse.self)
+        }, as: PostImageResponse.self)
         .tryMap { response in
             // imageId가 존재하는지 확인
-            guard let imageId = response.value?.data.imageId else {
-                throw NetworkError.invalidImageData
-            }
-            return imageId
+            return response.data.imageId
         }
-        .mapError { error in
-            return NetworkError.serverError
-        }
+        .mapError { _ in NetworkError.serverError }
         .eraseToAnyPublisher()
     }
     
     func deleteImage(request: DeleteImageRequest) -> AnyPublisher<String, NetworkError> {
-        AF.request(ImageTarget.deleteImage(request))
-            .validate(statusCode: 200..<300)
-            .publishDecodable(type: DeleteImageResponse.self)
-            .value()
-            .tryMap { response in
-                response.status
-            }
-            .mapError { _ in
-                NetworkError.serverError
-            }
+        networkService.request(ImageTarget.deleteImage(request), as: DeleteImageResponse.self)
+            .map { $0.status }
             .eraseToAnyPublisher()
     }
 }
