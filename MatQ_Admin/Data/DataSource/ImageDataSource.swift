@@ -9,13 +9,13 @@ import Alamofire
 import Combine
 import UIKit
 
-protocol ImageServiceInterface {
+protocol ImageDataSourceInterface {
     func getImage(request: GetImageRequest) -> AnyPublisher<UIImage, NetworkError>
     func postImage(request: PostImageRequest) -> AnyPublisher<String, NetworkError>
     func deleteImage(request: DeleteImageRequest) -> AnyPublisher<String, NetworkError>
 }
 
-struct ImageService: ImageServiceInterface {
+struct ImageDataSource: ImageDataSourceInterface {
     private let networkService: NetworkServiceInterface
     
     init(networkService: NetworkServiceInterface) {

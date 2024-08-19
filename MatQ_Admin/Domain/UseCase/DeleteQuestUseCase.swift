@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol DeleteQuestUseCaseInterface {
-    func deleteQuest(questId: String, type: QuestDeleteType) -> AnyPublisher<DeleteQuestResponse, NetworkError>
+    func execute(questId: String, type: QuestDeleteType) -> AnyPublisher<DeleteQuestResponse, NetworkError>
 }
 
 final class DeleteQuestUseCase: DeleteQuestUseCaseInterface {
@@ -20,7 +20,7 @@ final class DeleteQuestUseCase: DeleteQuestUseCaseInterface {
         self.questRepository = questRepository
     }
     
-    func deleteQuest(questId: String, type: QuestDeleteType) -> AnyPublisher<DeleteQuestResponse, NetworkError> {
-        self.questRepository.deleteQuest(questRequest: DeleteQuestRequest(questId: DeleteQuestRequest.QuestId(questId: questId), deleteType: type))
+    func execute(questId: String, type: QuestDeleteType) -> AnyPublisher<DeleteQuestResponse, NetworkError> {
+        self.questRepository.deleteQuest(request: DeleteQuestRequest(questId: DeleteQuestRequest.QuestId(questId: questId), deleteType: type))
     }
 }

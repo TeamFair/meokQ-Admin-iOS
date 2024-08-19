@@ -54,7 +54,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
 
     func getQuestList(page: Int) {
         viewState = .loading
-        questUseCase.getQuestList(page: page)
+        questUseCase.execute(page: page)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
@@ -103,7 +103,7 @@ struct QuestMainViewModelItem {
         self.questTitle = quest.missionTitle
         self.logoImageId = quest.logoImageId
         self.expireDate = quest.expireDate
-        self.logoImage = quest.image // TODO: 수정
+        self.logoImage = quest.image
         self.status = quest.status
     }
     

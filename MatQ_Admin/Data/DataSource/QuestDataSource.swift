@@ -1,5 +1,5 @@
 //
-//  QuestService.swift
+//  QuestDataSource.swift
 //  MatQ_Admin
 //
 //  Created by Lee Jinhee on 7/16/24.
@@ -9,13 +9,13 @@ import Alamofire
 import Combine
 import Foundation
 
-protocol QuestServiceInterface {
+protocol QuestDataSourceInterface {
     func getQuestList(request: GetQuestRequest) -> AnyPublisher<[GetQuestResponseData], NetworkError>
     func postQuest(request: PostQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError>
     func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError>
 }
 
-struct QuestService: QuestServiceInterface {
+struct QuestDataSource: QuestDataSourceInterface {
     private let networkService: NetworkServiceInterface
     
     init(networkService: NetworkServiceInterface) {
