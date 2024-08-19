@@ -24,6 +24,8 @@
 		60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570F2B94147C00EDAF30 /* TargetType.swift */; };
 		60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA57122B94152000EDAF30 /* HttpHeaderField.swift */; };
 		60DB54B12C7272E400AEDFE9 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B02C7272E400AEDFE9 /* NetworkService.swift */; };
+		60DB54B52C73763F00AEDFE9 /* ImageRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B42C73763F00AEDFE9 /* ImageRepositoryInterface.swift */; };
+		60DB54B82C73788900AEDFE9 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B72C73788900AEDFE9 /* ImageRepository.swift */; };
 		60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A22B97BDC9009DD235 /* ViewAssembly.swift */; };
 		60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */; };
 		60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A82B97BEAE009DD235 /* DependencyInjector.swift */; };
@@ -32,15 +34,15 @@
 		60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B02B98958C009DD235 /* ButtonLabelComponent.swift */; };
 		60E696B52B98C583009DD235 /* Bundle++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B42B98C583009DD235 /* Bundle++.swift */; };
 		60E696B72B98C5AD009DD235 /* PrivateToken.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60E696B62B98C5AD009DD235 /* PrivateToken.plist */; };
-		60E696BB2B9A1BFE009DD235 /* GetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BA2B9A1BFE009DD235 /* GetImage.swift */; };
+		60E696BB2B9A1BFE009DD235 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BA2B9A1BFE009DD235 /* ImageModel.swift */; };
 		60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */; };
-		60E696BF2B9A1FC1009DD235 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BE2B9A1FC1009DD235 /* ImageService.swift */; };
+		60E696BF2B9A1FC1009DD235 /* ImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696BE2B9A1FC1009DD235 /* ImageDataSource.swift */; };
 		60EC51F82B9CB075002CBCA3 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 60EC51F72B9CB075002CBCA3 /* Swinject */; };
 		60EC52002B9D99CE002CBCA3 /* View++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC51FF2B9D99CE002CBCA3 /* View++.swift */; };
-		60F27DED2C45691F00711A53 /* GetQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEC2C45691F00711A53 /* GetQuest.swift */; };
+		60F27DED2C45691F00711A53 /* QuestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEC2C45691F00711A53 /* QuestModel.swift */; };
 		60F27DEF2C45F1A900711A53 /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEE2C45F1A900711A53 /* CommonResponse.swift */; };
 		60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF02C45FADC00711A53 /* QuestTarget.swift */; };
-		60F27DF32C45FD0E00711A53 /* QuestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF22C45FD0E00711A53 /* QuestService.swift */; };
+		60F27DF32C45FD0E00711A53 /* QuestDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF22C45FD0E00711A53 /* QuestDataSource.swift */; };
 		60F27DF52C4602DD00711A53 /* GetQuestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF42C4602DD00711A53 /* GetQuestUseCase.swift */; };
 		60F27DF72C46031A00711A53 /* QuestRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */; };
 		60F27DF92C46039400711A53 /* QuestRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF82C46039400711A53 /* QuestRepository.swift */; };
@@ -88,6 +90,8 @@
 		60DA570F2B94147C00EDAF30 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		60DA57122B94152000EDAF30 /* HttpHeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpHeaderField.swift; sourceTree = "<group>"; };
 		60DB54B02C7272E400AEDFE9 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		60DB54B42C73763F00AEDFE9 /* ImageRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryInterface.swift; sourceTree = "<group>"; };
+		60DB54B72C73788900AEDFE9 /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		60E696A22B97BDC9009DD235 /* ViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAssembly.swift; sourceTree = "<group>"; };
 		60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelAssembly.swift; sourceTree = "<group>"; };
 		60E696A82B97BEAE009DD235 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -96,14 +100,14 @@
 		60E696B02B98958C009DD235 /* ButtonLabelComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLabelComponent.swift; sourceTree = "<group>"; };
 		60E696B42B98C583009DD235 /* Bundle++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle++.swift"; sourceTree = "<group>"; };
 		60E696B62B98C5AD009DD235 /* PrivateToken.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivateToken.plist; sourceTree = "<group>"; };
-		60E696BA2B9A1BFE009DD235 /* GetImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImage.swift; sourceTree = "<group>"; };
+		60E696BA2B9A1BFE009DD235 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTarget.swift; sourceTree = "<group>"; };
-		60E696BE2B9A1FC1009DD235 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		60E696BE2B9A1FC1009DD235 /* ImageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataSource.swift; sourceTree = "<group>"; };
 		60EC51FF2B9D99CE002CBCA3 /* View++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View++.swift"; sourceTree = "<group>"; };
-		60F27DEC2C45691F00711A53 /* GetQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetQuest.swift; sourceTree = "<group>"; };
+		60F27DEC2C45691F00711A53 /* QuestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestModel.swift; sourceTree = "<group>"; };
 		60F27DEE2C45F1A900711A53 /* CommonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponse.swift; sourceTree = "<group>"; };
 		60F27DF02C45FADC00711A53 /* QuestTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestTarget.swift; sourceTree = "<group>"; };
-		60F27DF22C45FD0E00711A53 /* QuestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestService.swift; sourceTree = "<group>"; };
+		60F27DF22C45FD0E00711A53 /* QuestDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDataSource.swift; sourceTree = "<group>"; };
 		60F27DF42C4602DD00711A53 /* GetQuestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetQuestUseCase.swift; sourceTree = "<group>"; };
 		60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRepositoryInterface.swift; sourceTree = "<group>"; };
 		60F27DF82C46039400711A53 /* QuestRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestRepository.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				60DA57002B940D3C00EDAF30 /* Network */,
+				60DA570A2B94121C00EDAF30 /* DataSource */,
 				60DA57022B940D5200EDAF30 /* Repository */,
 			);
 			path = Data;
@@ -189,7 +194,6 @@
 			children = (
 				60DA57142B94168A00EDAF30 /* API */,
 				60DA57112B94150F00EDAF30 /* Base */,
-				60DA570A2B94121C00EDAF30 /* Service */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -198,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				60F27DF82C46039400711A53 /* QuestRepository.swift */,
+				60DB54B72C73788900AEDFE9 /* ImageRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -206,7 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				60DA57042B940DAE00EDAF30 /* Entity */,
-				60E696922B97A9A3009DD235 /* Interface */,
+				60E696922B97A9A3009DD235 /* RepositoryInterface */,
 				60DA57052B940DB600EDAF30 /* UseCase */,
 			);
 			path = Domain;
@@ -239,20 +244,21 @@
 			path = Endpoint;
 			sourceTree = "<group>";
 		};
-		60DA570A2B94121C00EDAF30 /* Service */ = {
+		60DA570A2B94121C00EDAF30 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				60DB54B02C7272E400AEDFE9 /* NetworkService.swift */,
-				60E696BE2B9A1FC1009DD235 /* ImageService.swift */,
-				60F27DF22C45FD0E00711A53 /* QuestService.swift */,
+				60F27DF22C45FD0E00711A53 /* QuestDataSource.swift */,
+				60E696BE2B9A1FC1009DD235 /* ImageDataSource.swift */,
 			);
-			path = Service;
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		60DA57112B94150F00EDAF30 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				60DB54B02C7272E400AEDFE9 /* NetworkService.swift */,
 				60DA570B2B94124F00EDAF30 /* NetworkError.swift */,
+				60F27DEE2C45F1A900711A53 /* CommonResponse.swift */,
 				60DA57122B94152000EDAF30 /* HttpHeaderField.swift */,
 				60DA570F2B94147C00EDAF30 /* TargetType.swift */,
 			);
@@ -272,19 +278,19 @@
 		60DA57172B9416BC00EDAF30 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				60E696BA2B9A1BFE009DD235 /* GetImage.swift */,
-				60F27DEC2C45691F00711A53 /* GetQuest.swift */,
-				60F27DEE2C45F1A900711A53 /* CommonResponse.swift */,
+				60F27DEC2C45691F00711A53 /* QuestModel.swift */,
+				60E696BA2B9A1BFE009DD235 /* ImageModel.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
 		};
-		60E696922B97A9A3009DD235 /* Interface */ = {
+		60E696922B97A9A3009DD235 /* RepositoryInterface */ = {
 			isa = PBXGroup;
 			children = (
 				60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */,
+				60DB54B42C73763F00AEDFE9 /* ImageRepositoryInterface.swift */,
 			);
-			path = Interface;
+			path = RepositoryInterface;
 			sourceTree = "<group>";
 		};
 		60E696972B97AFBA009DD235 /* DI */ = {
@@ -484,7 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				608EBF9B2C393C2600B862CC /* Button.swift in Sources */,
-				60F27DF32C45FD0E00711A53 /* QuestService.swift in Sources */,
+				60F27DF32C45FD0E00711A53 /* QuestDataSource.swift in Sources */,
 				E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */,
 				608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */,
 				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
@@ -496,7 +502,7 @@
 				60E696AF2B97CDE2009DD235 /* DomainAssembly.swift in Sources */,
 				608EBF932C3872D700B862CC /* Quest.swift in Sources */,
 				60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */,
-				60F27DED2C45691F00711A53 /* GetQuest.swift in Sources */,
+				60F27DED2C45691F00711A53 /* QuestModel.swift in Sources */,
 				608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */,
 				60DB54B12C7272E400AEDFE9 /* NetworkService.swift in Sources */,
 				60F27DFB2C4616D500711A53 /* PostQuestUseCase.swift in Sources */,
@@ -509,6 +515,7 @@
 				60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */,
 				60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */,
 				60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */,
+				60DB54B52C73763F00AEDFE9 /* ImageRepositoryInterface.swift in Sources */,
 				60E696B52B98C583009DD235 /* Bundle++.swift in Sources */,
 				60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */,
 				60F27DEF2C45F1A900711A53 /* CommonResponse.swift in Sources */,
@@ -516,14 +523,15 @@
 				60F27DF72C46031A00711A53 /* QuestRepositoryInterface.swift in Sources */,
 				60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */,
 				60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */,
-				60E696BF2B9A1FC1009DD235 /* ImageService.swift in Sources */,
+				60E696BF2B9A1FC1009DD235 /* ImageDataSource.swift in Sources */,
 				608EBF992C39166F00B862CC /* TextFieldComponent.swift in Sources */,
 				60F27DF52C4602DD00711A53 /* GetQuestUseCase.swift in Sources */,
 				608EBF8A2C38709800B862CC /* AppInject.swift in Sources */,
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
+				60DB54B82C73788900AEDFE9 /* ImageRepository.swift in Sources */,
 				60F27DF92C46039400711A53 /* QuestRepository.swift in Sources */,
-				60E696BB2B9A1BFE009DD235 /* GetImage.swift in Sources */,
+				60E696BB2B9A1BFE009DD235 /* ImageModel.swift in Sources */,
 				60E696AD2B97CC88009DD235 /* DataAssembly.swift in Sources */,
 				E5DD827F2B350D7200A026C2 /* NavigationBarComponent.swift in Sources */,
 			);

@@ -13,14 +13,13 @@ final class DomainAssembly: Assembly {
         container.register(GetQuestUseCaseInterface.self, factory: { (
             resolver: Resolver
         ) -> GetQuestUseCase in
-            return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!)
+            return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!, imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
         }).inObjectScope(.container)
         
-        // TODO: 이미지 레포 추가
         container.register(PostQuestUseCaseInterface.self, factory: { (
             resolver: Resolver
         ) -> PostQuestUseCase in
-            return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!, imageService: resolver.resolve(ImageServiceInterface.self)!)
+            return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!, imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
         }).inObjectScope(.container)
         
         container.register(DeleteQuestUseCaseInterface.self, factory: { (

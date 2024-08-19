@@ -11,7 +11,7 @@ final class DataAssembly: Assembly {
         
     func assemble(container: Container) {
         
-        // MARK: - SERVICE
+        // MARK: - Service
         container.register(NetworkServiceInterface.self, factory: { (
             resolver: Resolver
         ) -> NetworkService in
@@ -19,27 +19,32 @@ final class DataAssembly: Assembly {
         }).inObjectScope(.container)
 
         
-        container.register(QuestServiceInterface.self, factory: { (
+        // MARK: - DataSource
+        container.register(QuestDataSourceInterface.self, factory: { (
             resolver: Resolver
-        ) -> QuestService in
+        ) -> QuestDataSource in
             return .init(networkService: resolver.resolve(NetworkServiceInterface.self)!)
         }).inObjectScope(.container)
 
         
-        container.register(ImageServiceInterface.self, factory: { (
+        container.register(ImageDataSourceInterface.self, factory: { (
             resolver: Resolver
-        ) -> ImageService in
+        ) -> ImageDataSource in
             return .init(networkService: resolver.resolve(NetworkServiceInterface.self)!)
         }).inObjectScope(.container)
 
         
         // MARK: - Repository
-        
         container.register(QuestRepositoryInterface.self, factory: { (
             resolver: Resolver
         ) -> QuestRepository in
-            return .init(questService: resolver.resolve(QuestServiceInterface.self)!,
-                         imageService:  resolver.resolve(ImageServiceInterface.self)!)
+            return .init(questDataSource: resolver.resolve(QuestDataSourceInterface.self)!)
+        }).inObjectScope(.container)
+        
+        container.register(ImageRepositoryInterface.self, factory: { (
+            resolver: Resolver
+        ) -> ImageRepository in
+            return .init(imageDataSource: resolver.resolve(ImageDataSourceInterface.self)!)
         }).inObjectScope(.container)
     }
 }

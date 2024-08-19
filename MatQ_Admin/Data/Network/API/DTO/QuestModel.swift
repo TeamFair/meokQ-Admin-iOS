@@ -1,5 +1,5 @@
 //
-//  GetQuest.swift
+//  QuestModel.swift
 //  MatQ_Admin
 //
 //  Created by Lee Jinhee on 7/15/24.
@@ -26,6 +26,10 @@ struct GetQuestResponseData: Decodable {
     let status: String
     let expireDate: String
     let imageId: String?
+    
+    func toDomain(image: UIImage?) -> Quest {
+        Quest(questId: self.questId, missionTitle: self.missionTitle ?? "불러올 수 없음", quantity: self.quantity ?? 0, status: self.status, writer: self.writer, image: image, logoImageId: self.imageId ?? "", expireDate: self.expireDate)
+    }
 }
 
 // MARK: - 퀘스트 등록

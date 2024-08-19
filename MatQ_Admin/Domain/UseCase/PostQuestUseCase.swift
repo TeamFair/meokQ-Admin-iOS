@@ -9,21 +9,21 @@ import Combine
 import UIKit
 
 protocol PostQuestUseCaseInterface {
-    func postQuest(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<PostQuestResponse, NetworkError>
+    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<PostQuestResponse, NetworkError>
 }
 
 final class PostQuestUseCase: PostQuestUseCaseInterface {
     
     let questRepository: QuestRepositoryInterface
-    let imageService: ImageServiceInterface // TOBE..이미지 데이터소스..
+    let imageRepository: ImageRepositoryInterface
     
-    init(questRepository: QuestRepositoryInterface, imageService: ImageServiceInterface) {
+    init(questRepository: QuestRepositoryInterface, imageRepository: ImageRepositoryInterface) {
         self.questRepository = questRepository
-        self.imageService = imageService
+        self.imageRepository = imageRepository
     }
     
-    // TODO: 여기서 PostQuestResponse 이 모델을 알아야하는지
-    func postQuest(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<PostQuestResponse, NetworkError> {
+    // TODO: 책임 분리
+    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<PostQuestResponse, NetworkError> {
         // image가 없으면 imageId를 사용
         if let image = image {
             return uploadImageAndPostQuest(
@@ -35,7 +35,7 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
             )
         } else if let imageId = imageId {
             return self.questRepository.postQuest(
-                questRequest: PostQuestRequest(
+                request: PostQuestRequest(
                     writer: writer,
                     imageId: imageId,
                     missions: [.init(content: missionTitle)],
@@ -66,7 +66,7 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
                 // 이미지 압축
                 let imageData = uiImage.jpegData(compressionQuality: quality) ?? Data()
                 // 이미지 업로드
-                return self.imageService.postImage(request: PostImageRequest(data: imageData))
+                return self.imageRepository.postImage(request: PostImageRequest(data: imageData))
                     .map { newImageId in
                         (newImageId, quality)
                     }
@@ -79,7 +79,7 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
             .flatMap { newImageId, _ in
                 // 퀘스트 생성
                 self.questRepository.postQuest(
-                    questRequest: PostQuestRequest(
+                    request: PostQuestRequest(
                         writer: writer,
                         imageId: newImageId,
                         missions: [.init(content: missionTitle)],

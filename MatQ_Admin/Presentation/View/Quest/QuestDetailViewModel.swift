@@ -85,7 +85,7 @@ final class QuestDetailViewModel: ObservableObject {
     let deleteQuestUseCase: DeleteQuestUseCaseInterface
     
     func createData(data: QuestDetailViewModelItem) {
-        postQuestUseCase.postQuest(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, quantity: Int(data.xpCount)!, expireDate: data.expireDate)
+        postQuestUseCase.execute(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, quantity: Int(data.xpCount)!, expireDate: data.expireDate)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 추가 실패"
@@ -103,7 +103,7 @@ final class QuestDetailViewModel: ObservableObject {
     }
     
     func deleteData(questId: String, type: QuestDeleteType) {
-        deleteQuestUseCase.deleteQuest(questId: questId, type: type)
+        deleteQuestUseCase.execute(questId: questId, type: type)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 삭제 실패"

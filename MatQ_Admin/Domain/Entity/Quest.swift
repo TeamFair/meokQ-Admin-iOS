@@ -13,7 +13,7 @@ struct Quest {
     let quantity: Int
     let status: String
     let writer: String
-    let image: UIImage?
+    var image: UIImage?
     let logoImageId: String?
     let expireDate: String
     
@@ -26,17 +26,6 @@ struct Quest {
         self.image = image
         self.logoImageId = logoImageId
         self.expireDate = expireDate
-    }
-    
-    init(quest: GetQuestResponseImageData) {
-        self.questId = quest.questId
-        self.missionTitle = quest.missionTitle
-        self.quantity = quest.quantity
-        self.status = quest.status
-        self.writer = quest.writer
-        self.image = quest.image
-        self.logoImageId = quest.imageId
-        self.expireDate = quest.expireDate
     }
     
     init() {

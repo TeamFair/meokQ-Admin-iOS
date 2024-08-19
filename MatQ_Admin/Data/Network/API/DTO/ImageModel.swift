@@ -1,5 +1,5 @@
 //
-//  GetImage.swift
+//  ImageModel.swift
 //  MatQ_Admin
 //
 //  Created by Lee Jinhee on 3/8/24.
