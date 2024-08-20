@@ -19,18 +19,18 @@ struct QuestDetailView: View {
                 .overlay(alignment: .trailing) {
                     HStack(spacing: 20) {
                         Button {
-                            vm.showAlert = true
                             vm.selectedDeleteType = .soft
                             vm.activeAlertType = .delete
+                            vm.showAlert = true
                         } label: {
                             Image(systemName: "eraser")
                                 .foregroundStyle(.primaryPurple)
                         }
                         
                         Button {
-                            vm.showAlert = true
                             vm.selectedDeleteType = .hard
                             vm.activeAlertType = .delete
+                            vm.showAlert = true
                         } label: {
                             Image(systemName: "trash")
                                 .foregroundStyle(.primaryPurple)

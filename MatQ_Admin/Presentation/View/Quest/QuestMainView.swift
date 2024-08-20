@@ -27,6 +27,7 @@ struct QuestMainView: View {
                     
                     Button("변경", action: {
                         vm.port = vm.portText
+                        vm.showingAlert = false
                     })
                     .disabled(vm.portText == "")
                     

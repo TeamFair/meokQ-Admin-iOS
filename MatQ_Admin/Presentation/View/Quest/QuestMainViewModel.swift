@@ -48,7 +48,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
         
         error.sink { [weak self] errorMessage in
             self?.errorMessage = errorMessage
-            self?.showingAlert.toggle()
+            self?.showingAlert = true
         }.store(in: &cancellables)
     }
 
