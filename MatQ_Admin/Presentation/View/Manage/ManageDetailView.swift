@@ -15,34 +15,35 @@ struct ManageDetailView: View {
         VStack(spacing: 0) {
             NavigationBarComponent(navigationTitle: "신고된 챌린지 관리", isNotRoot: true)
             
-            Spacer().frame(height: 20)
+            Spacer().frame(height: 16)
             
             VStack(alignment: .leading, spacing: 16) {
-                Image(uiImage: vm.items.questImage ?? .testimage)
-                    .renderingMode(.template)
-                    .tint(.red)
+                Image(uiImage: vm.item.image ?? .testimage)
+                    .resizable()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 420)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .shadow(color: .gray200.opacity(0.2), radius: 8)
-                    .background(
+                    .background(alignment: .bottom, content: {
                         RoundedRectangle(cornerRadius: 16)
                             .foregroundStyle(.componentPrimary)
                             .scaleEffect(0.9)
                             .offset(y: 32)
-                    )
-                    .padding(.bottom, 20)
+                    })
+                    .padding(.bottom, 12)
                 
                 HStack(spacing: 12) {
-                    Text("바닐라라떼 마시기")
+                    Text(vm.item.questTitle)
                         .font(.title2).bold()
                         .foregroundStyle(.textPrimary)
                     
-                    Text("\(50)XP")
+                    Text("\(vm.item.quantity)XP")
                         .font(.headline)
                         .foregroundStyle(.primaryPurple)
                 }
                 
-                textView(title: "작성자", content: "일상1234")
-                textView(title: "업로드 날짜", content: "2024.01.01")
+                textView(title: "작성자", content: "\(vm.item.userNickname)")
+                textView(title: "업로드 날짜", content: "\(vm.item.createdAt)")
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 20)
@@ -51,15 +52,15 @@ struct ManageDetailView: View {
             
             HStack(spacing: 8) {
                 Button {
-                    vm.showAlert = true
                     vm.activeAlertType = .recovery
+                    vm.showAlert = true
                 } label: {
                     Text("철회")
                 }
                 .ilsangButtonStyle(type: .secondary)
                 Button {
-                    vm.showAlert = true
                     vm.activeAlertType = .delete
+                    vm.showAlert = true
                 } label: {
                     Text("삭제")
                 }
@@ -75,8 +76,7 @@ struct ManageDetailView: View {
                     message: Text("삭제한 챌린지는 복구할 수 없으며 미완료 상태로 변경됩니다."),
                     primaryButton: .cancel(Text("취소")),
                     secondaryButton: .destructive(Text("삭제")) {
-                        // TODO: 챌린지 id 연결
-                        vm.deleteChallenge(challengeId: "")
+                        vm.deleteChallenge(challengeId: vm.item.challengeId)
                     }
                 )
             case .recovery:
@@ -85,8 +85,7 @@ struct ManageDetailView: View {
                     message: Text("챌린지는 완료 상태로 복구됩니다."),
                     primaryButton: .cancel(Text("취소")),
                     secondaryButton: .destructive(Text("신고 철회")) {
-                        // TODO: 챌린지 id 연결
-                        vm.recoveryChallenge(challengeId: "")
+                        vm.recoveryChallenge(challengeId: vm.item.challengeId)
                     }
                 )
             case .result:
@@ -94,8 +93,7 @@ struct ManageDetailView: View {
                     title: Text(vm.alertTitle),
                     message: Text(vm.alertMessage),
                     dismissButton: .default(Text("확인")) {
-                        // TODO: title 확인 필요
-                        if vm.alertTitle == "퀘스트 복구 성공" || vm.alertTitle == "퀘스트 삭제 성공" {
+                        if vm.alertTitle == "챌린지 신고 철회 성공" || vm.alertTitle == "챌린지 삭제 성공" {
                             router.pop()
                         }
                     }

@@ -18,65 +18,107 @@ protocol ManageMainViewModelOutput {
 }
 
 final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOutput, ObservableObject {
-    
-    var questList: [Quest] = [Quest.mockData1, Quest.mockData2]
+    private let getChallengeUseCase: GetChallengeUseCaseInterface
+
+    var challengeList: [Challenge] = []
     private var currentPage: Int = 0
     
     @Published var items: [ManageMainViewModelItem] = []
     @Published var errorMessage: String = ""
-    @Published var showingAlert = false
+    @Published var showAlert = false
     @Published var viewState: ViewState = .loaded
-    
+    @Published var activeAlertType: ActiveAlertType?
+
     @AppStorage("port") var port = "9090"
     @Published var portText = ""
     
+    var error = PassthroughSubject<String, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(getChallengeUseCase: GetChallengeUseCaseInterface) {
+        self.getChallengeUseCase = getChallengeUseCase
+        
+        error.sink { [weak self] errorMessage in
+            self?.errorMessage = errorMessage
+            self?.activeAlertType = .networkError
+            self?.showAlert = true
+        }.store(in: &cancellables)
+    }
+    
+    func getReportedList(page: Int) {
+        viewState = .loading
+        getChallengeUseCase.execute(page: page)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    self.viewState = self.items.isEmpty ? .empty : .loaded
+                case .failure(let err):
+                    self.error.send(err.localizedDescription)
+                    self.viewState = .empty
+                }
+            } receiveValue: { [weak self] result in
+                if page == 0 {
+                    self?.items = []
+                    self?.challengeList = []
+                }
+                for item in result.map(ManageMainViewModelItem.init) {
+                    self?.items.append(item)
+                }
+
+                // TODO: 페이지네이션
+                self?.challengeList += result
+                self?.viewState = .loaded
+            }
+            .store(in: &cancellables)
+    }
+}
+
+extension ManageMainViewModel {
     enum ViewState {
         case empty
         case loading
         case loaded
     }
     
-    var error = PassthroughSubject<String, Never>()
-    private var cancellables = Set<AnyCancellable>()
-    
-    init() {
-        error.sink { [weak self] errorMessage in
-            self?.errorMessage = errorMessage
-            self?.showingAlert.toggle()
-        }.store(in: &cancellables)
-    }
-    
-    func getReportedList(page: Int) {
-        self.items = [.mockData1]
+    enum ActiveAlertType: Identifiable {
+        case portchange
+        case networkError
+        
+        var id: Int {
+            switch self {
+            case .portchange:
+                return 1
+            case .networkError:
+                return 2
+            }
+        }
     }
 }
 
 struct ManageMainViewModelItem {
-    let questId: String
+    let challengeId: String
     let questTitle: String
-    let logoImageId: String?
-    let logoImage: UIImage?
+    let imageId: String?
+    let image: UIImage?
     let status: String
-    let expireDate: String
+    let createdAt: String
     
-    init(questId: String, questTitle: String, logoImageId: String, logoImage: UIImage?, status: String, expireDate: String) {
-        self.questId = questId
+    init(challengeId: String, questTitle: String, imageId: String?, image: UIImage?, status: String, createdAt: String) {
+        self.challengeId = challengeId
         self.questTitle = questTitle
-        self.logoImageId = logoImageId
-        self.logoImage = logoImage
+        self.imageId = imageId
+        self.image = image
         self.status = status
-        self.expireDate = expireDate
+        self.createdAt = createdAt
     }
     
-    init(quest: Quest) {
-        self.questId = quest.questId
-        self.questTitle = quest.missionTitle
-        self.logoImageId = quest.logoImageId
-        self.expireDate = quest.expireDate
-        self.logoImage = quest.image
-        self.status = quest.status
+    init(challenge: Challenge) {
+        self.challengeId = challenge.challengeId
+        self.questTitle = challenge.challengeTitle
+        self.imageId = challenge.receiptImageId
+        self.image = challenge.image
+        self.status = challenge.status
+        self.createdAt = challenge.createdAt
     }
-    
-    static var mockData1 = ManageMainViewModelItem.init(quest: .mockData1)
-    static var mockData2 = ManageMainViewModelItem.init(quest: .mockData2)
 }

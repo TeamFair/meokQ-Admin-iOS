@@ -1,36 +1,37 @@
 //
-//  GetQuestUseCase.swift
+//  GetChallengeUseCase.swift
 //  MatQ_Admin
 //
-//  Created by Lee Jinhee on 7/16/24.
+//  Created by Lee Jinhee on 8/20/24.
 //
 
 import Combine
+import Foundation
 
-protocol GetQuestUseCaseInterface {
-    func execute(page: Int) -> AnyPublisher<[Quest], NetworkError>
+protocol GetChallengeUseCaseInterface {
+    func execute(page: Int) -> AnyPublisher<[Challenge], NetworkError>
 }
 
-final class GetQuestUseCase: GetQuestUseCaseInterface {
-    let questRepository: QuestRepositoryInterface
+final class GetChallengeUseCase: GetChallengeUseCaseInterface {
+    let challengeRepository: ChallengeRepositoryInterface
     let imageRepository: ImageRepositoryInterface
     
-    init(questRepository: QuestRepositoryInterface, imageRepository: ImageRepositoryInterface) {
-        self.questRepository = questRepository
+    init(challengeRepository: ChallengeRepositoryInterface, imageRepository: ImageRepositoryInterface) {
+        self.challengeRepository = challengeRepository
         self.imageRepository = imageRepository
     }
     
-    func execute(page: Int) -> AnyPublisher<[Quest], NetworkError> {
-        let request = GetQuestRequest(page: page)
+    func execute(page: Int) -> AnyPublisher<[Challenge], NetworkError> {
+        let request = GetChallengeRequest(page: page)
         
-        return questRepository.getQuestList(request: request)
-            .flatMap { quests in
-                let questsWithImages = quests
-                    .map { quest -> AnyPublisher<Quest, NetworkError> in
+        return challengeRepository.getChallengeList(request: request)
+            .flatMap { challenges in
+                let questsWithImages = challenges
+                    .map { challenge -> AnyPublisher<Challenge, NetworkError> in
                         
                         // imageId가 없을 경우, 원래의 quest를 반환
-                        guard let imageId = quest.logoImageId, !imageId.isEmpty else {
-                            return Just(quest)
+                        guard let imageId = challenge.receiptImageId, !imageId.isEmpty else {
+                            return Just(challenge)
                                 .setFailureType(to: NetworkError.self)
                                 .eraseToAnyPublisher()
                         }
@@ -40,12 +41,12 @@ final class GetQuestUseCase: GetQuestUseCaseInterface {
                         
                         return self.imageRepository.getImage(request: imageRequest)
                             .map { image in
-                                var updatedQuest = quest
+                                var updatedQuest = challenge
                                 updatedQuest.image = image
                                 return updatedQuest
                             }
                             .catch { _ in
-                                Just(quest)
+                                Just(challenge)
                                     .setFailureType(to: NetworkError.self)
                             }
                             .eraseToAnyPublisher()

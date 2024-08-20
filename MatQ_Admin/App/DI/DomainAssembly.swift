@@ -27,5 +27,24 @@ final class DomainAssembly: Assembly {
         ) -> DeleteQuestUseCase in
             return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!)
         }).inObjectScope(.container)
+        
+        container.register(GetChallengeUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> GetChallengeUseCase in
+            return .init(challengeRepository: resolver.resolve(ChallengeRepositoryInterface.self)!, imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
+        }).inObjectScope(.container)
+        
+        container.register(PatchChallengeUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> PatchChallengeUseCase in
+            return .init(challengeRepository: resolver.resolve(ChallengeRepositoryInterface.self)!)
+        }).inObjectScope(.container)
+        
+        container.register(DeleteChallengeUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> DeleteChallengeUseCase in
+            return .init(challengeRepository: resolver.resolve(ChallengeRepositoryInterface.self)!)
+        }).inObjectScope(.container)
+        
     }
 }

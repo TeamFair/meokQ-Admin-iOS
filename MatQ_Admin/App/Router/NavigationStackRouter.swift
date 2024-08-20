@@ -50,9 +50,8 @@ public class NavigationStackCoordinator: ObservableObject {
             injector?.resolve(QuestDetailView.self, argument1: type, argument2: quest)
         case .ManageMainView:
             injector?.resolve(ManageMainView.self)
-        case .ManageDetailView(let quest):
-            // TODO: CHALLENGE로 수정
-            injector?.resolve(ManageDetailView.self, argument: quest)
+        case .ManageDetailView(let challenge):
+            injector?.resolve(ManageDetailView.self, argument: challenge)
         }
     }
     
@@ -65,7 +64,7 @@ enum Path: Hashable {
     
     //Manage
     case ManageMainView
-    case ManageDetailView(quest: Quest)
+    case ManageDetailView(challenge: Challenge)
     
     func hash(into hasher: inout Hasher) {
         switch self {

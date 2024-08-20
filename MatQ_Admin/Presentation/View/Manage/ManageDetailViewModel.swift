@@ -5,14 +5,13 @@
 //  Created by Lee Jinhee on 8/19/24.
 //
 
-import Foundation
+import Combine
 import UIKit
 
 final class ManageDetailViewModel: ObservableObject {
     
-    private let challengeDetail: Quest
-    
-    let items: ManageDetailViewModelItem
+    private let challengeDetail: Challenge
+    let item: ManageDetailViewModelItem
     
     // 챌린지 철회&삭제 Alert 관련
     @Published var alertTitle: String = ""
@@ -20,6 +19,56 @@ final class ManageDetailViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var activeAlertType: ActiveAlertType?
     
+    let patchChallengeUseCase: PatchChallengeUseCaseInterface
+    let deleteChallengeUseCase: DeleteChallengeUseCaseInterface
+
+    var subscriptions = Set<AnyCancellable>()
+
+    init(challengeDetail: Challenge, patchChallengeUseCase: PatchChallengeUseCaseInterface, deleteChallengeUseCase: DeleteChallengeUseCaseInterface) {
+        self.challengeDetail = challengeDetail
+        self.item = ManageDetailViewModelItem(challenge: challengeDetail)
+        self.patchChallengeUseCase = patchChallengeUseCase
+        self.deleteChallengeUseCase = deleteChallengeUseCase
+    }
+    
+    func recoveryChallenge(challengeId: String) {
+        patchChallengeUseCase.execute(challengeId: challengeId)
+            .sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.alertTitle = "챌린지 신고 철회 실패"
+                    self?.alertMessage = error.localizedDescription
+                    self?.activeAlertType = .result
+                    self?.showAlert = true
+                }
+            } receiveValue: { [weak self] _ in
+                self?.alertTitle = "챌린지 신고 철회 성공"
+                self?.alertMessage = "퀘스트가 성공적으로 철회되었습니다"
+                self?.activeAlertType = .result
+                self?.showAlert = true
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func deleteChallenge(challengeId: String) {
+        deleteChallengeUseCase.execute(challengeId: challengeId)
+            .sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.alertTitle = "챌린지 삭제 실패"
+                    self?.alertMessage = error.localizedDescription
+                    self?.activeAlertType = .result
+                    self?.showAlert = true
+                }
+            } receiveValue: { [weak self] _ in
+                self?.alertTitle = "챌린지 삭제 성공"
+                self?.alertMessage = "퀘스트가 성공적으로 삭제되었습니다"
+                self?.activeAlertType = .result
+                self?.showAlert = true
+            }
+            .store(in: &subscriptions)
+    }
+}
+
+extension ManageDetailViewModel {
     enum ActiveAlertType: Identifiable {
         case delete
         case recovery
@@ -37,36 +86,39 @@ final class ManageDetailViewModel: ObservableObject {
         }
     }
     
-    init(challengeDetail: Quest) {
-        self.challengeDetail = challengeDetail
-        self.items = ManageDetailViewModelItem(quest: challengeDetail)
-    }
-    
-    func recoveryChallenge(challengeId: String) {
-        // TODO: API 연결
-    }
-    
-    func deleteChallenge(challengeId: String) {
-        // TODO: API 연결
-    }
 }
 
 struct ManageDetailViewModelItem: Equatable {
-    let questId: String
-    var questTitle: String
-    var xpCount: String
-    var writer: String
-    var expireDate: String
+    let challengeId: String
+    let questTitle: String
     let imageId: String?
-    var questImage: UIImage?
+    let image: UIImage?
+    let status: String
+    let createdAt: String
+    let quantity: Int
+    let userNickname: String
+
     
-    init(quest: Quest) {
-        self.questId = quest.questId
-        self.questTitle = quest.missionTitle
-        self.xpCount = String(quest.quantity)
-        self.writer = quest.writer
-        self.expireDate = quest.expireDate
-        self.imageId = quest.logoImageId
-        self.questImage = quest.image
+    init(challengeId: String, questTitle: String, imageId: String?, image: UIImage?, status: String, createdAt: String, quantity: Int, userNickname: String) {
+        self.challengeId = challengeId
+        self.questTitle = questTitle
+        self.imageId = imageId
+        self.image = image
+        self.status = status
+        self.createdAt = createdAt
+        self.quantity = quantity
+        self.userNickname = userNickname
+
+    }
+    
+    init(challenge: Challenge) {
+        self.challengeId = challenge.challengeId
+        self.questTitle = challenge.challengeTitle
+        self.imageId = challenge.receiptImageId
+        self.image = challenge.image
+        self.status = challenge.status
+        self.createdAt = challenge.createdAt
+        self.quantity = challenge.quantity
+        self.userNickname = challenge.userNickName
     }
 }

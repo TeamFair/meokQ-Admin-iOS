@@ -25,6 +25,12 @@ final class DataAssembly: Assembly {
         ) -> QuestDataSource in
             return .init(networkService: resolver.resolve(NetworkServiceInterface.self)!)
         }).inObjectScope(.container)
+        
+        container.register(ChallengeDataSourceInterface.self, factory: { (
+            resolver: Resolver
+        ) -> ChallengeDataSource in
+            return .init(networkService: resolver.resolve(NetworkServiceInterface.self)!)
+        }).inObjectScope(.container)
 
         
         container.register(ImageDataSourceInterface.self, factory: { (
@@ -39,6 +45,12 @@ final class DataAssembly: Assembly {
             resolver: Resolver
         ) -> QuestRepository in
             return .init(questDataSource: resolver.resolve(QuestDataSourceInterface.self)!)
+        }).inObjectScope(.container)
+        
+         container.register(ChallengeRepositoryInterface.self, factory: { (
+            resolver: Resolver
+        ) -> ChallengeRepository in
+            return .init(challengeDataSource: resolver.resolve(ChallengeDataSourceInterface.self)!)
         }).inObjectScope(.container)
         
         container.register(ImageRepositoryInterface.self, factory: { (
