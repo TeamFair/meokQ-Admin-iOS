@@ -26,7 +26,6 @@ final class GetQuestUseCase: GetQuestUseCaseInterface {
         return questRepository.getQuestList(request: request)
             .flatMap { quests in
                 let questsWithImages = quests
-                    .map { $0.toDomain(image: nil) }
                     .map { quest -> AnyPublisher<Quest, NetworkError> in
                         
                         // imageId가 없을 경우, 원래의 quest를 반환

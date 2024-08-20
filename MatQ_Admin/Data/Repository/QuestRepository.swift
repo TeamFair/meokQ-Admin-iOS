@@ -15,15 +15,23 @@ final class QuestRepository: QuestRepositoryInterface {
         self.questDataSource = questDataSource
     }
     
-    func getQuestList(request: GetQuestRequest) -> AnyPublisher<[GetQuestResponseData], NetworkError> {
+    func getQuestList(request: GetQuestRequest) -> AnyPublisher<[Quest], NetworkError> {
         questDataSource.getQuestList(request: request)
+            .map { response in
+                response.map { $0.toDomain(image: nil) }
+            }
+            .eraseToAnyPublisher()
     }
     
-    func postQuest(request: PostQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError> {
+    func postQuest(request: PostQuestRequest) -> AnyPublisher<Void, NetworkError> {
         questDataSource.postQuest(request: request)
+            .map { _ in }
+            .eraseToAnyPublisher()
     }
-    
-    func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<DeleteQuestResponse, NetworkError> {
+
+    func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<Void, NetworkError> {
         questDataSource.deleteQuest(request: request)
+            .map { _ in }
+            .eraseToAnyPublisher()
     }
 }

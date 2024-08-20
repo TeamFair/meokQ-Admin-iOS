@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol PatchChallengeUseCaseInterface {
-    func execute(challengeId: String) -> AnyPublisher<PatchChallengeResponse, NetworkError>
+    func execute(challengeId: String) -> AnyPublisher<Void, NetworkError>
 }
 
 final class PatchChallengeUseCase: PatchChallengeUseCaseInterface {
@@ -19,7 +19,7 @@ final class PatchChallengeUseCase: PatchChallengeUseCaseInterface {
         self.challengeRepository = challengeRepository
     }
     
-    func execute(challengeId: String) -> AnyPublisher<PatchChallengeResponse, NetworkError> {
+    func execute(challengeId: String) -> AnyPublisher<Void, NetworkError> {
         // status ==> APPROVED,REPORTED,REJECTED
         let request = PatchChallengeRequest(challengeId: challengeId, status: "APPROVED")
         

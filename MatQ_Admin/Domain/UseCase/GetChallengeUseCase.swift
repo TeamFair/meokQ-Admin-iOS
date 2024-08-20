@@ -27,7 +27,6 @@ final class GetChallengeUseCase: GetChallengeUseCaseInterface {
         return challengeRepository.getChallengeList(request: request)
             .flatMap { challenges in
                 let questsWithImages = challenges
-                    .map { $0.toDomain(image: nil) }
                     .map { challenge -> AnyPublisher<Challenge, NetworkError> in
                         
                         // imageId가 없을 경우, 원래의 quest를 반환

@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol DeleteChallengeUseCaseInterface {
-    func execute(challengeId: String) -> AnyPublisher<DeleteChallengeResponse, NetworkError>
+    func execute(challengeId: String) -> AnyPublisher<Void, NetworkError>
 }
 
 final class DeleteChallengeUseCase: DeleteChallengeUseCaseInterface {
@@ -19,7 +19,7 @@ final class DeleteChallengeUseCase: DeleteChallengeUseCaseInterface {
         self.challengeRepository = challengeRepository
     }
     
-    func execute(challengeId: String) -> AnyPublisher<DeleteChallengeResponse, NetworkError> {
+    func execute(challengeId: String) -> AnyPublisher<Void, NetworkError> {
         let request = DeleteChallengeRequest(challengeId: challengeId)
         
         return challengeRepository.deleteChallenge(request: request)

@@ -8,7 +8,7 @@
 import Combine
 
 protocol ChallengeRepositoryInterface {
-    func getChallengeList(request: GetChallengeRequest) -> AnyPublisher<[GetChallengeResponseData], NetworkError>
-    func patchChallenge(request: PatchChallengeRequest) -> AnyPublisher<PatchChallengeResponse, NetworkError>
-    func deleteChallenge(request: DeleteChallengeRequest) -> AnyPublisher<DeleteChallengeResponse, NetworkError>
+    func getChallengeList(request: GetChallengeRequest) -> AnyPublisher<[Challenge], NetworkError>
+    func patchChallenge(request: PatchChallengeRequest) -> AnyPublisher<Void, NetworkError>
+    func deleteChallenge(request: DeleteChallengeRequest) -> AnyPublisher<Void, NetworkError>
 }

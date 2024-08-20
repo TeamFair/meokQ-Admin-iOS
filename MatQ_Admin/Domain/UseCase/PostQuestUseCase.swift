@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 protocol PostQuestUseCaseInterface {
-    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<PostQuestResponse, NetworkError>
+    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<Void, NetworkError>
 }
 
 final class PostQuestUseCase: PostQuestUseCaseInterface {
@@ -23,7 +23,7 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
     }
     
     // TODO: 책임 분리
-    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<PostQuestResponse, NetworkError> {
+    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<Void, NetworkError> {
         // image가 없으면 imageId를 사용
         if let image = image {
             return uploadImageAndPostQuest(
@@ -49,7 +49,7 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
         }
     }
     
-    private func uploadImageAndPostQuest(image: UIImage, writer: String, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<PostQuestResponse, NetworkError> {
+    private func uploadImageAndPostQuest(image: UIImage, writer: String, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<Void, NetworkError> {
         var uiImage = image
         if image.size.width > 1500 || image.size.height > 1500 {
             print("RESIZE IMAGE \(image.size.width) \(image.size.height)")
