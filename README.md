@@ -24,11 +24,11 @@
 
 `View` : `ViewModel` =  1:1
 
-`ViewModel` : `Usecase` =  1:N 
+`ViewModel` : `UseCase` =  1:N 
 
-`Usecase` : `Repository` =  1:N 
+`UseCase` : `Repository` =  1:N 
 
-`Repository` : `Datasource` = 1:N (1:1로 변경 예정)
+`Repository` : `DataSource` = 1:N
 
 <br>
 
@@ -38,34 +38,29 @@
 
 > MainView
 > 
-> - Market
->     - MarketMain
->     - MarketAuthReview
->         - BusinessRegistration
->         - MarketDetailInfo
->         - Identification
-> - Notice
->     - NoticeMain
->     - NoticePost
->     - NoticeDelete
+> - Quest
+>     - QuestMain
+>     - QuestDetail
+> - Manage
+>     - ManageMain
+>     - ManageDetail
       
 <br>
 
 📁 **Usecase**
 
-> - GetMarket
-> - PutMarketReview
-> - FetchMarketReviewMaterials
-> - GetNotice
-> - PostNotice
-> - DeleteNotice
+> - GetQuest
+> - PostQuest
+> - DeleteQuest
+> - GetChallenge
+> - PatchChallenge
+> - DeleteChallenge
 
 <br>
 
 📁 **Repository, Datasource**
 
-> - Market
-> - MarketAuth
+> - Quest
+> - Challenge
 > - Image
-> - Notice
 
