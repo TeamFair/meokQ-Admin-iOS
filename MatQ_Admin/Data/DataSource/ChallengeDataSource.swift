@@ -24,7 +24,7 @@ struct ChallengeDataSource: ChallengeDataSourceInterface {
     
     func getChallengeList(request: GetChallengeRequest) -> AnyPublisher<[GetChallengeResponseData], NetworkError> {
         networkService.request(ChallengeTarget.getChallenge(request), as: GetChallengeResponse.self)
-            .map { $0.data.content }
+            .map { $0.data }
             .eraseToAnyPublisher()
     }
     

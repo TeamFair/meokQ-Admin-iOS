@@ -14,12 +14,7 @@ struct GetChallengeRequest: Encodable {
     let size: Int = 50
 }
 
-//typealias GetChallengeResponse = ResponseWithPage<[GetChallengeResponseData]>
-typealias GetChallengeResponse = Response<Trash>
-
-struct Trash: Decodable {
-    let content: [GetChallengeResponseData]
-}
+typealias GetChallengeResponse = ResponseWithPage<[GetChallengeResponseData]>
 
 struct GetChallengeResponseData: Decodable {
     let challengeId: String
