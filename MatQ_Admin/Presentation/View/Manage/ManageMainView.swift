@@ -16,24 +16,13 @@ struct ManageMainView: View {
             NavigationBarComponent(navigationTitle: "관리", isNotRoot: false)
                 .overlay(alignment: .trailing) {
                     Button {
-                        vm.showingAlert = true
+                        vm.activeAlertType = .portchange
+                        vm.showAlert = true
                     } label: {
                         Image(systemName: "terminal")
                     }
                     .padding(.trailing, 20)
                 }
-                .alert("포트번호 변경", isPresented: $vm.showingAlert, actions: {
-                    TextField("\(vm.port)", text: $vm.portText)
-                    
-                    Button("변경", action: {
-                        vm.port = vm.portText
-                    })
-                    .disabled(vm.portText == "")
-                    
-                    Button("취소", role: .cancel, action: {})
-                }, message: {
-                    Text("변경할 포트번호을 작성해주세요.")
-                })
             
             switch vm.viewState {
             case .empty:
@@ -51,36 +40,46 @@ struct ManageMainView: View {
         .task {
             vm.getReportedList(page: 0)
         }
-        .alert(isPresented: $vm.showingAlert) {
-            Alert(title: Text("Error"), message: Text(vm.errorMessage), dismissButton: .default(Text("OK")))
-        }
+        .alert(
+            Text(vm.activeAlertType == .portchange ? "포트번호 변경" : "네트워크 에러"),
+            isPresented: $vm.showAlert,
+            actions: {
+                switch vm.activeAlertType {
+                case .portchange:
+                    TextField("\(vm.port)", text: $vm.portText)
+                    
+                    Button("변경", action: {
+                        vm.port = vm.portText
+                        vm.showAlert = false
+                    })
+                    .disabled(vm.portText == "")
+                    
+                    Button("취소", role: .cancel, action: {})
+                case .networkError:
+                    Button(role: .cancel, action: { }, label: {Text("확인")})
+                case .none:
+                    Button(role: .cancel, action: { }, label: {Text("확인")})
+                }
+            },
+            message: {
+                Text(vm.activeAlertType == .portchange ? "변경할 포트번호을 작성해주세요." : vm.errorMessage)
+            })
     }
     
     private var reportListView: some View {
         ScrollView {
             Spacer().frame(height: 20)
-            ForEach(vm.items, id: \.questId) { item in
+            ForEach(vm.items, id: \.challengeId) { item in
                 Button {
                     router.push(
-                        .ManageDetailView(quest: vm.questList
-                            .first(where: { $0.questId == item.questId })
-                            .map {
-                                Quest(
-                                    questId: $0.questId,
-                                    missionTitle: $0.missionTitle,
-                                    quantity: $0.quantity,
-                                    status: $0.status,
-                                    writer: $0.writer,
-                                    image: $0.image,
-                                    logoImageId: $0.logoImageId ?? "",
-                                    expireDate: $0.expireDate
-                                )
-                            }!
+                        .ManageDetailView(challenge: vm.challengeList
+                            .first(where: { $0.challengeId == item.challengeId })!
                         )
                     )
                     
                 } label: {
-                    ManageListItemView(challengeTitle: item.questTitle, userNickname: item.expireDate)
+                    // TODO: 라벨 변경
+                    ManageListItemView(challengeTitle: item.questTitle, userNickname: item.createdAt)
                 }
             }
             Spacer(minLength: 60)

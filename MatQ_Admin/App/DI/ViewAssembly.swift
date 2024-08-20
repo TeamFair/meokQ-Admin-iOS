@@ -37,7 +37,7 @@ final class ViewAssembly: Assembly {
         
         container.register(ManageDetailView.self, factory: { (
             resolver: Resolver,
-            arg1: Quest
+            arg1: Challenge
         ) -> ManageDetailView in
             return .init(vm: resolver.resolve(ManageDetailViewModel.self, argument: arg1)!)
         }).inObjectScope(.transient)

@@ -10,6 +10,8 @@
 		60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */; };
 		60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FF12C662495009AECF2 /* NetworkConfiguration.swift */; };
 		601048712C652FC20028662D /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
+		606329932C7483E8000F4513 /* PatchChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */; };
+		606329952C748E10000F4513 /* DeleteChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */; };
 		608EBF8A2C38709800B862CC /* AppInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF892C38709800B862CC /* AppInject.swift */; };
 		608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF8C2C38716100B862CC /* QuestMainView.swift */; };
 		608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF8E2C38716900B862CC /* QuestDetailView.swift */; };
@@ -31,6 +33,13 @@
 		60DB54BF2C73876600AEDFE9 /* ManageListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54BE2C73876600AEDFE9 /* ManageListItemView.swift */; };
 		60DB54C12C7393DB00AEDFE9 /* ManageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54C02C7393DB00AEDFE9 /* ManageDetailView.swift */; };
 		60DB54C32C73940100AEDFE9 /* ManageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54C22C73940100AEDFE9 /* ManageDetailViewModel.swift */; };
+		60DB54C52C73BBD600AEDFE9 /* ChallengeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54C42C73BBD600AEDFE9 /* ChallengeDataSource.swift */; };
+		60DB54C72C73BC4D00AEDFE9 /* ChallengeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54C62C73BC4D00AEDFE9 /* ChallengeModel.swift */; };
+		60DB54C92C73BD4F00AEDFE9 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54C82C73BD4F00AEDFE9 /* Challenge.swift */; };
+		60DB54CB2C73BF5500AEDFE9 /* ChallengeTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54CA2C73BF5500AEDFE9 /* ChallengeTarget.swift */; };
+		60DB54CD2C73C12600AEDFE9 /* ChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54CC2C73C12600AEDFE9 /* ChallengeRepository.swift */; };
+		60DB54CF2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54CE2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift */; };
+		60DB54D12C73C1F900AEDFE9 /* GetChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54D02C73C1F900AEDFE9 /* GetChallengeUseCase.swift */; };
 		60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A22B97BDC9009DD235 /* ViewAssembly.swift */; };
 		60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */; };
 		60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696A82B97BEAE009DD235 /* DependencyInjector.swift */; };
@@ -81,6 +90,8 @@
 		60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataTransferable.swift; sourceTree = "<group>"; };
 		60004FF12C662495009AECF2 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		601048702C652FC20028662D /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
+		606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchChallengeUseCase.swift; sourceTree = "<group>"; };
+		606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteChallengeUseCase.swift; sourceTree = "<group>"; };
 		608EBF892C38709800B862CC /* AppInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInject.swift; sourceTree = "<group>"; };
 		608EBF8C2C38716100B862CC /* QuestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMainView.swift; sourceTree = "<group>"; };
 		608EBF8E2C38716900B862CC /* QuestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDetailView.swift; sourceTree = "<group>"; };
@@ -102,6 +113,13 @@
 		60DB54BE2C73876600AEDFE9 /* ManageListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageListItemView.swift; sourceTree = "<group>"; };
 		60DB54C02C7393DB00AEDFE9 /* ManageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDetailView.swift; sourceTree = "<group>"; };
 		60DB54C22C73940100AEDFE9 /* ManageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDetailViewModel.swift; sourceTree = "<group>"; };
+		60DB54C42C73BBD600AEDFE9 /* ChallengeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDataSource.swift; sourceTree = "<group>"; };
+		60DB54C62C73BC4D00AEDFE9 /* ChallengeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeModel.swift; sourceTree = "<group>"; };
+		60DB54C82C73BD4F00AEDFE9 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
+		60DB54CA2C73BF5500AEDFE9 /* ChallengeTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTarget.swift; sourceTree = "<group>"; };
+		60DB54CC2C73C12600AEDFE9 /* ChallengeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRepository.swift; sourceTree = "<group>"; };
+		60DB54CE2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRepositoryInterface.swift; sourceTree = "<group>"; };
+		60DB54D02C73C1F900AEDFE9 /* GetChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetChallengeUseCase.swift; sourceTree = "<group>"; };
 		60E696A22B97BDC9009DD235 /* ViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAssembly.swift; sourceTree = "<group>"; };
 		60E696A62B97BE08009DD235 /* ViewModelAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelAssembly.swift; sourceTree = "<group>"; };
 		60E696A82B97BEAE009DD235 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
@@ -212,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				60F27DF82C46039400711A53 /* QuestRepository.swift */,
+				60DB54CC2C73C12600AEDFE9 /* ChallengeRepository.swift */,
 				60DB54B72C73788900AEDFE9 /* ImageRepository.swift */,
 			);
 			path = Repository;
@@ -231,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				608EBF922C3872D700B862CC /* Quest.swift */,
+				60DB54C82C73BD4F00AEDFE9 /* Challenge.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -241,6 +261,9 @@
 				60F27DF42C4602DD00711A53 /* GetQuestUseCase.swift */,
 				60F27DFA2C4616D500711A53 /* PostQuestUseCase.swift */,
 				60F27DFC2C461B2B00711A53 /* DeleteQuestUseCase.swift */,
+				60DB54D02C73C1F900AEDFE9 /* GetChallengeUseCase.swift */,
+				606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */,
+				606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -258,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				60F27DF22C45FD0E00711A53 /* QuestDataSource.swift */,
+				60DB54C42C73BBD600AEDFE9 /* ChallengeDataSource.swift */,
 				60E696BE2B9A1FC1009DD235 /* ImageDataSource.swift */,
 			);
 			path = DataSource;
@@ -289,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				60F27DEC2C45691F00711A53 /* QuestModel.swift */,
+				60DB54C62C73BC4D00AEDFE9 /* ChallengeModel.swift */,
 				60E696BA2B9A1BFE009DD235 /* ImageModel.swift */,
 			);
 			path = DTO;
@@ -310,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */,
+				60DB54CE2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift */,
 				60DB54B42C73763F00AEDFE9 /* ImageRepositoryInterface.swift */,
 			);
 			path = RepositoryInterface;
@@ -333,6 +359,7 @@
 			children = (
 				60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */,
 				60F27DF02C45FADC00711A53 /* QuestTarget.swift */,
+				60DB54CA2C73BF5500AEDFE9 /* ChallengeTarget.swift */,
 			);
 			path = Target;
 			sourceTree = "<group>";
@@ -516,9 +543,11 @@
 				60F27DF32C45FD0E00711A53 /* QuestDataSource.swift in Sources */,
 				E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */,
 				608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */,
+				606329932C7483E8000F4513 /* PatchChallengeUseCase.swift in Sources */,
 				60DB54C12C7393DB00AEDFE9 /* ManageDetailView.swift in Sources */,
 				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
 				60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */,
+				60DB54C72C73BC4D00AEDFE9 /* ChallengeModel.swift in Sources */,
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
 				60F27DFD2C461B2B00711A53 /* DeleteQuestUseCase.swift in Sources */,
 				608EBF972C390C5200B862CC /* QuestDetailViewModel.swift in Sources */,
@@ -527,6 +556,7 @@
 				608EBF932C3872D700B862CC /* Quest.swift in Sources */,
 				60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */,
 				60F27DED2C45691F00711A53 /* QuestModel.swift in Sources */,
+				60DB54CD2C73C12600AEDFE9 /* ChallengeRepository.swift in Sources */,
 				608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */,
 				60DB54B12C7272E400AEDFE9 /* NetworkService.swift in Sources */,
 				60F27DFB2C4616D500711A53 /* PostQuestUseCase.swift in Sources */,
@@ -535,13 +565,16 @@
 				60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */,
 				60EC52002B9D99CE002CBCA3 /* View++.swift in Sources */,
 				60E696A72B97BE08009DD235 /* ViewModelAssembly.swift in Sources */,
+				60DB54D12C73C1F900AEDFE9 /* GetChallengeUseCase.swift in Sources */,
 				60DA570E2B94132E00EDAF30 /* Endpoint.swift in Sources */,
+				606329952C748E10000F4513 /* DeleteChallengeUseCase.swift in Sources */,
 				60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */,
 				60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */,
 				60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */,
 				60DB54B52C73763F00AEDFE9 /* ImageRepositoryInterface.swift in Sources */,
 				60E696B52B98C583009DD235 /* Bundle++.swift in Sources */,
 				60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */,
+				60DB54C92C73BD4F00AEDFE9 /* Challenge.swift in Sources */,
 				60F27DEF2C45F1A900711A53 /* CommonResponse.swift in Sources */,
 				601048712C652FC20028662D /* UIImage++.swift in Sources */,
 				60F27DF72C46031A00711A53 /* QuestRepositoryInterface.swift in Sources */,
@@ -553,12 +586,15 @@
 				60E696BF2B9A1FC1009DD235 /* ImageDataSource.swift in Sources */,
 				608EBF992C39166F00B862CC /* TextFieldComponent.swift in Sources */,
 				60F27DF52C4602DD00711A53 /* GetQuestUseCase.swift in Sources */,
+				60DB54C52C73BBD600AEDFE9 /* ChallengeDataSource.swift in Sources */,
+				60DB54CF2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift in Sources */,
 				608EBF8A2C38709800B862CC /* AppInject.swift in Sources */,
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
 				60DB54B82C73788900AEDFE9 /* ImageRepository.swift in Sources */,
 				60DB54BD2C73852900AEDFE9 /* ManageMainViewModel.swift in Sources */,
 				60F27DF92C46039400711A53 /* QuestRepository.swift in Sources */,
+				60DB54CB2C73BF5500AEDFE9 /* ChallengeTarget.swift in Sources */,
 				60E696BB2B9A1BFE009DD235 /* ImageModel.swift in Sources */,
 				60E696AD2B97CC88009DD235 /* DataAssembly.swift in Sources */,
 				E5DD827F2B350D7200A026C2 /* NavigationBarComponent.swift in Sources */,
