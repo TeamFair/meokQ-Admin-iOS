@@ -43,20 +43,19 @@ struct ImageFieldComponent: View {
                 .font(.subheadline).bold()
                 .multilineTextAlignment(.leading)
                 .foregroundStyle(.textPrimary)
-
-            if let image = uiImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: 160, height: 160)
-                    .cornerRadius(12)
-                    .frame(maxWidth: .infinity)
-            } else {
-                RoundedRectangle(cornerRadius: 12)
-                    .frame(width: 160, height: 160)
-                    .cornerRadius(12)
-                    .foregroundStyle(.regularMaterial)
-                    .frame(maxWidth: .infinity)
+            
+            Group {
+                if let image = uiImage {
+                    Image(uiImage: image)
+                        .resizable()
+                } else {
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundStyle(.regularMaterial)
+                }
             }
+            .frame(width: UIImageSize.medium.value, height: UIImageSize.medium.value)
+            .cornerRadius(12)
+            .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity)
         .padding(.bottom, 16)

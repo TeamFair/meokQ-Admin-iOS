@@ -25,4 +25,37 @@ extension UIImage {
 
         return UIImage(cgImage: scaledImage, scale: self.scale, orientation: self.imageOrientation)
     }
+    
+    func resizeImage(newWidth: CGFloat) -> UIImage? {
+        let scale = newWidth / self.size.width
+        let newHeight = self.size.height * scale
+        let newSize = CGSize(width: newWidth, height: newHeight)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, UIScreen.main.scale)
+        self.draw(in: CGRect(origin: .zero, size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+}
+
+enum UIImageSize {
+    case small
+    case medium
+    case maxWidth
+    case custom(CGFloat)
+    
+    var value: CGFloat {
+        switch self {
+        case .small:
+            return 76
+        case .medium:
+            return 160
+        case .maxWidth:
+            return UIScreen.main.bounds.width - 40
+        case .custom(let size):
+            return size
+        }
+    }
 }

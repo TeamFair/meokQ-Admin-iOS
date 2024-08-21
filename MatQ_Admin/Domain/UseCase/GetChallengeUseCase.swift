@@ -42,7 +42,7 @@ final class GetChallengeUseCase: GetChallengeUseCaseInterface {
                         return self.imageRepository.getImage(request: imageRequest)
                             .map { image in
                                 var updatedQuest = challenge
-                                updatedQuest.image = image
+                                updatedQuest.image = image.resizeImage(newWidth: UIImageSize.maxWidth.value)
                                 return updatedQuest
                             }
                             .catch { _ in

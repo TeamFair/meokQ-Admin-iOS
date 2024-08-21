@@ -16,7 +16,7 @@ struct QuestItemView: View {
         HStack(spacing: 0){
             Image(uiImage: questImage)
                 .resizable()
-                .frame(width: 76, height: 76)
+                .frame(width: UIImageSize.small.value, height: UIImageSize.small.value)
                 .cornerRadius(10)
                 .padding(.trailing, 14)
             VStack(alignment: .leading, spacing: 8) {
