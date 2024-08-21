@@ -41,7 +41,7 @@ final class GetQuestUseCase: GetQuestUseCaseInterface {
                         return self.imageRepository.getImage(request: imageRequest)
                             .map { image in
                                 var updatedQuest = quest
-                                updatedQuest.image = image
+                                updatedQuest.image = image.resizeImage(newWidth: UIImageSize.medium.value) // 32
                                 return updatedQuest
                             }
                             .catch { _ in
