@@ -9,12 +9,12 @@ import Combine
 import SwiftUI
 
 protocol ManageMainViewModelInput {
-    func getReportedList(page: Int) async
+    func getReportedList(page: Int)
 }
 
 protocol ManageMainViewModelOutput {
     var items: [ManageMainViewModelItem] { get }
-    var error: PassthroughSubject<String, Never> { get }
+    var error: AnyPublisher<String, Never> { get }
 }
 
 final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOutput, ObservableObject {
@@ -32,45 +32,58 @@ final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOu
     @AppStorage("port") var port = "9090"
     @Published var portText = ""
     
-    var error = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
+    private let errorSubject = CurrentValueSubject<String, Never>("")
+    
+    var error: AnyPublisher<String, Never> {
+        return errorSubject.eraseToAnyPublisher()
+    }
     
     init(getChallengeUseCase: GetChallengeUseCaseInterface) {
         self.getChallengeUseCase = getChallengeUseCase
         
-        error.sink { [weak self] errorMessage in
-            self?.errorMessage = errorMessage
-            self?.activeAlertType = .networkError
-            self?.showAlert = true
-        }.store(in: &cancellables)
+        errorSubject
+            .sink { [weak self] errorMessage in
+                if !errorMessage.isEmpty {
+                    self?.errorMessage = errorMessage
+                    self?.activeAlertType = .networkError
+                    self?.showAlert = true
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func getReportedList(page: Int) {
+        guard viewState != .loading else { return }
+        
         viewState = .loading
+        
         getChallengeUseCase.execute(page: page)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    self.viewState = self.items.isEmpty ? .empty : .loaded
-                case .failure(let err):
-                    self.error.send(err.localizedDescription)
-                    self.viewState = .empty
-                }
-            } receiveValue: { [weak self] result in
-                if page == 0 {
-                    self?.items = []
-                    self?.challengeList = []
-                }
-                for item in result.map(ManageMainViewModelItem.init) {
-                    self?.items.append(item)
-                }
-
-                // TODO: 페이지네이션
-                self?.challengeList += result
-                self?.viewState = .loaded
+            .mapError { [weak self] error -> Error in
+                self?.handleError(error)
+                return error
             }
+            .catch { _ in Just([]) }
+            .scan([]) { currentItems, newItems -> [ManageMainViewModelItem] in
+                self.challengeList += newItems
+                
+                if page == 0 {
+                    return newItems.map(ManageMainViewModelItem.init)
+                } else {
+                    return currentItems + newItems.map(ManageMainViewModelItem.init)
+                }
+            }
+            .sink(receiveValue: { [weak self] newItems in
+                self?.items = newItems
+                self?.viewState = newItems.isEmpty ? .empty : .loaded
+            })
             .store(in: &cancellables)
+    }
+    
+    private func handleError(_ error: Error) {
+        errorSubject.send(error.localizedDescription)
+        viewState = .empty
     }
 }
 
