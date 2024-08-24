@@ -50,6 +50,7 @@ struct ManageMainView: View {
                     
                     Button("변경", action: {
                         vm.port = vm.portText
+                        vm.getReportedList(page: 0)
                         vm.showAlert = false
                     })
                     .disabled(vm.portText == "")
