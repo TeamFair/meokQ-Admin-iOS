@@ -20,7 +20,8 @@ struct GetChallengeResponseData: Decodable {
     let challengeId: String
     let userNickName: String?
     let quest: QuestResponse?
-    let receiptImageId, status: String
+    let receiptImageId: String?
+    let status: String
     let createdAt: String
     
     func toDomain(image: UIImage?) -> Challenge {
