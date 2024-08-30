@@ -48,3 +48,18 @@ class NetworkService: NetworkServiceInterface {
             .eraseToAnyPublisher()
     }
 }
+
+extension NetworkService {
+    func logRequestURL(target: URLRequestConvertible) {
+        #if DEBUG
+        let urlRequest = try? target.asURLRequest()
+        print("Request URL: \(urlRequest?.url?.absoluteString ?? "No URL")")
+        #endif
+    }
+    
+    func decode<T: Decodable>(from data: Data) throws -> T {
+        let decoder = JSONDecoder()
+        let decodedResponse = try decoder.decode(T.self, from: data)
+        return decodedResponse
+    }
+}
