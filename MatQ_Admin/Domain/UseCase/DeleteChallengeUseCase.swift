@@ -14,9 +14,11 @@ protocol DeleteChallengeUseCaseInterface {
 
 final class DeleteChallengeUseCase: DeleteChallengeUseCaseInterface {
     let challengeRepository: ChallengeRepositoryInterface
+    let imageRepository: ImageRepositoryInterface
     
-    init(challengeRepository: ChallengeRepositoryInterface) {
+    init(challengeRepository: ChallengeRepositoryInterface, imageRepository: ImageRepositoryInterface) {
         self.challengeRepository = challengeRepository
+        self.imageRepository = imageRepository
     }
     
     func execute(challengeId: String) -> AnyPublisher<Void, NetworkError> {
