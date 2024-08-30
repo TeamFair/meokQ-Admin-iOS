@@ -25,7 +25,7 @@ struct MatQ_AdminApp: App {
     
     func setTabBarAppearance() {
         let appearance = UITabBarAppearance()
-        appearance.backgroundColor = UIColor(.white)
+        appearance.backgroundColor = UIColor(named: "componentPrimary")
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
     }
