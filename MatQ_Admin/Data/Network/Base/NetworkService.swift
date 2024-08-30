@@ -16,12 +16,41 @@ protocol NetworkServiceInterface {
 }
 
 class NetworkService: NetworkServiceInterface {
+    
+    /// #57 - 응답이 실패했을 때 (응답코드, 디코딩한 status, 디코딩한 에러메시지)를 반환
     func request<T: Decodable>(_ target: URLRequestConvertible, as type: T.Type) -> AnyPublisher<T, NetworkError> {
-        AF.request(target)
-            .validate(statusCode: 200..<300)
-            .publishDecodable(type: T.self)
-            .value()
-            .mapError { _ in NetworkError.serverError }
+        logRequestURL(target: target)
+       
+        return AF.request(target)
+            .validate()
+            .publishData(emptyResponseCodes: [200, 204, 205])
+            .tryMap { result -> T in
+                if let error = result.error {
+                    if let errorData = result.data {
+                        let value: ErrorResponse = try self.decode(from: errorData)
+                        print("NetworkService - 응답 에러, 디코딩 결과: \(value)")
+                        throw NetworkError.error((result.response?.statusCode ?? 0, value.status, value.errMessage))
+                    } else {
+                        print("NetworkService - 응답 에러: \(error)")
+                        throw error
+                    }
+                }
+                
+                if let data = result.data {
+                    let value: T = try self.decode(from: data)
+                    return value
+                } else {
+                    return ResponseWithEmpty() as! T
+                }
+            }
+            .mapError({ error -> NetworkError in
+                if let apiError = error as? NetworkError {
+                    return apiError
+                } else {
+                    return .unknownError
+                }
+            })
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     
@@ -46,5 +75,20 @@ class NetworkService: NetworkServiceInterface {
             .value()
             .mapError { _ in NetworkError.serverError }
             .eraseToAnyPublisher()
+    }
+}
+
+extension NetworkService {
+    func logRequestURL(target: URLRequestConvertible) {
+        #if DEBUG
+        let urlRequest = try? target.asURLRequest()
+        print("Request URL: \(urlRequest?.url?.absoluteString ?? "No URL")")
+        #endif
+    }
+    
+    func decode<T: Decodable>(from data: Data) throws -> T {
+        let decoder = JSONDecoder()
+        let decodedResponse = try decoder.decode(T.self, from: data)
+        return decodedResponse
     }
 }

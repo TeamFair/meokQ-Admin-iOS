@@ -8,6 +8,8 @@
 enum NetworkError: Error {
     case decodingError
     case serverError
-    case unknownError
     case invalidImageData
+    
+    case error((Int, String, String)) // StatusCode, Status, ErrMessage
+    case unknownError
 }
