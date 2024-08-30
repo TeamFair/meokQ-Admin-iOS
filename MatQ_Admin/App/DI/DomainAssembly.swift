@@ -43,7 +43,8 @@ final class DomainAssembly: Assembly {
         container.register(DeleteChallengeUseCaseInterface.self, factory: { (
             resolver: Resolver
         ) -> DeleteChallengeUseCase in
-            return .init(challengeRepository: resolver.resolve(ChallengeRepositoryInterface.self)!)
+            return .init(challengeRepository: resolver.resolve(ChallengeRepositoryInterface.self)!, 
+                         imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
         }).inObjectScope(.container)
         
     }

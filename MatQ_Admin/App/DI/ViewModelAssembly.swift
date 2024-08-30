@@ -44,6 +44,6 @@ final class ViewModelAssembly: Assembly {
             return .init(challengeDetail: arg1,
                          patchChallengeUseCase: resolver.resolve(PatchChallengeUseCaseInterface.self)!,
                          deleteChallengeUseCase: resolver.resolve(DeleteChallengeUseCaseInterface.self)!)
-        }).inObjectScope(.container)
+        }).inObjectScope(.transient)
     }
 }
