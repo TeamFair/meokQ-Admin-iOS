@@ -76,7 +76,7 @@ struct ManageDetailView: View {
                     message: Text("삭제한 챌린지는 복구할 수 없으며 미완료 상태로 변경됩니다."),
                     primaryButton: .cancel(Text("취소")),
                     secondaryButton: .destructive(Text("삭제")) {
-                        vm.deleteChallenge(challengeId: vm.item.challengeId)
+                        vm.deleteChallenge(item: vm.item)
                     }
                 )
             case .recovery:

@@ -36,7 +36,11 @@ final class ManageDetailViewModel: ObservableObject {
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "챌린지 신고 철회 실패"
-                    self?.alertMessage = error.localizedDescription
+                    if case let NetworkError.error((_, _, errMessage)) = error {
+                        self?.alertMessage = errMessage
+                    } else {
+                        self?.alertMessage = error.localizedDescription
+                    }
                     self?.activeAlertType = .result
                     self?.showAlert = true
                 }
@@ -49,21 +53,27 @@ final class ManageDetailViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func deleteChallenge(challengeId: String) {
-        deleteChallengeUseCase.execute(challengeId: challengeId)
-            .sink { [weak self] completion in
-                if case .failure(let error) = completion {
+    func deleteChallenge(item: ManageDetailViewModelItem) {
+        deleteChallengeUseCase.execute(challengeId: item.challengeId, imageId: item.imageId)
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.alertTitle = "챌린지 삭제 성공"
+                    self?.alertMessage = "퀘스트가 성공적으로 삭제되었습니다"
+                    self?.activeAlertType = .result
+                    self?.showAlert = true
+                case .failure(let error):
                     self?.alertTitle = "챌린지 삭제 실패"
-                    self?.alertMessage = error.localizedDescription
+                    if case let NetworkError.error((_, _, errMessage)) = error {
+                        self?.alertMessage = errMessage
+                    } else {
+                        self?.alertMessage = error.localizedDescription
+                    }
                     self?.activeAlertType = .result
                     self?.showAlert = true
                 }
-            } receiveValue: { [weak self] _ in
-                self?.alertTitle = "챌린지 삭제 성공"
-                self?.alertMessage = "퀘스트가 성공적으로 삭제되었습니다"
-                self?.activeAlertType = .result
-                self?.showAlert = true
-            }
+            }, receiveValue: { _ in
+            })
             .store(in: &subscriptions)
     }
 }
