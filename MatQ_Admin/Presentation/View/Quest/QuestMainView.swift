@@ -48,7 +48,8 @@ struct QuestMainView: View {
             case .loaded:
                 marketListView
             }
-            
+        }
+        .safeAreaInset(edge: .bottom) {
             Button {
                 router.push(.QuestDetailView(type: .publish, quest: Quest.init()))
             } label: {
@@ -56,7 +57,7 @@ struct QuestMainView: View {
             }
             .ilsangButtonStyle(type: .primary)
             .padding(.horizontal)
-            .padding(.bottom, 12)
+            .padding(.bottom, 8)
         }
         .background(.bgSecondary)
         .task {
