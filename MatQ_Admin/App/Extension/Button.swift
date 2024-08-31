@@ -15,9 +15,9 @@ struct IS_ButonStyle: ButtonStyle {
         configuration.label
             .frame(maxWidth: .infinity)
             .padding(.vertical, 16)
-            .foregroundColor(type.fgColor.opacity(isDisabled ? 0.8 : 1.0))
+            .foregroundColor(isDisabled ? ButtonType.secondary.fgColor: type.fgColor)
             .font(.headline)
-            .background(isDisabled ? type.bgColor.opacity(0.3) : (configuration.isPressed ? type.bgColor.opacity(0.7) : type.bgColor))
+            .background(isDisabled ? ButtonType.secondary.bgColor : (configuration.isPressed ? type.bgColor.opacity(0.7) : type.bgColor))
             .cornerRadius(12)
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
             .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
@@ -34,7 +34,7 @@ struct IS_ButonStyle: ButtonStyle {
             case .primary:
                 Color.white
             case .secondary:
-                Color.black.opacity(0.8)
+                Color.gray500
             case .delete:
                 Color.white
             }
@@ -45,7 +45,7 @@ struct IS_ButonStyle: ButtonStyle {
             case .primary:
                 Color.primaryPurple
             case .secondary:
-                Color.gray100
+                Color.gray200
             case .delete:
                 Color.mainRed
             }
