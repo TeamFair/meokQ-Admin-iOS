@@ -42,6 +42,14 @@ struct QuestDetailView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     TextFieldComponent(titleName: "미션 제목", contentPlaceholder: vm.items.questTitle, content: $vm.editedItems.questTitle)
+                        .overlay(alignment: .topTrailing) {
+                            Text("\(vm.editedItems.questTitle.count) / 16")
+                                .foregroundStyle(vm.editedItems.questTitle.count > 16 ? .red : .textPrimary)
+                                .opacity(vm.viewType == .publish ? 1 : 0)
+                                .font(.caption2)
+                                .padding(.trailing, 8)
+                                .offset(y: 2)
+                        }
                     TextFieldComponent(titleName: "리워드 XP", contentPlaceholder: String(vm.items.xpCount), content: $vm.editedItems.xpCount)
                     TextFieldComponent(titleName: "작성자", contentPlaceholder: vm.items.writer, content: $vm.editedItems.writer)
                     TextFieldComponent(titleName: "만료 기한", contentPlaceholder: vm.items.expireDate, content: $vm.editedItems.expireDate)
@@ -64,7 +72,8 @@ struct QuestDetailView: View {
                 } label: {
                     Text(vm.viewType.buttonTitle)
                 }
-                .ilsangButtonStyle(type: .primary)
+                .ilsangButtonStyle(type: .primary, isDisabled: vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
+                .disabled(vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
                 .padding(.horizontal, 20)
             }
         }
