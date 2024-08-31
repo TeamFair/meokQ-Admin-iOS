@@ -64,18 +64,6 @@ struct QuestDetailView: View {
                 }
                 .padding(.horizontal, 20)
             }
-            
-            if vm.viewType == .publish {
-                Button {
-                    // TODO: 퀘스트 수정 API 연결
-                    vm.createData(data: vm.editedItems)
-                } label: {
-                    Text(vm.viewType.buttonTitle)
-                }
-                .ilsangButtonStyle(type: .primary, isDisabled: vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
-                .disabled(vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
-                .padding(.horizontal, 20)
-            }
         }
         .alert(isPresented: $vm.showAlert) {
             switch vm.activeAlertType {
@@ -100,6 +88,20 @@ struct QuestDetailView: View {
                 )
             case .none:
                 Alert(title: Text(""))
+            }
+        }
+        .safeAreaInset(edge: .bottom) {
+            if vm.viewType == .publish {
+                Button {
+                    // TODO: 퀘스트 수정 API 연결
+                    vm.createData(data: vm.editedItems)
+                } label: {
+                    Text(vm.viewType.buttonTitle)
+                }
+                .ilsangButtonStyle(type: .primary, isDisabled: vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
+                .disabled(vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 8)
             }
         }
     }
