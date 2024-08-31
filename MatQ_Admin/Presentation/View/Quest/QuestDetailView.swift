@@ -64,6 +64,7 @@ struct QuestDetailView: View {
                 }
                 .padding(.horizontal, 20)
             }
+            .scrollDismissesKeyboard(.immediately)
         }
         .alert(isPresented: $vm.showAlert) {
             switch vm.activeAlertType {
