@@ -7,12 +7,70 @@
 
 import WidgetKit
 import AppIntents
+import SwiftUI
 
 struct ConfigurationAppIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Configuration"
-    static var description = IntentDescription("This is an example widget.")
+    static var description = IntentDescription("일상 관리자 위젯입니다.")
+    
+    init() { }
+    
+    init(colorMode: ColorMode) {
+        self.colorMode = colorMode
+    }
+    
+    @Parameter(title: "테마 색상 설정", default: ColorMode.blackType)
+    var colorMode: ColorMode
+}
 
-    // An example configurable parameter.
-    @Parameter(title: "Favorite Emoji", default: "😃")
-    var favoriteEmoji: String
+enum Status {
+    case able
+    case disable
+    case fail
+    case loading
+    
+    var emoji: String {
+        switch self {
+        case .able:
+            "🍀"
+        case .disable:
+            "🚨"
+        case .fail:
+            "⚠️"
+        case .loading:
+            "🏃🏻‍♂️"
+        }
+    }
+    
+    var bgColor: Color {
+        switch self {
+        case .able:
+                .greenBg
+        case .disable:
+                .redBg
+        case .fail:
+                .yellow.opacity(0.2)
+        case .loading:
+                .blue.opacity(0.2)
+        }
+    }
+}
+
+enum ColorMode: String, AppEnum {
+    case purpleType, blackType
+    
+    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Color Type"
+    static var caseDisplayRepresentations: [ColorMode : DisplayRepresentation] = [
+        .purpleType: "Purple",
+        .blackType:"Black",
+    ]
+    
+    var bgColor: Color {
+        switch self {
+        case .purpleType:
+                .primaryPurple
+        case .blackType:
+                .black
+        }
+    }
 }
