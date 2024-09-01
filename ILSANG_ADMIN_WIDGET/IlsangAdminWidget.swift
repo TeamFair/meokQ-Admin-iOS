@@ -1,6 +1,6 @@
 //
-//  ILSANG_ADMIN_WIDGET.swift
-//  ILSANG_ADMIN_WIDGET
+//  IlsangAdminWidget.swift
+//  IlsangAdminWidget
 //
 //  Created by Lee Jinhee on 9/1/24.
 //
@@ -50,8 +50,8 @@ struct Provider: AppIntentTimelineProvider {
 
 // MARK: - 위젯
 
-struct ILSANG_ADMIN_WIDGET: Widget {
-    let kind: String = "ILSANG_ADMIN_WIDGET"
+struct IlsangAdminWidget: Widget {
+    let kind: String = "Ilsang_Admin_Widget"
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
@@ -61,6 +61,7 @@ struct ILSANG_ADMIN_WIDGET: Widget {
         .contentMarginsDisabled()
     }
 }
+
 
 struct WidgetEntryView: View {
     var entry: Provider.Entry
@@ -135,7 +136,7 @@ extension ConfigurationAppIntent {
 }
 
 #Preview(as: .systemSmall) {
-    ILSANG_ADMIN_WIDGET()
+    IlsangAdminWidget()
 } timeline: {
     IlsangTimelineEntry(date: .now, configuration: .blackMode, prdServerStatus: .able, devServerStatus: .able, count: 0)
     IlsangTimelineEntry(date: .now, configuration: .purpleMode, prdServerStatus: .able, devServerStatus: .able, count: 0)
