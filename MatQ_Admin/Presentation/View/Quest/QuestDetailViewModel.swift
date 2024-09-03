@@ -140,8 +140,3 @@ struct QuestDetailViewModelItem: Equatable {
         self.questImage = quest.image
     }
 }
-
-enum QuestDeleteType: String, Encodable {
-    case hard
-    case soft
-}
