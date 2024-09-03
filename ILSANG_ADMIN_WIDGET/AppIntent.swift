@@ -21,6 +21,11 @@ struct ConfigurationAppIntent: WidgetConfigurationIntent {
     
     @Parameter(title: "테마 색상 설정", default: ColorMode.blackType)
     var colorMode: ColorMode
+    
+    func perform() async throws -> some IntentResult {
+        try await Task.sleep(for: .seconds(1))
+        return .result()
+    }
 }
 
 enum Status {

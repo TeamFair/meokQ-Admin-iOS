@@ -8,46 +8,6 @@
 import WidgetKit
 import SwiftUI
 
-
-// MARK: - 타임라인엔트리 & 프로바이더
-
-struct IlsangTimelineEntry: TimelineEntry {
-    let date: Date
-    let configuration: ConfigurationAppIntent
-    var prdServerStatus: Status
-    var devServerStatus: Status
-    var count: Int
-}
-
-struct Provider: AppIntentTimelineProvider {
-    
-    /// 플레이스홀더
-    func placeholder(in context: Context) -> IlsangTimelineEntry {
-        IlsangTimelineEntry(date: Date(), configuration: ConfigurationAppIntent(), prdServerStatus: .able, devServerStatus: .able, count: 0)
-    }
-
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> IlsangTimelineEntry {
-        // TODO: API 연결 및 데이터 확인
-        IlsangTimelineEntry(date: Date(), configuration: configuration, prdServerStatus: .able, devServerStatus: .able, count: 3)
-    }
-    
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<IlsangTimelineEntry> {
-        var entries: [IlsangTimelineEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            // TODO: API 연결
-            let entry = IlsangTimelineEntry(date: entryDate, configuration: configuration, prdServerStatus: .able, devServerStatus: .able, count: 0)
-            entries.append(entry)
-        }
-
-        return Timeline(entries: entries, policy: .after(currentDate.addingTimeInterval(3600)))
-    }
-}
-
-
 // MARK: - 위젯
 
 struct ILSANG_ADMIN_WIDGET: Widget {
@@ -68,14 +28,23 @@ struct WidgetEntryView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("신고된 도전 내역")
-                    .font(.system(size: 15, weight: .heavy))
+                Text("관리할 내역")
+                    .font(.system(size: 14, weight: .heavy))
                     .foregroundStyle(.white)
                     .opacity(0.9)
                 Text("\(entry.count)")
-                    .font(.title2).bold()
+                    .font(.title3).bold()
                     .foregroundStyle(.secondaryGreen)
+                    .contentTransition(.numericText(value: Double(entry.count)))
+                    .invalidatableContent()
+                Spacer()
+                Button(intent: ConfigurationAppIntent()) {
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                        .foregroundStyle(.gray)
+                }
+                .buttonStyle(.plain)
             }
+            .padding(.horizontal, 18)
             .frame(height: 52)
             .frame(maxWidth: .infinity)
             
@@ -88,6 +57,9 @@ struct WidgetEntryView: View {
                             Circle()
                                 .foregroundStyle(entry.prdServerStatus.bgColor)
                         }
+                        .contentTransition(.symbolEffect)
+                        .invalidatableContent()
+                    
                     Text("PRD")
                         .font(.caption).bold()
                         .foregroundStyle(.gray)
@@ -101,6 +73,9 @@ struct WidgetEntryView: View {
                             Circle()
                                 .foregroundStyle(entry.devServerStatus.bgColor)
                         }
+                        .contentTransition(.symbolEffect)
+                        .invalidatableContent()
+                    
                     Text("DEV")
                         .font(.caption).bold()
                         .foregroundStyle(.gray)

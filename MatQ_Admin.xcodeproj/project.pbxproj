@@ -10,6 +10,19 @@
 		60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */; };
 		60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FF12C662495009AECF2 /* NetworkConfiguration.swift */; };
 		601048712C652FC20028662D /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
+		60631DF52C84E63B005643B1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B02C7272E400AEDFE9 /* NetworkService.swift */; };
+		60631DF62C84E647005643B1 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570B2B94124F00EDAF30 /* NetworkError.swift */; };
+		60631DF72C84E64F005643B1 /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEE2C45F1A900711A53 /* CommonResponse.swift */; };
+		60631DF92C8590CA005643B1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 60631DF82C8590CA005643B1 /* Alamofire */; };
+		60631DFC2C85A08C005643B1 /* HttpHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA57122B94152000EDAF30 /* HttpHeaderField.swift */; };
+		60631DFD2C85A0CA005643B1 /* Bundle++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B42B98C583009DD235 /* Bundle++.swift */; };
+		60631DFE2C85A0DC005643B1 /* PrivateToken.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60E696B62B98C5AD009DD235 /* PrivateToken.plist */; };
+		60631DFF2C85A124005643B1 /* QuestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEC2C45691F00711A53 /* QuestModel.swift */; };
+		60631E012C85A347005643B1 /* ChallengeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54C62C73BC4D00AEDFE9 /* ChallengeModel.swift */; };
+		60631E022C85A37A005643B1 /* Quest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF922C3872D700B862CC /* Quest.swift */; };
+		60631E032C85A3AA005643B1 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54C82C73BD4F00AEDFE9 /* Challenge.swift */; };
+		60631E062C85E4E6005643B1 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60631E042C85E4CC005643B1 /* Network.swift */; };
+		60631E092C85E764005643B1 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60631E072C85E761005643B1 /* Provider.swift */; };
 		606329932C7483E8000F4513 /* PatchChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */; };
 		606329952C748E10000F4513 /* DeleteChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */; };
 		608EBF8A2C38709800B862CC /* AppInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF892C38709800B862CC /* AppInject.swift */; };
@@ -118,6 +131,8 @@
 		60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataTransferable.swift; sourceTree = "<group>"; };
 		60004FF12C662495009AECF2 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		601048702C652FC20028662D /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
+		60631E042C85E4CC005643B1 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		60631E072C85E761005643B1 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchChallengeUseCase.swift; sourceTree = "<group>"; };
 		606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteChallengeUseCase.swift; sourceTree = "<group>"; };
 		608EBF892C38709800B862CC /* AppInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInject.swift; sourceTree = "<group>"; };
@@ -196,6 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60631DF92C8590CA005643B1 /* Alamofire in Frameworks */,
 				60ECFBCA2C8459800020E24B /* SwiftUI.framework in Frameworks */,
 				60ECFBC82C8459800020E24B /* WidgetKit.framework in Frameworks */,
 			);
@@ -436,7 +452,9 @@
 			children = (
 				60ECFBCC2C8459800020E24B /* ILSANG_ADMIN_WIDGETBundle.swift */,
 				60ECFBCE2C8459800020E24B /* ILSANG_ADMIN_WIDGET.swift */,
+				60631E072C85E761005643B1 /* Provider.swift */,
 				60ECFBD02C8459800020E24B /* AppIntent.swift */,
+				60631E042C85E4CC005643B1 /* Network.swift */,
 				60ECFBD22C8459820020E24B /* Assets.xcassets */,
 				60ECFBD42C8459820020E24B /* Info.plist */,
 			);
@@ -541,6 +559,9 @@
 			dependencies = (
 			);
 			name = MatQ_Admin_Extension;
+			packageProductDependencies = (
+				60631DF82C8590CA005643B1 /* Alamofire */,
+			);
 			productName = ILSANG_ADMIN_WIDGETExtension;
 			productReference = 60ECFBC62C8459800020E24B /* MatQ_Admin_Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -614,6 +635,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60631DFE2C85A0DC005643B1 /* PrivateToken.plist in Resources */,
 				60ECFBD32C8459820020E24B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,9 +657,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60631E062C85E4E6005643B1 /* Network.swift in Sources */,
 				60ECFBCD2C8459800020E24B /* ILSANG_ADMIN_WIDGETBundle.swift in Sources */,
+				60631E092C85E764005643B1 /* Provider.swift in Sources */,
+				60631E032C85A3AA005643B1 /* Challenge.swift in Sources */,
+				60631DFD2C85A0CA005643B1 /* Bundle++.swift in Sources */,
+				60631DFF2C85A124005643B1 /* QuestModel.swift in Sources */,
 				60ECFBCF2C8459800020E24B /* ILSANG_ADMIN_WIDGET.swift in Sources */,
+				60631DF52C84E63B005643B1 /* NetworkService.swift in Sources */,
 				60ECFBD12C8459800020E24B /* AppIntent.swift in Sources */,
+				60631E022C85A37A005643B1 /* Quest.swift in Sources */,
+				60631DFC2C85A08C005643B1 /* HttpHeaderField.swift in Sources */,
+				60631DF62C84E647005643B1 /* NetworkError.swift in Sources */,
+				60631DF72C84E64F005643B1 /* CommonResponse.swift in Sources */,
+				60631E012C85A347005643B1 /* ChallengeModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1033,6 +1066,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		60631DF82C8590CA005643B1 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5C503992B467FFD00F47989 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		60EC51F72B9CB075002CBCA3 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 60EC51F62B9CB075002CBCA3 /* XCRemoteSwiftPackageReference "Swinject" */;

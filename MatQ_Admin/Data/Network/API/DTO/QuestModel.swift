@@ -66,3 +66,9 @@ struct DeleteQuestRequest: Encodable {
 }
 
 typealias DeleteQuestResponse = ResponseWithoutData
+
+
+enum QuestDeleteType: String, Encodable {
+    case hard
+    case soft
+}
