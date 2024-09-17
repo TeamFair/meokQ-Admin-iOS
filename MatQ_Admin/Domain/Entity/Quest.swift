@@ -10,17 +10,17 @@ import UIKit
 struct Quest {
     let questId: String
     let missionTitle: String
-    let quantity: Int
+    let rewardList: [RewardResponse]
     let status: String
     let writer: String
     var image: UIImage?
     let logoImageId: String?
     let expireDate: String
     
-    init(questId: String, missionTitle: String, quantity: Int, status: String, writer: String, image: UIImage? ,logoImageId: String, expireDate: String) {
+    init(questId: String, missionTitle: String, rewardList: [RewardResponse], status: String, writer: String, image: UIImage? ,logoImageId: String, expireDate: String) {
         self.questId = questId
         self.missionTitle = missionTitle
-        self.quantity = quantity
+        self.rewardList = rewardList
         self.status = status
         self.writer = writer
         self.image = image
@@ -31,7 +31,7 @@ struct Quest {
     init() {
         self.questId = UUID().uuidString
         self.missionTitle = ""
-        self.quantity = 50
+        self.rewardList = []
         self.status = ""
         self.writer = "일상"
         self.image = .testimage
@@ -40,7 +40,7 @@ struct Quest {
     }
     
     static let initialData = Quest.init()
-    static let mockData1 = Quest.init(questId: UUID().uuidString, missionTitle: "밥먹기", quantity: 50, status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31")
-    static let mockData2 = Quest.init(questId: UUID().uuidString, missionTitle: "커피 마시기", quantity: 50, status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31")
+    static let mockData1 = Quest.init(questId: UUID().uuidString, missionTitle: "밥먹기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31")
+    static let mockData2 = Quest.init(questId: UUID().uuidString, missionTitle: "커피 마시기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31")
     static let defaultLogoImageId = "IMMA2024072114492808"
 }

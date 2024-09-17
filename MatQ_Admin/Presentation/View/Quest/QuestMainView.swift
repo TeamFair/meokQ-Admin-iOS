@@ -82,7 +82,7 @@ struct QuestMainView: View {
                                     Quest(
                                         questId: $0.questId,
                                         missionTitle: $0.missionTitle,
-                                        quantity: $0.quantity,
+                                        rewardList: $0.rewardList,
                                         status: $0.status,
                                         writer: $0.writer,
                                         image: $0.image,

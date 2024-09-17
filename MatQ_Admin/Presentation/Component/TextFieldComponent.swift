@@ -16,6 +16,7 @@ struct TextFieldComponent: View {
         VStack(alignment: .leading){
             Text(titleName)
                 .font(.subheadline).bold()
+                .foregroundStyle(.textSecondary)
             if let contentPlaceholder = contentPlaceholder {
                 TextField("\(contentPlaceholder)", text: $content)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -28,7 +29,28 @@ struct TextFieldComponent: View {
                     )
             }
         }
-        .padding(.bottom, 16)
+    }
+}
+
+struct SliderComponent: View {
+    let titleName: String
+    let contentPlaceholder: Int
+    @Binding var content: Double
+    
+    var body: some View {
+        HStack(spacing: 2) {
+            Text(titleName)
+                .font(.subheadline)
+                .frame(width: 36)
+            Text("\(Int(content))")
+                .frame(width: 32)
+            Slider(value: $content, in: 0...100, step: 5)
+                .frame(maxWidth: .infinity)
+        }
+        .foregroundStyle(.textPrimary)
+        .tint(.primaryPurple)
+        .padding(.vertical, 4)
+        .padding(.horizontal)
     }
 }
 
@@ -42,8 +64,7 @@ struct ImageFieldComponent: View {
             Text(titleName)
                 .font(.subheadline).bold()
                 .multilineTextAlignment(.leading)
-                .foregroundStyle(.textPrimary)
-            
+                .foregroundStyle(.textSecondary)
             Group {
                 if let image = uiImage {
                     Image(uiImage: image)
