@@ -32,15 +32,9 @@ struct ManageDetailView: View {
                     })
                     .padding(.bottom, 12)
                 
-                HStack(spacing: 12) {
-                    Text(vm.item.questTitle)
-                        .font(.title2).bold()
-                        .foregroundStyle(.textPrimary)
-                    
-                    Text("\(vm.item.quantity)XP")
-                        .font(.headline)
-                        .foregroundStyle(.primaryPurple)
-                }
+                Text(vm.item.questTitle)
+                    .font(.title2).bold()
+                    .foregroundStyle(.textPrimary)
                 
                 textView(title: "작성자", content: "\(vm.item.userNickname)")
                 textView(title: "업로드 날짜", content: "\(vm.item.createdAt)")

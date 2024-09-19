@@ -17,7 +17,8 @@ enum ChallengeTarget {
 extension ChallengeTarget: TargetType {
     var baseURL: String {
         switch self {
-        case .getChallenge, .patchChallenge: return URL.makeEndPoint(.admin(endPoint: "report"))
+        case .getChallenge: return URL.makeEndPoint(.admin(endPoint: "challenge"))
+        case .patchChallenge: return URL.makeEndPoint(.admin(endPoint: "status"))
         case .deleteChallenge: return URL.makeEndPoint(.admin(endPoint: ""))
         }
     }
