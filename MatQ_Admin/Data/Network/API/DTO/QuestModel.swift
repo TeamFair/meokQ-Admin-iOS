@@ -17,18 +17,12 @@ struct GetQuestRequest: Encodable {
 
 typealias GetQuestResponse = ResponseWithPage<[GetQuestResponseData]>
 struct GetQuestResponseData: Decodable {
-    let questId: String
-    let writer: String
-    let marketId: String?
-    // TODO: 백엔드에서 테스트로 넣어둔 값 지워달라 요청하기
-    let quantity: Int?
-    let missionTitle: String?
-    let status: String
-    let expireDate: String
+    let questId, writer, missionTitle, status, expireDate: String
     let imageId: String?
-    
+    let rewardList: [RewardResponse]
+
     func toDomain(image: UIImage?) -> Quest {
-        Quest(questId: self.questId, missionTitle: self.missionTitle ?? "불러올 수 없음", quantity: self.quantity ?? 0, status: self.status, writer: self.writer, image: image, logoImageId: self.imageId ?? "", expireDate: self.expireDate)
+        Quest(questId: self.questId, missionTitle: self.missionTitle, rewardList: self.rewardList, status: self.status, writer: self.writer, image: image, logoImageId: self.imageId ?? "", expireDate: self.expireDate)
     }
 }
 
@@ -48,7 +42,7 @@ struct Mission: Encodable {
 }
 
 struct Reward: Encodable {
-    let target: String = ""
+    let content: String?
     let quantity: Int
     let type: String = "XP"
 }

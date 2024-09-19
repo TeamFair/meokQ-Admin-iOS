@@ -85,7 +85,24 @@ final class QuestDetailViewModel: ObservableObject {
     let deleteQuestUseCase: DeleteQuestUseCaseInterface
     
     func createData(data: QuestDetailViewModelItem) {
-        postQuestUseCase.execute(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, quantity: Int(data.xpCount)!, expireDate: data.expireDate)
+        var rewardList: [Reward] = []
+        if data.strengthXP != 0 {
+            rewardList.append(Reward(content: "STRENGTH", quantity: data.strengthXP))
+        }
+        if data.intellectXP != 0 {
+            rewardList.append(Reward(content: "INTELLECT", quantity: data.intellectXP))
+        } 
+        if data.funXP != 0 {
+            rewardList.append(Reward(content: "FUN", quantity: data.funXP))
+        }
+        if data.charmXP != 0 {
+            rewardList.append(Reward(content: "CHARM", quantity: data.charmXP))
+        }
+        if data.sociabilityXP != 0 {
+            rewardList.append(Reward(content: "SOCIABILITY", quantity: data.sociabilityXP))
+        }
+       
+        postQuestUseCase.execute(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, rewardList: rewardList, expireDate: data.expireDate)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 추가 실패"
@@ -124,7 +141,11 @@ final class QuestDetailViewModel: ObservableObject {
 struct QuestDetailViewModelItem: Equatable {
     let questId: String
     var questTitle: String
-    var xpCount: String
+    var strengthXP: Int
+    var intellectXP: Int
+    var funXP: Int
+    var charmXP: Int
+    var sociabilityXP: Int
     var writer: String
     var expireDate: String
     let imageId: String?
@@ -133,7 +154,11 @@ struct QuestDetailViewModelItem: Equatable {
     init(quest: Quest) {
         self.questId = quest.questId
         self.questTitle = quest.missionTitle
-        self.xpCount = String(quest.quantity)
+        self.strengthXP = quest.rewardList.first(where: { $0.content == "STRENGTH" })?.quantity ?? 0
+        self.intellectXP = quest.rewardList.first(where: { $0.content == "INTELLECT" })?.quantity ?? 0
+        self.funXP = quest.rewardList.first(where: { $0.content == "FUN" })?.quantity ?? 0
+        self.charmXP = quest.rewardList.first(where: { $0.content == "CHARM" })?.quantity ?? 0
+        self.sociabilityXP = quest.rewardList.first(where: { $0.content == "SOCIABILITY" })?.quantity ?? 0
         self.writer = quest.writer
         self.expireDate = quest.expireDate
         self.imageId = quest.logoImageId

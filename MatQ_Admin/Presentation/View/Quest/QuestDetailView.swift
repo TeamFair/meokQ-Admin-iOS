@@ -50,7 +50,41 @@ struct QuestDetailView: View {
                                 .padding(.trailing, 8)
                                 .offset(y: 2)
                         }
-                    TextFieldComponent(titleName: "리워드 XP", contentPlaceholder: String(vm.items.xpCount), content: $vm.editedItems.xpCount)
+                 
+                    VStack(alignment: .leading) {
+                        Text("스탯")
+                            .font(.subheadline).bold()
+                            .foregroundStyle(.textSecondary)
+
+                        VStack {
+                            SliderComponent(titleName: "체력", contentPlaceholder: vm.items.strengthXP, content: Binding(
+                                get: { Double(vm.editedItems.strengthXP) },
+                                set: { vm.editedItems.strengthXP = Int($0) }
+                            ))
+                            SliderComponent(titleName: "지능", contentPlaceholder: vm.items.intellectXP, content: Binding(
+                                get: { Double(vm.editedItems.intellectXP) },
+                                set: { vm.editedItems.intellectXP = Int($0) }
+                            ))
+                            SliderComponent(titleName: "재미", contentPlaceholder: vm.items.funXP, content: Binding(
+                                get: { Double(vm.editedItems.funXP) },
+                                set: { vm.editedItems.funXP = Int($0) }
+                            ))
+                            SliderComponent(titleName: "매력", contentPlaceholder: vm.items.charmXP, content: Binding(
+                                get: { Double(vm.editedItems.charmXP) },
+                                set: { vm.editedItems.charmXP = Int($0) }
+                            ))
+                            SliderComponent(titleName: "사회성", contentPlaceholder: vm.items.sociabilityXP, content: Binding(
+                                get: { Double(vm.editedItems.sociabilityXP) },
+                                set: { vm.editedItems.sociabilityXP = Int($0) }
+                            ))
+                        }
+                        .padding(.vertical, 8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .foregroundStyle(.componentPrimary)
+                        )
+                    }
+                    
                     TextFieldComponent(titleName: "작성자", contentPlaceholder: vm.items.writer, content: $vm.editedItems.writer)
                     TextFieldComponent(titleName: "만료 기한", contentPlaceholder: vm.items.expireDate, content: $vm.editedItems.expireDate)
                     
@@ -99,7 +133,7 @@ struct QuestDetailView: View {
                 } label: {
                     Text(vm.viewType.buttonTitle)
                 }
-                .ilsangButtonStyle(type: .primary, isDisabled: vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
+                .ilsangButtonStyle(type: .primary, isDisabled: vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0) // TODO: 스탯모두 0이면 생성 불가
                 .disabled(vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 8)

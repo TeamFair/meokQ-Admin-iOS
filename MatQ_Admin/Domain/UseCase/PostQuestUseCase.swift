@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 protocol PostQuestUseCaseInterface {
-    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<Void, NetworkError>
+    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], expireDate: String) -> AnyPublisher<Void, NetworkError>
 }
 
 final class PostQuestUseCase: PostQuestUseCaseInterface {
@@ -23,14 +23,14 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
     }
     
     // TODO: 책임 분리
-    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<Void, NetworkError> {
+    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], expireDate: String) -> AnyPublisher<Void, NetworkError> {
         // image가 없으면 imageId를 사용
         if let image = image {
             return uploadImageAndPostQuest(
                 image: image,
                 writer: writer,
                 missionTitle: missionTitle,
-                quantity: quantity,
+                rewardList: rewardList,
                 expireDate: expireDate
             )
         } else if let imageId = imageId {
@@ -39,7 +39,7 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
                     writer: writer,
                     imageId: imageId,
                     missions: [.init(content: missionTitle)],
-                    rewards: [.init(quantity: quantity)],
+                    rewards: rewardList,
                     expireDate: expireDate
                 )
             )
@@ -49,7 +49,7 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
         }
     }
     
-    private func uploadImageAndPostQuest(image: UIImage, writer: String, missionTitle: String, quantity: Int, expireDate: String) -> AnyPublisher<Void, NetworkError> {
+    private func uploadImageAndPostQuest(image: UIImage, writer: String, missionTitle: String, rewardList: [Reward], expireDate: String) -> AnyPublisher<Void, NetworkError> {
         var uiImage = image
         if image.size.width > 1500 || image.size.height > 1500 {
             print("RESIZE IMAGE \(image.size.width) \(image.size.height)")
@@ -83,7 +83,7 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
                         writer: writer,
                         imageId: newImageId,
                         missions: [.init(content: missionTitle)],
-                        rewards: [.init(quantity: quantity)],
+                        rewards: rewardList,
                         expireDate: expireDate
                     )
                 )

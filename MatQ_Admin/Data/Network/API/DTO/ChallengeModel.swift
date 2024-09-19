@@ -42,7 +42,7 @@ struct MissionResponse: Decodable {
 }
 
 struct RewardResponse: Decodable {
-    let target: String
+    let content: String?
     let quantity: Int
     let type: String
 }
