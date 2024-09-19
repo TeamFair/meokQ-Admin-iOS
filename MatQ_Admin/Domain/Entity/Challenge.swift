@@ -10,7 +10,6 @@ import UIKit
 struct Challenge {
     let challengeId: String
     let userNickName: String
-    let quantity: Int
     let challengeTitle: String
     let receiptImageId: String?
     let status: String

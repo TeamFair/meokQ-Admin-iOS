@@ -105,20 +105,17 @@ struct ManageDetailViewModelItem: Equatable {
     let image: UIImage?
     let status: String
     let createdAt: String
-    let quantity: Int
     let userNickname: String
 
     
-    init(challengeId: String, questTitle: String, imageId: String?, image: UIImage?, status: String, createdAt: String, quantity: Int, userNickname: String) {
+    init(challengeId: String, questTitle: String, imageId: String?, image: UIImage?, status: String, createdAt: String, userNickname: String) {
         self.challengeId = challengeId
         self.questTitle = questTitle
         self.imageId = imageId
         self.image = image
         self.status = status
         self.createdAt = createdAt
-        self.quantity = quantity
         self.userNickname = userNickname
-
     }
     
     init(challenge: Challenge) {
@@ -128,7 +125,6 @@ struct ManageDetailViewModelItem: Equatable {
         self.image = challenge.image
         self.status = challenge.status
         self.createdAt = challenge.createdAt
-        self.quantity = challenge.quantity
         self.userNickname = challenge.userNickName
     }
 }
