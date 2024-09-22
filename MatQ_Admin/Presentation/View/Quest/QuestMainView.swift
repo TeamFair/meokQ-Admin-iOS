@@ -87,7 +87,8 @@ struct QuestMainView: View {
                                         writer: $0.writer,
                                         image: $0.image,
                                         logoImageId: $0.logoImageId ?? "",
-                                        expireDate: $0.expireDate
+                                        expireDate: $0.expireDate,
+                                        score: $0.score
                                     )
                                 })!
                         )

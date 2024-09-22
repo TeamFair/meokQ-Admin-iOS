@@ -85,6 +85,10 @@ struct QuestDetailView: View {
                         )
                     }
                     
+                    TextFieldComponent(titleName: "우선순위", contentPlaceholder: String(vm.items.score), content: Binding(
+                        get: { String(vm.editedItems.score) },
+                        set: { vm.editedItems.score = Int($0) ?? 0 }
+                    ))
                     TextFieldComponent(titleName: "작성자", contentPlaceholder: vm.items.writer, content: $vm.editedItems.writer)
                     TextFieldComponent(titleName: "만료 기한", contentPlaceholder: vm.items.expireDate, content: $vm.editedItems.expireDate)
                     
