@@ -20,9 +20,10 @@ struct GetQuestResponseData: Decodable {
     let questId, writer, missionTitle, status, expireDate: String
     let imageId: String?
     let rewardList: [RewardResponse]
-
+    let score: Int
+    
     func toDomain(image: UIImage?) -> Quest {
-        Quest(questId: self.questId, missionTitle: self.missionTitle, rewardList: self.rewardList, status: self.status, writer: self.writer, image: image, logoImageId: self.imageId ?? "", expireDate: self.expireDate)
+        Quest(questId: self.questId, missionTitle: self.missionTitle, rewardList: self.rewardList, status: self.status, writer: self.writer, image: image, logoImageId: self.imageId ?? "", expireDate: self.expireDate, score: self.score)
     }
 }
 
@@ -32,6 +33,7 @@ struct PostQuestRequest: Encodable {
     let imageId: String
     let missions: [Mission]
     let rewards: [Reward]
+    let score: Int
     let expireDate: String
 }
 

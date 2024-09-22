@@ -102,7 +102,7 @@ final class QuestDetailViewModel: ObservableObject {
             rewardList.append(Reward(content: "SOCIABILITY", quantity: data.sociabilityXP))
         }
        
-        postQuestUseCase.execute(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, rewardList: rewardList, expireDate: data.expireDate)
+        postQuestUseCase.execute(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, rewardList: rewardList, score: data.score, expireDate: data.expireDate)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 추가 실패"
@@ -147,6 +147,7 @@ struct QuestDetailViewModelItem: Equatable {
     var charmXP: Int
     var sociabilityXP: Int
     var writer: String
+    var score: Int
     var expireDate: String
     let imageId: String?
     var questImage: UIImage?
@@ -160,6 +161,7 @@ struct QuestDetailViewModelItem: Equatable {
         self.charmXP = quest.rewardList.first(where: { $0.content == "CHARM" })?.quantity ?? 0
         self.sociabilityXP = quest.rewardList.first(where: { $0.content == "SOCIABILITY" })?.quantity ?? 0
         self.writer = quest.writer
+        self.score = quest.score
         self.expireDate = quest.expireDate
         self.imageId = quest.logoImageId
         self.questImage = quest.image
