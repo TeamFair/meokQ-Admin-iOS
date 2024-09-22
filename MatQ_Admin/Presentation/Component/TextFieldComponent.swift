@@ -41,7 +41,7 @@ struct SliderComponent: View {
         HStack(spacing: 2) {
             Text(titleName)
                 .font(.subheadline)
-                .frame(width: 36)
+                .frame(width: 40)
             Text("\(Int(content))")
                 .frame(width: 32)
             Slider(value: $content, in: 0...100, step: 5)
