@@ -11,6 +11,7 @@ import Foundation
 enum QuestTarget {
     case getQuest(GetQuestRequest)
     case postQuest(PostQuestRequest)
+    case putQuest(PutQuestRequest)
     case deleteQuest(DeleteQuestRequest)
 }
 
@@ -19,6 +20,7 @@ extension QuestTarget: TargetType {
         switch self {
         case .getQuest, .postQuest: return URL.makeEndPoint(.admin(endPoint: "quest"))
         case .deleteQuest(let request): return URL.makeEndPoint(.admin(endPoint: "quest/\(request.deleteType.rawValue)"))
+        case .putQuest: return URL.makeEndPoint(.admin(endPoint: "quest/"))
         }
     }
     
@@ -26,6 +28,7 @@ extension QuestTarget: TargetType {
         switch self {
         case .getQuest: return .get
         case .postQuest: return .post
+        case .putQuest: return .put
         case .deleteQuest: return .delete
         }
     }
@@ -34,6 +37,7 @@ extension QuestTarget: TargetType {
         switch self {
         case .getQuest: return nil
         case .postQuest: return nil
+        case .putQuest(let request): return request.questId
         case .deleteQuest: return nil
         }
     }
@@ -42,6 +46,7 @@ extension QuestTarget: TargetType {
         switch self {
         case .getQuest(let request): return .query(request)
         case .postQuest(let request): return .body(request)
+        case .putQuest(let request): return .body(request.quest)
         case .deleteQuest(let request): return .query(request.questId)
         }
     }

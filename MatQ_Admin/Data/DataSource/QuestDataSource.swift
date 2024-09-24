@@ -12,6 +12,7 @@ import Foundation
 protocol QuestDataSourceInterface {
     func getQuestList(request: GetQuestRequest) -> AnyPublisher<[GetQuestResponseData], NetworkError>
     func postQuest(request: PostQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError>
+    func putQuest(request: PutQuestRequest) -> AnyPublisher<PutQuestResponse, NetworkError>
     func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<PostQuestResponse, NetworkError>
 }
 
@@ -32,6 +33,10 @@ struct QuestDataSource: QuestDataSourceInterface {
         networkService.request(QuestTarget.postQuest(request), as: PostQuestResponse.self)
     }
 
+    func putQuest(request: PutQuestRequest) -> AnyPublisher<PutQuestResponse, NetworkError> {
+        networkService.request(QuestTarget.putQuest(request), as: PutQuestResponse.self)
+    }
+    
     func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<DeleteQuestResponse, NetworkError> {
         networkService.request(QuestTarget.deleteQuest(request), as: DeleteQuestResponse.self)
     }

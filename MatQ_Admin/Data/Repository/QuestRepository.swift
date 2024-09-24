@@ -29,6 +29,12 @@ final class QuestRepository: QuestRepositoryInterface {
             .eraseToAnyPublisher()
     }
 
+    func putQuest(request: PutQuestRequest) -> AnyPublisher<Void, NetworkError> {
+        questDataSource.putQuest(request: request)
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }
+    
     func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<Void, NetworkError> {
         questDataSource.deleteQuest(request: request)
             .map { _ in }

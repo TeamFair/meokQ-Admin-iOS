@@ -23,7 +23,17 @@ struct GetQuestResponseData: Decodable {
     let score: Int
     
     func toDomain(image: UIImage?) -> Quest {
-        Quest(questId: self.questId, missionTitle: self.missionTitle, rewardList: self.rewardList, status: self.status, writer: self.writer, image: image, logoImageId: self.imageId ?? "", expireDate: self.expireDate, score: self.score)
+        Quest(
+            questId: self.questId,
+            missionTitle: self.missionTitle,
+            rewardList: self.rewardList,
+            status: self.status,
+            writer: self.writer,
+            image: image,
+            logoImageId: self.imageId ?? "",
+            expireDate: self.expireDate,
+            score: self.score
+        )
     }
 }
 
@@ -50,6 +60,23 @@ struct Reward: Encodable {
 }
 
 typealias PostQuestResponse = ResponseWithoutData
+
+// MARK: - 퀘스트 수정
+struct PutQuestRequest: Encodable {
+    let questId: String
+    let quest: QuestModel
+    
+    struct QuestModel: Encodable {
+        let writer: String
+        let imageId: String
+        let missions: [Mission]
+        let rewards: [Reward]
+        let score: Int
+        let expireDate: String
+    }
+}
+
+typealias PutQuestResponse = ResponseWithoutData
 
 // MARK: - 퀘스트 삭제
 struct DeleteQuestRequest: Encodable {

@@ -10,5 +10,6 @@ import Combine
 protocol QuestRepositoryInterface {
     func getQuestList(request: GetQuestRequest) -> AnyPublisher<[Quest], NetworkError>
     func postQuest(request: PostQuestRequest) -> AnyPublisher<Void, NetworkError>
+    func putQuest(request: PutQuestRequest) -> AnyPublisher<Void, NetworkError>
     func deleteQuest(request: DeleteQuestRequest) -> AnyPublisher<Void, NetworkError>
 }

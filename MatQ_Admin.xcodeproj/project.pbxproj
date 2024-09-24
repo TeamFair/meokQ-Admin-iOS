@@ -25,6 +25,7 @@
 		60631E092C85E764005643B1 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60631E072C85E761005643B1 /* Provider.swift */; };
 		606329932C7483E8000F4513 /* PatchChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */; };
 		606329952C748E10000F4513 /* DeleteChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */; };
+		6073BEBD2CA2B8DA00072FF9 /* PutQuestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6073BEBC2CA2B8DA00072FF9 /* PutQuestUseCase.swift */; };
 		608EBF8A2C38709800B862CC /* AppInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF892C38709800B862CC /* AppInject.swift */; };
 		608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF8C2C38716100B862CC /* QuestMainView.swift */; };
 		608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF8E2C38716900B862CC /* QuestDetailView.swift */; };
@@ -135,6 +136,7 @@
 		60631E072C85E761005643B1 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchChallengeUseCase.swift; sourceTree = "<group>"; };
 		606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteChallengeUseCase.swift; sourceTree = "<group>"; };
+		6073BEBC2CA2B8DA00072FF9 /* PutQuestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutQuestUseCase.swift; sourceTree = "<group>"; };
 		608EBF892C38709800B862CC /* AppInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInject.swift; sourceTree = "<group>"; };
 		608EBF8C2C38716100B862CC /* QuestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMainView.swift; sourceTree = "<group>"; };
 		608EBF8E2C38716900B862CC /* QuestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDetailView.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			children = (
 				60F27DF42C4602DD00711A53 /* GetQuestUseCase.swift */,
 				60F27DFA2C4616D500711A53 /* PostQuestUseCase.swift */,
+				6073BEBC2CA2B8DA00072FF9 /* PutQuestUseCase.swift */,
 				60F27DFC2C461B2B00711A53 /* DeleteQuestUseCase.swift */,
 				60DB54D02C73C1F900AEDFE9 /* GetChallengeUseCase.swift */,
 				606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */,
@@ -698,6 +701,7 @@
 				60DB54CD2C73C12600AEDFE9 /* ChallengeRepository.swift in Sources */,
 				608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */,
 				60DB54B12C7272E400AEDFE9 /* NetworkService.swift in Sources */,
+				6073BEBD2CA2B8DA00072FF9 /* PutQuestUseCase.swift in Sources */,
 				60F27DFB2C4616D500711A53 /* PostQuestUseCase.swift in Sources */,
 				E5DD825C2B34DCCA00A026C2 /* MainView.swift in Sources */,
 				608EBF912C3871DF00B862CC /* QuestMainViewModel.swift in Sources */,
