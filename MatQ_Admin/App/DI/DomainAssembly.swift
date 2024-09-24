@@ -22,6 +22,12 @@ final class DomainAssembly: Assembly {
             return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!, imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
         }).inObjectScope(.container)
         
+        container.register(PutQuestUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> PutQuestUseCase in
+            return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!, imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
+        }).inObjectScope(.container)
+        
         container.register(DeleteQuestUseCaseInterface.self, factory: { (
             resolver: Resolver
         ) -> DeleteQuestUseCase in

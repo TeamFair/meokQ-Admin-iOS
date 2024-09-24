@@ -102,7 +102,7 @@ struct QuestMainViewModelItem {
         self.questId = quest.questId
         self.questTitle = quest.missionTitle
         self.logoImageId = quest.logoImageId
-        self.expireDate = quest.expireDate
+        self.expireDate = quest.expireDate.timeAgoSinceDate()
         self.logoImage = quest.image
         self.status = quest.status
     }

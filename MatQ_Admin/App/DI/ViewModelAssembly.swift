@@ -26,6 +26,7 @@ final class ViewModelAssembly: Assembly {
             return .init(viewType: arg1,
                          questDetail: arg2,
                          postQuestUseCase: resolver.resolve(PostQuestUseCaseInterface.self)!,
+                         putQuestUseCase: resolver.resolve(PutQuestUseCaseInterface.self)!,
                          deleteQuestUseCase: resolver.resolve(DeleteQuestUseCaseInterface.self)!)
         }).inObjectScope(.transient)
         
