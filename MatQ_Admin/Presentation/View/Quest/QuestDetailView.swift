@@ -39,6 +39,7 @@ struct QuestDetailView: View {
                     .opacity(vm.viewType == .edit ? 1 : 0)
                     .padding(.trailing, 20)
                 }
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     TextFieldComponent(titleName: "미션 제목", contentPlaceholder: vm.items.questTitle, content: $vm.editedItems.questTitle)
@@ -92,12 +93,8 @@ struct QuestDetailView: View {
                     TextFieldComponent(titleName: "작성자", contentPlaceholder: vm.items.writer, content: $vm.editedItems.writer)
                     TextFieldComponent(titleName: "만료 기한", contentPlaceholder: vm.items.expireDate, content: $vm.editedItems.expireDate)
                     
-                    if vm.viewType == .publish {
-                        PhotosPicker(selection: $vm.photosPickerItem, matching: .any(of: [.images, .screenshots])) {
-                            ImageFieldComponent(titleName: "퀘스트 이미지", uiImage: vm.editedItems.questImage)
-                        }
-                    } else {
-                        ImageFieldComponent(titleName: "퀘스트 이미지", uiImage: vm.items.questImage)
+                    PhotosPicker(selection: $vm.photosPickerItem, matching: .any(of: [.images, .screenshots])) {
+                        ImageFieldComponent(titleName: "퀘스트 이미지", uiImage: vm.editedItems.questImage)
                     }
                 }
                 .padding(.horizontal, 20)
@@ -130,18 +127,21 @@ struct QuestDetailView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            if vm.viewType == .publish {
-                Button {
-                    // TODO: 퀘스트 수정 API 연결
+            // TODO: 스탯 전부 0이면 생성 & 수정 불가
+            Button {
+                if vm.viewType == .edit {
+                    let imageUpdated = vm.editedItems.questImage != vm.items.questImage // 이미지가 변경되었는지 확인
+                    vm.modifyData(vm.editedItems, imageUpdated: imageUpdated)
+                } else if vm.viewType == .publish {
                     vm.createData(data: vm.editedItems)
-                } label: {
-                    Text(vm.viewType.buttonTitle)
                 }
-                .ilsangButtonStyle(type: .primary, isDisabled: vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0) // TODO: 스탯모두 0이면 생성 불가
-                .disabled(vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 8)
+            } label: {
+                Text(vm.viewType.buttonTitle)
             }
+            .ilsangButtonStyle(type: .primary, isDisabled: vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
+            .disabled(vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 8)
         }
     }
 }

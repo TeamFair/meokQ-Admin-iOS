@@ -87,22 +87,7 @@ final class QuestDetailViewModel: ObservableObject {
     let deleteQuestUseCase: DeleteQuestUseCaseInterface
     
     func createData(data: QuestDetailViewModelItem) {
-        var rewardList: [Reward] = []
-        if data.strengthXP != 0 {
-            rewardList.append(Reward(content: "STRENGTH", quantity: data.strengthXP))
-        }
-        if data.intellectXP != 0 {
-            rewardList.append(Reward(content: "INTELLECT", quantity: data.intellectXP))
-        } 
-        if data.funXP != 0 {
-            rewardList.append(Reward(content: "FUN", quantity: data.funXP))
-        }
-        if data.charmXP != 0 {
-            rewardList.append(Reward(content: "CHARM", quantity: data.charmXP))
-        }
-        if data.sociabilityXP != 0 {
-            rewardList.append(Reward(content: "SOCIABILITY", quantity: data.sociabilityXP))
-        }
+        let rewardList = data.toRewardList()
        
         postQuestUseCase.execute(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, rewardList: rewardList, score: data.score, expireDate: data.expireDate)
             .sink { [weak self] completion in
@@ -115,6 +100,25 @@ final class QuestDetailViewModel: ObservableObject {
             } receiveValue: { [weak self] _ in
                 self?.alertTitle = "퀘스트 추가 성공"
                 self?.alertMessage = "퀘스트가 성공적으로 추가되었습니다"
+                self?.activeAlertType = .result
+                self?.showAlert = true
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func modifyData(_ data: QuestDetailViewModelItem, imageUpdated: Bool) {
+        guard let imageId = data.imageId, let image = data.questImage else { return }
+        putQuestUseCase.execute(questId: data.questId, writer: data.writer, image: image, imageId: imageId, missionTitle: data.questTitle, rewardList: data.toRewardList(), score: data.score, expireDate: data.expireDate, imageUpdated: imageUpdated)
+            .sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.alertTitle = "퀘스트 수정 실패"
+                    self?.alertMessage = error.localizedDescription
+                    self?.activeAlertType = .result
+                    self?.showAlert = true
+                }
+            } receiveValue: { [weak self] _ in
+                self?.alertTitle = "퀘스트 수정 성공"
+                self?.alertMessage = "퀘스트가 성공적으로 수정되었습니다"
                 self?.activeAlertType = .result
                 self?.showAlert = true
             }
@@ -167,5 +171,19 @@ struct QuestDetailViewModelItem: Equatable {
         self.expireDate = quest.expireDate
         self.imageId = quest.logoImageId
         self.questImage = quest.image
+    }
+    
+    func toRewardList() -> [Reward] {
+        let xpTypes: [(content: String, value: Int)] = [
+            ("STRENGTH", self.strengthXP),
+            ("INTELLECT", self.intellectXP),
+            ("FUN", self.funXP),
+            ("CHARM", self.charmXP),
+            ("SOCIABILITY", self.sociabilityXP)
+        ]
+
+        return xpTypes.compactMap { (content, value) in
+            value != 0 ? Reward(content: content, quantity: value) : nil
+        }
     }
 }
