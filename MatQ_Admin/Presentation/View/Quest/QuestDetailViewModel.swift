@@ -72,16 +72,18 @@ final class QuestDetailViewModel: ObservableObject {
         }
     }
 
-    init(viewType: ViewType, questDetail: Quest, postQuestUseCase: PostQuestUseCaseInterface, deleteQuestUseCase: DeleteQuestUseCaseInterface) {
+    init(viewType: ViewType, questDetail: Quest, postQuestUseCase: PostQuestUseCaseInterface, putQuestUseCase: PutQuestUseCaseInterface, deleteQuestUseCase: DeleteQuestUseCaseInterface) {
         self.viewType = viewType
         self.questDetail = questDetail
         self.items = QuestDetailViewModelItem(quest: questDetail)
         self.editedItems = QuestDetailViewModelItem(quest: questDetail)
         self.postQuestUseCase = postQuestUseCase
+        self.putQuestUseCase = putQuestUseCase
         self.deleteQuestUseCase = deleteQuestUseCase
     }
     
     let postQuestUseCase: PostQuestUseCaseInterface
+    let putQuestUseCase: PutQuestUseCaseInterface
     let deleteQuestUseCase: DeleteQuestUseCaseInterface
     
     func createData(data: QuestDetailViewModelItem) {
