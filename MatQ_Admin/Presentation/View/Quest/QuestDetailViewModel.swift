@@ -168,7 +168,7 @@ struct QuestDetailViewModelItem: Equatable {
         self.sociabilityXP = quest.rewardList.first(where: { $0.content == "SOCIABILITY" })?.quantity ?? 0
         self.writer = quest.writer
         self.score = quest.score
-        self.expireDate = quest.expireDate
+        self.expireDate = quest.expireDate.timeAgoSinceDate()
         self.imageId = quest.logoImageId
         self.questImage = quest.image
     }
