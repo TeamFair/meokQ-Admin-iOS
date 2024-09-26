@@ -8,6 +8,20 @@
 import Combine
 import UIKit
 
+fileprivate struct QuestRequest {
+    let writer: String
+    var imageId: String?
+    let missions: [Mission]
+    let rewards: [Reward]
+    let score: Int
+    let expireDate: String
+    
+    func toPostQuestRequest() -> PostQuestRequest? {
+        guard let imageId = imageId else { return nil }
+        return PostQuestRequest(writer: self.writer, imageId: imageId, missions: self.missions, rewards: self.rewards, score: self.score, expireDate: self.expireDate)
+    }
+}
+
 protocol PostQuestUseCaseInterface {
     func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String) -> AnyPublisher<Void, NetworkError>
 }
@@ -22,76 +36,39 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
         self.imageRepository = imageRepository
     }
     
-    // TODO: 책임 분리
     func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String) -> AnyPublisher<Void, NetworkError> {
-        // image가 없으면 imageId를 사용
-        if let image = image {
-            return uploadImageAndPostQuest(
-                image: image,
-                writer: writer,
-                missionTitle: missionTitle,
-                rewardList: rewardList,
-                score: score,
-                expireDate: expireDate
-            )
-        } else if let imageId = imageId {
-            return self.questRepository.postQuest(
-                request: PostQuestRequest(
-                    writer: writer,
-                    imageId: imageId,
-                    missions: [.init(content: missionTitle)],
-                    rewards: rewardList, 
-                    score: score,
-                    expireDate: expireDate
-                )
-            )
-            .eraseToAnyPublisher()
+        let request = QuestRequest(writer: writer,
+                                   imageId: imageId,
+                                   missions: [.init(content: missionTitle)],
+                                   rewards: rewardList,
+                                   score: score,
+                                   expireDate: expireDate)
+        if let _ = imageId {
+            // imageId가 있을 때 바로 퀘스트 생성
+            return createQuest(request: request)
+        } else if let image = image {
+            // 이미지를 업로드하고 퀘스트를 생성
+            return uploadImageAndPostQuest(image: image, request: request)
         } else {
             return Fail(error: NetworkError.invalidImageData).eraseToAnyPublisher()
         }
     }
     
-    private func uploadImageAndPostQuest(image: UIImage, writer: String, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String) -> AnyPublisher<Void, NetworkError> {
-        var uiImage = image
-        if image.size.width > 1500 || image.size.height > 1500 {
-            print("RESIZE IMAGE \(image.size.width) \(image.size.height)")
-            guard let downSampledImage = image.downSample(scale: 0.5) else {
-                return Fail(error: NetworkError.invalidImageData).eraseToAnyPublisher()
-            }
-            uiImage = downSampledImage
-        }
-        
-        let compressionQualities: [CGFloat] = [0.4, 0.2, 0.05, 0.002]
-        
-        return compressionQualities.publisher
-            .flatMap { quality in
-                // 이미지 압축
-                let imageData = uiImage.jpegData(compressionQuality: quality) ?? Data()
-                // 이미지 업로드
-                return self.imageRepository.postImage(request: PostImageRequest(data: imageData))
-                    .map { newImageId in
-                        (newImageId, quality)
-                    }
-                    .mapError { error in
-                        NetworkError.serverError
-                    }
-                    .eraseToAnyPublisher()
-            }
-            .first()
-            .flatMap { newImageId, _ in
-                // 퀘스트 생성
-                self.questRepository.postQuest(
-                    request: PostQuestRequest(
-                        writer: writer,
-                        imageId: newImageId,
-                        missions: [.init(content: missionTitle)],
-                        rewards: rewardList, 
-                        score: score,
-                        expireDate: expireDate
-                    )
-                )
-                .eraseToAnyPublisher()
+    private func uploadImageAndPostQuest(image: UIImage, request: QuestRequest) -> AnyPublisher<Void, NetworkError> {
+        return imageRepository.postImage(image: image)
+            .flatMap { newImageId in
+                var request = request
+                request.imageId = newImageId
+                return self.createQuest(request: request)
             }
             .eraseToAnyPublisher()
+    }
+    
+    // 퀘스트 생성 메서드
+    private func createQuest(request: QuestRequest) -> AnyPublisher<Void, NetworkError> {
+        guard let request = request.toPostQuestRequest() else {
+            return Fail(error: NetworkError.invalidImageData).eraseToAnyPublisher()
+        }
+        return questRepository.postQuest(request: request).eraseToAnyPublisher()
     }
 }

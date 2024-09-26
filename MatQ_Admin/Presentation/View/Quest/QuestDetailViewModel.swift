@@ -67,6 +67,7 @@ final class QuestDetailViewModel: ObservableObject {
             Task {
                 if let imageDataTransferable = try? await photosPickerItem?.loadTransferable(type: ImageDataTransferable.self) {
                     self.editedItems.questImage = imageDataTransferable.uiImage
+                    self.editedItems.imageId = nil
                 }
             }
         }
@@ -155,7 +156,7 @@ struct QuestDetailViewModelItem: Equatable {
     var writer: String
     var score: Int
     var expireDate: String
-    let imageId: String?
+    var imageId: String?
     var questImage: UIImage?
     
     init(quest: Quest) {

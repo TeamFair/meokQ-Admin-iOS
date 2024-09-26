@@ -59,39 +59,12 @@ final class PutQuestUseCase: PutQuestUseCaseInterface {
     }
     
     private func uploadImageAndPutQuest(image: UIImage, request: QuestRequest) -> AnyPublisher<Void, NetworkError> {
-        let resizedImage = resizeImageIfNeeded(image)
-        let compressionQualities: [CGFloat] = [0.4, 0.2, 0.05, 0.002]
-        
-        return compressionQualities.publisher
-            .flatMap { quality in
-                self.uploadImage(resizedImage, quality: quality)
-            }
-            .first() // 첫 번째 성공한 이미지만 사용
+        imageRepository.postImage(image: image)
             .flatMap { newImageId in
                 var request = request
                 request.imageId = newImageId
                 return self.createQuest(request: request)
             }
-            .eraseToAnyPublisher()
-    }
-    
-    /// 이미지 사이즈가 큰 경우 리사이즈
-    private func resizeImageIfNeeded(_ image: UIImage) -> UIImage {
-        guard image.size.width > 1500 || image.size.height > 1500 else { return image }
-        print("RESIZE IMAGE \(image.size.width) \(image.size.height)")
-        
-        return image.downSample(scale: 0.5) ?? image
-    }
-    
-    /// 이미지 압축 및 업로드
-    private func uploadImage(_ image: UIImage, quality: CGFloat) -> AnyPublisher<String, NetworkError> {
-        guard let imageData = image.jpegData(compressionQuality: quality) else {
-            return Fail(error: NetworkError.invalidImageData).eraseToAnyPublisher()
-        }
-        
-        let request = PostImageRequest(data: imageData)
-        return imageRepository.postImage(request: request)
-            .mapError { _ in NetworkError.serverError }
             .eraseToAnyPublisher()
     }
     

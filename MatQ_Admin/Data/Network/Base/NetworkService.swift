@@ -69,7 +69,9 @@ class NetworkService: NetworkServiceInterface {
     }
     
     func upload<T: Decodable>(_ target: URLRequestConvertible, multipartFormData: @escaping (MultipartFormData) -> Void, as type: T.Type) -> AnyPublisher<T, NetworkError> {
-        AF.upload(multipartFormData: multipartFormData, with: target)
+        logRequestURL(target: target)
+        
+        return AF.upload(multipartFormData: multipartFormData, with: target)
             .validate(statusCode: 200..<300)
             .publishDecodable(type: T.self)
             .value()
