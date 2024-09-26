@@ -10,6 +10,6 @@ import UIKit
 
 protocol ImageRepositoryInterface {
     func getImage(request: GetImageRequest) -> AnyPublisher<UIImage, NetworkError>
-    func postImage(request: PostImageRequest) -> AnyPublisher<String, NetworkError>
+    func postImage(image: UIImage) -> AnyPublisher<String, NetworkError>
     func deleteImage(request: DeleteImageRequest) -> AnyPublisher<String, NetworkError>
 }
