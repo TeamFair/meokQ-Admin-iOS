@@ -45,5 +45,5 @@ struct Quest {
     static let initialData = Quest.init()
     static let mockData1 = Quest.init(questId: UUID().uuidString, missionTitle: "밥먹기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0)
     static let mockData2 = Quest.init(questId: UUID().uuidString, missionTitle: "커피 마시기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0)
-    static let defaultLogoImageId = "IMMA2024072114492808"
+    static let defaultLogoImageId = "IMQU2024092917552786"
 }
