@@ -8,17 +8,26 @@
 import SwiftUI
 
 struct QuestItemView: View {
-    let questImage : UIImage
+    let questImage : UIImage?
     let missionTitle : String
     let expireDate : String
 
     var body: some View {
         HStack(spacing: 0){
-            Image(uiImage: questImage)
-                .resizable()
-                .frame(width: UIImageSize.small.value, height: UIImageSize.small.value)
-                .cornerRadius(10)
-                .padding(.trailing, 14)
+            Group {
+                if let questImage = questImage {
+                    Image(uiImage: questImage)
+                        .resizable()
+                        .frame(width: UIImageSize.small.value, height: UIImageSize.small.value)
+                } else {
+                    Rectangle()
+                        .frame(width: UIImageSize.small.value, height: UIImageSize.small.value)
+                        .foregroundStyle(.gray100)
+                }
+            }
+            .cornerRadius(10)
+            .padding(.trailing, 14)
+            
             VStack(alignment: .leading, spacing: 8) {
                 Text(missionTitle)
                     .font(.system(size: 15, weight: .bold))

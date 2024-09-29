@@ -94,7 +94,7 @@ struct QuestMainView: View {
                         )
                     )
                 } label: {
-                    QuestItemView(questImage: item.logoImage ?? .nullimage, missionTitle: item.questTitle, expireDate: item.expireDate)
+                    QuestItemView(questImage: item.logoImage, missionTitle: item.questTitle, expireDate: item.expireDate)
                         .opacity(item.status == "DELETED" ? 0.3 : 1)
                 }
             }
