@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "BD5A5E12-EEFF-4E5A-B945-DD0EF10B3668",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MatQ_Admin.xcodeproj",
+      "identifier" : "E5DD82552B34DCCA00A026C2",
+      "name" : "MatQ_Admin"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MatQ_Admin.xcodeproj",
+        "identifier" : "609428D52CC9319300C8D5D6",
+        "name" : "MatQ_Admin_Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

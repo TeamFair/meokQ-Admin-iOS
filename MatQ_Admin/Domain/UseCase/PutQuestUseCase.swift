@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-fileprivate struct QuestRequest {
+fileprivate struct PutQuestRequestModel {
     let questId: String
     let writer: String
     var imageId: String?
@@ -27,7 +27,7 @@ fileprivate struct QuestRequest {
 }
 
 protocol PutQuestUseCaseInterface {
-    func execute(questId: String, writer: String, image: UIImage, imageId: String, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String, imageUpdated: Bool) -> AnyPublisher<Void, NetworkError>
+    func execute(questId: String, writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String, imageUpdated: Bool) -> AnyPublisher<Void, NetworkError>
 }
 
 final class PutQuestUseCase: PutQuestUseCaseInterface {
@@ -39,17 +39,16 @@ final class PutQuestUseCase: PutQuestUseCaseInterface {
         self.imageRepository = imageRepository
     }
     
-    func execute(questId: String, writer: String, image: UIImage, imageId: String, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String, imageUpdated: Bool) -> AnyPublisher<Void, NetworkError> {
+    func execute(questId: String, writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String, imageUpdated: Bool) -> AnyPublisher<Void, NetworkError> {
         // TODO: PUT이니 수정
-        let request = QuestRequest(questId: questId,
+        let request = PutQuestRequestModel(questId: questId,
                                    writer: writer,
                                    imageId: imageId,
                                    missions: [.init(content: missionTitle)],
                                    rewards: rewardList,
                                    score: score,
                                    expireDate: expireDate)
-        
-        if imageUpdated {
+        if imageUpdated, let image = image {
             // 새로운 이미지면 퀘스트 생성 TODO: 기존 이미지 삭제 처리or관리
             return uploadImageAndPutQuest(image: image, request: request)
         } else {
@@ -58,7 +57,7 @@ final class PutQuestUseCase: PutQuestUseCaseInterface {
         }
     }
     
-    private func uploadImageAndPutQuest(image: UIImage, request: QuestRequest) -> AnyPublisher<Void, NetworkError> {
+    private func uploadImageAndPutQuest(image: UIImage, request: PutQuestRequestModel) -> AnyPublisher<Void, NetworkError> {
         imageRepository.postImage(image: image)
             .flatMap { newImageId in
                 var request = request
@@ -69,7 +68,7 @@ final class PutQuestUseCase: PutQuestUseCaseInterface {
     }
     
     /// 퀘스트 생성 메서드
-    private func createQuest(request: QuestRequest) -> AnyPublisher<Void, NetworkError> {
+    private func createQuest(request: PutQuestRequestModel) -> AnyPublisher<Void, NetworkError> {
         guard let request = request.toPutQuestRequest() else {
             return Fail(error: NetworkError.invalidImageData).eraseToAnyPublisher()
         }
