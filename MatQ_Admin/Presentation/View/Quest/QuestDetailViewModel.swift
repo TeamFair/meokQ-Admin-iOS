@@ -108,8 +108,7 @@ final class QuestDetailViewModel: ObservableObject {
     }
     
     func modifyData(_ data: QuestDetailViewModelItem, imageUpdated: Bool) {
-        guard let imageId = data.imageId, let image = data.questImage else { return }
-        putQuestUseCase.execute(questId: data.questId, writer: data.writer, image: image, imageId: imageId, missionTitle: data.questTitle, rewardList: data.toRewardList(), score: data.score, expireDate: data.expireDate, imageUpdated: imageUpdated)
+        putQuestUseCase.execute(questId: data.questId, writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, rewardList: data.toRewardList(), score: data.score, expireDate: data.expireDate, imageUpdated: imageUpdated)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 수정 실패"
