@@ -11,6 +11,7 @@ import UIKit
 final class MockImageRepository: ImageRepositoryInterface {
     var result: Result<String, NetworkError>?
     var imageResult: Result<UIImage, NetworkError>?
+    var isDeleteImageCalled = false
 
     func postImage(image: UIImage) -> AnyPublisher<String, NetworkError> {
         if let result = result {
@@ -27,6 +28,7 @@ final class MockImageRepository: ImageRepositoryInterface {
     }
     
     func deleteImage(request: DeleteImageRequest) -> AnyPublisher<String, NetworkError> {
+        isDeleteImageCalled = true
         if let result = result {
             return result.publisher.eraseToAnyPublisher()
         }
