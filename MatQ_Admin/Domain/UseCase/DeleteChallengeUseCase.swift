@@ -23,7 +23,7 @@ final class DeleteChallengeUseCase: DeleteChallengeUseCaseInterface {
     
     /// #62 PR 로직 설명 참고
     func execute(challengeId: String, imageId: String?) -> AnyPublisher<Void, NetworkError> {
-        let challengeRequest = DeleteChallengeRequest(challengeId: challengeId+"ddd")
+        let challengeRequest = DeleteChallengeRequest(challengeId: challengeId)
         
         if let imageId = imageId {
             let imageRequest = DeleteImageRequest(imageId: imageId)
