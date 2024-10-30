@@ -67,6 +67,10 @@
 		609429122CC960C700C8D5D6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 609429112CC960C700C8D5D6 /* Alamofire */; };
 		60C0F4342CD1413700DB19AB /* QuestRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */; };
 		60C0F4352CD1415F00DB19AB /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
+		60C0F4372CD1FA6500DB19AB /* DeleteChallengeUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C0F4362CD1FA6500DB19AB /* DeleteChallengeUseCaseTests.swift */; };
+		60C0F4392CD1FAD900DB19AB /* MockChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C0F4382CD1FAD900DB19AB /* MockChallengeRepository.swift */; };
+		60C0F43A2CD1FB8C00DB19AB /* MockChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C0F4382CD1FAD900DB19AB /* MockChallengeRepository.swift */; };
+		60C0F43B2CD1FBC600DB19AB /* DeleteChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */; };
 		60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570B2B94124F00EDAF30 /* NetworkError.swift */; };
 		60DA570E2B94132E00EDAF30 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570D2B94132E00EDAF30 /* Endpoint.swift */; };
 		60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570F2B94147C00EDAF30 /* TargetType.swift */; };
@@ -192,6 +196,8 @@
 		609428E12CC9338900C8D5D6 /* PutQuestUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutQuestUseCaseTests.swift; sourceTree = "<group>"; };
 		609428E32CC933A800C8D5D6 /* MockImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageRepository.swift; sourceTree = "<group>"; };
 		609429022CC93B6300C8D5D6 /* MatQ_Admin.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MatQ_Admin.xctestplan; sourceTree = "<group>"; };
+		60C0F4362CD1FA6500DB19AB /* DeleteChallengeUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteChallengeUseCaseTests.swift; sourceTree = "<group>"; };
+		60C0F4382CD1FAD900DB19AB /* MockChallengeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockChallengeRepository.swift; sourceTree = "<group>"; };
 		60DA570B2B94124F00EDAF30 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		60DA570D2B94132E00EDAF30 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		60DA570F2B94147C00EDAF30 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
@@ -310,6 +316,7 @@
 			children = (
 				609428D82CC9319300C8D5D6 /* AdminAppTest.swift */,
 				609428E12CC9338900C8D5D6 /* PutQuestUseCaseTests.swift */,
+				60C0F4362CD1FA6500DB19AB /* DeleteChallengeUseCaseTests.swift */,
 			);
 			path = AdminAppTest;
 			sourceTree = "<group>";
@@ -319,6 +326,7 @@
 			children = (
 				609428DF2CC9329F00C8D5D6 /* MockQuestRepository.swift */,
 				609428E32CC933A800C8D5D6 /* MockImageRepository.swift */,
+				60C0F4382CD1FAD900DB19AB /* MockChallengeRepository.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -773,10 +781,12 @@
 				6094290A2CC95D1000C8D5D6 /* NetworkService.swift in Sources */,
 				6094290D2CC95D1700C8D5D6 /* ImageTarget.swift in Sources */,
 				6094290B2CC95D1200C8D5D6 /* ChallengeTarget.swift in Sources */,
+				60C0F43A2CD1FB8C00DB19AB /* MockChallengeRepository.swift in Sources */,
 				609428E92CC9361400C8D5D6 /* Quest.swift in Sources */,
 				6094290E2CC95DC600C8D5D6 /* GetChallengeUseCase.swift in Sources */,
 				609428FC2CC9390300C8D5D6 /* Bundle++.swift in Sources */,
 				609429092CC95D0E00C8D5D6 /* CommonResponse.swift in Sources */,
+				60C0F43B2CD1FBC600DB19AB /* DeleteChallengeUseCase.swift in Sources */,
 				609428F42CC936AD00C8D5D6 /* PostQuestUseCase.swift in Sources */,
 				609429012CC93A7600C8D5D6 /* ImageModel.swift in Sources */,
 				609428E82CC935A600C8D5D6 /* NetworkError.swift in Sources */,
@@ -784,6 +794,7 @@
 				609428F92CC938DA00C8D5D6 /* TargetType.swift in Sources */,
 				609428E72CC9358100C8D5D6 /* QuestModel.swift in Sources */,
 				609428FA2CC938EC00C8D5D6 /* NetworkConfiguration.swift in Sources */,
+				60C0F4372CD1FA6500DB19AB /* DeleteChallengeUseCaseTests.swift in Sources */,
 				60C0F4342CD1413700DB19AB /* QuestRepositoryInterface.swift in Sources */,
 				6094290C2CC95D1400C8D5D6 /* QuestTarget.swift in Sources */,
 				60C0F4352CD1415F00DB19AB /* UIImage++.swift in Sources */,
@@ -830,6 +841,7 @@
 				E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */,
 				608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */,
 				606329932C7483E8000F4513 /* PatchChallengeUseCase.swift in Sources */,
+				60C0F4392CD1FAD900DB19AB /* MockChallengeRepository.swift in Sources */,
 				60DB54C12C7393DB00AEDFE9 /* ManageDetailView.swift in Sources */,
 				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
 				60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */,

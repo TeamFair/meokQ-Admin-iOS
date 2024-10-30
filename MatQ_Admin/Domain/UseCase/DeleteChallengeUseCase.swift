@@ -25,7 +25,7 @@ final class DeleteChallengeUseCase: DeleteChallengeUseCaseInterface {
     func execute(challengeId: String, imageId: String?) -> AnyPublisher<Void, NetworkError> {
         let challengeRequest = DeleteChallengeRequest(challengeId: challengeId)
         
-        if let imageId = imageId {
+        if let imageId = imageId, imageId.count > 0 {
             let imageRequest = DeleteImageRequest(imageId: imageId)
             
             return imageRepository.deleteImage(request: imageRequest)
