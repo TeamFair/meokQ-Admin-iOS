@@ -11,7 +11,7 @@ import SwiftUI
 class NetworkConfiguration {
     static let shared = NetworkConfiguration()
     
-    let baseURL: String = "http://43.202.229.190"
+    let baseURL: String = "http://52.79.126.243"
     @AppStorage("port") var port: String = "9090"
     
     private init() { }
