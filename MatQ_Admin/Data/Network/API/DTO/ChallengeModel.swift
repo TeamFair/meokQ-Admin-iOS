@@ -38,7 +38,6 @@ struct QuestResponse: Decodable {
 
 struct MissionResponse: Decodable {
     let content: String
-    let quantity: Int
     let type: String
 }
 
