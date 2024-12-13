@@ -21,6 +21,7 @@ struct GetQuestResponseData: Decodable {
     let imageId: String?
     let rewardList: [RewardResponse]
     let score: Int
+    let type, target: String
     
     func toDomain(image: UIImage?) -> Quest {
         Quest(
@@ -32,7 +33,9 @@ struct GetQuestResponseData: Decodable {
             image: image,
             logoImageId: self.imageId ?? "",
             expireDate: self.expireDate,
-            score: self.score
+            score: self.score,
+            type: self.type,
+            target: self.target
         )
     }
 }
@@ -49,8 +52,54 @@ struct PostQuestRequest: Encodable {
 
 struct Mission: Encodable {
     let content: String
-    let quantity: Int = 0
-    let type: String = "FREE"
+    let type: String?
+    
+    init(content: String) {
+        self.content = content
+        self.type = "FREE"
+    }
+}
+
+protocol StringValue {
+    var title: String { get }
+}
+
+enum QuestType: String, CaseIterable, Identifiable, StringValue {
+    case normal
+    case `repeat`
+    
+    var id: String { rawValue }
+    
+    var title: String {
+        switch self {
+        case .normal:
+            "일반"
+        case .repeat:
+            "반복"
+        }
+    }
+}
+
+enum QuestRepeatTarget: String, CaseIterable, Identifiable, StringValue {
+    case daily
+    case weekly
+    case monthly
+    case none
+    
+    var id: String { rawValue }
+    
+    var title: String {
+        switch self {
+        case .daily:
+            "일간"
+        case .weekly:
+            "주간"
+        case .monthly:
+            "월간"
+        case .none:
+            "없음"
+        }
+    }
 }
 
 struct Reward: Encodable {
@@ -73,6 +122,8 @@ struct PutQuestRequest: Encodable {
         let rewards: [Reward]
         let score: Int
         let expireDate: String
+        let type: String
+        let target: String
     }
 }
 

@@ -89,8 +89,8 @@ final class QuestDetailViewModel: ObservableObject {
     
     func createData(data: QuestDetailViewModelItem) {
         let rewardList = data.toRewardList()
-       
-        postQuestUseCase.execute(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, rewardList: rewardList, score: data.score, expireDate: data.expireDate)
+        // TODO: 타입이 일반이면 >> 타겟도 일반으로 저장
+        postQuestUseCase.execute(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, questTarget: data.questTarget, questType: data.questType, rewardList: rewardList, score: data.score, expireDate: data.expireDate)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 추가 실패"
@@ -108,7 +108,8 @@ final class QuestDetailViewModel: ObservableObject {
     }
     
     func modifyData(_ data: QuestDetailViewModelItem, imageUpdated: Bool) {
-        putQuestUseCase.execute(questId: data.questId, writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, rewardList: data.toRewardList(), score: data.score, expireDate: data.expireDate, imageUpdated: imageUpdated)
+        // TODO: 타입이 일반이면 >> 타겟도 일반으로 저장
+        putQuestUseCase.execute(questId: data.questId, writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, rewardList: data.toRewardList(), score: data.score, expireDate: data.expireDate, target: data.questTarget, type: data.questType, imageUpdated: imageUpdated)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 수정 실패"
@@ -157,6 +158,8 @@ struct QuestDetailViewModelItem: Equatable {
     var expireDate: String
     var imageId: String?
     var questImage: UIImage?
+    var questType: QuestType
+    var questTarget: QuestRepeatTarget
     
     init(quest: Quest) {
         self.questId = quest.questId
@@ -171,6 +174,8 @@ struct QuestDetailViewModelItem: Equatable {
         self.expireDate = quest.expireDate.timeAgoSinceDate()
         self.imageId = quest.logoImageId
         self.questImage = quest.image
+        self.questType = QuestType(rawValue: quest.type.lowercased()) ?? .normal
+        self.questTarget = QuestRepeatTarget(rawValue: quest.target.lowercased()) ?? .none
     }
     
     func toRewardList() -> [Reward] {

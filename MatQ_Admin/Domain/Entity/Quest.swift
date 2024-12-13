@@ -17,8 +17,22 @@ struct Quest {
     let logoImageId: String?
     let expireDate: String
     let score: Int
+    let type: String
+    let target: String
     
-    init(questId: String, missionTitle: String, rewardList: [RewardResponse], status: String, writer: String, image: UIImage? ,logoImageId: String, expireDate: String, score: Int) {
+    init(
+        questId: String,
+        missionTitle: String,
+        rewardList: [RewardResponse],
+        status: String,
+        writer: String,
+        image: UIImage? ,
+        logoImageId: String,
+        expireDate: String,
+        score: Int,
+        type: String,
+        target: String
+    ) {
         self.questId = questId
         self.missionTitle = missionTitle
         self.rewardList = rewardList
@@ -28,6 +42,8 @@ struct Quest {
         self.logoImageId = logoImageId
         self.expireDate = expireDate
         self.score = score
+        self.type = type
+        self.target = target
     }
     
     init() {
@@ -40,10 +56,12 @@ struct Quest {
         self.logoImageId = Quest.defaultLogoImageId
         self.expireDate = "2030-12-31"
         self.score = 0
+        self.type = "NORMAL"
+        self.target = "NONE"
     }
     
     static let initialData = Quest.init()
-    static let mockData1 = Quest.init(questId: UUID().uuidString, missionTitle: "밥먹기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0)
-    static let mockData2 = Quest.init(questId: UUID().uuidString, missionTitle: "커피 마시기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0)
+    static let mockData1 = Quest.init(questId: UUID().uuidString, missionTitle: "밥먹기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0, type: "NORMAL", target: "NONE")
+    static let mockData2 = Quest.init(questId: UUID().uuidString, missionTitle: "커피 마시기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0, type: "NORMAL", target: "NONE")
     static let defaultLogoImageId = "IMQU2024092917552786"
 }

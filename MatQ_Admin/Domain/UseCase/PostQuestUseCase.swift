@@ -23,7 +23,17 @@ fileprivate struct QuestRequest {
 }
 
 protocol PostQuestUseCaseInterface {
-    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String) -> AnyPublisher<Void, NetworkError>
+    func execute(
+        writer: String,
+        image: UIImage?,
+        imageId: String?,
+        missionTitle: String,
+        questTarget: QuestRepeatTarget,
+        questType: QuestType,
+        rewardList: [Reward],
+        score: Int,
+        expireDate: String
+    ) -> AnyPublisher<Void, NetworkError>
 }
 
 final class PostQuestUseCase: PostQuestUseCaseInterface {
@@ -36,7 +46,17 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
         self.imageRepository = imageRepository
     }
     
-    func execute(writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String) -> AnyPublisher<Void, NetworkError> {
+    func execute(
+        writer: String,
+        image: UIImage?,
+        imageId: String?,
+        missionTitle: String,
+        questTarget: QuestRepeatTarget,
+        questType: QuestType,
+        rewardList: [Reward],
+        score: Int,
+        expireDate: String
+    ) -> AnyPublisher<Void, NetworkError> {
         let request = QuestRequest(writer: writer,
                                    imageId: imageId,
                                    missions: [.init(content: missionTitle)],
