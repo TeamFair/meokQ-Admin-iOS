@@ -26,11 +26,28 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
     private var currentPage: Int = 0
     
     @Published var items: [QuestMainViewModelItem] = []
+    var filteredItems: [QuestMainViewModelItem] {
+        let selectedTypes = selectedType.filter { $0.value == true }.map { $0.key }
+        
+        let filteredItems = items
+            .filter { selectedTypes.contains($0.type) } // 선택된 타입 필터링
+            .filter { $0.questTitle.contains(searchText) || $0.writer.contains(searchText) || searchText.isEmpty } // 검색어 필터링
+        
+        return filteredItems
+    }
+    
+    @Published var selectedType: [QuestType: Bool] = [.normal:true, .repeat:true]
+    @Published var searchText: String = ""
     @Published var errorMessage: String = ""
     @Published var showingAlert = false
+    @Published var showingErrorAlert = false
     @Published var viewState: ViewState = .loaded
     
-    @AppStorage("port") var port = "9090"
+    @Published var showSearchBar: Bool = true
+    @Published var scrollOffset: CGFloat = 0.0
+    let scrollThreshold: CGFloat = 20.0 // 임계값 설정
+    
+    @AppStorage("port") var port = "8880"
     @Published var portText = ""
     
     enum ViewState {
@@ -48,7 +65,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
         
         error.sink { [weak self] errorMessage in
             self?.errorMessage = errorMessage
-            self?.showingAlert = true
+            self?.showingErrorAlert = true
         }.store(in: &cancellables)
     }
 
@@ -79,23 +96,72 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
             }
             .store(in: &cancellables)
     }
+    
+    func getSelectedQuest(_ item: QuestMainViewModelItem) -> Quest? {
+        guard let selectedQuest = questList.first(where: { $0.questId == item.questId }) else {
+            print("Quest not found for questId: \(item.questId)")
+            return nil
+        }
+        let quest = Quest(
+            questId: selectedQuest.questId,
+            missionTitle: selectedQuest.missionTitle,
+            rewardList: selectedQuest.rewardList,
+            status: selectedQuest.status,
+            writer: selectedQuest.writer,
+            image: selectedQuest.image,
+            logoImageId: selectedQuest.logoImageId ?? "",
+            expireDate: selectedQuest.expireDate,
+            score: selectedQuest.score,
+            type: selectedQuest.type,
+            target: selectedQuest.target
+        )
+        
+        return quest
+    }
+    
+    func clearSearchText() {
+        self.searchText = ""
+    }
+    
+    func updateSearchBarVisibility(offset: CGFloat) {
+        if viewState == .loaded {
+            withAnimation {
+                if offset >= 0 {
+                    showSearchBar = true // 최상단에서 SearchBar 표시
+                } else if offset < scrollOffset - scrollThreshold {
+                    showSearchBar = false // 아래로 스크롤 시 숨김
+                } else if offset > scrollOffset + scrollThreshold {
+                    showSearchBar = true // 위로 스크롤 시 표시
+                }
+                scrollOffset = offset
+            }
+        }
+    }
 }
 
-struct QuestMainViewModelItem {
+struct QuestMainViewModelItem: Hashable {
     let questId: String
     let questTitle: String
     let logoImageId: String?
     let logoImage: UIImage?
     let status: String
     let expireDate: String
+    let writer: String
+    let type: QuestType
+    let target: QuestRepeatTarget
+    let xpStats: [XpStat]
     
-    init(questId: String, questTitle: String, logoImageId: String, logoImage: UIImage?, status: String, expireDate: String) {
+    init(questId: String, questTitle: String, logoImageId: String, logoImage: UIImage?, status: String, expireDate: String, writer: String, type: QuestType, target: QuestRepeatTarget, xpStats: [XpStat]) {
         self.questId = questId
         self.questTitle = questTitle
         self.logoImageId = logoImageId
         self.logoImage = logoImage
         self.status = status
         self.expireDate = expireDate
+        self.writer = writer
+        self.type = type
+        self.target = target
+        self.xpStats = xpStats
     }
     
     init(quest: Quest) {
@@ -105,6 +171,10 @@ struct QuestMainViewModelItem {
         self.expireDate = quest.expireDate.timeAgoSinceDate()
         self.logoImage = quest.image
         self.status = quest.status
+        self.writer = quest.writer
+        self.type = QuestType(rawValue: quest.type) ?? .normal
+        self.target = QuestRepeatTarget(rawValue: quest.target) ?? .none
+        self.xpStats = quest.rewardList.map { XpStat(rawValue: $0.content?.lowercased() ?? "fun") ?? .fun }
     }
     
     static var mockData1 = QuestMainViewModelItem.init(quest: .mockData1)

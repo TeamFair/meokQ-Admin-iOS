@@ -61,7 +61,10 @@ struct Quest {
     }
     
     static let initialData = Quest.init()
-    static let mockData1 = Quest.init(questId: UUID().uuidString, missionTitle: "밥먹기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0, type: "NORMAL", target: "NONE")
-    static let mockData2 = Quest.init(questId: UUID().uuidString, missionTitle: "커피 마시기", rewardList: [], status: "", writer: "이기욱", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0, type: "NORMAL", target: "NONE")
+    static let mockData1 = Quest.init(questId: UUID().uuidString, missionTitle: "베트남 음식 도전하기", rewardList: [.init(content: "strength", quantity: 10, type: "XP")], status: "", writer: "일상 선생님", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0, type: "normal", target: "none")
+    static let mockData2 = Quest.init(questId: UUID().uuidString, missionTitle: "바닐라 라떼 마시기", rewardList: [.init(content: "fun", quantity: 10, type: "XP")], status: "", writer: "일상 요리사", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0, type: "repeat", target: "daily")
+    static let mockData3 = Quest.init(questId: UUID().uuidString, missionTitle: "나무 사진 찍기", rewardList: [.init(content: "intellect", quantity: 10, type: "XP")], status: "", writer: "일상 요리사", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0, type: "repeat", target: "weekly")
+    static let mockData4 = Quest.init(questId: UUID().uuidString, missionTitle: "태국 음식 도전하기", rewardList: [.init(content: "charm", quantity: 10, type: "XP"), .init(content: "fun", quantity: 10, type: "XP")], status: "", writer: "일상 요리사", image: nil, logoImageId: "", expireDate: "2024-12-31", score: 0, type: "repeat", target: "monthly")
+    static let mockDataList = [mockData1, mockData2, mockData3, mockData4]
     static let defaultLogoImageId = "IMQU2024092917552786"
 }
