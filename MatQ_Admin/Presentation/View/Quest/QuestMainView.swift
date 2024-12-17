@@ -88,7 +88,9 @@ struct QuestMainView: View {
                                         image: $0.image,
                                         logoImageId: $0.logoImageId ?? "",
                                         expireDate: $0.expireDate,
-                                        score: $0.score
+                                        score: $0.score,
+                                        type: $0.type,
+                                        target: $0.target
                                     )
                                 })!
                         )
@@ -101,11 +103,26 @@ struct QuestMainView: View {
             Spacer(minLength: 60)
         }
         .refreshable {
-            await vm.getQuestList(page: 0)
+            vm.getQuestList(page: 0)
         }
     }
 }
 
-//#Preview {
-//    QuestMainView(vm: QuestMainViewModel())
-//}
+#Preview {
+    QuestMainView(
+        vm: QuestMainViewModel(
+            questUseCase: GetQuestUseCase(
+                questRepository: QuestRepository(
+                    questDataSource: QuestDataSource(
+                        networkService: NetworkService()
+                    )
+                ),
+                imageRepository: ImageRepository(
+                    imageDataSource: ImageDataSource(
+                        networkService: NetworkService()
+                    )
+                )
+            )
+        )
+    )
+}

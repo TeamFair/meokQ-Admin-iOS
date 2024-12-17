@@ -92,6 +92,9 @@ struct QuestDetailView: View {
                     ))
                     TextFieldComponent(titleName: "작성자", contentPlaceholder: vm.items.writer, content: $vm.editedItems.writer)
                     TextFieldComponent(titleName: "만료 기한", contentPlaceholder: vm.items.expireDate, content: $vm.editedItems.expireDate)
+                    SegmentComponent(title: "타입", content: $vm.editedItems.questType, list: QuestType.allCases)
+                    SegmentComponent(title: "반복 타입", content: $vm.editedItems.questTarget, list: QuestRepeatTarget.allCases)
+                        .disabled(vm.editedItems.questType != .repeat)
                     
                     PhotosPicker(selection: $vm.photosPickerItem, matching: .any(of: [.images, .screenshots])) {
                         ImageFieldComponent(titleName: "퀘스트 이미지", uiImage: vm.editedItems.questImage)
