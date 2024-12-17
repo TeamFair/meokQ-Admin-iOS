@@ -48,6 +48,7 @@ struct PostQuestRequest: Encodable {
     let rewards: [Reward]
     let score: Int
     let expireDate: String
+    let type, target: String
 }
 
 struct Mission: Encodable {

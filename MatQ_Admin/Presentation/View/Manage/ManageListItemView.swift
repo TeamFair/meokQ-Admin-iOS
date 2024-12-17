@@ -38,5 +38,5 @@ struct ManageListItemView: View {
 }
 
 #Preview {
-    QuestItemView(questImage: .testimage, missionTitle: "Mission", expireDate: "2025.02.11")
+    ManageListItemView(challengeTitle: "챌린지명", userNickname: "일상1234")
 }

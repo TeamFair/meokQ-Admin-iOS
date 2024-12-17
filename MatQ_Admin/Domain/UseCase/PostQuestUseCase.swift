@@ -15,10 +15,13 @@ fileprivate struct QuestRequest {
     let rewards: [Reward]
     let score: Int
     let expireDate: String
+    let type, target: String
     
     func toPostQuestRequest() -> PostQuestRequest? {
         guard let imageId = imageId else { return nil }
-        return PostQuestRequest(writer: self.writer, imageId: imageId, missions: self.missions, rewards: self.rewards, score: self.score, expireDate: self.expireDate)
+        let request = PostQuestRequest(writer: self.writer, imageId: imageId, missions: self.missions, rewards: self.rewards, score: self.score, expireDate: self.expireDate, type: self.type, target: self.target)
+        
+        return request
     }
 }
 
@@ -57,12 +60,16 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
         score: Int,
         expireDate: String
     ) -> AnyPublisher<Void, NetworkError> {
-        let request = QuestRequest(writer: writer,
-                                   imageId: imageId,
-                                   missions: [.init(content: missionTitle)],
-                                   rewards: rewardList,
-                                   score: score,
-                                   expireDate: expireDate)
+        let request = QuestRequest(
+            writer: writer,
+            imageId: imageId,
+            missions: [.init(content: missionTitle)],
+            rewards: rewardList,
+            score: score,
+            expireDate: expireDate,
+            type: questType.rawValue.uppercased(),
+            target: questTarget.rawValue.uppercased()
+        )
         if let _ = imageId {
             // imageId가 있을 때 바로 퀘스트 생성
             return createQuest(request: request)
