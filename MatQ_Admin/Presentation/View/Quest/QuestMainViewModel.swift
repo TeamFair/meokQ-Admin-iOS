@@ -172,8 +172,8 @@ struct QuestMainViewModelItem: Hashable {
         self.logoImage = quest.image
         self.status = quest.status
         self.writer = quest.writer
-        self.type = QuestType(rawValue: quest.type) ?? .normal
-        self.target = QuestRepeatTarget(rawValue: quest.target) ?? .none
+        self.type = QuestType(rawValue: quest.type.lowercased()) ?? .normal
+        self.target = QuestRepeatTarget(rawValue: quest.target.lowercased()) ?? .none
         self.xpStats = quest.rewardList.map { XpStat(rawValue: $0.content?.lowercased() ?? "fun") ?? .fun }
     }
     

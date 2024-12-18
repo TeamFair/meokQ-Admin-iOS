@@ -68,7 +68,7 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
             score: score,
             expireDate: expireDate,
             type: questType.rawValue.uppercased(),
-            target: questTarget.rawValue.uppercased()
+            target: questType == .normal ? QuestRepeatTarget.none.rawValue.uppercased() : questTarget.rawValue.uppercased() // 일반타입이면 "NONE"으로 타겟 설정
         )
         if let _ = imageId {
             // imageId가 있을 때 바로 퀘스트 생성
