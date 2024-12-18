@@ -10,6 +10,8 @@
 		60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */; };
 		60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FF12C662495009AECF2 /* NetworkConfiguration.swift */; };
 		601048712C652FC20028662D /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
+		603F25702D119D4E00A088E2 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F256F2D119D4E00A088E2 /* SearchTextField.swift */; };
+		603F25722D11C94B00A088E2 /* XpStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F25712D11C94B00A088E2 /* XpStat.swift */; };
 		60631DF52C84E63B005643B1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B02C7272E400AEDFE9 /* NetworkService.swift */; };
 		60631DF62C84E647005643B1 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570B2B94124F00EDAF30 /* NetworkError.swift */; };
 		60631DF72C84E64F005643B1 /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEE2C45F1A900711A53 /* CommonResponse.swift */; };
@@ -175,6 +177,8 @@
 		60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataTransferable.swift; sourceTree = "<group>"; };
 		60004FF12C662495009AECF2 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		601048702C652FC20028662D /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
+		603F256F2D119D4E00A088E2 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		603F25712D11C94B00A088E2 /* XpStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XpStat.swift; sourceTree = "<group>"; };
 		60631E042C85E4CC005643B1 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		60631E072C85E761005643B1 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchChallengeUseCase.swift; sourceTree = "<group>"; };
@@ -397,6 +401,7 @@
 			children = (
 				608EBF922C3872D700B862CC /* Quest.swift */,
 				60DB54C82C73BD4F00AEDFE9 /* Challenge.swift */,
+				603F25712D11C94B00A088E2 /* XpStat.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -619,6 +624,7 @@
 				E5DD827E2B350D7200A026C2 /* NavigationBarComponent.swift */,
 				60E696B02B98958C009DD235 /* ButtonLabelComponent.swift */,
 				608EBF982C39166F00B862CC /* TextFieldComponent.swift */,
+				603F256F2D119D4E00A088E2 /* SearchTextField.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -847,6 +853,7 @@
 				60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */,
 				60DB54C72C73BC4D00AEDFE9 /* ChallengeModel.swift in Sources */,
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
+				603F25722D11C94B00A088E2 /* XpStat.swift in Sources */,
 				60F27DFD2C461B2B00711A53 /* DeleteQuestUseCase.swift in Sources */,
 				608EBF972C390C5200B862CC /* QuestDetailViewModel.swift in Sources */,
 				608EBF952C38758100B862CC /* QuestItemView.swift in Sources */,
@@ -872,6 +879,7 @@
 				60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */,
 				60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */,
 				60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */,
+				603F25702D119D4E00A088E2 /* SearchTextField.swift in Sources */,
 				60DB54B52C73763F00AEDFE9 /* ImageRepositoryInterface.swift in Sources */,
 				60E696B52B98C583009DD235 /* Bundle++.swift in Sources */,
 				60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */,

@@ -72,7 +72,7 @@ final class PutQuestUseCase: PutQuestUseCaseInterface {
             rewards: rewardList,
             score: score,
             expireDate: expireDate,
-            target: target.rawValue.uppercased(),
+            target: type == .normal ? QuestRepeatTarget.none.rawValue.uppercased() : target.rawValue.uppercased(), // 일반타입이면 "NONE"으로 타겟 설정
             type: type.rawValue.uppercased()
         )
         if imageUpdated, let image = image {

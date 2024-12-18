@@ -29,7 +29,7 @@ final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOu
     @Published var viewState: ViewState = .loaded
     @Published var activeAlertType: ActiveAlertType?
 
-    @AppStorage("port") var port = "9090"
+    @AppStorage("port") var port = "8880"
     @Published var portText = ""
     
     private var cancellables = Set<AnyCancellable>()

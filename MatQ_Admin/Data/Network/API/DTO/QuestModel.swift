@@ -98,7 +98,16 @@ enum QuestRepeatTarget: String, CaseIterable, Identifiable, StringValue {
         case .monthly:
             "월간"
         case .none:
-            "없음"
+            "일반"
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .none: .brown
+        case .daily: .blue
+        case .weekly: .orange
+        case .monthly: .red
         }
     }
 }
