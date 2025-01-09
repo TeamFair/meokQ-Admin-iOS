@@ -23,6 +23,7 @@ enum NetworkError: Error, Equatable {
     case decodingError
     case serverError
     case invalidImageData
+    case invalidResponse
     
     case error((Int, String, String)) // StatusCode, Status, ErrMessage
     case unknownError

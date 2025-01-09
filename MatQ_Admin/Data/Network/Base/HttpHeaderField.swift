@@ -16,7 +16,7 @@ enum HTTPHeaderField: String {
     var value: String {
         switch self {
         case .authentication:
-            return Bundle.main.adminAuthToken
+            return KeychainHelper.shared.retrieve(key: "AdminAuthToken") ?? ""
         case .contentType:
             return type.json.rawValue
         case .acceptType:
@@ -26,5 +26,9 @@ enum HTTPHeaderField: String {
     
     enum type: String {
         case json = "application/json"
+    }
+    
+    static func updateAuthToken(_ newToken: String) {
+        KeychainHelper.shared.save(key: "AdminAuthToken", value: newToken)
     }
 }

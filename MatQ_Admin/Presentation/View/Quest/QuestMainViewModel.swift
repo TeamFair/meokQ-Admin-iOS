@@ -50,6 +50,21 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
             self?.errorMessage = errorMessage
             self?.showingAlert = true
         }.store(in: &cancellables)
+        
+        AuthRepository(networkService: NetworkService()).postAuth(request: PostAuthRequest())
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    print("Authorization token saved successfully.")
+                case .failure(let error):
+                    print("Failed with error: \(error.localizedDescription)")
+                }
+            }, receiveValue: { _ in
+                print("Authorization token receiveValue")
+            })
+            .store(in: &cancellables)
+        
+        getQuestList(page: 0)
     }
 
     func getQuestList(page: Int) {

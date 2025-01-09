@@ -10,10 +10,13 @@
 		60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */; };
 		60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FF12C662495009AECF2 /* NetworkConfiguration.swift */; };
 		601048712C652FC20028662D /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
+		603F25702D119D4E00A088E2 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F256F2D119D4E00A088E2 /* SearchTextField.swift */; };
+		603F25722D11C94B00A088E2 /* XpStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F25712D11C94B00A088E2 /* XpStat.swift */; };
+		605334592D30164000599159 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605334582D30164000599159 /* KeychainHelper.swift */; };
+		6053345A2D30170100599159 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605334582D30164000599159 /* KeychainHelper.swift */; };
 		60631DF52C84E63B005643B1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B02C7272E400AEDFE9 /* NetworkService.swift */; };
 		60631DF62C84E647005643B1 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570B2B94124F00EDAF30 /* NetworkError.swift */; };
 		60631DF72C84E64F005643B1 /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEE2C45F1A900711A53 /* CommonResponse.swift */; };
-		60631DF92C8590CA005643B1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 60631DF82C8590CA005643B1 /* Alamofire */; };
 		60631DFC2C85A08C005643B1 /* HttpHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA57122B94152000EDAF30 /* HttpHeaderField.swift */; };
 		60631DFD2C85A0CA005643B1 /* Bundle++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E696B42B98C583009DD235 /* Bundle++.swift */; };
 		60631DFE2C85A0DC005643B1 /* PrivateToken.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60E696B62B98C5AD009DD235 /* PrivateToken.plist */; };
@@ -27,6 +30,8 @@
 		606329952C748E10000F4513 /* DeleteChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */; };
 		6073BEBD2CA2B8DA00072FF9 /* PutQuestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6073BEBC2CA2B8DA00072FF9 /* PutQuestUseCase.swift */; };
 		6073BEC22CA31C3000072FF9 /* String++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6073BEC12CA31C3000072FF9 /* String++.swift */; };
+		60856CE12D1DA9A90048747E /* AuthTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60856CE02D1DA9A90048747E /* AuthTarget.swift */; };
+		60856CE52D1DAADC0048747E /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60856CE42D1DAADC0048747E /* AuthRepository.swift */; };
 		608EBF8A2C38709800B862CC /* AppInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF892C38709800B862CC /* AppInject.swift */; };
 		608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF8C2C38716100B862CC /* QuestMainView.swift */; };
 		608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608EBF8E2C38716900B862CC /* QuestDetailView.swift */; };
@@ -65,6 +70,11 @@
 		6094290E2CC95DC600C8D5D6 /* GetChallengeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54D02C73C1F900AEDFE9 /* GetChallengeUseCase.swift */; };
 		609429102CC95E6200C8D5D6 /* PutQuestUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6073BEBC2CA2B8DA00072FF9 /* PutQuestUseCase.swift */; };
 		609429122CC960C700C8D5D6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 609429112CC960C700C8D5D6 /* Alamofire */; };
+		60A766E02D1DBA1B00928824 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60856CE22D1DA9C50048747E /* AuthModel.swift */; };
+		60A766E12D1DBA1C00928824 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60856CE22D1DA9C50048747E /* AuthModel.swift */; };
+		60A766E42D1DBB6900928824 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 60A766E32D1DBB6900928824 /* Alamofire */; };
+		60A766E52D1DBC0100928824 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60856CE22D1DA9C50048747E /* AuthModel.swift */; };
+		60A766E62D1DBC0C00928824 /* AuthTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60856CE02D1DA9A90048747E /* AuthTarget.swift */; };
 		60C0F4342CD1413700DB19AB /* QuestRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */; };
 		60C0F4352CD1415F00DB19AB /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
 		60C0F4372CD1FA6500DB19AB /* DeleteChallengeUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C0F4362CD1FA6500DB19AB /* DeleteChallengeUseCaseTests.swift */; };
@@ -175,12 +185,18 @@
 		60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataTransferable.swift; sourceTree = "<group>"; };
 		60004FF12C662495009AECF2 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		601048702C652FC20028662D /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
+		603F256F2D119D4E00A088E2 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		603F25712D11C94B00A088E2 /* XpStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XpStat.swift; sourceTree = "<group>"; };
+		605334582D30164000599159 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		60631E042C85E4CC005643B1 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		60631E072C85E761005643B1 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchChallengeUseCase.swift; sourceTree = "<group>"; };
 		606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteChallengeUseCase.swift; sourceTree = "<group>"; };
 		6073BEBC2CA2B8DA00072FF9 /* PutQuestUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutQuestUseCase.swift; sourceTree = "<group>"; };
 		6073BEC12CA31C3000072FF9 /* String++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String++.swift"; sourceTree = "<group>"; };
+		60856CE02D1DA9A90048747E /* AuthTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTarget.swift; sourceTree = "<group>"; };
+		60856CE22D1DA9C50048747E /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		60856CE42D1DAADC0048747E /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		608EBF892C38709800B862CC /* AppInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInject.swift; sourceTree = "<group>"; };
 		608EBF8C2C38716100B862CC /* QuestMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMainView.swift; sourceTree = "<group>"; };
 		608EBF8E2C38716900B862CC /* QuestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDetailView.swift; sourceTree = "<group>"; };
@@ -273,7 +289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60631DF92C8590CA005643B1 /* Alamofire in Frameworks */,
+				60A766E42D1DBB6900928824 /* Alamofire in Frameworks */,
 				60ECFBCA2C8459800020E24B /* SwiftUI.framework in Frameworks */,
 				60ECFBC82C8459800020E24B /* WidgetKit.framework in Frameworks */,
 			);
@@ -295,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */,
+				605334582D30164000599159 /* KeychainHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -378,6 +395,7 @@
 				60F27DF82C46039400711A53 /* QuestRepository.swift */,
 				60DB54CC2C73C12600AEDFE9 /* ChallengeRepository.swift */,
 				60DB54B72C73788900AEDFE9 /* ImageRepository.swift */,
+				60856CE42D1DAADC0048747E /* AuthRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -462,6 +480,7 @@
 				60F27DEC2C45691F00711A53 /* QuestModel.swift */,
 				60DB54C62C73BC4D00AEDFE9 /* ChallengeModel.swift */,
 				60E696BA2B9A1BFE009DD235 /* ImageModel.swift */,
+				60856CE22D1DA9C50048747E /* AuthModel.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -505,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */,
+				60856CE02D1DA9A90048747E /* AuthTarget.swift */,
 				60F27DF02C45FADC00711A53 /* QuestTarget.swift */,
 				60DB54CA2C73BF5500AEDFE9 /* ChallengeTarget.swift */,
 			);
@@ -669,7 +689,7 @@
 			);
 			name = MatQ_Admin_Extension;
 			packageProductDependencies = (
-				60631DF82C8590CA005643B1 /* Alamofire */,
+				60A766E32D1DBB6900928824 /* Alamofire */,
 			);
 			productName = ILSANG_ADMIN_WIDGETExtension;
 			productReference = 60ECFBC62C8459800020E24B /* MatQ_Admin_Extension.appex */;
@@ -782,6 +802,7 @@
 				6094290D2CC95D1700C8D5D6 /* ImageTarget.swift in Sources */,
 				6094290B2CC95D1200C8D5D6 /* ChallengeTarget.swift in Sources */,
 				60C0F43A2CD1FB8C00DB19AB /* MockChallengeRepository.swift in Sources */,
+				60A766E62D1DBC0C00928824 /* AuthTarget.swift in Sources */,
 				609428E92CC9361400C8D5D6 /* Quest.swift in Sources */,
 				6094290E2CC95DC600C8D5D6 /* GetChallengeUseCase.swift in Sources */,
 				609428FC2CC9390300C8D5D6 /* Bundle++.swift in Sources */,
@@ -802,6 +823,7 @@
 				609428FE2CC939B700C8D5D6 /* PutQuestUseCaseTests.swift in Sources */,
 				609428FF2CC93A5500C8D5D6 /* Challenge.swift in Sources */,
 				609428EE2CC9365000C8D5D6 /* ChallengeModel.swift in Sources */,
+				60A766E52D1DBC0100928824 /* AuthModel.swift in Sources */,
 				609428F82CC938CB00C8D5D6 /* Endpoint.swift in Sources */,
 				609428EB2CC9363700C8D5D6 /* ChallengeRepositoryInterface.swift in Sources */,
 				609429082CC95D0C00C8D5D6 /* HttpHeaderField.swift in Sources */,
@@ -826,7 +848,9 @@
 				60ECFBD12C8459800020E24B /* AppIntent.swift in Sources */,
 				60631E022C85A37A005643B1 /* Quest.swift in Sources */,
 				60631DFC2C85A08C005643B1 /* HttpHeaderField.swift in Sources */,
+				6053345A2D30170100599159 /* KeychainHelper.swift in Sources */,
 				60631DF62C84E647005643B1 /* NetworkError.swift in Sources */,
+				60A766E02D1DBA1B00928824 /* AuthModel.swift in Sources */,
 				60631DF72C84E64F005643B1 /* CommonResponse.swift in Sources */,
 				60631E012C85A347005643B1 /* ChallengeModel.swift in Sources */,
 			);
@@ -846,6 +870,7 @@
 				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
 				60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */,
 				60DB54C72C73BC4D00AEDFE9 /* ChallengeModel.swift in Sources */,
+				60856CE12D1DA9A90048747E /* AuthTarget.swift in Sources */,
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
 				60F27DFD2C461B2B00711A53 /* DeleteQuestUseCase.swift in Sources */,
 				608EBF972C390C5200B862CC /* QuestDetailViewModel.swift in Sources */,
@@ -854,6 +879,7 @@
 				60E696AF2B97CDE2009DD235 /* DomainAssembly.swift in Sources */,
 				608EBF932C3872D700B862CC /* Quest.swift in Sources */,
 				60DA570C2B94124F00EDAF30 /* NetworkError.swift in Sources */,
+				60A766E12D1DBA1C00928824 /* AuthModel.swift in Sources */,
 				60F27DED2C45691F00711A53 /* QuestModel.swift in Sources */,
 				60DB54CD2C73C12600AEDFE9 /* ChallengeRepository.swift in Sources */,
 				608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */,
@@ -885,11 +911,13 @@
 				60DB54C32C73940100AEDFE9 /* ManageDetailViewModel.swift in Sources */,
 				60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */,
 				60E696BF2B9A1FC1009DD235 /* ImageDataSource.swift in Sources */,
+				605334592D30164000599159 /* KeychainHelper.swift in Sources */,
 				608EBF992C39166F00B862CC /* TextFieldComponent.swift in Sources */,
 				60F27DF52C4602DD00711A53 /* GetQuestUseCase.swift in Sources */,
 				60DB54C52C73BBD600AEDFE9 /* ChallengeDataSource.swift in Sources */,
 				60DB54CF2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift in Sources */,
 				608EBF8A2C38709800B862CC /* AppInject.swift in Sources */,
+				60856CE52D1DAADC0048747E /* AuthRepository.swift in Sources */,
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
 				60DB54B82C73788900AEDFE9 /* ImageRepository.swift in Sources */,
@@ -1177,7 +1205,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.2.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.teamfair.MatQ-Admin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1221,7 +1249,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.2.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.teamfair.MatQ-Admin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1297,12 +1325,12 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		60631DF82C8590CA005643B1 /* Alamofire */ = {
+		609429112CC960C700C8D5D6 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E5C503992B467FFD00F47989 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		609429112CC960C700C8D5D6 /* Alamofire */ = {
+		60A766E32D1DBB6900928824 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E5C503992B467FFD00F47989 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;

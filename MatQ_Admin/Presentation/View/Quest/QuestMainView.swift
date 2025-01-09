@@ -39,10 +39,18 @@ struct QuestMainView: View {
             
             switch vm.viewState {
             case .empty:
-                Text("불러올 퀘스트가 없어요!")
-                    .font(.callout)
-                    .foregroundStyle(.textSecondary)
-                    .frame(maxHeight: .infinity)
+                VStack {
+                    Text("불러올 퀘스트가 없어요!")
+                        .font(.callout)
+                        .foregroundStyle(.textSecondary)
+                    Button {
+                        vm.getQuestList(page: 0)
+                    } label: {
+                        Text("재시도")
+                    }
+                }
+                .frame(maxHeight: .infinity)
+                
             case .loading:
                 ProgressView().frame(maxHeight: .infinity)
             case .loaded:
@@ -60,9 +68,6 @@ struct QuestMainView: View {
             .padding(.bottom, 8)
         }
         .background(.bgSecondary)
-        .task {
-            vm.getQuestList(page: 0)
-        }
         .alert(isPresented: $vm.showingAlert) {
             Alert(title: Text("Error"), message: Text(vm.errorMessage), dismissButton: .default(Text("OK")))
         }
@@ -101,7 +106,7 @@ struct QuestMainView: View {
             Spacer(minLength: 60)
         }
         .refreshable {
-            await vm.getQuestList(page: 0)
+            vm.getQuestList(page: 0)
         }
     }
 }

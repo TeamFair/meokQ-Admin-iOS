@@ -11,7 +11,7 @@ import UIKit
 // MARK: - 퀘스트 목록 조회
 struct GetQuestRequest: Encodable {
     let page: Int
-    let size: Int = 50
+    let size: Int = 60
     let creatorRole: String = "ADMIN"
 }
 

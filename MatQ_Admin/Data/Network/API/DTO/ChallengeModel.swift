@@ -12,7 +12,7 @@ import UIKit
 struct GetChallengeRequest: Encodable {
     let status: String = "REPORTED"
     let page: Int
-    let size: Int = 50
+    let size: Int = 20
 }
 
 typealias GetChallengeResponse = ResponseWithPage<[GetChallengeResponseData]>
