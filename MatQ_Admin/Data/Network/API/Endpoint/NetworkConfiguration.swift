@@ -12,7 +12,7 @@ class NetworkConfiguration {
     static let shared = NetworkConfiguration()
     
     let baseURL: String = "http://52.79.126.243"
-    @AppStorage("port") var port: String = "9090"
+    @AppStorage("port") var port: String = "8880"
     
     private init() { }
     
