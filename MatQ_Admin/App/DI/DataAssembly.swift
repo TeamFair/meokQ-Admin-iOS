@@ -41,11 +41,20 @@ final class DataAssembly: Assembly {
 
         
         // MARK: - Repository
+        
+#if DEBUG
         container.register(QuestRepositoryInterface.self, factory: { (
             resolver: Resolver
         ) -> QuestRepository in
             return .init(questDataSource: resolver.resolve(QuestDataSourceInterface.self)!)
         }).inObjectScope(.container)
+#else
+        container.register(QuestRepositoryInterface.self, factory: { (
+            resolver: Resolver
+        ) -> MockQuestRepository in
+            return .init(questDataSource: resolver.resolve(QuestDataSourceInterface.self)!)
+        }).inObjectScope(.container)
+#endif
         
          container.register(ChallengeRepositoryInterface.self, factory: { (
             resolver: Resolver

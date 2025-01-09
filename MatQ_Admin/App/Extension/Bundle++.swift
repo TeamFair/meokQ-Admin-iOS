@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Deprecated
 extension Bundle {
     var adminAuthToken: String {
         guard let filePath = Bundle.main.path(forResource: "PrivateToken", ofType: "plist"),

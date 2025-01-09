@@ -74,7 +74,7 @@ extension Provider {
     }
     
     private func checkPrdServerStatus() async -> Bool {
-        let url = "http://43.202.229.190:9091/api/admin/quest?page=0&creatorRole=ADMIN&size=10"
+        let url = "http://52.79.126.243:8881/api/admin/quest?page=0&creatorRole=ADMIN&size=10"
         let result: Result<GetQuestResponse, Error> = await Network.request(url: url)
         switch result {
         case .success:
@@ -85,7 +85,7 @@ extension Provider {
     }
     
     private func checkDevServerStatus() async -> Bool {
-        let url = "http://43.202.229.190:9090/api/admin/quest?page=0&creatorRole=ADMIN&size=10"
+        let url = "http://52.79.126.243:8880/api/admin/quest?page=0&creatorRole=ADMIN&size=10"
         let result: Result<GetQuestResponse, Error> = await Network.request(url: url)
         switch result {
         case .success:
@@ -96,7 +96,7 @@ extension Provider {
     }
     
     private func getReportedChallengeCount() async -> Int {
-        let url = "http://43.202.229.190:9091/api/admin/report?page=0&size=10"
+        let url = "http://52.79.126.243:8881/api/admin/report?page=0&size=10"
         let result: Result<GetChallengeResponse, Error> = await Network.request(url: url)
         switch result {
         case .success(let res):
