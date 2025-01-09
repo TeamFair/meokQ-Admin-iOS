@@ -32,6 +32,27 @@ struct TextFieldComponent: View {
     }
 }
 
+
+struct SegmentComponent<T: Identifiable & Hashable & StringValue & Equatable>: View {
+    let title : String
+    @Binding var content : T
+    let list: [T]
+    
+    var body: some View {
+        VStack(alignment: .leading){
+            Text(title)
+                .font(.subheadline).bold()
+                .foregroundStyle(.textSecondary)
+            Picker("", selection: $content) {
+                ForEach(list, id: \.self) { item in
+                    Text(item.title)
+                }
+            }
+            .pickerStyle(.segmented)
+        }
+    }
+}
+
 struct SliderComponent: View {
     let titleName: String
     let contentPlaceholder: Int
@@ -87,5 +108,7 @@ struct ImageFieldComponent: View {
     VStack {
         TextFieldComponent(titleName: "TextField", contentPlaceholder: "Placeholder", content: .constant("Test"))
         ImageFieldComponent(titleName: "ImageField", uiImage: (.testimage))
+        SliderComponent(titleName: "SliderField", contentPlaceholder: 10, content: .constant(0))
+        SegmentComponent(title: "SegmentField", content: .constant(QuestType.normal), list: [QuestType.normal, QuestType.repeat])
     }
 }

@@ -12,7 +12,7 @@ import UIKit
 struct GetChallengeRequest: Encodable {
     let status: String = "REPORTED"
     let page: Int
-    let size: Int = 20
+    let size: Int = 50
 }
 
 typealias GetChallengeResponse = ResponseWithPage<[GetChallengeResponseData]>
@@ -38,7 +38,6 @@ struct QuestResponse: Decodable {
 
 struct MissionResponse: Decodable {
     let content: String
-    let quantity: Int
     let type: String
 }
 

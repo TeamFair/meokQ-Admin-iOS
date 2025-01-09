@@ -16,18 +16,41 @@ fileprivate struct PutQuestRequestModel {
     let rewards: [Reward]
     let score: Int
     let expireDate: String
+    let target: String
+    let type: String
     
     func toPutQuestRequest() -> PutQuestRequest? {
-        guard let imageId = imageId else { return nil }
+        guard let imageId = imageId else { return nil } // TODO: 이미지 없으면 ""로 등록하도록 수정
         return PutQuestRequest(
             questId: self.questId,
-            quest: .init(writer: self.writer, imageId: imageId, missions: self.missions, rewards: self.rewards, score: self.score, expireDate: self.expireDate)
+            quest: .init(
+                writer: self.writer,
+                imageId: imageId,
+                missions: self.missions,
+                rewards: self.rewards,
+                score: self.score,
+                expireDate: self.expireDate,
+                type: self.type,
+                target: self.target
+            )
         )
     }
 }
 
 protocol PutQuestUseCaseInterface {
-    func execute(questId: String, writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String, imageUpdated: Bool) -> AnyPublisher<Void, NetworkError>
+    func execute(
+        questId: String,
+        writer: String,
+        image: UIImage?,
+        imageId: String?,
+        missionTitle: String,
+        rewardList: [Reward],
+        score: Int,
+        expireDate: String,
+        target: QuestRepeatTarget,
+        type: QuestType,
+        imageUpdated: Bool
+    ) -> AnyPublisher<Void, NetworkError>
 }
 
 final class PutQuestUseCase: PutQuestUseCaseInterface {
@@ -39,15 +62,19 @@ final class PutQuestUseCase: PutQuestUseCaseInterface {
         self.imageRepository = imageRepository
     }
     
-    func execute(questId: String, writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String, imageUpdated: Bool) -> AnyPublisher<Void, NetworkError> {
+    func execute(questId: String, writer: String, image: UIImage?, imageId: String?, missionTitle: String, rewardList: [Reward], score: Int, expireDate: String, target: QuestRepeatTarget, type: QuestType, imageUpdated: Bool) -> AnyPublisher<Void, NetworkError> {
         // TODO: PUT이니 수정
-        let request = PutQuestRequestModel(questId: questId,
-                                   writer: writer,
-                                   imageId: imageId,
-                                   missions: [.init(content: missionTitle)],
-                                   rewards: rewardList,
-                                   score: score,
-                                   expireDate: expireDate)
+        let request = PutQuestRequestModel(
+            questId: questId,
+            writer: writer,
+            imageId: imageId,
+            missions: [.init(content: missionTitle)],
+            rewards: rewardList,
+            score: score,
+            expireDate: expireDate,
+            target: type == .normal ? QuestRepeatTarget.none.rawValue.uppercased() : target.rawValue.uppercased(), // 일반타입이면 "NONE"으로 타겟 설정
+            type: type.rawValue.uppercased()
+        )
         if imageUpdated, let image = image {
             // 새로운 이미지면 퀘스트 생성 TODO: 기존 이미지 삭제 처리or관리
             return uploadImageAndPutQuest(image: image, request: request)

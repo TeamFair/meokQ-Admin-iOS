@@ -415,6 +415,7 @@
 			children = (
 				608EBF922C3872D700B862CC /* Quest.swift */,
 				60DB54C82C73BD4F00AEDFE9 /* Challenge.swift */,
+				603F25712D11C94B00A088E2 /* XpStat.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -639,6 +640,7 @@
 				E5DD827E2B350D7200A026C2 /* NavigationBarComponent.swift */,
 				60E696B02B98958C009DD235 /* ButtonLabelComponent.swift */,
 				608EBF982C39166F00B862CC /* TextFieldComponent.swift */,
+				603F256F2D119D4E00A088E2 /* SearchTextField.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -872,6 +874,7 @@
 				60DB54C72C73BC4D00AEDFE9 /* ChallengeModel.swift in Sources */,
 				60856CE12D1DA9A90048747E /* AuthTarget.swift in Sources */,
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
+				603F25722D11C94B00A088E2 /* XpStat.swift in Sources */,
 				60F27DFD2C461B2B00711A53 /* DeleteQuestUseCase.swift in Sources */,
 				608EBF972C390C5200B862CC /* QuestDetailViewModel.swift in Sources */,
 				608EBF952C38758100B862CC /* QuestItemView.swift in Sources */,
@@ -898,6 +901,7 @@
 				60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */,
 				60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */,
 				60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */,
+				603F25702D119D4E00A088E2 /* SearchTextField.swift in Sources */,
 				60DB54B52C73763F00AEDFE9 /* ImageRepositoryInterface.swift in Sources */,
 				60E696B52B98C583009DD235 /* Bundle++.swift in Sources */,
 				60E696A32B97BDC9009DD235 /* ViewAssembly.swift in Sources */,
