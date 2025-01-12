@@ -37,10 +37,10 @@ final class GetQuestUseCase: GetQuestUseCaseInterface {
 
     // MARK: - 이미지 업데이트 처리
     private func updateQuestImages(quest: Quest) -> AnyPublisher<Quest, NetworkError> {
-        let logoImagePublisher = updateImage(
+        let writerImagePublisher = updateImage(
             for: quest,
-            imageId: quest.logoImageId,
-            keyPath: \.image
+            imageId: quest.writerImageId,
+            keyPath: \.writerImage
         )
         
         let mainImagePublisher = updateImage(
@@ -49,10 +49,10 @@ final class GetQuestUseCase: GetQuestUseCaseInterface {
             keyPath: \.mainImage
         )
         
-        return logoImagePublisher
-            .flatMap { questWithLogo in
+        return writerImagePublisher
+            .flatMap { questWithWriter in
                 mainImagePublisher.map { questWithMain in
-                    var updatedQuest = questWithLogo
+                    var updatedQuest = questWithWriter
                     updatedQuest.mainImage = questWithMain.mainImage
                     return updatedQuest
                 }

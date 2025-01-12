@@ -99,7 +99,7 @@ struct QuestDetailView: View {
                     ToggleComponent(titleName: "인기퀘스트", isOn: $vm.editedItems.popularYn)
                     
                     PhotosPicker(selection: $vm.photosPickerItemForWriterImage, matching: .any(of: [.images, .screenshots])) {
-                        ImageFieldComponent(titleName: "작성자 이미지", uiImage: vm.editedItems.questImage)
+                        ImageFieldComponent(titleName: "작성자 이미지", uiImage: vm.editedItems.writerImage)
                     }
                     
                     PhotosPicker(selection: $vm.photosPickerItemForMainImage, matching: .any(of: [.images, .screenshots])) {
@@ -139,7 +139,7 @@ struct QuestDetailView: View {
             // TODO: 스탯 전부 0이면 생성 & 수정 불가
             Button {
                 if vm.viewType == .edit {
-                    let imageUpdated = vm.editedItems.questImage != vm.items.questImage // 이미지가 변경되었는지 확인
+                    let imageUpdated = vm.editedItems.writerImage != vm.items.writerImage // 이미지가 변경되었는지 확인
                     let mainImageUpdated = vm.editedItems.mainImage != vm.items.mainImage // 메인이미지가 변경되었는지 확인
 
                     vm.modifyData(vm.editedItems, imageUpdated: imageUpdated, mainImageUpdated: mainImageUpdated)

@@ -66,8 +66,8 @@ final class QuestDetailViewModel: ObservableObject {
         didSet {
             Task {
                 if let imageDataTransferable = try? await photosPickerItemForWriterImage?.loadTransferable(type: ImageDataTransferable.self) {
-                    self.editedItems.questImage = imageDataTransferable.uiImage
-                    self.editedItems.imageId = nil
+                    self.editedItems.writerImage = imageDataTransferable.uiImage
+                    self.editedItems.writerImageId = nil
                 }
             }
         }
@@ -103,7 +103,7 @@ final class QuestDetailViewModel: ObservableObject {
         let request: PostQuestRequestModel = QuestRequestMapper.map(data: data)
         postQuestUseCase.execute(
             request: request,
-            image: data.questImage,
+            image: data.writerImage,
             mainImage: data.mainImage
         )
         .sink { [weak self] completion in
@@ -127,7 +127,7 @@ final class QuestDetailViewModel: ObservableObject {
         let request: PutQuestRequestModel = QuestRequestMapper.map(data: data)
         putQuestUseCase.execute(
             request: request,
-            image: data.questImage,
+            image: data.writerImage,
             mainImage: data.mainImage,
             imageUpdated: imageUpdated, 
             mainImageUpdated: mainImageUpdated
@@ -178,8 +178,8 @@ struct QuestDetailViewModelItem: Equatable {
     var writer: String
     var score: Int
     var expireDate: String
-    var imageId: String?
-    var questImage: UIImage?
+    var writerImageId: String?
+    var writerImage: UIImage?
     var questType: QuestType
     var questTarget: QuestRepeatTarget
     var mainImage: UIImage?
@@ -197,8 +197,8 @@ struct QuestDetailViewModelItem: Equatable {
         self.writer = quest.writer
         self.score = quest.score
         self.expireDate = quest.expireDate.timeAgoSinceDate()
-        self.imageId = quest.logoImageId
-        self.questImage = quest.image
+        self.writerImageId = quest.writerImageId
+        self.writerImage = quest.writerImage
         self.questType = QuestType(rawValue: quest.type.lowercased()) ?? .normal
         self.questTarget = QuestRepeatTarget(rawValue: quest.target.lowercased()) ?? .none
         self.mainImage = quest.mainImage
@@ -225,7 +225,7 @@ struct QuestRequestMapper {
     static func map(data: QuestDetailViewModelItem) -> PostQuestRequestModel {
         return PostQuestRequestModel(
             writer: data.writer,
-            imageId: data.imageId,
+            imageId: data.writerImageId,
             missions: [.init(content: data.questTitle)],
             rewards: data.toRewardList(),
             score: data.score,
@@ -241,7 +241,7 @@ struct QuestRequestMapper {
         return PutQuestRequestModel(
             questId: data.questId,
             writer: data.writer,
-            imageId: data.imageId,
+            writerImageId: data.writerImageId,
             missions: [.init(content: data.questTitle)],
             rewards: data.toRewardList(),
             score: data.score,

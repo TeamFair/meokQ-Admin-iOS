@@ -13,8 +13,8 @@ struct Quest {
     let rewardList: [RewardResponse]
     let status: String
     let writer: String
-    var image: UIImage?
-    let logoImageId: String?
+    var writerImage: UIImage?
+    let writerImageId: String?
     var mainImage: UIImage?
     let mainImageId: String?
     let expireDate: String
@@ -29,8 +29,8 @@ struct Quest {
         rewardList: [RewardResponse],
         status: String,
         writer: String,
-        image: UIImage?,
-        logoImageId: String?,
+        writerImage: UIImage?,
+        writerImageId: String?,
         mainImage: UIImage?,
         mainImageId: String?,
         expireDate: String,
@@ -44,8 +44,8 @@ struct Quest {
         self.rewardList = rewardList
         self.status = status
         self.writer = writer
-        self.image = image
-        self.logoImageId = logoImageId
+        self.writerImage = writerImage
+        self.writerImageId = writerImageId
         self.mainImage = mainImage
         self.mainImageId = mainImageId
         self.expireDate = expireDate
@@ -61,8 +61,8 @@ struct Quest {
         self.rewardList = []
         self.status = ""
         self.writer = "일상"
-        self.image = .testimage
-        self.logoImageId = Quest.defaultLogoImageId
+        self.writerImage = .testimage
+        self.writerImageId = Quest.defaultLogoImageId
         self.mainImage = nil
         self.mainImageId = nil
         self.expireDate = "2030-12-31"
@@ -83,8 +83,8 @@ struct Quest {
         )],
         status: "",
         writer: "일상 선생님",
-        image: nil,
-        logoImageId: "",
+        writerImage: nil,
+        writerImageId: "",
         mainImage: nil,
         mainImageId: "",
         expireDate: "2024-12-31",
@@ -103,8 +103,8 @@ struct Quest {
         )],
         status: "",
         writer: "일상 요리사",
-        image: nil,
-        logoImageId: "",
+        writerImage: nil,
+        writerImageId: "",
         mainImage: nil,
         mainImageId: "",
         expireDate: "2024-12-31",
@@ -123,8 +123,8 @@ struct Quest {
         )],
         status: "",
         writer: "일상 요리사",
-        image: nil,
-        logoImageId: "",
+        writerImage: nil,
+        writerImageId: "",
         mainImage: nil,
         mainImageId: "",
         expireDate: "2024-12-31",
@@ -150,8 +150,8 @@ struct Quest {
         ],
         status: "",
         writer: "일상 요리사",
-        image: nil,
-        logoImageId: "",
+        writerImage: nil,
+        writerImageId: "",
         mainImage: nil,
         mainImageId: "",
         expireDate: "2024-12-31",
@@ -170,8 +170,8 @@ struct Quest {
         )],
         status: "",
         writer: "일상 선생님",
-        image: nil,
-        logoImageId: "",
+        writerImage: nil,
+        writerImageId: "",
         mainImage: nil,
         mainImageId: "",
         expireDate: "2024-12-31",
@@ -190,8 +190,8 @@ struct Quest {
         )],
         status: "",
         writer: "일상 요리사",
-        image: nil,
-        logoImageId: "",
+        writerImage: nil,
+        writerImageId: "",
         mainImage: nil,
         mainImageId: "",
         expireDate: "2024-12-31",
@@ -210,8 +210,8 @@ struct Quest {
         )],
         status: "",
         writer: "일상 요리사",
-        image: nil,
-        logoImageId: "",
+        writerImage: nil,
+        writerImageId: "",
         mainImage: nil,
         mainImageId: "",
         expireDate: "2024-12-31",
@@ -237,8 +237,8 @@ struct Quest {
         ],
         status: "",
         writer: "일상 요리사",
-        image: nil,
-        logoImageId: "",
+        writerImage: nil,
+        writerImageId: "",
         mainImage: nil,
         mainImageId: "",
         expireDate: "2024-12-31",

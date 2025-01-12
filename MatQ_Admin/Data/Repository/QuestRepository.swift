@@ -18,7 +18,7 @@ final class QuestRepository: QuestRepositoryInterface {
     func getQuestList(request: GetQuestRequest) -> AnyPublisher<[Quest], NetworkError> {
         questDataSource.getQuestList(request: request)
             .map { response in
-                response.map { $0.toDomain(image: nil, mainImage: nil) }
+                response.map { $0.toDomain(writerImage: nil, mainImage: nil) }
             }
             .eraseToAnyPublisher()
     }

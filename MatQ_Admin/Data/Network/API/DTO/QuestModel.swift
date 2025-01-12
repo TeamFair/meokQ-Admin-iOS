@@ -24,15 +24,15 @@ struct GetQuestResponseData: Decodable {
     let type, target: String
     let popularYn: Bool
     
-    func toDomain(image: UIImage?, mainImage: UIImage?) -> Quest {
+    func toDomain(writerImage: UIImage?, mainImage: UIImage?) -> Quest {
         Quest(
             questId: self.questId,
             missionTitle: self.missionTitle,
             rewardList: self.rewardList,
             status: self.status,
             writer: self.writer,
-            image: image,
-            logoImageId: self.imageId,
+            writerImage: writerImage,
+            writerImageId: self.imageId,
             mainImage: mainImage,
             mainImageId: self.mainImageId,
             expireDate: self.expireDate,

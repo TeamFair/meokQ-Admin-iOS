@@ -11,7 +11,7 @@ import UIKit
 struct PutQuestRequestModel {
     let questId: String
     let writer: String
-    var imageId: String?
+    var writerImageId: String?
     let missions: [Mission]
     let rewards: [Reward]
     let score: Int
@@ -22,7 +22,7 @@ struct PutQuestRequestModel {
     let popularYn: Bool
     
     func toPutQuestRequest() -> PutQuestRequest? {
-        guard let imageId = imageId else { return nil } // TODO: 이미지 없으면 ""로 등록하도록 수정
+        guard let imageId = writerImageId else { return nil } // TODO: 이미지 없으면 ""로 등록하도록 수정
         return PutQuestRequest(
             questId: self.questId,
             quest: .init(
@@ -79,7 +79,7 @@ final class PutQuestUseCase: PutQuestUseCaseInterface {
             print("작성자이미지 업데이트 예정")
             updatedRequestPublisher = updatedRequestPublisher
                 .flatMap { updatedRequest in
-                    self.updateImage(for: updatedRequest, with: image, keyPath: \.imageId)
+                    self.updateImage(for: updatedRequest, with: image, keyPath: \.writerImageId)
                 }
                 .eraseToAnyPublisher()
         }
