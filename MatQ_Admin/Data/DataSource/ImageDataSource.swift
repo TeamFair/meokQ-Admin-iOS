@@ -35,6 +35,7 @@ struct ImageDataSource: ImageDataSourceInterface {
         }, as: PostImageResponse.self)
         .tryMap { response in
             // imageId가 존재하는지 확인
+            print("이미지 업로드", response.data.imageId)
             return response.data.imageId
         }
         .mapError { _ in NetworkError.serverError }

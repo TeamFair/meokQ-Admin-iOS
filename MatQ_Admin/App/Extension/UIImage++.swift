@@ -46,7 +46,7 @@ enum UIImageSize {
     var value: CGFloat {
         switch self {
         case .small:
-            return 76
+            return 58
         case .medium:
             return 160
         case .maxWidth:

@@ -18,12 +18,13 @@ struct GetQuestRequest: Encodable {
 typealias GetQuestResponse = ResponseWithPage<[GetQuestResponseData]>
 struct GetQuestResponseData: Decodable {
     let questId, writer, missionTitle, status, expireDate: String
-    let imageId: String?
+    let imageId, mainImageId: String?
     let rewardList: [RewardResponse]
     let score: Int
     let type, target: String
+    let popularYn: Bool
     
-    func toDomain(image: UIImage?) -> Quest {
+    func toDomain(image: UIImage?, mainImage: UIImage?) -> Quest {
         Quest(
             questId: self.questId,
             missionTitle: self.missionTitle,
@@ -31,11 +32,14 @@ struct GetQuestResponseData: Decodable {
             status: self.status,
             writer: self.writer,
             image: image,
-            logoImageId: self.imageId ?? "",
+            logoImageId: self.imageId,
+            mainImage: mainImage,
+            mainImageId: self.mainImageId,
             expireDate: self.expireDate,
             score: self.score,
             type: self.type,
-            target: self.target
+            target: self.target,
+            popularYn: self.popularYn
         )
     }
 }
@@ -49,6 +53,8 @@ struct PostQuestRequest: Encodable {
     let score: Int
     let expireDate: String
     let type, target: String
+    var mainImageId: String? = nil
+    let popularYn: Bool
 }
 
 struct Mission: Encodable {
@@ -134,6 +140,8 @@ struct PutQuestRequest: Encodable {
         let expireDate: String
         let type: String
         let target: String
+        var mainImageId: String? = nil
+        let popularYn: Bool
     }
 }
 

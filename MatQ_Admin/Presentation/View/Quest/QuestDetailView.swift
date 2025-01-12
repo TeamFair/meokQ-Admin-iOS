@@ -96,8 +96,14 @@ struct QuestDetailView: View {
                     SegmentComponent(title: "반복 타입", content: $vm.editedItems.questTarget, list: QuestRepeatTarget.allCases)
                         .disabled(vm.editedItems.questType != .repeat)
                     
-                    PhotosPicker(selection: $vm.photosPickerItem, matching: .any(of: [.images, .screenshots])) {
-                        ImageFieldComponent(titleName: "퀘스트 이미지", uiImage: vm.editedItems.questImage)
+                    ToggleComponent(titleName: "인기퀘스트", isOn: $vm.editedItems.popularYn)
+                    
+                    PhotosPicker(selection: $vm.photosPickerItemForWriterImage, matching: .any(of: [.images, .screenshots])) {
+                        ImageFieldComponent(titleName: "작성자 이미지", uiImage: vm.editedItems.questImage)
+                    }
+                    
+                    PhotosPicker(selection: $vm.photosPickerItemForMainImage, matching: .any(of: [.images, .screenshots])) {
+                        ImageFieldComponent(titleName: "메인 이미지", uiImage: vm.editedItems.mainImage)
                     }
                 }
                 .padding(.horizontal, 20)
@@ -134,7 +140,9 @@ struct QuestDetailView: View {
             Button {
                 if vm.viewType == .edit {
                     let imageUpdated = vm.editedItems.questImage != vm.items.questImage // 이미지가 변경되었는지 확인
-                    vm.modifyData(vm.editedItems, imageUpdated: imageUpdated)
+                    let mainImageUpdated = vm.editedItems.mainImage != vm.items.mainImage // 메인이미지가 변경되었는지 확인
+
+                    vm.modifyData(vm.editedItems, imageUpdated: imageUpdated, mainImageUpdated: mainImageUpdated)
                 } else if vm.viewType == .publish {
                     vm.createData(data: vm.editedItems)
                 }

@@ -38,6 +38,9 @@ class NetworkService: NetworkServiceInterface {
                 
                 if let data = result.data {
                     let value: T = try self.decode(from: data)
+                    if T.self != ResponseWithPage<[GetQuestResponseData]>.self {
+                            print("Response: \(value)")
+                    }
                     return value
                 } else {
                     return ResponseWithEmpty() as! T

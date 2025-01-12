@@ -125,10 +125,13 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
             writer: selectedQuest.writer,
             image: selectedQuest.image,
             logoImageId: selectedQuest.logoImageId ?? "",
+            mainImage: selectedQuest.mainImage,
+            mainImageId: selectedQuest.mainImageId ?? "",
             expireDate: selectedQuest.expireDate,
             score: selectedQuest.score,
             type: selectedQuest.type,
-            target: selectedQuest.target
+            target: selectedQuest.target,
+            popularYn: selectedQuest.popularYn
         )
         
         return quest
@@ -158,7 +161,9 @@ struct QuestMainViewModelItem: Hashable {
     let questId: String
     let questTitle: String
     let logoImageId: String?
-    let logoImage: UIImage?
+    let logoImage: UIImage? 
+    let mainImageId: String?
+    let mainImage: UIImage?
     let status: String
     let expireDate: String
     let writer: String
@@ -166,11 +171,13 @@ struct QuestMainViewModelItem: Hashable {
     let target: QuestRepeatTarget
     let xpStats: [XpStat]
     
-    init(questId: String, questTitle: String, logoImageId: String, logoImage: UIImage?, status: String, expireDate: String, writer: String, type: QuestType, target: QuestRepeatTarget, xpStats: [XpStat]) {
+    init(questId: String, questTitle: String, logoImageId: String, logoImage: UIImage?, mainImageId: String, mainImage: UIImage?, status: String, expireDate: String, writer: String, type: QuestType, target: QuestRepeatTarget, xpStats: [XpStat]) {
         self.questId = questId
         self.questTitle = questTitle
         self.logoImageId = logoImageId
         self.logoImage = logoImage
+        self.mainImageId = mainImageId
+        self.mainImage = mainImage
         self.status = status
         self.expireDate = expireDate
         self.writer = writer
@@ -183,9 +190,11 @@ struct QuestMainViewModelItem: Hashable {
         self.questId = quest.questId
         self.questTitle = quest.missionTitle
         self.logoImageId = quest.logoImageId
-        self.expireDate = quest.expireDate.timeAgoSinceDate()
         self.logoImage = quest.image
+        self.mainImageId = quest.mainImageId
+        self.mainImage = quest.mainImage
         self.status = quest.status
+        self.expireDate = quest.expireDate.timeAgoSinceDate()
         self.writer = quest.writer
         self.type = QuestType(rawValue: quest.type.lowercased()) ?? .normal
         self.target = QuestRepeatTarget(rawValue: quest.target.lowercased()) ?? .none
