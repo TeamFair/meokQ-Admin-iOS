@@ -62,12 +62,23 @@ final class QuestDetailViewModel: ObservableObject {
     
     var subscriptions = Set<AnyCancellable>()
     
-    @Published var photosPickerItem: PhotosPickerItem? {
+    @Published var photosPickerItemForWriterImage: PhotosPickerItem? {
         didSet {
             Task {
-                if let imageDataTransferable = try? await photosPickerItem?.loadTransferable(type: ImageDataTransferable.self) {
-                    self.editedItems.questImage = imageDataTransferable.uiImage
-                    self.editedItems.imageId = nil
+                if let imageDataTransferable = try? await photosPickerItemForWriterImage?.loadTransferable(type: ImageDataTransferable.self) {
+                    self.editedItems.writerImage = imageDataTransferable.uiImage
+                    self.editedItems.writerImageId = nil
+                }
+            }
+        }
+    }
+    
+    @Published var photosPickerItemForMainImage: PhotosPickerItem? {
+        didSet {
+            Task {
+                if let imageDataTransferable = try? await photosPickerItemForMainImage?.loadTransferable(type: ImageDataTransferable.self) {
+                    self.editedItems.mainImage = imageDataTransferable.uiImage
+                    self.editedItems.mainImageId = nil
                 }
             }
         }
@@ -88,42 +99,53 @@ final class QuestDetailViewModel: ObservableObject {
     let deleteQuestUseCase: DeleteQuestUseCaseInterface
     
     func createData(data: QuestDetailViewModelItem) {
-        let rewardList = data.toRewardList()
-        // TODO: 타입이 일반이면 >> 타겟도 일반으로 저장
-        postQuestUseCase.execute(writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, questTarget: data.questTarget, questType: data.questType, rewardList: rewardList, score: data.score, expireDate: data.expireDate)
-            .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    self?.alertTitle = "퀘스트 추가 실패"
-                    self?.alertMessage = error.localizedDescription
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
-                }
-            } receiveValue: { [weak self] _ in
-                self?.alertTitle = "퀘스트 추가 성공"
-                self?.alertMessage = "퀘스트가 성공적으로 추가되었습니다"
+        // 타입이 일반이면 >> 타겟도 일반으로 저장
+        let request: PostQuestRequestModel = QuestRequestMapper.map(data: data)
+        postQuestUseCase.execute(
+            request: request,
+            image: data.writerImage,
+            mainImage: data.mainImage
+        )
+        .sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                self?.alertTitle = "퀘스트 추가 실패"
+                self?.alertMessage = error.localizedDescription
                 self?.activeAlertType = .result
                 self?.showAlert = true
             }
-            .store(in: &subscriptions)
+        } receiveValue: { [weak self] _ in
+            self?.alertTitle = "퀘스트 추가 성공"
+            self?.alertMessage = "퀘스트가 성공적으로 추가되었습니다"
+            self?.activeAlertType = .result
+            self?.showAlert = true
+        }
+        .store(in: &subscriptions)
     }
     
-    func modifyData(_ data: QuestDetailViewModelItem, imageUpdated: Bool) {
-        // TODO: 타입이 일반이면 >> 타겟도 일반으로 저장
-        putQuestUseCase.execute(questId: data.questId, writer: data.writer, image: data.questImage, imageId: data.imageId, missionTitle: data.questTitle, rewardList: data.toRewardList(), score: data.score, expireDate: data.expireDate, target: data.questTarget, type: data.questType, imageUpdated: imageUpdated)
-            .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    self?.alertTitle = "퀘스트 수정 실패"
-                    self?.alertMessage = error.localizedDescription
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
-                }
-            } receiveValue: { [weak self] _ in
-                self?.alertTitle = "퀘스트 수정 성공"
-                self?.alertMessage = "퀘스트가 성공적으로 수정되었습니다"
+    func modifyData(_ data: QuestDetailViewModelItem, imageUpdated: Bool, mainImageUpdated: Bool) {
+        // 타입이 일반이면 >> 타겟도 일반으로 저장
+        let request: PutQuestRequestModel = QuestRequestMapper.map(data: data)
+        putQuestUseCase.execute(
+            request: request,
+            image: data.writerImage,
+            mainImage: data.mainImage,
+            imageUpdated: imageUpdated, 
+            mainImageUpdated: mainImageUpdated
+        )
+        .sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                self?.alertTitle = "퀘스트 수정 실패"
+                self?.alertMessage = error.localizedDescription
                 self?.activeAlertType = .result
                 self?.showAlert = true
             }
-            .store(in: &subscriptions)
+        } receiveValue: { [weak self] _ in
+            self?.alertTitle = "퀘스트 수정 성공"
+            self?.alertMessage = "퀘스트가 성공적으로 수정되었습니다"
+            self?.activeAlertType = .result
+            self?.showAlert = true
+        }
+        .store(in: &subscriptions)
     }
     
     func deleteData(questId: String, type: QuestDeleteType) {
@@ -156,10 +178,13 @@ struct QuestDetailViewModelItem: Equatable {
     var writer: String
     var score: Int
     var expireDate: String
-    var imageId: String?
-    var questImage: UIImage?
+    var writerImageId: String?
+    var writerImage: UIImage?
     var questType: QuestType
     var questTarget: QuestRepeatTarget
+    var mainImage: UIImage?
+    var mainImageId: String?
+    var popularYn: Bool
     
     init(quest: Quest) {
         self.questId = quest.questId
@@ -172,10 +197,13 @@ struct QuestDetailViewModelItem: Equatable {
         self.writer = quest.writer
         self.score = quest.score
         self.expireDate = quest.expireDate.timeAgoSinceDate()
-        self.imageId = quest.logoImageId
-        self.questImage = quest.image
+        self.writerImageId = quest.writerImageId
+        self.writerImage = quest.writerImage
         self.questType = QuestType(rawValue: quest.type.lowercased()) ?? .normal
         self.questTarget = QuestRepeatTarget(rawValue: quest.target.lowercased()) ?? .none
+        self.mainImage = quest.mainImage
+        self.mainImageId = quest.mainImageId
+        self.popularYn = quest.popularYn
     }
     
     func toRewardList() -> [Reward] {
@@ -190,5 +218,38 @@ struct QuestDetailViewModelItem: Equatable {
         return xpTypes.compactMap { (content, value) in
             value != 0 ? Reward(content: content, quantity: value) : nil
         }
+    }
+}
+
+struct QuestRequestMapper {
+    static func map(data: QuestDetailViewModelItem) -> PostQuestRequestModel {
+        return PostQuestRequestModel(
+            writer: data.writer,
+            imageId: data.writerImageId,
+            missions: [.init(content: data.questTitle)],
+            rewards: data.toRewardList(),
+            score: data.score,
+            expireDate: data.expireDate,
+            type: data.questType.rawValue.uppercased(),
+            target: data.questType == .normal ? "NONE" : data.questTarget.rawValue.uppercased(), // 일반타입이면 "NONE"으로 타겟 설정
+            mainImageId: data.mainImageId,
+            popularYn: data.popularYn
+        )
+    }
+    
+    static func map(data: QuestDetailViewModelItem) -> PutQuestRequestModel {
+        return PutQuestRequestModel(
+            questId: data.questId,
+            writer: data.writer,
+            writerImageId: data.writerImageId,
+            missions: [.init(content: data.questTitle)],
+            rewards: data.toRewardList(),
+            score: data.score,
+            expireDate: data.expireDate,
+            target: data.questType == .normal ? "NONE" : data.questTarget.rawValue.uppercased(), 
+            type: data.questType.rawValue.uppercased(), // 일반타입이면 "NONE"으로 타겟 설정
+            mainImageId: data.mainImageId,
+            popularYn: data.popularYn
+        )
     }
 }

@@ -110,7 +110,7 @@ struct QuestMainView: View {
                         }
                 }
                 
-                LazyVStack(alignment: .leading, spacing: 12) {
+                LazyVStack(alignment: .leading, spacing: 8) {
                     ForEach(vm.filteredItems, id: \.questId) { item in
                         Button {
                             if let selectedQuest = vm.getSelectedQuest(item) {
@@ -118,7 +118,8 @@ struct QuestMainView: View {
                             }
                         } label: {
                             QuestItemView(
-                                questImage: item.logoImage,
+                                questImage: item.writerImage,
+                                mainQuestImage: item.mainImage,
                                 missionTitle: item.questTitle,
                                 writer: item.writer,
                                 target: item.target,

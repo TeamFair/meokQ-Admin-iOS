@@ -75,6 +75,24 @@ struct SliderComponent: View {
     }
 }
 
+struct ToggleComponent: View {
+    let titleName: String
+    @Binding var isOn: Bool
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            Text(titleName)
+                .font(.subheadline)
+                .bold()
+                .foregroundStyle(.textSecondary)
+            Spacer()
+            Toggle("", isOn: $isOn)
+                .labelsHidden()
+        }
+        .tint(.primaryPurple)
+        .padding(.vertical, 4)
+    }
+}
 
 struct ImageFieldComponent: View {
     let titleName : String
@@ -110,5 +128,6 @@ struct ImageFieldComponent: View {
         ImageFieldComponent(titleName: "ImageField", uiImage: (.testimage))
         SliderComponent(titleName: "SliderField", contentPlaceholder: 10, content: .constant(0))
         SegmentComponent(title: "SegmentField", content: .constant(QuestType.normal), list: [QuestType.normal, QuestType.repeat])
+        ToggleComponent(titleName: "ToggleField", isOn: .constant(true))
     }
 }
