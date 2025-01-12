@@ -18,6 +18,12 @@ final class DataAssembly: Assembly {
             return .init()
         }).inObjectScope(.container)
 
+        container.register(ImageCache.self, factory: { (
+            resolver: Resolver
+        ) -> InMemoryImageCache in
+            return .init()
+        }).inObjectScope(.container)
+
         
         // MARK: - DataSource
         container.register(QuestDataSourceInterface.self, factory: { (
@@ -36,13 +42,14 @@ final class DataAssembly: Assembly {
         container.register(ImageDataSourceInterface.self, factory: { (
             resolver: Resolver
         ) -> ImageDataSource in
-            return .init(networkService: resolver.resolve(NetworkServiceInterface.self)!)
+            return .init(cache: resolver.resolve(ImageCache.self)!, 
+                         networkService: resolver.resolve(NetworkServiceInterface.self)!)
         }).inObjectScope(.container)
 
         
         // MARK: - Repository
         
-#if DEBUG
+#if RELEASE
         container.register(QuestRepositoryInterface.self, factory: { (
             resolver: Resolver
         ) -> QuestRepository in
@@ -52,7 +59,7 @@ final class DataAssembly: Assembly {
         container.register(QuestRepositoryInterface.self, factory: { (
             resolver: Resolver
         ) -> MockQuestRepository in
-            return .init(questDataSource: resolver.resolve(QuestDataSourceInterface.self)!)
+            return .init()
         }).inObjectScope(.container)
 #endif
         

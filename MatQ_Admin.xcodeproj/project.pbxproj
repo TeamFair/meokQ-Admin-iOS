@@ -14,6 +14,7 @@
 		603F25722D11C94B00A088E2 /* XpStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F25712D11C94B00A088E2 /* XpStat.swift */; };
 		605334592D30164000599159 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605334582D30164000599159 /* KeychainHelper.swift */; };
 		6053345A2D30170100599159 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605334582D30164000599159 /* KeychainHelper.swift */; };
+		605334622D34196400599159 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605334612D34196400599159 /* ImageCache.swift */; };
 		60631DF52C84E63B005643B1 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DB54B02C7272E400AEDFE9 /* NetworkService.swift */; };
 		60631DF62C84E647005643B1 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DA570B2B94124F00EDAF30 /* NetworkError.swift */; };
 		60631DF72C84E64F005643B1 /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DEE2C45F1A900711A53 /* CommonResponse.swift */; };
@@ -188,6 +189,7 @@
 		603F256F2D119D4E00A088E2 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		603F25712D11C94B00A088E2 /* XpStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XpStat.swift; sourceTree = "<group>"; };
 		605334582D30164000599159 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		605334612D34196400599159 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		60631E042C85E4CC005643B1 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		60631E072C85E761005643B1 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchChallengeUseCase.swift; sourceTree = "<group>"; };
@@ -316,6 +318,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		605334602D34194B00599159 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				605334612D34196400599159 /* ImageCache.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
 		608EBF8B2C38715500B862CC /* Quest */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				E5DD82592B34DCCA00A026C2 /* MatQ_AdminApp.swift */,
+				605334602D34194B00599159 /* Cache */,
 				60E696972B97AFBA009DD235 /* DI */,
 				60E696B32B98C571009DD235 /* Extension */,
 				60004FEE2C662348009AECF2 /* Helper */,
@@ -885,6 +896,7 @@
 				60A766E12D1DBA1C00928824 /* AuthModel.swift in Sources */,
 				60F27DED2C45691F00711A53 /* QuestModel.swift in Sources */,
 				60DB54CD2C73C12600AEDFE9 /* ChallengeRepository.swift in Sources */,
+				605334622D34196400599159 /* ImageCache.swift in Sources */,
 				608EBF8D2C38716100B862CC /* QuestMainView.swift in Sources */,
 				60DB54B12C7272E400AEDFE9 /* NetworkService.swift in Sources */,
 				6073BEBD2CA2B8DA00072FF9 /* PutQuestUseCase.swift in Sources */,
