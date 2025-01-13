@@ -9,8 +9,7 @@ import Combine
 
 final class MockQuestRepository: QuestRepositoryInterface {
     var result: Result<Void, NetworkError>?
-    var questResult: Result<[Quest], NetworkError>?
-
+    var questResult: Result<[Quest], NetworkError>? = .success(Quest.mockDataList)
     
     func putQuest(request: PutQuestRequest) -> AnyPublisher<Void, NetworkError> {
         if let result = result {
