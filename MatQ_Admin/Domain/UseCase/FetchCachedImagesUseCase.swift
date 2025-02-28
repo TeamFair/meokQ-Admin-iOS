@@ -8,11 +8,11 @@
 import Combine
 import UIKit
 
-protocol FetchImagesUseCaseInterface {
+protocol FetchCachedImagesUseCaseInterface {
     func execute() -> AnyPublisher<[(imageId: String, image: UIImage)], Never>
 }
 
-class FetchImagesUseCase: FetchImagesUseCaseInterface {
+class FetchCachedImagesUseCase: FetchCachedImagesUseCaseInterface {
     private let imageRepository: ImageRepositoryInterface
 
     init(imageRepository: ImageRepositoryInterface) {

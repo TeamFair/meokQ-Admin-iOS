@@ -40,6 +40,7 @@ extension UIImage {
 enum UIImageSize {
     case small
     case medium
+    case large
     case maxWidth
     case custom(CGFloat)
     
@@ -49,6 +50,8 @@ enum UIImageSize {
             return 58
         case .medium:
             return 160
+        case .large:
+            return 260
         case .maxWidth:
             return UIScreen.main.bounds.width - 40
         case .custom(let size):

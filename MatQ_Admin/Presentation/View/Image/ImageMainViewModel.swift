@@ -19,7 +19,7 @@ final class ImageMainViewModel: ObservableObject {
     @Published var activeAlertType: ActiveAlertType?
     
     // 이미지 삭제, 추가
-    private let fetchImagesUseCase: FetchImagesUseCaseInterface
+    private let fetchImagesUseCase: FetchCachedImagesUseCaseInterface
 
     
     @Published var viewState: ViewState = .loaded
@@ -31,7 +31,7 @@ final class ImageMainViewModel: ObservableObject {
     
     var subscriptions = Set<AnyCancellable>()
     
-    init(fetchImagesUseCase: FetchImagesUseCaseInterface) {
+    init(fetchImagesUseCase: FetchCachedImagesUseCaseInterface) {
         self.fetchImagesUseCase = fetchImagesUseCase
         self.items = []
         loadImages()
@@ -66,10 +66,15 @@ extension ImageMainViewModel {
 }
 
 struct ImageMainViewModelItem: Equatable {
-    let imageId: String
-    let image: UIImage?
+    var imageId: String?
+    var image: UIImage?
     
-    init(imageId: String, image: UIImage?) {
+    init() {
+        self.imageId = ""
+        self.image = nil
+    }
+    
+    init(imageId: String?, image: UIImage?) {
         self.imageId = imageId
         self.image = image
     }

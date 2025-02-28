@@ -10,8 +10,10 @@
 		60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */; };
 		60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FF12C662495009AECF2 /* NetworkConfiguration.swift */; };
 		601048712C652FC20028662D /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
-		603CF4D82D7164C000A2D19E /* FetchImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4D72D7164C000A2D19E /* FetchImageUseCase.swift */; };
-		603CF4D92D7164C000A2D19E /* FetchImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4D72D7164C000A2D19E /* FetchImageUseCase.swift */; };
+		603CF4D82D7164C000A2D19E /* FetchCachedImagesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4D72D7164C000A2D19E /* FetchCachedImagesUseCase.swift */; };
+		603CF4D92D7164C000A2D19E /* FetchCachedImagesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4D72D7164C000A2D19E /* FetchCachedImagesUseCase.swift */; };
+		603CF4DB2D717CF800A2D19E /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4DA2D717CF800A2D19E /* ImageDetailView.swift */; };
+		603CF4DD2D717ECE00A2D19E /* ImageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4DC2D717ECE00A2D19E /* ImageDetailViewModel.swift */; };
 		603F25702D119D4E00A088E2 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F256F2D119D4E00A088E2 /* SearchTextField.swift */; };
 		603F25722D11C94B00A088E2 /* XpStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F25712D11C94B00A088E2 /* XpStat.swift */; };
 		605334592D30164000599159 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605334582D30164000599159 /* KeychainHelper.swift */; };
@@ -190,7 +192,9 @@
 		60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataTransferable.swift; sourceTree = "<group>"; };
 		60004FF12C662495009AECF2 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		601048702C652FC20028662D /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
-		603CF4D72D7164C000A2D19E /* FetchImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImageUseCase.swift; sourceTree = "<group>"; };
+		603CF4D72D7164C000A2D19E /* FetchCachedImagesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCachedImagesUseCase.swift; sourceTree = "<group>"; };
+		603CF4DA2D717CF800A2D19E /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
+		603CF4DC2D717ECE00A2D19E /* ImageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewModel.swift; sourceTree = "<group>"; };
 		603F256F2D119D4E00A088E2 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		603F25712D11C94B00A088E2 /* XpStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XpStat.swift; sourceTree = "<group>"; };
 		605334582D30164000599159 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -338,6 +342,8 @@
 			children = (
 				607558822D3554E50001CF03 /* ImageMainView.swift */,
 				607558842D3554FE0001CF03 /* ImageMainViewModel.swift */,
+				603CF4DA2D717CF800A2D19E /* ImageDetailView.swift */,
+				603CF4DC2D717ECE00A2D19E /* ImageDetailViewModel.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -457,7 +463,7 @@
 				60DB54D02C73C1F900AEDFE9 /* GetChallengeUseCase.swift */,
 				606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */,
 				606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */,
-				603CF4D72D7164C000A2D19E /* FetchImageUseCase.swift */,
+				603CF4D72D7164C000A2D19E /* FetchCachedImagesUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -861,7 +867,7 @@
 				609428E62CC9342000C8D5D6 /* MockQuestRepository.swift in Sources */,
 				609428D92CC9319400C8D5D6 /* AdminAppTest.swift in Sources */,
 				609429102CC95E6200C8D5D6 /* PutQuestUseCase.swift in Sources */,
-				603CF4D92D7164C000A2D19E /* FetchImageUseCase.swift in Sources */,
+				603CF4D92D7164C000A2D19E /* FetchCachedImagesUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,6 +909,7 @@
 				60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */,
 				60DB54C72C73BC4D00AEDFE9 /* ChallengeModel.swift in Sources */,
 				60856CE12D1DA9A90048747E /* AuthTarget.swift in Sources */,
+				603CF4DD2D717ECE00A2D19E /* ImageDetailViewModel.swift in Sources */,
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
 				603F25722D11C94B00A088E2 /* XpStat.swift in Sources */,
 				60F27DFD2C461B2B00711A53 /* DeleteQuestUseCase.swift in Sources */,
@@ -921,6 +928,7 @@
 				6073BEBD2CA2B8DA00072FF9 /* PutQuestUseCase.swift in Sources */,
 				60F27DFB2C4616D500711A53 /* PostQuestUseCase.swift in Sources */,
 				E5DD825C2B34DCCA00A026C2 /* MainView.swift in Sources */,
+				603CF4DB2D717CF800A2D19E /* ImageDetailView.swift in Sources */,
 				608EBF912C3871DF00B862CC /* QuestMainViewModel.swift in Sources */,
 				609428E42CC933A800C8D5D6 /* MockImageRepository.swift in Sources */,
 				60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */,
@@ -952,7 +960,7 @@
 				60DB54C52C73BBD600AEDFE9 /* ChallengeDataSource.swift in Sources */,
 				60DB54CF2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift in Sources */,
 				608EBF8A2C38709800B862CC /* AppInject.swift in Sources */,
-				603CF4D82D7164C000A2D19E /* FetchImageUseCase.swift in Sources */,
+				603CF4D82D7164C000A2D19E /* FetchCachedImagesUseCase.swift in Sources */,
 				60856CE52D1DAADC0048747E /* AuthRepository.swift in Sources */,
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,

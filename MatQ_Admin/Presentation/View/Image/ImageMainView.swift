@@ -23,13 +23,12 @@ struct ImageMainView: View {
                         .font(.callout)
                         .foregroundStyle(.textSecondary)
                     Button {
-                        // vm.getQuestList(page: 0)
+                        vm.loadImages()
                     } label: {
                         Text("재시도")
                     }
                 }
                 .frame(maxHeight: .infinity)
-                
             case .loading:
                 ProgressView().frame(maxHeight: .infinity)
             case .loaded:
@@ -38,7 +37,7 @@ struct ImageMainView: View {
         }
         .safeAreaInset(edge: .bottom) {
             Button {
-                router.push(.QuestDetailView(type: .publish, quest: Quest.init()))
+                router.push(.ImageDetailView(type: .publish, imageItem: ImageMainViewModelItem()))
             } label: {
                 Text("이미지 등록")
             }
@@ -70,32 +69,37 @@ struct ImageMainView: View {
         return ScrollView {
             LazyVGrid(columns: gridItems, spacing: contentSpacing) {
                 ForEach(vm.imageList, id: \.imageId) { item in
-                    VStack(alignment: .center, spacing: 8) {
-                        Group {
-                            if let image = item.image {
-                                Image(uiImage: image)
-                                    .resizable()
-                            } else {
-                                Rectangle()
-                                .fill(Color.gray200)
+                    Button {
+                        router.push(.ImageDetailView(type: .edit, imageItem: item))
+                    } label: {
+                        VStack(alignment: .center, spacing: 8) {
+                            Group {
+                                if let image = item.image {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                } else {
+                                    Rectangle()
+                                        .fill(Color.gray200)
+                                }
                             }
+                            .scaledToFit()
+                            .frame(width: imageSize, height: imageSize)
+                            .clipped()
+                            
+                            Text(item.imageId?.forceCharWrapping ?? "")
+                                .font(.caption).bold()
+                                .foregroundStyle(.textSecondary)
+                                .frame(maxWidth: .infinity)
+                                .padding(.leading, 2)
                         }
-                        .scaledToFit()
-                        .frame(width: imageSize, height: imageSize)
-                        .clipped()
-                        
-                        Text(item.imageId.forceCharWrapping)
-                            .font(.caption).bold()
-                            .foregroundStyle(.textSecondary)
-                            .frame(maxWidth: .infinity)
-                            .padding(.leading, 2)
+                        .padding(contentInnerSpacing)
+                        .frame(width: imageSize + contentInnerSpacing * 2)
+                        .background(
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(Color.componentSecondary)
+                                .shadow(color: .gray300.opacity(0.3), radius: 12)
+                        )
                     }
-                    .padding(contentInnerSpacing)
-                    .frame(width: imageSize + contentInnerSpacing * 2)
-                    .background(
-                        RoundedRectangle(cornerRadius: 6)
-                            .fill(Color.componentSecondary)
-                    )
                 }
             }
             .padding(.top, 20)
@@ -111,7 +115,7 @@ struct ImageMainView: View {
 #Preview {
     ImageMainView(
         vm: ImageMainViewModel(
-            fetchImagesUseCase: FetchImagesUseCase(
+            fetchImagesUseCase: FetchCachedImagesUseCase(
                 imageRepository: ImageRepository(
                     imageDataSource: ImageDataSource(
                         cache: InMemoryImageCache(),
