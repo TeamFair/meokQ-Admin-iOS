@@ -53,5 +53,11 @@ final class DomainAssembly: Assembly {
                          imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
         }).inObjectScope(.container)
         
+        container.register(FetchImagesUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> FetchImagesUseCase in
+            return .init(imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
+        }).inObjectScope(.container)
+        
     }
 }

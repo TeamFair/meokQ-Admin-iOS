@@ -46,5 +46,13 @@ final class ViewModelAssembly: Assembly {
                          patchChallengeUseCase: resolver.resolve(PatchChallengeUseCaseInterface.self)!,
                          deleteChallengeUseCase: resolver.resolve(DeleteChallengeUseCaseInterface.self)!)
         }).inObjectScope(.transient)
+        
+        // MARK: - Image
+        container.register(ImageMainViewModel.self, factory: { (
+            resolver: Resolver
+        ) -> ImageMainViewModel in
+            return .init(fetchImagesUseCase: resolver.resolve(FetchImagesUseCaseInterface.self)!)
+        }).inObjectScope(.container)
+        
     }
 }

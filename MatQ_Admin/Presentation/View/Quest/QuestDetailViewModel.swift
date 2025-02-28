@@ -248,7 +248,7 @@ struct QuestRequestMapper {
             expireDate: data.expireDate,
             target: data.questType == .normal ? "NONE" : data.questTarget.rawValue.uppercased(), 
             type: data.questType.rawValue.uppercased(), // 일반타입이면 "NONE"으로 타겟 설정
-            mainImageId: data.mainImageId,
+            mainImageId: data.mainImageId, // ???????
             popularYn: data.popularYn
         )
     }
