@@ -9,7 +9,7 @@ import UIKit
 
 struct Quest {
     let questId: String
-    let missionTitle: String
+    let mission: Mission
     let rewardList: [RewardResponse]
     let status: String
     let writer: String
@@ -25,7 +25,7 @@ struct Quest {
     
     init(
         questId: String,
-        missionTitle: String,
+        mission: Mission,
         rewardList: [RewardResponse],
         status: String,
         writer: String,
@@ -40,7 +40,7 @@ struct Quest {
         popularYn: Bool
     ) {
         self.questId = questId
-        self.missionTitle = missionTitle
+        self.mission = mission
         self.rewardList = rewardList
         self.status = status
         self.writer = writer
@@ -57,7 +57,7 @@ struct Quest {
     
     init() {
         self.questId = UUID().uuidString
-        self.missionTitle = ""
+        self.mission = .init(content: "")
         self.rewardList = []
         self.status = ""
         self.writer = "일상"
@@ -73,9 +73,10 @@ struct Quest {
     }
     
     static let initialData = Quest.init()
-    static let mockData1 = Quest.init(
+    
+    static let mockOXData = Quest.init(
         questId: UUID().uuidString,
-        missionTitle: "베트남 음식 도전하기",
+        mission: .init(content: "퀴즈", missionType: .OX, quizzes: [.init(question: "1+4는?", hint: "오~", answers: [.init(content: "5")])]),
         rewardList: [.init(
             content: "strength",
             quantity: 10,
@@ -90,12 +91,32 @@ struct Quest {
         expireDate: "2024-12-31",
         score: 0,
         type: "normal",
-        target: "none", 
+        target: "none",
+        popularYn: false
+    )
+    static let mockData1 = Quest.init(
+        questId: UUID().uuidString,
+        mission: .init(content: "베트남 음식 도전하기"),
+        rewardList: [.init(
+            content: "strength",
+            quantity: 10,
+            type: "XP"
+        )],
+        status: "",
+        writer: "일상 선생님",
+        writerImage: nil,
+        writerImageId: "",
+        mainImage: nil,
+        mainImageId: "",
+        expireDate: "2024-12-31",
+        score: 0,
+        type: "normal",
+        target: "none",
         popularYn: false
     )
     static let mockData2 = Quest.init(
         questId: UUID().uuidString,
-        missionTitle: "바닐라 라떼 마시기",
+        mission: .init(content: "바닐라 라떼 마시기"),
         rewardList: [.init(
             content: "fun",
             quantity: 10,
@@ -115,7 +136,7 @@ struct Quest {
     )
     static let mockData3 = Quest.init(
         questId: UUID().uuidString,
-        missionTitle: "나무 사진 찍기",
+        mission: .init(content: "나무 사진 찍기"),
         rewardList: [.init(
             content: "intellect",
             quantity: 10,
@@ -135,7 +156,7 @@ struct Quest {
     )
     static let mockData4 = Quest.init(
         questId: UUID().uuidString,
-        missionTitle: "태국 음식 도전하기",
+        mission: .init(content: "태국 음식 도전하기"),
         rewardList: [
             .init(
                 content: "charm",
@@ -162,7 +183,7 @@ struct Quest {
     )
     static let mockData11 = Quest.init(
         questId: UUID().uuidString,
-        missionTitle: "베트남 음식 도전하기",
+        mission: .init(content: "베트남 음식 도전하기"),
         rewardList: [.init(
             content: "strength",
             quantity: 10,
@@ -182,7 +203,7 @@ struct Quest {
     )
     static let mockData22 = Quest.init(
         questId: UUID().uuidString,
-        missionTitle: "바닐라 라떼 마시기",
+        mission: .init(content: "바닐라 라떼 마시기"),
         rewardList: [.init(
             content: "fun",
             quantity: 10,
@@ -202,7 +223,7 @@ struct Quest {
     )
     static let mockData33 = Quest.init(
         questId: UUID().uuidString,
-        missionTitle: "나무 사진 찍기",
+        mission: .init(content: "나무 사진 찍기"),
         rewardList: [.init(
             content: "intellect",
             quantity: 10,
@@ -222,7 +243,7 @@ struct Quest {
     )
     static let mockData44 = Quest.init(
         questId: UUID().uuidString,
-        missionTitle: "태국 음식 도전하기",
+        mission: .init(content: "태국 음식 도전하기"),
         rewardList: [
             .init(
                 content: "charm",
