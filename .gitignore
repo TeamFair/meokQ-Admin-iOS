@@ -4,6 +4,7 @@
 
 ## User settings
 MatQ_Admin.xcodeproj/xcuserdata/
+*.xcuserstate
 
 ### macOS ###
 # General
