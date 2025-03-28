@@ -36,7 +36,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
         return filteredItems
     }
     
-    @Published var selectedType: [QuestType: Bool] = [.normal:true, .repeat:true]
+    @Published var selectedType: [QuestType: Bool] = [.normal: true, .repeat: true, .event: true]
     @Published var searchText: String = ""
     @Published var errorMessage: String = ""
     @Published var showingAlert = false

@@ -74,6 +74,7 @@ protocol StringValue {
 enum QuestType: String, CaseIterable, Identifiable, StringValue {
     case normal
     case `repeat`
+    case event
     
     var id: String { rawValue }
     
@@ -83,6 +84,8 @@ enum QuestType: String, CaseIterable, Identifiable, StringValue {
             "일반"
         case .repeat:
             "반복"
+        case .event:
+            "이벤트"
         }
     }
 }
