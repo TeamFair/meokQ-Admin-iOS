@@ -10,7 +10,7 @@ import SwiftUI
 struct QuestItemView: View {
     let questImage: UIImage?
     let mainQuestImage: UIImage?
-    let missionTitle: String
+    let mission: Mission
     let writer: String
     let target: QuestRepeatTarget
     let stats: [XpStat]
@@ -50,19 +50,35 @@ struct QuestItemView: View {
                     .font(.system(size: 12, weight: .regular))
                     .foregroundStyle(.gray500)
                     .padding(.bottom, -6)
-                Text(missionTitle)
+                Text(mission.content)
                     .font(.system(size: 15, weight: .bold))
                     .foregroundStyle(.textPrimary)
                 HStack {
+                    switch MissionType(rawValue: mission.type) {
+                    case .FREE:
+                        tagView("📸")
+                    case .OX:
+                        tagView("🙆🏻🙅🏻")
+                    default:
+                        tagView("✏️")
+                    }
+                    
                     typeTagView(target)
                     ForEach(stats, id: \.rawValue) { stat in
                         tagView(stat.korean)
                     }
+                   
+                   
+//                    if mission.type == "OX" {
+//                        
+//                    } else if mission.type == ""
+                    
                 }
             }
             Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.gray300)
+            
+//            Image(systemName: "chevron.right")
+//                .foregroundStyle(.gray300)
         }
         .padding(14)
         .frame(height: 98)
@@ -101,10 +117,12 @@ struct QuestItemView: View {
 }
 
 #Preview {
+    let quiz = Quiz(question: "2+4는?", hint: "머게", answers: [.init(content: "6")])
+    
     VStack {
-        QuestItemView(questImage: .testimage, mainQuestImage: .testimage, missionTitle: "베트남 음식 도전하기", writer: "일상 초심자", target: .daily, stats: [.charm, .fun])
-        QuestItemView(questImage: .testimage, mainQuestImage: .testimage, missionTitle: "나무 사진 찍기", writer: "일상 요리사", target: .weekly, stats: [.charm])
-        QuestItemView(questImage: .testimage, mainQuestImage: .testimage, missionTitle: "혼밥 자랑하기", writer: "일상 사냥꾼", target: .monthly, stats: [.charm, .sociability])
-        QuestItemView(questImage: .testimage, mainQuestImage: .testimage, missionTitle: "태국 음식 도전하기", writer: "일상 초심자", target: .none, stats: [.charm, .intellect])
+        QuestItemView(questImage: .testimage, mainQuestImage: .testimage, mission: .init(content: "베트남 음식 도전하기"), writer: "일상 초심자", target: .daily, stats: [.charm, .fun])
+        QuestItemView(questImage: .testimage, mainQuestImage: .testimage,  mission: .init(content: "나무 사진 찍기"), writer: "일상 요리사", target: .weekly, stats: [.charm])
+        QuestItemView(questImage: .testimage, mainQuestImage: .testimage, mission: .init(content: "혼밥 자랑하기"), writer: "일상 사냥꾼", target: .monthly, stats: [.charm, .sociability])
+        QuestItemView(questImage: .testimage, mainQuestImage: .testimage, mission: .init(content: "퀴즈", missionType: .WORDS, quizzes: [quiz]), writer: "일상 초심자", target: .none, stats: [.charm, .intellect])
     }
 }

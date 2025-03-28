@@ -31,7 +31,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
         
         let filteredItems = items
             .filter { selectedTypes.contains($0.type) } // 선택된 타입 필터링
-            .filter { $0.questTitle.contains(searchText) || $0.writer.contains(searchText) || searchText.isEmpty } // 검색어 필터링
+            .filter { $0.missionTitle.contains(searchText) || $0.writer.contains(searchText) || searchText.isEmpty } // 검색어 필터링
         
         return filteredItems
     }
@@ -119,7 +119,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
         }
         let quest = Quest(
             questId: selectedQuest.questId,
-            missionTitle: selectedQuest.missionTitle,
+            mission: selectedQuest.mission,
             rewardList: selectedQuest.rewardList,
             status: selectedQuest.status,
             writer: selectedQuest.writer,
@@ -159,7 +159,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
 
 struct QuestMainViewModelItem: Hashable {
     let questId: String
-    let questTitle: String
+    let mission: Mission
     let writerImageId: String?
     let writerImage: UIImage? 
     let mainImageId: String?
@@ -171,9 +171,17 @@ struct QuestMainViewModelItem: Hashable {
     let target: QuestRepeatTarget
     let xpStats: [XpStat]
     
-    init(questId: String, questTitle: String, writerImageId: String, writerImage: UIImage?, mainImageId: String, mainImage: UIImage?, status: String, expireDate: String, writer: String, type: QuestType, target: QuestRepeatTarget, xpStats: [XpStat]) {
+    var missionTitle: String {
+        return mission.content
+    }
+    var missionType: MissionType {
+        return MissionType(rawValue: mission.type) ?? .FREE
+
+    }
+    
+    init(questId: String, mission: Mission, writerImageId: String, writerImage: UIImage?, mainImageId: String, mainImage: UIImage?, status: String, expireDate: String, writer: String, type: QuestType, target: QuestRepeatTarget, xpStats: [XpStat]) {
         self.questId = questId
-        self.questTitle = questTitle
+        self.mission = mission
         self.writerImageId = writerImageId
         self.writerImage = writerImage
         self.mainImageId = mainImageId
@@ -188,7 +196,7 @@ struct QuestMainViewModelItem: Hashable {
     
     init(quest: Quest) {
         self.questId = quest.questId
-        self.questTitle = quest.missionTitle
+        self.mission = quest.mission
         self.writerImageId = quest.writerImageId
         self.writerImage = quest.writerImage
         self.mainImageId = quest.mainImageId

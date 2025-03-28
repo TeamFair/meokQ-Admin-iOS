@@ -4,6 +4,8 @@
 
 ## User settings
 MatQ_Admin.xcodeproj/xcuserdata/
+*.xcuserstate
+MatQ_Admin.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/UserInterfaceState.xcuserstate
 
 ### macOS ###
 # General
