@@ -52,6 +52,10 @@ public class NavigationStackCoordinator: ObservableObject {
             injector?.resolve(ManageMainView.self)
         case .ManageDetailView(let challenge):
             injector?.resolve(ManageDetailView.self, argument: challenge)
+        case .ImageMainView:
+            injector?.resolve(ImageMainView.self)
+        case .ImageDetailView(let type, let imageItem):
+            injector?.resolve(ImageDetailView.self, argument1: type, argument2: imageItem)
         }
     }
     
@@ -66,6 +70,10 @@ enum Path: Hashable {
     case ManageMainView
     case ManageDetailView(challenge: Challenge)
     
+    //Image
+    case ImageMainView
+    case ImageDetailView(type: ImageDetailViewModel.ViewType, imageItem: ImageMainViewModelItem)
+    
     func hash(into hasher: inout Hasher) {
         switch self {
         case .QuestMainView:
@@ -76,6 +84,10 @@ enum Path: Hashable {
             hasher.combine("ManageMainView")
         case .ManageDetailView:
             hasher.combine("ManageDetailView")
+        case .ImageMainView:
+            hasher.combine("ImageMainView")
+        case .ImageDetailView:
+            hasher.combine("ImageDetailView")
         }
     }
     
@@ -88,6 +100,10 @@ enum Path: Hashable {
         case (.ManageMainView, .ManageMainView):
             return true
         case (.ManageDetailView, .ManageDetailView):
+            return true
+        case (.ImageMainView, .ImageMainView):
+            return true
+        case (.ImageDetailView, .ImageDetailView):
             return true
         default:
             return false

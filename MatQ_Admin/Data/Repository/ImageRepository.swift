@@ -55,4 +55,7 @@ final class ImageRepository: ImageRepositoryInterface {
             .eraseToAnyPublisher()
     }
     
+    func getCachedImages() -> AnyPublisher<[(String, UIImage)], Never> {
+        imageDataSource.getCachedImages()
+    }
 }

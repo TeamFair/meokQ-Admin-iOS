@@ -127,6 +127,8 @@ struct ToggleComponent: View {
 struct ImageFieldComponent: View {
     let titleName : String
     let uiImage: UIImage?
+    var imageSize: UIImageSize = .medium
+    var contentMode: ContentMode = .fill
     
     var body: some View {
         VStack(alignment: .leading){
@@ -138,13 +140,16 @@ struct ImageFieldComponent: View {
                 if let image = uiImage {
                     Image(uiImage: image)
                         .resizable()
+                        .aspectRatio(contentMode: contentMode)
                 } else {
                     RoundedRectangle(cornerRadius: 12)
                         .foregroundStyle(.regularMaterial)
                 }
             }
-            .frame(width: UIImageSize.medium.value, height: UIImageSize.medium.value)
+            .frame(width: imageSize.value, height: imageSize.value)
+            .background(Color.bg)
             .cornerRadius(12)
+            .shadow(color: .gray300.opacity(0.3), radius: 12)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxWidth: .infinity)

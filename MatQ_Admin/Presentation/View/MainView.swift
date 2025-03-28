@@ -12,6 +12,7 @@ struct MainView: View {
     enum Tab {
         case quest
         case manage
+        case image
     }
     @ObservedObject var coordinator: NavigationStackCoordinator
     @State private var selectedTab: Tab = .quest
@@ -30,6 +31,11 @@ struct MainView: View {
                         Label("관리", systemImage: "tray.full.fill")
                     }
                     .tag(Tab.manage)
+                coordinator.buildInitialScene(path: .ImageMainView)
+                    .tabItem {
+                        Label("이미지", systemImage: "photo.on.rectangle.angled")
+                    }
+                    .tag(Tab.image)
             }
             .tint(.primaryPurple)
             .environmentObject(coordinator)

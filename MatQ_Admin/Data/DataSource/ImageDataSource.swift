@@ -13,6 +13,7 @@ protocol ImageDataSourceInterface {
     func getImage(request: GetImageRequest) -> AnyPublisher<UIImage, NetworkError>
     func postImage(request: PostImageRequest) -> AnyPublisher<String, NetworkError>
     func deleteImage(request: DeleteImageRequest) -> AnyPublisher<String, NetworkError>
+    func getCachedImages() -> AnyPublisher<[(String, UIImage)], Never>
 }
 
 final class ImageDataSource: ImageDataSourceInterface {
@@ -92,5 +93,10 @@ final class ImageDataSource: ImageDataSourceInterface {
                 self.cache.deleteImage(forKey: request.imageId)
                 return response.status
             }            .eraseToAnyPublisher()
+    }
+    
+    func getCachedImages() -> AnyPublisher<[(String, UIImage)], Never> {
+        return Just(cache.fetchAllImages())
+            .eraseToAnyPublisher()
     }
 }
