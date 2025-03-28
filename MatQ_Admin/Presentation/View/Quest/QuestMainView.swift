@@ -120,7 +120,7 @@ struct QuestMainView: View {
                             QuestItemView(
                                 questImage: item.writerImage,
                                 mainQuestImage: item.mainImage,
-                                missionTitle: item.questTitle,
+                                mission: item.mission,
                                 writer: item.writer,
                                 target: item.target,
                                 stats: item.xpStats

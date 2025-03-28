@@ -10,6 +10,7 @@
 		60004FF02C662365009AECF2 /* ImageDataTransferable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */; };
 		60004FF22C662495009AECF2 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60004FF12C662495009AECF2 /* NetworkConfiguration.swift */; };
 		601048712C652FC20028662D /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
+		603CF4EB2D79926C00A2D19E /* Binding++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4EA2D79926C00A2D19E /* Binding++.swift */; };
 		603F25702D119D4E00A088E2 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F256F2D119D4E00A088E2 /* SearchTextField.swift */; };
 		603F25722D11C94B00A088E2 /* XpStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F25712D11C94B00A088E2 /* XpStat.swift */; };
 		605334592D30164000599159 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605334582D30164000599159 /* KeychainHelper.swift */; };
@@ -186,6 +187,7 @@
 		60004FEF2C662365009AECF2 /* ImageDataTransferable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataTransferable.swift; sourceTree = "<group>"; };
 		60004FF12C662495009AECF2 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		601048702C652FC20028662D /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
+		603CF4EA2D79926C00A2D19E /* Binding++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding++.swift"; sourceTree = "<group>"; };
 		603F256F2D119D4E00A088E2 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		603F25712D11C94B00A088E2 /* XpStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XpStat.swift; sourceTree = "<group>"; };
 		605334582D30164000599159 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 			isa = PBXGroup;
 			children = (
 				60E696B42B98C583009DD235 /* Bundle++.swift */,
+				603CF4EA2D79926C00A2D19E /* Binding++.swift */,
 				60EC51FF2B9D99CE002CBCA3 /* View++.swift */,
 				608EBF9A2C393C2600B862CC /* Button.swift */,
 				601048702C652FC20028662D /* UIImage++.swift */,
@@ -932,6 +935,7 @@
 				60F27DF52C4602DD00711A53 /* GetQuestUseCase.swift in Sources */,
 				60DB54C52C73BBD600AEDFE9 /* ChallengeDataSource.swift in Sources */,
 				60DB54CF2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift in Sources */,
+				603CF4EB2D79926C00A2D19E /* Binding++.swift in Sources */,
 				608EBF8A2C38709800B862CC /* AppInject.swift in Sources */,
 				60856CE52D1DAADC0048747E /* AuthRepository.swift in Sources */,
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
@@ -1223,7 +1227,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.teamfair.MatQ-Admin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1267,7 +1271,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.teamfair.MatQ-Admin";
 				PRODUCT_NAME = "$(TARGET_NAME)";

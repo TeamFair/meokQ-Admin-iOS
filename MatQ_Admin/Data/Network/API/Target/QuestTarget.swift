@@ -18,7 +18,8 @@ enum QuestTarget {
 extension QuestTarget: TargetType {
     var baseURL: String {
         switch self {
-        case .getQuest, .postQuest: return URL.makeEndPoint(.admin(endPoint: "quest"))
+        case .getQuest: return URL.makeEndPoint(.admin(endPoint: "v2/quest"))
+        case .postQuest: return URL.makeEndPoint(.admin(endPoint: "quest"))
         case .deleteQuest(let request): return URL.makeEndPoint(.admin(endPoint: "quest/\(request.deleteType.rawValue)"))
         case .putQuest: return URL.makeEndPoint(.admin(endPoint: "quest/"))
         }
