@@ -7,49 +7,79 @@
 
 import SwiftUI
 
-struct TextFieldComponent: View {
-    let titleName : String
-    let contentPlaceholder : String?
-    @Binding var content : String
+struct InputFieldComponent<T: View>: View {
+    let titleName: String
+    let inputField: T
     
     var body: some View {
         VStack(alignment: .leading){
             Text(titleName)
                 .font(.subheadline).bold()
                 .foregroundStyle(.textSecondary)
-            if let contentPlaceholder = contentPlaceholder {
-                TextField("\(contentPlaceholder)", text: $content)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.body)
-                    .foregroundStyle(.textPrimary)
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundStyle(.componentPrimary)
-                    )
-            }
+                .padding(.leading, 4)
+            
+            inputField
         }
     }
 }
 
+struct TextFieldComponent: View {
+    let placeholder : String?
+    @Binding var content : String
+    var showContentSize: Bool = false
+    
+    var body: some View {
+        if let placeholder = placeholder {
+            TextField("\(placeholder)", text: $content)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.body)
+                .foregroundStyle(.textPrimary)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundStyle(.componentPrimary)
+                )
+                .overlay(alignment: .topTrailing) {
+                    if showContentSize {
+                        Text("\(content.count) / 16")
+                            .foregroundStyle(content.count > 16 ? .red : .textPrimary)
+                            .font(.caption2)
+                            .padding(.trailing, 12)
+                            .offset(y: -20)
+                    }
+                }
+        }
+    }
+}
 
 struct SegmentComponent<T: Identifiable & Hashable & StringValue & Equatable>: View {
-    let title : String
     @Binding var content : T
     let list: [T]
     
     var body: some View {
-        VStack(alignment: .leading){
-            Text(title)
-                .font(.subheadline).bold()
-                .foregroundStyle(.textSecondary)
-            Picker("", selection: $content) {
-                ForEach(list, id: \.self) { item in
+        HStack {
+            ForEach(list, id: \.self) { item in
+                Button {
+                    content = item
+                } label: {
                     Text(item.title)
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(content == item ? .textPrimary : .textSecondary.opacity(0.4))
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 10)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(content == item ? .componentSecondary : .clear)
+                                .shadow(color: .textSecondary.opacity(0.2), radius: 3)
+                        )
                 }
             }
-            .pickerStyle(.segmented)
         }
+        .padding(2)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.componentPrimary)
+        )
     }
 }
 
@@ -120,20 +150,39 @@ struct ImageFieldComponent: View {
             .background(Color.bg)
             .cornerRadius(12)
             .shadow(color: .gray300.opacity(0.3), radius: 12)
-            
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxWidth: .infinity)
-        .padding(.bottom, 16)
     }
 }
 
 #Preview {
     VStack {
-        TextFieldComponent(titleName: "TextField", contentPlaceholder: "Placeholder", content: .constant("Test"))
+        TextFieldComponent(placeholder: "Placeholder", content: .constant("Test"))
         ImageFieldComponent(titleName: "ImageField", uiImage: (.testimage))
         SliderComponent(titleName: "SliderField", contentPlaceholder: 10, content: .constant(0))
-        SegmentComponent(title: "SegmentField", content: .constant(QuestType.normal), list: [QuestType.normal, QuestType.repeat])
+        SegmentComponent(content: .constant(QuestType.normal), list: [QuestType.normal, QuestType.repeat])
         ToggleComponent(titleName: "ToggleField", isOn: .constant(true))
     }
 }
+
+
+//struct SegmentComponent<T: Identifiable & Hashable & StringValue & Equatable>: View {
+//    let title : String
+//    @Binding var content : T
+//    let list: [T]
+//
+//    var body: some View {
+//        VStack(alignment: .leading){
+//            Text(title)
+//                .font(.subheadline).bold()
+//                .foregroundStyle(.textSecondary)
+//            Picker("", selection: $content) {
+//                ForEach(list, id: \.self) { item in
+//                    Text(item.title)
+//                }
+//            }
+//            .pickerStyle(.segmented)
+//        }
+//    }
+//}

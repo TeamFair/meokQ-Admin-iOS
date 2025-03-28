@@ -15,148 +15,332 @@ struct QuestDetailView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            NavigationBarComponent(navigationTitle: vm.viewType.title, isNotRoot: true)
-                .overlay(alignment: .trailing) {
-                    HStack(spacing: 20) {
-                        Button {
-                            vm.selectedDeleteType = .soft
-                            vm.activeAlertType = .delete
-                            vm.showAlert = true
-                        } label: {
-                            Image(systemName: "eraser")
-                                .foregroundStyle(.primaryPurple)
-                        }
-                        
-                        Button {
-                            vm.selectedDeleteType = .hard
-                            vm.activeAlertType = .delete
-                            vm.showAlert = true
-                        } label: {
-                            Image(systemName: "trash")
-                                .foregroundStyle(.primaryPurple)
-                        }
-                    }
-                    .opacity(vm.viewType == .edit ? 1 : 0)
-                    .padding(.trailing, 20)
-                }
+            navigationBar
             
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    TextFieldComponent(titleName: "미션 제목", contentPlaceholder: vm.items.questTitle, content: $vm.editedItems.questTitle)
-                        .overlay(alignment: .topTrailing) {
-                            Text("\(vm.editedItems.questTitle.count) / 16")
-                                .foregroundStyle(vm.editedItems.questTitle.count > 16 ? .red : .textPrimary)
-                                .opacity(vm.viewType == .publish ? 1 : 0)
-                                .font(.caption2)
-                                .padding(.trailing, 8)
-                                .offset(y: 2)
-                        }
-                 
-                    VStack(alignment: .leading) {
-                        Text("스탯")
-                            .font(.subheadline).bold()
-                            .foregroundStyle(.textSecondary)
-
-                        VStack {
-                            SliderComponent(titleName: "체력", contentPlaceholder: vm.items.strengthXP, content: Binding(
-                                get: { Double(vm.editedItems.strengthXP) },
-                                set: { vm.editedItems.strengthXP = Int($0) }
-                            ))
-                            SliderComponent(titleName: "지능", contentPlaceholder: vm.items.intellectXP, content: Binding(
-                                get: { Double(vm.editedItems.intellectXP) },
-                                set: { vm.editedItems.intellectXP = Int($0) }
-                            ))
-                            SliderComponent(titleName: "재미", contentPlaceholder: vm.items.funXP, content: Binding(
-                                get: { Double(vm.editedItems.funXP) },
-                                set: { vm.editedItems.funXP = Int($0) }
-                            ))
-                            SliderComponent(titleName: "매력", contentPlaceholder: vm.items.charmXP, content: Binding(
-                                get: { Double(vm.editedItems.charmXP) },
-                                set: { vm.editedItems.charmXP = Int($0) }
-                            ))
-                            SliderComponent(titleName: "사회성", contentPlaceholder: vm.items.sociabilityXP, content: Binding(
-                                get: { Double(vm.editedItems.sociabilityXP) },
-                                set: { vm.editedItems.sociabilityXP = Int($0) }
-                            ))
-                        }
-                        .padding(.vertical, 8)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .foregroundStyle(.componentPrimary)
-                        )
-                    }
-                    
-                    TextFieldComponent(titleName: "우선순위", contentPlaceholder: String(vm.items.score), content: Binding(
-                        get: { String(vm.editedItems.score) },
-                        set: { vm.editedItems.score = Int($0) ?? 0 }
-                    ))
-                    TextFieldComponent(titleName: "작성자", contentPlaceholder: vm.items.writer, content: $vm.editedItems.writer)
-                    TextFieldComponent(titleName: "만료 기한", contentPlaceholder: vm.items.expireDate, content: $vm.editedItems.expireDate)
-                    SegmentComponent(title: "타입", content: $vm.editedItems.questType, list: QuestType.allCases)
-                    SegmentComponent(title: "반복 타입", content: $vm.editedItems.questTarget, list: QuestRepeatTarget.allCases)
-                        .disabled(vm.editedItems.questType != .repeat)
-                    
-                    ToggleComponent(titleName: "인기퀘스트", isOn: $vm.editedItems.popularYn)
-                    
-                    PhotosPicker(selection: $vm.photosPickerItemForWriterImage, matching: .any(of: [.images, .screenshots])) {
-                        ImageFieldComponent(titleName: "작성자 이미지", uiImage: vm.editedItems.writerImage)
-                    }
-                    
-                    PhotosPicker(selection: $vm.photosPickerItemForMainImage, matching: .any(of: [.images, .screenshots])) {
-                        ImageFieldComponent(titleName: "메인 이미지", uiImage: vm.editedItems.mainImage)
-                    }
-                }
-                .padding(.horizontal, 20)
+                contentView
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 80)
             }
             .scrollDismissesKeyboard(.immediately)
         }
-        .alert(isPresented: $vm.showAlert) {
-            switch vm.activeAlertType {
-            case .delete:
-                Alert(
-                    title: Text("퀘스트를 삭제하시겠습니까?"),
-                    message: Text("퀘스트를 복구할 수 없습니다."),
-                    primaryButton: .cancel(Text("취소")),
-                    secondaryButton: .destructive(Text("삭제")) {
-                        vm.deleteData(questId: vm.editedItems.questId, type: vm.selectedDeleteType)
-                    }
-                )
-            case .result:
-                Alert(
-                    title: Text(vm.alertTitle),
-                    message: Text(vm.alertMessage),
-                    dismissButton: .default(Text("확인")) {
-                        if vm.alertTitle == "퀘스트 추가 성공" || vm.alertTitle == "퀘스트 삭제 성공" {
-                            router.pop()
-                        }
-                    }
-                )
-            case .none:
-                Alert(title: Text(""))
+        .alert(isPresented: $vm.showAlert, content: alertView)
+        .safeAreaInset(edge: .bottom, content: bottomButton)
+    }
+   
+    private var navigationBar: some View {
+        NavigationBarComponent(navigationTitle: vm.viewType.title, isNotRoot: true)
+            .overlay(alignment: .trailing) { navigationTrailingButtons }
+    }
+    
+    private var navigationTrailingButtons: some View {
+        HStack(spacing: 20) {
+            Button {
+                vm.onDeleteButtonTap(type: .soft)
+            } label: {
+                Image(systemName: "eraser")
+                    .foregroundStyle(.primaryPurple)
+            }
+            Button {
+                vm.onDeleteButtonTap(type: .hard)
+            } label: {
+                Image(systemName: "trash")
+                    .foregroundStyle(.primaryPurple)
             }
         }
-        .safeAreaInset(edge: .bottom) {
-            // TODO: 스탯 전부 0이면 생성 & 수정 불가
+        .opacity(vm.viewType == .edit ? 1 : 0)
+        .padding(.trailing, 20)
+    }
+    
+    private var contentView: some View {
+        VStack(alignment: .leading, spacing: 32) {
+            imageInputView // 작성자 이미지, 메인 이미지
+            
+            InputFieldComponent(
+                titleName: "미션 제목",
+                inputField: TextFieldComponent(
+                    placeholder: vm.items.missionTitle,
+                    content: $vm.editedItems.missionTitle,
+                    showContentSize: true
+                )
+            )
+            
+            InputFieldComponent(
+                titleName: "작성자",
+                inputField: TextFieldComponent(
+                    placeholder: vm.items.writer,
+                    content: $vm.editedItems.writer
+                )
+            )
+            
+            HStack {
+                InputFieldComponent(
+                    titleName: "타입",
+                    inputField:
+                        SegmentComponent(
+                            content: $vm.editedItems.questType,
+                            list: QuestType.allCases
+                        )
+                )
+                
+                if vm.editedItems.questType == .repeat {
+                    InputFieldComponent(
+                        titleName: "반복주기",
+                        inputField:
+                            SegmentComponent(
+                                content: $vm.editedItems.questTarget,
+                                list: QuestRepeatTarget.allCases
+                            )
+                    )
+                }
+            }
+            
+            InputFieldComponent(
+                titleName: "만료 기한",
+                inputField: TextFieldComponent(
+                    placeholder: vm.items.expireDate,
+                    content: $vm.editedItems.expireDate
+                )
+            )
+            
+            InputFieldComponent(
+                titleName: "우선순위",
+                inputField: TextFieldComponent(
+                    placeholder: String(vm.items.score),
+                    content: $vm.editedItems.score.toString()
+                )
+            )
+            
+            ToggleComponent(titleName: "인기퀘스트", isOn: $vm.editedItems.popularYn)
+                .padding(.leading, 4)
+            
+            InputFieldComponent(
+                titleName: "스탯",
+                inputField: statsView
+            )
+            
+            quizSection
+        }
+    }
+    
+    private var quizSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            InputFieldComponent(
+                titleName: "인증 방법",
+                inputField:
+                    SegmentComponent(
+                        content: $vm.editedItems.missionType,
+                        list: MissionType.allCases
+                    )
+            )
+            
+            quizzesView
+            
             Button {
-                if vm.viewType == .edit {
-                    let imageUpdated = vm.editedItems.writerImage != vm.items.writerImage // 이미지가 변경되었는지 확인
-                    let mainImageUpdated = vm.editedItems.mainImage != vm.items.mainImage // 메인이미지가 변경되었는지 확인
-
-                    vm.modifyData(vm.editedItems, imageUpdated: imageUpdated, mainImageUpdated: mainImageUpdated)
-                } else if vm.viewType == .publish {
-                    vm.createData(data: vm.editedItems)
+                withAnimation {
+                    vm.editedItems.quizzes.append(.init(question: "", hint: "", answers: [.init(content: "")]))
                 }
             } label: {
-                Text(vm.viewType.buttonTitle)
+                Text("퀴즈 추가")
+                    .foregroundStyle(.primaryPurple)
+                    .padding(8)
             }
-            .ilsangButtonStyle(type: .primary, isDisabled: vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
-            .disabled(vm.editedItems.questTitle.count > 16 || vm.editedItems.questTitle.count == 0)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 8)
+            .frame(maxWidth: .infinity)
+            .padding(.top, -8)
+        }
+    }
+    
+    private var imageInputView: some View {
+        HStack {
+            PhotosPicker(selection: $vm.photosPickerItemForWriterImage, matching: .any(of: [.images, .screenshots])) {
+                ImageFieldComponent(titleName: "작성자 이미지", uiImage: vm.editedItems.writerImage)
+            }
+            
+            PhotosPicker(selection: $vm.photosPickerItemForMainImage, matching: .any(of: [.images, .screenshots])) {
+                ImageFieldComponent(titleName: "메인 이미지", uiImage: vm.editedItems.mainImage)
+            }
+        }
+    }
+    
+    private var statsView: some View {
+        VStack {
+            let sliders = [
+                ("체력", vm.items.strengthXP, $vm.editedItems.strengthXP),
+                ("지능", vm.items.intellectXP, $vm.editedItems.intellectXP),
+                ("재미", vm.items.funXP, $vm.editedItems.funXP),
+                ("매력", vm.items.charmXP, $vm.editedItems.charmXP),
+                ("사회성", vm.items.sociabilityXP, $vm.editedItems.sociabilityXP)
+            ]
+            
+            ForEach(sliders, id: \.0) { title, placeholder, binding in
+                SliderComponent(
+                    titleName: title,
+                    contentPlaceholder: placeholder,
+                    content: binding.toDouble()
+                )
+            }
+        }
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .foregroundStyle(.componentPrimary)
+        )
+    }
+    
+    @ViewBuilder
+    private var quizzesView: some View {
+        if vm.editedItems.missionType == .OX || vm.editedItems.missionType == .WORDS {
+            VStack(spacing: 28) {
+                ForEach(vm.editedItems.quizzes.indices, id: \.self) { idx in
+                    quizView(idx: idx)
+                }
+            }
+        }
+    }
+   
+    private func quizView(idx: Int) -> some View {
+        VStack(spacing: 16) {
+            HStack {
+                Text("\(idx+1)번째 퀴즈")
+                    .font(.headline).bold()
+                    .foregroundStyle(.textSecondary)
+                Spacer()
+                Button {
+                    withAnimation {
+                        vm.removeQuiz(at: idx)
+                    }
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(.textSecondary.opacity(0.5))
+                        .padding(12)
+                }
+                .padding(.trailing, -12)
+            }
+            
+            InputFieldComponent(
+                titleName: "질문",
+                inputField: TextFieldComponent(
+                    placeholder: "퀴즈 질문을 입력해 주세요",
+                    content: $vm.editedItems.quizzes[idx].question
+                )
+            )
+            .padding(.top, -12)
+            
+            InputFieldComponent(
+                titleName: "힌트",
+                inputField: TextFieldComponent(
+                    placeholder: "힌트를 입력해 주세요",
+                    content:$vm.editedItems.quizzes[idx].hint
+                )
+            )
+            
+            if vm.editedItems.missionType == .WORDS {
+                InputFieldComponent(
+                    titleName: "답",
+                    inputField:
+                        quizWorkAnswerView(idx: idx)
+                )
+            } else if vm.editedItems.missionType == .OX {
+                InputFieldComponent(
+                    titleName: "답",
+                    inputField:
+                        Picker("", selection: $vm.editedItems.quizzes[idx].answers.first?.content ?? .constant("O")) {
+                            ForEach(["O", "X"], id: \.self) { item in
+                                Text(item)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                )
+            }
+        }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.componentPrimary.opacity(0.4)))
+        )
+    }
+    
+    private func quizWorkAnswerView(idx: Int) -> some View {
+        VStack {
+            ForEach(vm.editedItems.quizzes[idx].answers.indices, id: \.self) { answerIdx in
+                HStack {
+                    TextFieldComponent(
+                        placeholder: "답을 입력해 주세요",
+                        content: $vm.editedItems.quizzes[idx].answers[answerIdx].content
+                    )
+                    .overlay(alignment: .trailing) {
+                        if !vm.editedItems.quizzes[idx].answers[answerIdx].content.isEmpty {
+                            Button {
+                                vm.initQuizAnswerContent(at: idx, answerIdx: answerIdx)
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundStyle(.textSecondary.opacity(0.3))
+                                    .padding(12)
+                            }
+                        }
+                    }
+                    
+                    if answerIdx >= 1 {
+                        Button {
+                            withAnimation {
+                                vm.removeQuizAnswer(at: idx, answerIdx: answerIdx)
+                            }
+                        } label: {
+                            Image(systemName: "minus.circle.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundStyle(.textSecondary.opacity(0.3))
+                                .padding(8)
+                        }
+                    }
+                }
+                .animation(.default, value: vm.editedItems.quizzes[idx])
+            }
+            Button {
+                withAnimation {
+                    vm.editedItems.quizzes[idx].answers.append(.init(content: ""))
+                }
+            } label: {
+                Label("답 추가", systemImage: "plus")
+                    .font(.subheadline)
+                    .foregroundStyle(.primaryPurple)
+                    .padding(12)
+            }
+        }
+    }
+    
+    private func bottomButton() -> some View {
+        Button(action: { vm.onPrimaryButtonTap() }) {
+            Text(vm.viewType.buttonTitle)
+        }
+        .ilsangButtonStyle(type: .primary, isDisabled: vm.isPrimaryButtonDisabled)
+        .disabled(vm.isPrimaryButtonDisabled)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 8)
+    }
+    
+    private func alertView() -> Alert {
+        switch vm.activeAlertType {
+        case .delete:
+            return Alert(title: Text("퀘스트를 삭제하시겠습니까?"), message: Text("퀘스트를 복구할 수 없습니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("삭제")) { vm.deleteData(questId: vm.editedItems.questId, type: vm.selectedDeleteType) })
+        case .result:
+            return Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("확인")) { if vm.alertTitle == "퀘스트 추가 성공" || vm.alertTitle == "퀘스트 삭제 성공" { router.pop() } })
+        case .none:
+            return Alert(title: Text(""))
         }
     }
 }
 
-//#Preview {
-//    QuestDetailView(vm: QuestDetailViewModel(viewType: .edit, questDetail: .initialData))
-//}
+#Preview {
+    let networkService = NetworkService()
+    let imageRepository = ImageRepository(imageDataSource:  ImageDataSource(cache: InMemoryImageCache(), networkService: networkService))
+    let questRepo = QuestRepository(questDataSource: QuestDataSource(networkService: networkService))
+    
+    QuestDetailView(
+        vm: QuestDetailViewModel(viewType: .publish, questDetail: .mockOXData, postQuestUseCase: PostQuestUseCase(questRepository: questRepo, imageRepository: imageRepository), putQuestUseCase: PutQuestUseCase(questRepository: questRepo, imageRepository: imageRepository), deleteQuestUseCase: DeleteQuestUseCase(questRepository: questRepo))
+    )
+}
