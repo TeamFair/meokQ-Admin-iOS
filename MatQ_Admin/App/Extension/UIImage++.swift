@@ -53,7 +53,7 @@ enum UIImageSize {
         case .large:
             return 260
         case .maxWidth:
-            return UIScreen.main.bounds.width - 40
+            return UIScreen.main.bounds.width
         case .custom(let size):
             return size
         }

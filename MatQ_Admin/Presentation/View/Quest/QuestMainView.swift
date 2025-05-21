@@ -89,7 +89,13 @@ struct QuestMainView: View {
                     .transition(.move(edge: .top).combined(with: .scale).combined(with: .opacity))
                     .animation(.easeInOut, value: vm.showSearchBar)
                 }
-                selectTypeView
+                
+                HStack(spacing: 10) {
+                    selectTypeView
+                    selectMissionTypeView
+                    Spacer(minLength: 0)
+                    showPopular(vm.showPopularOnly)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 20)
@@ -148,7 +154,7 @@ struct QuestMainView: View {
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(isSelectedType ? .primaryPurple : .textSecondary)
                         .padding(.vertical, 6)
-                        .padding(.horizontal, 12)
+                        .padding(.horizontal, 10)
                         .background(
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(isSelectedType ? Color.primaryPurple.opacity(0.15) : Color.gray.opacity(0.1))
@@ -156,6 +162,54 @@ struct QuestMainView: View {
                         )
                 }
             }
+        }
+    }
+    
+    private var selectMissionTypeView: some View {
+        HStack(spacing: 8) {
+            ForEach(MissionType.allCases, id: \.id) { type in
+                let isSelectedType = vm.selectedMissionType[type] ?? false
+                Button {
+                    vm.selectedMissionType[type]?.toggle()
+                } label: {
+                    switch type {
+                    case .FREE:
+                        tagView("📸", isSelcted: isSelectedType)
+                    case .OX:
+                        tagView("🙆🏻", isSelcted: isSelectedType)
+                    default:
+                        tagView("✏️", isSelcted: isSelectedType)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func tagView(_ title: String, isSelcted: Bool) -> some View {
+        Text(title)
+            .font(.system(size: 13, weight: .semibold))
+            .padding(.vertical, 6)
+            .padding(.horizontal, 8)
+            .foregroundStyle(isSelcted ? .primaryPurple : .textSecondary)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(isSelcted ? Color.primaryPurple.opacity(0.15) : Color.gray.opacity(0.1))
+                    .stroke(isSelcted ? .primaryPurple.opacity(0.7) : .gray, style: .init(lineWidth: 0.5))
+            )
+    }
+    
+    private func showPopular(_ show: Bool) -> some View {
+        Button {
+            vm.showPopularOnly.toggle()
+        } label: {
+            Image(systemName: show ? "star.fill" : "star")
+                .resizable()
+                .scaledToFit()
+                .fontWeight(.light)
+                .foregroundStyle(show ? .primaryPurple : .gray300)
+                .frame(width: 18)
+                .padding(.vertical, 6)
+                .padding(.horizontal, 4)
         }
     }
 }

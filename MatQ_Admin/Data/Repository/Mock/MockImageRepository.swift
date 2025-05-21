@@ -35,6 +35,12 @@ final class MockImageRepository: ImageRepositoryInterface {
         return Fail(error: NetworkError.unknownError).eraseToAnyPublisher()
     }
     
+    func getImageIds(request: GetImageIdsRequest) -> AnyPublisher<[String], NetworkError> {
+        return Just(["IIM0000002"])
+            .setFailureType(to: NetworkError.self)
+            .eraseToAnyPublisher()
+    }
+    
     func getCachedImages() -> AnyPublisher<[(String, UIImage)], Never> {
         return Just([("IIM0000002", .testimage)]).eraseToAnyPublisher()
     }

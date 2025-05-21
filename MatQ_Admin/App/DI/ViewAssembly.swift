@@ -46,9 +46,10 @@ final class ViewAssembly: Assembly {
         // MARK: - Image View
         
         container.register(ImageMainView.self, factory: { (
-            resolver: Resolver
+            resolver: Resolver,
+            arg1: ImageMainViewModel.ViewType
         ) -> ImageMainView in
-            return .init(vm: resolver.resolve(ImageMainViewModel.self)!)
+            return .init(vm: resolver.resolve(ImageMainViewModel.self, argument: arg1)!)
         }).inObjectScope(.container)
         
         container.register(ImageDetailView.self, factory: { (

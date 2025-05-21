@@ -27,7 +27,7 @@ struct QuestDetailView: View {
         .alert(isPresented: $vm.showAlert, content: alertView)
         .safeAreaInset(edge: .bottom, content: bottomButton)
     }
-   
+    
     private var navigationBar: some View {
         NavigationBarComponent(navigationTitle: vm.viewType.title, isNotRoot: true)
             .overlay(alignment: .trailing) { navigationTrailingButtons }
@@ -73,26 +73,24 @@ struct QuestDetailView: View {
                 )
             )
             
-            HStack {
+            InputFieldComponent(
+                titleName: "타입",
+                inputField:
+                    SegmentComponent(
+                        content: $vm.editedItems.questType,
+                        list: QuestType.allCases
+                    )
+            )
+            
+            if vm.editedItems.questType == .repeat {
                 InputFieldComponent(
-                    titleName: "타입",
+                    titleName: "반복주기",
                     inputField:
                         SegmentComponent(
-                            content: $vm.editedItems.questType,
-                            list: QuestType.allCases
+                            content: $vm.editedItems.questTarget,
+                            list: QuestRepeatTarget.allCases
                         )
                 )
-                
-                if vm.editedItems.questType == .repeat {
-                    InputFieldComponent(
-                        titleName: "반복주기",
-                        inputField:
-                            SegmentComponent(
-                                content: $vm.editedItems.questTarget,
-                                list: QuestRepeatTarget.allCases
-                            )
-                    )
-                }
             }
             
             InputFieldComponent(
@@ -136,29 +134,64 @@ struct QuestDetailView: View {
             
             quizzesView
             
-            Button {
-                withAnimation {
-                    vm.editedItems.quizzes.append(.init(question: "", hint: "", answers: [.init(content: "")]))
-                }
-            } label: {
-                Text("퀴즈 추가")
-                    .foregroundStyle(.primaryPurple)
-                    .padding(8)
+            if vm.editedItems.missionType == .OX || vm.editedItems.missionType == .WORDS {
+                addQuizButton()
             }
-            .frame(maxWidth: .infinity)
-            .padding(.top, -8)
         }
+    }
+    
+    private func addQuizButton() -> some View {
+        Button {
+            withAnimation {
+                vm.editedItems.quizzes.append(.init(question: "", hint: "", answers: [.init(content: "")]))
+            }
+        } label: {
+            Text("퀴즈 추가")
+        }
+        .ilsangButtonStyle(type: .secondary)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 8)
     }
     
     private var imageInputView: some View {
         HStack {
-            PhotosPicker(selection: $vm.photosPickerItemForWriterImage, matching: .any(of: [.images, .screenshots])) {
-                ImageFieldComponent(titleName: "작성자 이미지", uiImage: vm.editedItems.writerImage)
+            VStack {
+                Button {
+                    vm.manageImageType = .writer
+                    vm.showManageImageView.toggle()
+                } label: {
+                    ImageFieldComponent(titleName: "작성자 이미지", uiImage: vm.editedItems.writerImage)
+                }
+                Button {
+                    copyToClipboard(text: vm.editedItems.writerImageId ?? "")
+                } label: {
+                    Text(vm.editedItems.writerImageId ?? "")
+                        .font(.caption)
+                        .padding(.vertical, 6)
+                }
             }
             
-            PhotosPicker(selection: $vm.photosPickerItemForMainImage, matching: .any(of: [.images, .screenshots])) {
-                ImageFieldComponent(titleName: "메인 이미지", uiImage: vm.editedItems.mainImage)
+            VStack {
+                Button {
+                    vm.manageImageType = .mainImage
+                    vm.showManageImageView.toggle()
+                } label: {
+                    ImageFieldComponent(titleName: "메인 이미지", uiImage: vm.editedItems.mainImage)
+                }
+                Button {
+                    copyToClipboard(text: vm.editedItems.mainImageId ?? "")
+                } label: {
+                    Text(vm.editedItems.mainImageId ?? "")
+                        .font(.caption)
+                        .padding(.vertical, 6)
+                }
             }
+        }
+        .onDisappear {
+            NotificationCenter.default.removeObserver(self, name: .imageSelected, object: nil)
+        }
+        .sheet(isPresented: $vm.showManageImageView) {
+            router.buildScene(path: .ImageMainView(type: .selectingItem))
         }
     }
     
@@ -195,9 +228,10 @@ struct QuestDetailView: View {
                     quizView(idx: idx)
                 }
             }
+            .animation(.easeInOut, value: vm.editedItems.missionType)
         }
     }
-   
+    
     private func quizView(idx: Int) -> some View {
         VStack(spacing: 16) {
             HStack {
@@ -326,7 +360,7 @@ struct QuestDetailView: View {
     private func alertView() -> Alert {
         switch vm.activeAlertType {
         case .delete:
-            return Alert(title: Text("퀘스트를 삭제하시겠습니까?"), message: Text("퀘스트를 복구할 수 없습니다."), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("삭제")) { vm.deleteData(questId: vm.editedItems.questId, type: vm.selectedDeleteType) })
+            return Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("삭제")) { vm.deleteData(questId: vm.editedItems.questId, type: vm.selectedDeleteType) })
         case .result:
             return Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("확인")) { if vm.alertTitle == "퀘스트 추가 성공" || vm.alertTitle == "퀘스트 삭제 성공" { router.pop() } })
         case .none:
@@ -337,10 +371,11 @@ struct QuestDetailView: View {
 
 #Preview {
     let networkService = NetworkService()
-    let imageRepository = ImageRepository(imageDataSource:  ImageDataSource(cache: InMemoryImageCache(), networkService: networkService))
+    let imageCache = InMemoryImageCache()
+    let imageRepository = ImageRepository(imageDataSource: ImageDataSource(cache: imageCache, networkService: networkService))
     let questRepo = QuestRepository(questDataSource: QuestDataSource(networkService: networkService))
     
     QuestDetailView(
-        vm: QuestDetailViewModel(viewType: .publish, questDetail: .mockOXData, postQuestUseCase: PostQuestUseCase(questRepository: questRepo, imageRepository: imageRepository), putQuestUseCase: PutQuestUseCase(questRepository: questRepo, imageRepository: imageRepository), deleteQuestUseCase: DeleteQuestUseCase(questRepository: questRepo))
+        vm: QuestDetailViewModel(viewType: .publish, questDetail: .mockOXData, postQuestUseCase: PostQuestUseCase(questRepository: questRepo, imageRepository: imageRepository), putQuestUseCase: PutQuestUseCase(questRepository: questRepo), deleteQuestUseCase: DeleteQuestUseCase(questRepository: questRepo), imageCache: imageCache)
     )
 }

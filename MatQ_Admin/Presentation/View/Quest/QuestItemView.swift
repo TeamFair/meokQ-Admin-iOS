@@ -58,7 +58,7 @@ struct QuestItemView: View {
                     case .FREE:
                         tagView("📸")
                     case .OX:
-                        tagView("🙆🏻🙅🏻")
+                        tagView("🙆🏻")
                     default:
                         tagView("✏️")
                     }

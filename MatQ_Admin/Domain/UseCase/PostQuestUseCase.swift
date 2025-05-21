@@ -10,9 +10,7 @@ import UIKit
 
 protocol PostQuestUseCaseInterface {
     func execute(
-        request: PostQuestRequestModel,
-        image: UIImage?,
-        mainImage: UIImage?
+        request: PostQuestRequestModel
     ) -> AnyPublisher<Void, NetworkError>
 }
 
@@ -28,22 +26,9 @@ final class PostQuestUseCase: PostQuestUseCaseInterface {
     }
     
     func execute(
-        request: PostQuestRequestModel,
-        image: UIImage?,
-        mainImage: UIImage?
+        request: PostQuestRequestModel
     ) -> AnyPublisher<Void, NetworkError> {
-        // 메인 이미지가 있을 경우 메인 이미지 업로드 -> 추가 로직 실행
-        if let mainImage = mainImage {
-            return uploadImage(image: mainImage)
-                .flatMap { mainImageId in
-                    var updatedRequest = request
-                    updatedRequest.mainImageId = mainImageId
-                    return self.handleQuestCreation(request: updatedRequest, image: image)
-                }
-                .eraseToAnyPublisher()
-        }
-        // 메인 이미지가 없는 경우 처리
-        return handleQuestCreation(request: request, image: image)
+        createQuest(request: request)
     }
     
     // 퀘스트 생성 로직 처리
@@ -91,7 +76,7 @@ struct PostQuestRequestModel {
     let rewards: [Reward]
     let score: Int
     let expireDate: String
-    let type, target: String
+    var type, target: String
     var mainImageId: String?
     let popularYn: Bool
     
