@@ -149,7 +149,6 @@ struct ImageFieldComponent: View {
             .frame(width: imageSize.value, height: imageSize.value)
             .background(Color.bg)
             .cornerRadius(12)
-            .shadow(color: .gray300.opacity(0.3), radius: 12)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxWidth: .infinity)

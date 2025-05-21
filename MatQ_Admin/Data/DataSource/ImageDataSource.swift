@@ -11,6 +11,7 @@ import UIKit
 
 protocol ImageDataSourceInterface {
     func getImage(request: GetImageRequest) -> AnyPublisher<UIImage, NetworkError>
+    func getImageIds(request: GetImageIdsRequest) -> AnyPublisher<[String], NetworkError>
     func postImage(request: PostImageRequest) -> AnyPublisher<String, NetworkError>
     func deleteImage(request: DeleteImageRequest) -> AnyPublisher<String, NetworkError>
     func getCachedImages() -> AnyPublisher<[(String, UIImage)], Never>
@@ -97,6 +98,15 @@ final class ImageDataSource: ImageDataSourceInterface {
     
     func getCachedImages() -> AnyPublisher<[(String, UIImage)], Never> {
         return Just(cache.fetchAllImages())
+            .eraseToAnyPublisher()
+    }
+    
+    func getImageIds(request: GetImageIdsRequest) -> AnyPublisher<[String], NetworkError> {
+        networkService.request(ImageTarget.getImageIds(request), as: GetImageIdsResponse.self)
+            .tryMap { response in
+                return response.data.map { $0.imageId }
+            }
+            .mapError { _ in NetworkError.serverError }
             .eraseToAnyPublisher()
     }
 }

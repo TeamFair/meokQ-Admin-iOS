@@ -49,13 +49,11 @@ final class GetQuestUseCase: GetQuestUseCaseInterface {
             keyPath: \.mainImage
         )
         
-        return writerImagePublisher
-            .flatMap { questWithWriter in
-                mainImagePublisher.map { questWithMain in
-                    var updatedQuest = questWithWriter
-                    updatedQuest.mainImage = questWithMain.mainImage
-                    return updatedQuest
-                }
+        return Publishers.Zip(writerImagePublisher, mainImagePublisher)
+            .map { questWithWriter, questWithMain in
+                var updated = questWithWriter
+                updated.mainImage = questWithMain.mainImage
+                return updated
             }
             .eraseToAnyPublisher()
     }

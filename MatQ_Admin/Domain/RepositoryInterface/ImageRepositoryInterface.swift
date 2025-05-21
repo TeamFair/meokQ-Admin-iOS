@@ -12,5 +12,5 @@ protocol ImageRepositoryInterface {
     func getImage(request: GetImageRequest) -> AnyPublisher<UIImage, NetworkError>
     func postImage(image: UIImage) -> AnyPublisher<String, NetworkError>
     func deleteImage(request: DeleteImageRequest) -> AnyPublisher<String, NetworkError>
-    func getCachedImages() -> AnyPublisher<[(String, UIImage)], Never>
+    func getImageIds(request: GetImageIdsRequest) -> AnyPublisher<[String], NetworkError>
 }

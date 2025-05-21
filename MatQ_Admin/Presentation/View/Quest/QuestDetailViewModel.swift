@@ -7,7 +7,6 @@
 
 import Combine
 import UIKit
-import _PhotosUI_SwiftUI
 
 final class QuestDetailViewModel: ObservableObject {
     enum ViewType {
@@ -48,6 +47,15 @@ final class QuestDetailViewModel: ObservableObject {
     
     @Published var expandApprovalQuizType: Bool = false
     
+    @Published var showManageImageView: Bool = false
+    @Published var manageImageType: ImageType = .writer
+    private var isObserverRegistered = false
+    
+    enum ImageType {
+        case writer
+        case mainImage
+    }
+    
     enum ActiveAlertType: Identifiable {
         case delete
         case result
@@ -64,33 +72,11 @@ final class QuestDetailViewModel: ObservableObject {
     
     var subscriptions = Set<AnyCancellable>()
     
-    @Published var photosPickerItemForWriterImage: PhotosPickerItem? {
-        didSet {
-            Task {
-                if let imageDataTransferable = try? await photosPickerItemForWriterImage?.loadTransferable(type: ImageDataTransferable.self) {
-                    self.editedItems.writerImage = imageDataTransferable.uiImage
-                    self.editedItems.writerImageId = nil
-                }
-            }
-        }
-    }
-    
-    @Published var photosPickerItemForMainImage: PhotosPickerItem? {
-        didSet {
-            Task {
-                if let imageDataTransferable = try? await photosPickerItemForMainImage?.loadTransferable(type: ImageDataTransferable.self) {
-                    self.editedItems.mainImage = imageDataTransferable.uiImage
-                    self.editedItems.mainImageId = nil
-                }
-            }
-        }
-    }
-    
     var isPrimaryButtonDisabled: Bool {
         editedItems.missionTitle.isEmpty || editedItems.missionTitle.count > 16 || ((editedItems.strengthXP + editedItems.intellectXP + editedItems.charmXP + editedItems.sociabilityXP + editedItems.funXP) == 0)
     }
     
-    init(viewType: ViewType, questDetail: Quest, postQuestUseCase: PostQuestUseCaseInterface, putQuestUseCase: PutQuestUseCaseInterface, deleteQuestUseCase: DeleteQuestUseCaseInterface) {
+    init(viewType: ViewType, questDetail: Quest, postQuestUseCase: PostQuestUseCaseInterface, putQuestUseCase: PutQuestUseCaseInterface, deleteQuestUseCase: DeleteQuestUseCaseInterface, imageCache: ImageCache) {
         self.viewType = viewType
         self.questDetail = questDetail
         self.items = QuestDetailViewModelItem(quest: questDetail)
@@ -98,60 +84,98 @@ final class QuestDetailViewModel: ObservableObject {
         self.postQuestUseCase = postQuestUseCase
         self.putQuestUseCase = putQuestUseCase
         self.deleteQuestUseCase = deleteQuestUseCase
+        self.imageCache = imageCache
+        
+        registerImageSelectedObserver()
+    }
+    
+    private func registerImageSelectedObserver() {
+        guard !isObserverRegistered else { return }
+        isObserverRegistered = true
+        
+        NotificationCenter.default.addObserver(forName: .imageSelected, object: nil, queue: .main) { [weak self] notification in
+            self?.handleImageSelected(notification)
+        }
     }
     
     let postQuestUseCase: PostQuestUseCaseInterface
     let putQuestUseCase: PutQuestUseCaseInterface
     let deleteQuestUseCase: DeleteQuestUseCaseInterface
+    let imageCache: ImageCache
+    
+    private func handleImageSelected(_ notification: Notification) {
+        guard let imageId = notification.userInfo?["imageId"] as? String else { return }
+        
+        switch manageImageType {
+        case .writer:
+            editedItems.writerImageId = imageId
+            editedItems.writerImage = imageCache.getImage(forKey: imageId)
+        case .mainImage:
+            editedItems.mainImageId = imageId
+            editedItems.mainImage = imageCache.getImage(forKey: imageId)
+        }
+    }
     
     private func createData(data: QuestDetailViewModelItem) {
         // 타입이 일반이면 >> 타겟도 일반으로 저장
-        let request: PostQuestRequestModel = QuestRequestMapper.map(data: data)
-        postQuestUseCase.execute(
-            request: request,
-            image: data.writerImage,
-            mainImage: data.mainImage
-        )
-        .sink { [weak self] completion in
-            if case .failure(let error) = completion {
-                self?.alertTitle = "퀘스트 추가 실패"
-                self?.alertMessage = error.localizedDescription
-                self?.activeAlertType = .result
-                self?.showAlert = true
-            }
-        } receiveValue: { [weak self] _ in
-            self?.alertTitle = "퀘스트 추가 성공"
-            self?.alertMessage = "퀘스트가 성공적으로 추가되었습니다"
-            self?.activeAlertType = .result
-            self?.showAlert = true
+        var request: PostQuestRequestModel = QuestRequestMapper.map(data: data)
+        print(request.type, request.target)
+        if request.type == "NORMAL" {
+            request.target = "NONE"
+        } else if request.type == "REPEAT", request.target == "NONE" {
+            self.alertTitle = "퀘스트 수정 실패"
+            self.alertMessage = "퀘스트 타입을 반복으로 설정 시, 반복 주기를 설정해야 합니다(일간, 주간, 월간)"
+            self.activeAlertType = .result
+            self.showAlert = true
+        } else {
+            postQuestUseCase.execute(request: request)
+                .sink { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.alertTitle = "퀘스트 추가 실패"
+                        self?.alertMessage = error.localizedDescription
+                        self?.activeAlertType = .result
+                        self?.showAlert = true
+                    }
+                } receiveValue: { [weak self] _ in
+                    self?.alertTitle = "퀘스트 추가 성공"
+                    self?.alertMessage = "퀘스트가 성공적으로 추가되었습니다"
+                    self?.activeAlertType = .result
+                    self?.showAlert = true
+                }
+                .store(in: &subscriptions)
         }
-        .store(in: &subscriptions)
     }
     
-    private func modifyData(_ data: QuestDetailViewModelItem, imageUpdated: Bool, mainImageUpdated: Bool) {
+    private func modifyData(_ data: QuestDetailViewModelItem) {
         // 타입이 일반이면 >> 타겟도 일반으로 저장
         let request: PutQuestRequestModel = QuestRequestMapper.map(data: data)
-        putQuestUseCase.execute(
-            request: request,
-            image: data.writerImage,
-            mainImage: data.mainImage,
-            imageUpdated: imageUpdated,
-            mainImageUpdated: mainImageUpdated
-        )
-        .sink { [weak self] completion in
-            if case .failure(let error) = completion {
-                self?.alertTitle = "퀘스트 수정 실패"
-                self?.alertMessage = error.localizedDescription
-                self?.activeAlertType = .result
-                self?.showAlert = true
-            }
-        } receiveValue: { [weak self] _ in
-            self?.alertTitle = "퀘스트 수정 성공"
-            self?.alertMessage = "퀘스트가 성공적으로 수정되었습니다"
-            self?.activeAlertType = .result
-            self?.showAlert = true
+        if request.type == "NORMAL", request.target != "NONE"  {
+            self.alertTitle = "퀘스트 수정 실패"
+            self.alertMessage = "퀘스트 타입을 일반으로 설정 시, 타겟을 NONE로 설정해두어야 합니다"
+            self.activeAlertType = .result
+            self.showAlert = true
+        } else if request.type == "REPEAT", request.target == "NONE" {
+            self.alertTitle = "퀘스트 수정 실패"
+            self.alertMessage = "퀘스트 타입을 반복으로 설정 시, 반복 주기를 설정해야 합니다(일간, 주간, 월간)"
+            self.activeAlertType = .result
+            self.showAlert = true
+        } else {
+            putQuestUseCase.execute(request: request)
+                .sink { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.alertTitle = "퀘스트 수정 실패"
+                        self?.alertMessage = error.localizedDescription
+                        self?.activeAlertType = .result
+                        self?.showAlert = true
+                    }
+                } receiveValue: { [weak self] _ in
+                    self?.alertTitle = "퀘스트 수정 성공"
+                    self?.alertMessage = "퀘스트가 성공적으로 수정되었습니다"
+                    self?.activeAlertType = .result
+                    self?.showAlert = true
+                }
+                .store(in: &subscriptions)
         }
-        .store(in: &subscriptions)
     }
     
     func deleteData(questId: String, type: QuestDeleteType) {
@@ -174,10 +198,7 @@ final class QuestDetailViewModel: ObservableObject {
     
     func onPrimaryButtonTap() {
         if viewType == .edit {
-            let imageUpdated = editedItems.writerImage != items.writerImage // 이미지가 변경되었는지 확인
-            let mainImageUpdated = editedItems.mainImage != items.mainImage // 메인이미지가 변경되었는지 확인
-            
-            modifyData(editedItems, imageUpdated: imageUpdated, mainImageUpdated: mainImageUpdated)
+            modifyData(editedItems)
         } else if viewType == .publish {
             createData(data: editedItems)
         }
@@ -185,6 +206,8 @@ final class QuestDetailViewModel: ObservableObject {
     
     func onDeleteButtonTap(type: QuestDeleteType) {
         selectedDeleteType = type
+        alertTitle = "퀘스트를 삭제하시겠습니까?"
+        alertMessage = "퀘스트를 복구할 수 없습니다."
         activeAlertType = .delete
         showAlert = true
     }
@@ -259,7 +282,7 @@ struct QuestDetailViewModelItem: Equatable {
             ("CHARM", self.charmXP),
             ("SOCIABILITY", self.sociabilityXP)
         ]
-
+        
         return xpTypes.compactMap { (content, value) in
             value != 0 ? Reward(content: content, quantity: value) : nil
         }
@@ -293,7 +316,7 @@ struct QuestRequestMapper {
             expireDate: data.expireDate,
             target: data.questType == .normal ? "NONE" : data.questTarget.rawValue.uppercased(),
             type: data.questType.rawValue.uppercased(), // 일반타입이면 "NONE"으로 타겟 설정
-            mainImageId: data.mainImageId, // ???????
+            mainImageId: data.mainImageId,
             popularYn: data.popularYn
         )
     }

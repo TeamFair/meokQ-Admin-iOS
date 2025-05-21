@@ -28,15 +28,31 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
     @Published var items: [QuestMainViewModelItem] = []
     var filteredItems: [QuestMainViewModelItem] {
         let selectedTypes = selectedType.filter { $0.value == true }.map { $0.key }
-        
+        let selectedMissionTypes = selectedMissionType.filter { $0.value == true }.map { $0.key }
+
         let filteredItems = items
             .filter { selectedTypes.contains($0.type) } // 선택된 타입 필터링
-            .filter { $0.missionTitle.contains(searchText) || $0.writer.contains(searchText) || searchText.isEmpty } // 검색어 필터링
+            .filter { selectedMissionTypes.contains($0.missionType) } // 선택된 미션 타입 필터링
+            .filter { showPopularOnly ? $0.popularYn : true } // 인기 여부 필터링
+            .filter { item in
+                // 검색어 필터링
+                let imageIds = [item.mainImageId, item.writerImageId].filter({ $0 != "" })
+                return item.missionTitle
+                    .contains(searchText) ||
+                item.writer
+                    .contains(searchText) ||
+                imageIds
+                    .compactMap { $0?.contains(searchText) }
+                    .contains(true) || searchText.isEmpty
+            }
         
         return filteredItems
     }
     
     @Published var selectedType: [QuestType: Bool] = [.normal: true, .repeat: true, .event: true]
+    @Published var selectedMissionType: [MissionType: Bool] = [.WORDS: true, .OX: true, .FREE: true]
+    @Published var showPopularOnly = false
+
     @Published var searchText: String = ""
     @Published var errorMessage: String = ""
     @Published var showingAlert = false
@@ -167,6 +183,7 @@ struct QuestMainViewModelItem: Hashable {
     let status: String
     let expireDate: String
     let writer: String
+    let popularYn: Bool
     let type: QuestType
     let target: QuestRepeatTarget
     let xpStats: [XpStat]
@@ -179,7 +196,7 @@ struct QuestMainViewModelItem: Hashable {
 
     }
     
-    init(questId: String, mission: Mission, writerImageId: String, writerImage: UIImage?, mainImageId: String, mainImage: UIImage?, status: String, expireDate: String, writer: String, type: QuestType, target: QuestRepeatTarget, xpStats: [XpStat]) {
+    init(questId: String, mission: Mission, writerImageId: String, writerImage: UIImage?, mainImageId: String, mainImage: UIImage?, status: String, expireDate: String, writer: String, type: QuestType, target: QuestRepeatTarget, popularYn: Bool, xpStats: [XpStat]) {
         self.questId = questId
         self.mission = mission
         self.writerImageId = writerImageId
@@ -189,6 +206,7 @@ struct QuestMainViewModelItem: Hashable {
         self.status = status
         self.expireDate = expireDate
         self.writer = writer
+        self.popularYn = popularYn
         self.type = type
         self.target = target
         self.xpStats = xpStats
@@ -204,6 +222,7 @@ struct QuestMainViewModelItem: Hashable {
         self.status = quest.status
         self.expireDate = quest.expireDate.timeAgoSinceDate()
         self.writer = quest.writer
+        self.popularYn = quest.popularYn
         self.type = QuestType(rawValue: quest.type.lowercased()) ?? .normal
         self.target = QuestRepeatTarget(rawValue: quest.target.lowercased()) ?? .none
         self.xpStats = quest.rewardList.map { XpStat(rawValue: $0.content?.lowercased() ?? "fun") ?? .fun }

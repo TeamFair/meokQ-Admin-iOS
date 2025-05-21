@@ -23,16 +23,9 @@ final class ImageDetailViewModel: ObservableObject {
     @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
     @Published var activeAlertType: ActiveAlertType?
+    @Published var showQuestMainView: Bool = false
     
-    @Published var photosPickerItemForMainImage: PhotosPickerItem? {
-        didSet {
-            Task {
-                if let imageDataTransferable = try? await photosPickerItemForMainImage?.loadTransferable(type: ImageDataTransferable.self) {
-                    self.editedItems.image = imageDataTransferable.uiImage
-                }
-            }
-        }
-    }
+    @Published var photosPickerItemForMainImage: PhotosPickerItem?
     
     let imageRepository: ImageRepositoryInterface
     var subscriptions = Set<AnyCancellable>()
@@ -46,6 +39,30 @@ final class ImageDetailViewModel: ObservableObject {
         self.item = imageItem
         self.editedItems = imageItem
         self.imageRepository = imageRepository
+        
+        $photosPickerItemForMainImage
+            .compactMap { $0 }
+            .flatMap { item in
+                Future<UIImage?, Never> { promise in
+                    item.loadTransferable(type: ImageDataTransferable.self) { result in
+                        switch result {
+                        case .success(let transferable):
+                            promise(.success(transferable?.uiImage))
+                        case .failure:
+                            promise(.success(nil)) // 실패 시 nil로 넘겨 처리
+                        }
+                    }
+                }
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] image in
+                if let image = image {
+                    self?.editedItems.image = image
+                } else {
+                    print("❗️이미지 불러오기 실패")
+                }
+            }
+            .store(in: &subscriptions)
     }
     
     func postImage(image: UIImage) {
@@ -54,9 +71,7 @@ final class ImageDetailViewModel: ObservableObject {
                 guard let self = self else { return Just((UIImage(), imageId)).eraseToAnyPublisher() }
                 // 이미지 등록 후, 해당 이미지 ID로 이미지를 조회
                 return self.getImage(imageId: imageId)
-                    .map { image in
-                        return (image, imageId) // 이미지를 가져온 후, 이미지와 아이디를 함께 반환
-                    }
+                    .map { ($0, imageId) }
                     .eraseToAnyPublisher()
             }
             .sink { [weak self] completion in

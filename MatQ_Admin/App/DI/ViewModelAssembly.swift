@@ -27,7 +27,8 @@ final class ViewModelAssembly: Assembly {
                          questDetail: arg2,
                          postQuestUseCase: resolver.resolve(PostQuestUseCaseInterface.self)!,
                          putQuestUseCase: resolver.resolve(PutQuestUseCaseInterface.self)!,
-                         deleteQuestUseCase: resolver.resolve(DeleteQuestUseCaseInterface.self)!)
+                         deleteQuestUseCase: resolver.resolve(DeleteQuestUseCaseInterface.self)!,
+                         imageCache: resolver.resolve(ImageCache.self)!)
         }).inObjectScope(.transient)
         
         
@@ -49,10 +50,11 @@ final class ViewModelAssembly: Assembly {
         
         // MARK: - Image
         container.register(ImageMainViewModel.self, factory: { (
-            resolver: Resolver
+            resolver: Resolver,
+            arg1: ImageMainViewModel.ViewType
         ) -> ImageMainViewModel in
-            return .init(fetchImagesUseCase: resolver.resolve(FetchCachedImagesUseCaseInterface.self)!)
-        }).inObjectScope(.container)
+            return .init(fetchImagesUseCase: resolver.resolve(FetchImagesUseCaseInterface.self)!, type: arg1)
+        }).inObjectScope(.transient)
         
         container.register(
             ImageDetailViewModel.self,

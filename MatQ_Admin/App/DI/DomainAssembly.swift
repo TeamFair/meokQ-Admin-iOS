@@ -25,7 +25,7 @@ final class DomainAssembly: Assembly {
         container.register(PutQuestUseCaseInterface.self, factory: { (
             resolver: Resolver
         ) -> PutQuestUseCase in
-            return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!, imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
+            return .init(questRepository: resolver.resolve(QuestRepositoryInterface.self)!)
         }).inObjectScope(.container)
         
         container.register(DeleteQuestUseCaseInterface.self, factory: { (
@@ -53,9 +53,9 @@ final class DomainAssembly: Assembly {
                          imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
         }).inObjectScope(.container)
         
-        container.register(FetchCachedImagesUseCaseInterface.self, factory: { (
+        container.register(FetchImagesUseCaseInterface.self, factory: { (
             resolver: Resolver
-        ) -> FetchCachedImagesUseCase in
+        ) -> FetchImagesUseCase in
             return .init(imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
         }).inObjectScope(.container)
     }

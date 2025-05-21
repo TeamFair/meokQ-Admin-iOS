@@ -31,22 +31,46 @@ struct ImageDetailView: View {
             VStack(alignment: .leading, spacing: 24) {
                 // 이미지 ID
                 if vm.editedItems.imageId != "" {
-                    TextFieldComponent(
+                    InputFieldComponent(
                         titleName: "이미지 ID",
-                        contentPlaceholder: vm.item.imageId,
-                        content: Binding(
-                            get: { vm.editedItems.imageId ?? "" },
-                            set: { vm.editedItems.imageId = $0 }
+                        inputField: TextFieldComponent(
+                            placeholder: vm.item.imageId,
+                            content: Binding(
+                                get: { vm.editedItems.imageId },
+                                set: { vm.editedItems.imageId = $0 }
+                            )
                         )
                     )
                     .disabled(true)
+                    .overlay(alignment: .trailing) {
+                        Button {
+                            copyToClipboard(text: vm.editedItems.imageId)
+                        } label: {
+                            Text("복사")
+                                .font(.caption)
+                                .padding(.top, 20)
+                                .padding(.trailing, 16)
+                                .foregroundStyle(.primaryPurple)
+                        }
+                    }
                 }
                 
                 // 이미지
                 PhotosPicker(selection: $vm.photosPickerItemForMainImage, matching: .any(of: [.images, .screenshots])) {
-                    ImageFieldComponent(titleName: "메인 이미지", uiImage: vm.editedItems.image, imageSize: .large, contentMode: .fit)
+                    ImageFieldComponent(titleName: "이미지", uiImage: vm.editedItems.image, imageSize: .large, contentMode: .fit)
                 }
                 .disabled(vm.viewType == .edit)
+                
+                if vm.viewType == .edit {
+                    Button {
+                        copyToClipboard(text: vm.editedItems.imageId)
+                        vm.showQuestMainView = true
+                    } label: {
+                        Text("사용된 퀘스트 찾기 >")
+                            .font(.caption)
+                            .foregroundStyle(.primaryPurple)
+                    }
+                }
                 
                 Spacer()
             }
@@ -67,6 +91,9 @@ struct ImageDetailView: View {
                     .padding(.bottom, 8)
                 }
             }
+            .sheet(isPresented: $vm.showQuestMainView) {
+                router.buildScene(path: .QuestMainView)
+            }
             .alert(isPresented: $vm.showAlert) {
                 switch vm.activeAlertType {
                 case .delete:
@@ -75,9 +102,7 @@ struct ImageDetailView: View {
                         message: Text("이미지를 복구할 수 없습니다."),
                         primaryButton: .cancel(Text("취소")),
                         secondaryButton: .destructive(Text("삭제")) {
-                            if let imageId = vm.editedItems.imageId {
-                                vm.deleteImage(imageId: imageId)
-                            }
+                            vm.deleteImage(imageId: vm.editedItems.imageId)
                         }
                     )
                 case .result:

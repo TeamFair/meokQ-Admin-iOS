@@ -13,6 +13,17 @@ struct GetImageRequest: Encodable {
     let imageId: String
 }
 
+// MARK: - 이미지 목록 조회
+/// BUSINESS_REGISTRATION_CERTIFICATE, ID_CARD, MARKET_LOGO, RECEIPT, QUEST_IMAGE, BANNER_IMAGE, USER_PROFILE_IMAGE
+struct GetImageIdsRequest: Encodable {
+    let type: String
+}
+
+typealias GetImageIdsResponse = Response<[GetImageIdsResponseData]>
+struct GetImageIdsResponseData: Decodable {
+    let imageId: String
+}
+    
 // MARK: - 이미지 등록
 struct PostImageRequest: Encodable {
     let type: ImageType = ImageType()

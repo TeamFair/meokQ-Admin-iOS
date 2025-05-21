@@ -31,7 +31,7 @@ struct MainView: View {
                         Label("관리", systemImage: "tray.full.fill")
                     }
                     .tag(Tab.manage)
-                coordinator.buildInitialScene(path: .ImageMainView)
+                coordinator.buildInitialScene(path: .ImageMainView(type: .fetchingList))
                     .tabItem {
                         Label("이미지", systemImage: "photo.on.rectangle.angled")
                     }

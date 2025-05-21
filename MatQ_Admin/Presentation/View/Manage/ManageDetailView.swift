@@ -21,7 +21,7 @@ struct ManageDetailView: View {
                 Image(uiImage: vm.item.image ?? .testimage)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: UIImageSize.maxWidth.value, height: 400)
+                    .frame(width: UIImageSize.maxWidth.value-40, height: 400)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .shadow(color: .gray200.opacity(0.2), radius: 8)
                     .background(alignment: .bottom, content: {
@@ -51,7 +51,7 @@ struct ManageDetailView: View {
                 } label: {
                     Text("철회")
                 }
-                .ilsangButtonStyle(type: .secondary)
+                .ilsangButtonStyle(type: .tertiary)
                 Button {
                     vm.activeAlertType = .delete
                     vm.showAlert = true

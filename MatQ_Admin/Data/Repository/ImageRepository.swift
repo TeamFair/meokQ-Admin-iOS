@@ -21,14 +21,22 @@ final class ImageRepository: ImageRepositoryInterface {
     
     func postImage(image: UIImage) -> AnyPublisher<String, NetworkError> {
         let resizedImage = self.resizeImageIfNeeded(image)
-        let compressionQualities: [CGFloat] = [0.4, 0.2, 0.05, 0.002]
+        let compressionQualities: [CGFloat] = [0.8, 0.6, 0.4, 0.3, 0.2, 0.1, 0.05, 0.02, 0.002]
 
-        return compressionQualities.publisher
-            .flatMap { quality in
-                self.uploadCompressedImage(resizedImage, quality: quality)
+        /// 재귀적으로 시도하며 성공 시 종료
+        func attemptUpload(qualities: [CGFloat]) -> AnyPublisher<String, NetworkError> {
+            guard let quality = qualities.first else {
+                return Fail(error: NetworkError.invalidImageData).eraseToAnyPublisher()
             }
-            .first() // 첫 번째 성공한 업로드 사용
-            .eraseToAnyPublisher()
+
+            return self.uploadCompressedImage(resizedImage, quality: quality)
+                .catch { _ in
+                    attemptUpload(qualities: Array(qualities.dropFirst()))
+                }
+                .eraseToAnyPublisher()
+        }
+
+        return attemptUpload(qualities: compressionQualities)
     }
     
     func deleteImage(request: DeleteImageRequest) -> AnyPublisher<String, NetworkError> {
@@ -37,10 +45,18 @@ final class ImageRepository: ImageRepositoryInterface {
     
     /// 이미지 리사이즈 처리
     private func resizeImageIfNeeded(_ image: UIImage) -> UIImage {
-        guard image.size.width > 1500 || image.size.height > 1500 else { return image }
-        print("RESIZE IMAGE \(image.size.width) \(image.size.height)")
+        let maxSize: CGFloat = 900
+        let highThreshold: CGFloat = 3000
         
-        return image.downSample(scale: 0.5) ?? image
+        let width = image.size.width
+        let height = image.size.height
+        
+        guard width > maxSize || height > maxSize else { return image } // 리사이징 필요 없음
+        
+        let scale: CGFloat = (width > highThreshold || height > highThreshold) ? 0.32 : 0.5
+        print("RESIZE IMAGE  scale: \(scale)  width: \(width)  height: \(height)")
+        
+        return image.downSample(scale: scale) ?? image
     }
     
     /// 이미지 압축 및 업로드
@@ -57,5 +73,10 @@ final class ImageRepository: ImageRepositoryInterface {
     
     func getCachedImages() -> AnyPublisher<[(String, UIImage)], Never> {
         imageDataSource.getCachedImages()
+    }
+
+    func getImageIds(request: GetImageIdsRequest) -> AnyPublisher<[String], NetworkError> {
+        imageDataSource.getImageIds(request: request)
+            .eraseToAnyPublisher()
     }
 }
