@@ -60,7 +60,7 @@ final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOu
         
         getChallengeUseCase.execute(page: page)
             .receive(on: DispatchQueue.main)
-            .mapError { [weak self] error -> Error in
+            .mapError { [weak self] error -> NetworkError in
                 self?.handleError(error)
                 return error
             }
@@ -81,8 +81,8 @@ final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOu
             .store(in: &cancellables)
     }
     
-    private func handleError(_ error: Error) {
-        errorSubject.send(error.localizedDescription)
+    private func handleError(_ error: NetworkError) {
+        errorSubject.send(error.message)
         viewState = .empty
     }
 }

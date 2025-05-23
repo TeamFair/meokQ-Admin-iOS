@@ -43,6 +43,24 @@ final class ViewAssembly: Assembly {
         }).inObjectScope(.transient)
         
         
+        // MARK: - Banner View
+        
+        container.register(BannerMainView.self, factory: { (
+            resolver: Resolver
+        ) -> BannerMainView in
+            return .init(vm: resolver.resolve(BannerMainViewModel.self)!)
+        }).inObjectScope(.container)
+        
+        
+        container.register(BannerDetailView.self, factory: { (
+            resolver: Resolver,
+            arg1: BannerDetailViewModel.ViewType,
+            arg2: Banner
+        ) -> BannerDetailView in
+            return .init(vm: resolver.resolve(BannerDetailViewModel.self, arguments: arg1, arg2)!)
+        }).inObjectScope(.transient)
+        
+        
         // MARK: - Image View
         
         container.register(ImageMainView.self, factory: { (
@@ -50,7 +68,7 @@ final class ViewAssembly: Assembly {
             arg1: ImageMainViewModel.ViewType
         ) -> ImageMainView in
             return .init(vm: resolver.resolve(ImageMainViewModel.self, argument: arg1)!)
-        }).inObjectScope(.container)
+        }).inObjectScope(.transient)
         
         container.register(ImageDetailView.self, factory: { (
             resolver: Resolver,

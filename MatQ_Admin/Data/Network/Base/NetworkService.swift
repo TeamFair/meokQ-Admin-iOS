@@ -26,20 +26,30 @@ class NetworkService: NetworkServiceInterface {
             .publishData(emptyResponseCodes: [200, 204, 205])
             .tryMap { result -> T in
                 if let error = result.error {
-                    if let errorData = result.data {
-                        let value: ErrorResponse = try self.decode(from: errorData)
-                        print("NetworkService - 응답 에러, 디코딩 결과: \(value)")
-                        throw NetworkError.error((result.response?.statusCode ?? 0, value.status, value.errMessage))
+                    if let data = result.data {
+                        let errorResponse: ErrorResponse
+                        do {
+                            errorResponse = try self.decode(from: data)
+                            print("NetworkService - 응답 실패, 에러 디코딩 결과: \(errorResponse)")
+                        } catch {
+                            throw NetworkError.decodingError(error)
+                        }
+                        
+                        throw NetworkError.error((
+                            result.response?.statusCode ?? 0,
+                            errorResponse.status,
+                            errorResponse.errMessage
+                        ))
                     } else {
                         print("NetworkService - 응답 에러: \(error)")
-                        throw error
+                        throw NetworkError.unknownError
                     }
                 }
                 
                 if let data = result.data {
                     let value: T = try self.decode(from: data)
                     if T.self != ResponseWithPage<[GetQuestResponseData]>.self {
-                            print("Response: \(value)")
+                        print("Response: \(value)")
                     }
                     return value
                 } else {
@@ -63,7 +73,7 @@ class NetworkService: NetworkServiceInterface {
             .publishData()
             .tryMap { response in
                 guard let data = response.data, let image = UIImage(data: data) else {
-                    throw NetworkError.decodingError
+                    throw NetworkError.invalidImageData
                 }
                 return image
             }
@@ -85,15 +95,18 @@ class NetworkService: NetworkServiceInterface {
 
 extension NetworkService {
     func logRequestURL(target: URLRequestConvertible) {
-        #if DEBUG
+#if DEBUG
         let urlRequest = try? target.asURLRequest()
         print("Request URL: \(urlRequest?.url?.absoluteString ?? "No URL")")
-        #endif
+#endif
     }
     
     func decode<T: Decodable>(from data: Data) throws -> T {
-        let decoder = JSONDecoder()
-        let decodedResponse = try decoder.decode(T.self, from: data)
-        return decodedResponse
+        do {
+            return try JSONDecoder().decode(T.self, from: data)
+        } catch {
+            print("NetworkService - 응답 실패, 에러 디코딩 실패: \(String(data: data, encoding: .utf8) ?? "N/A") \(error)")
+            throw error
+        }
     }
 }

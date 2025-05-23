@@ -29,10 +29,10 @@ struct ChallengeDataSource: ChallengeDataSourceInterface {
     }
     
     func patchChallenge(request: PatchChallengeRequest) -> AnyPublisher<PatchChallengeResponse, NetworkError> {
-        networkService.request(ChallengeTarget.patchChallenge(request), as: PostQuestResponse.self)
+        networkService.request(ChallengeTarget.patchChallenge(request), as: PatchChallengeResponse.self)
     }
 
     func deleteChallenge(request: DeleteChallengeRequest) -> AnyPublisher<DeleteChallengeResponse, NetworkError> {
-        networkService.request(ChallengeTarget.deleteChallenge(request), as: DeleteQuestResponse.self)
+        networkService.request(ChallengeTarget.deleteChallenge(request), as: DeleteChallengeResponse.self)
     }
 }
