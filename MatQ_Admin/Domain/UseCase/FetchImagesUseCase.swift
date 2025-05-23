@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 protocol FetchImagesUseCaseInterface {
-    func execute() -> AnyPublisher<[(imageId: String, image: UIImage)], NetworkError>
+    func execute(type: ImageType) -> AnyPublisher<[(imageId: String, image: UIImage)], NetworkError>
 }
 
 class FetchImagesUseCase: FetchImagesUseCaseInterface {
@@ -19,10 +19,9 @@ class FetchImagesUseCase: FetchImagesUseCaseInterface {
         self.imageRepository = imageRepository
     }
     
-    func execute() -> AnyPublisher<[(imageId: String, image: UIImage)], NetworkError> {
+    func execute(type: ImageType) -> AnyPublisher<[(imageId: String, image: UIImage)], NetworkError> {
         // BUSINESS_REGISTRATION_CERTIFICATE, ID_CARD, MARKET_LOGO, RECEIPT, QUEST_IMAGE, BANNER_IMAGE, USER_PROFILE_IMAGE
-        let type = "QUEST_IMAGE"
-        let imageIdsRequest = GetImageIdsRequest(type: type)
+        let imageIdsRequest = GetImageIdsRequest(type: type.rawValue)
         
         return imageRepository.getImageIds(request: imageIdsRequest)
             .flatMap { imageIds in

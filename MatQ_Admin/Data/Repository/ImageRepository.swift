@@ -19,9 +19,9 @@ final class ImageRepository: ImageRepositoryInterface {
         imageDataSource.getImage(request: request)
     }
     
-    func postImage(image: UIImage) -> AnyPublisher<String, NetworkError> {
+    func postImage(image: UIImage, type: ImageType) -> AnyPublisher<String, NetworkError> {
         let resizedImage = self.resizeImageIfNeeded(image)
-        let compressionQualities: [CGFloat] = [0.8, 0.6, 0.4, 0.3, 0.2, 0.1, 0.05, 0.02, 0.002]
+        let compressionQualities: [CGFloat] = [0.8, 0.6, 0.4, 0.3, 0.2, 0.1]
 
         /// 재귀적으로 시도하며 성공 시 종료
         func attemptUpload(qualities: [CGFloat]) -> AnyPublisher<String, NetworkError> {
@@ -29,7 +29,7 @@ final class ImageRepository: ImageRepositoryInterface {
                 return Fail(error: NetworkError.invalidImageData).eraseToAnyPublisher()
             }
 
-            return self.uploadCompressedImage(resizedImage, quality: quality)
+            return self.uploadCompressedImage(resizedImage, type: type, quality: quality)
                 .catch { _ in
                     attemptUpload(qualities: Array(qualities.dropFirst()))
                 }
@@ -60,12 +60,12 @@ final class ImageRepository: ImageRepositoryInterface {
     }
     
     /// 이미지 압축 및 업로드
-    private func uploadCompressedImage(_ image: UIImage, quality: CGFloat) -> AnyPublisher<String, NetworkError> {
+    private func uploadCompressedImage(_ image: UIImage, type: ImageType, quality: CGFloat) -> AnyPublisher<String, NetworkError> {
         guard let imageData = image.jpegData(compressionQuality: quality) else {
             return Fail(error: NetworkError.invalidImageData).eraseToAnyPublisher()
         }
         
-        let request = PostImageRequest(data: imageData)
+        let request = PostImageRequest(type: type.rawValue, data: imageData)
         return imageDataSource.postImage(request: request)
             .mapError { _ in NetworkError.serverError }
             .eraseToAnyPublisher()

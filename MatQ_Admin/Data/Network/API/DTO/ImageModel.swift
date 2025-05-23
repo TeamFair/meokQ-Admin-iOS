@@ -26,11 +26,16 @@ struct GetImageIdsResponseData: Decodable {
     
 // MARK: - 이미지 등록
 struct PostImageRequest: Encodable {
-    let type: ImageType = ImageType()
+    let type: ImageRequestType
     let data: Data
     
-    struct ImageType: Encodable {
-        let type: String = "QUEST_IMAGE"
+    init(type: String, data: Data) {
+        self.type = ImageRequestType(type: type)
+        self.data = data
+    }
+    
+    struct ImageRequestType: Encodable {
+        let type: String
     }
 }
 

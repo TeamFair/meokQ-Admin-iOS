@@ -87,11 +87,13 @@ final class ViewModelAssembly: Assembly {
             factory: { (
                 resolver: Resolver,
                 arg1: ImageDetailViewModel.ViewType,
-                arg2: ImageMainViewModelItem
+                arg2: ImageType,
+                arg3: ImageMainViewModelItem
             ) -> ImageDetailViewModel in
                 return .init(
                     viewType: arg1,
-                    imageItem: arg2,
+                    imageType: arg2,
+                    imageItem: arg3,
                     imageRepository: resolver.resolve(ImageRepositoryInterface.self)!
                 )
             }).inObjectScope(.transient)

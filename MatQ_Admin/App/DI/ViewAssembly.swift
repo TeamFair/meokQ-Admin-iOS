@@ -73,9 +73,10 @@ final class ViewAssembly: Assembly {
         container.register(ImageDetailView.self, factory: { (
             resolver: Resolver,
             arg1: ImageDetailViewModel.ViewType,
-            arg2: ImageMainViewModelItem
+            arg2: ImageType,
+            arg3: ImageMainViewModelItem
         ) -> ImageDetailView in
-            return .init(vm: resolver.resolve(ImageDetailViewModel.self, arguments: arg1, arg2)!)
+            return .init(vm: resolver.resolve(ImageDetailViewModel.self, arguments: arg1, arg2, arg3)!)
         }).inObjectScope(.transient)
     }
 }

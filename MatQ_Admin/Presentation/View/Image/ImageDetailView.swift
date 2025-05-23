@@ -34,7 +34,7 @@ struct ImageDetailView: View {
                     InputFieldComponent(
                         titleName: "이미지 ID",
                         inputField: TextFieldComponent(
-                            placeholder: vm.item.imageId,
+                            placeholder: vm.editedItems.imageId,
                             content: Binding(
                                 get: { vm.editedItems.imageId },
                                 set: { vm.editedItems.imageId = $0 }
@@ -61,6 +61,17 @@ struct ImageDetailView: View {
                 }
                 .disabled(vm.viewType == .edit)
                 
+                // 이미지 타입
+                SegmentComponent(
+                    content: $vm.selectedImageType,
+                    list: ImageType.allCases
+                )
+                .disabled(vm.viewType == .edit)
+                .background(Color.white)
+                .onChange(of: vm.selectedImageType) { _, newValue in
+                    vm.handleChange(type: newValue)
+                }
+                
                 if vm.viewType == .edit {
                     Button {
                         copyToClipboard(text: vm.editedItems.imageId)
@@ -80,7 +91,7 @@ struct ImageDetailView: View {
                 if vm.viewType == .publish {
                     Button {
                         if let image = vm.editedItems.image {
-                            vm.postImage(image: image)
+                            vm.postImage(image: image, type: vm.selectedImageType)
                         }
                     } label: {
                         Text(vm.viewType.buttonTitle)

@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 final class QuestDetailViewModel: ObservableObject {
-    enum ViewType {
+    enum ViewType: Hashable {
         case publish
         case edit
         

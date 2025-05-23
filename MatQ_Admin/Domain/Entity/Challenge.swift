@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Challenge {
+struct Challenge: Hashable {
     let challengeId: String
     let userNickName: String
     let challengeTitle: String

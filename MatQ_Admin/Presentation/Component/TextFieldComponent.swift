@@ -83,6 +83,36 @@ struct SegmentComponent<T: Identifiable & Hashable & StringValue & Equatable>: V
     }
 }
 
+
+struct TabComponent<T: Identifiable & Hashable & StringValue & Equatable>: View {
+    @Binding var content : T
+    let list: [T]
+    
+    var body: some View {
+        HStack {
+            ForEach(list, id: \.self) { item in
+                let isSelected = content == item
+                Button {
+                    content = item
+                } label: {
+                    Text(item.title)
+                        .font(.headline)
+                        .bold(content == item)
+                        .foregroundStyle(isSelected ? .textPrimary : .textSecondary.opacity(0.4))
+                        .padding(.vertical, 10)
+                }
+                .frame(maxWidth: .infinity)
+                .overlay(alignment: .bottom) {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(isSelected ? .primaryPurple : .clear)
+                        .frame(height: 2)
+                }
+            }
+        }
+        .background(Color.clear)
+    }
+}
+
 struct SliderComponent: View {
     let titleName: String
     let contentPlaceholder: Int
@@ -161,6 +191,7 @@ struct ImageFieldComponent: View {
         ImageFieldComponent(titleName: "ImageField", uiImage: (.testimage))
         SliderComponent(titleName: "SliderField", contentPlaceholder: 10, content: .constant(0))
         SegmentComponent(content: .constant(QuestType.normal), list: [QuestType.normal, QuestType.repeat])
+        TabComponent(content: .constant(QuestType.normal), list: [QuestType.normal, QuestType.repeat])
         ToggleComponent(titleName: "ToggleField", isOn: .constant(true))
     }
 }
