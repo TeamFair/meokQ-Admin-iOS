@@ -53,6 +53,31 @@ final class DomainAssembly: Assembly {
                          imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
         }).inObjectScope(.container)
         
+        container.register(GetBannersUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> GetBannersUseCase in
+            return .init(bannerRepository: resolver.resolve(BannerRepositoryInterface.self)!,
+                         imageRepository: resolver.resolve(ImageRepositoryInterface.self)!)
+        }).inObjectScope(.container)
+        
+        container.register(PostBannerUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> PostBannerUseCase in
+            return .init(bannerRepository: resolver.resolve(BannerRepositoryInterface.self)!)
+        }).inObjectScope(.container)
+        
+        container.register(PutBannerUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> PutBannerUseCase in
+            return .init(bannerRepository: resolver.resolve(BannerRepositoryInterface.self)!)
+        }).inObjectScope(.container)
+        
+        container.register(DeleteBannerUseCaseInterface.self, factory: { (
+            resolver: Resolver
+        ) -> DeleteBannerUseCase in
+            return .init(bannerRepository: resolver.resolve(BannerRepositoryInterface.self)!)
+        }).inObjectScope(.container)
+        
         container.register(FetchImagesUseCaseInterface.self, factory: { (
             resolver: Resolver
         ) -> FetchImagesUseCase in

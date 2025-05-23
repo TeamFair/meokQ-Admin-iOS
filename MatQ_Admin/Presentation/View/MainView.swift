@@ -11,6 +11,7 @@ import Swinject
 struct MainView: View {
     enum Tab {
         case quest
+        case banner
         case manage
         case image
     }
@@ -25,6 +26,12 @@ struct MainView: View {
                         Label("퀘스트", systemImage: "checkerboard.rectangle")
                     }
                     .tag(Tab.quest)
+                
+                coordinator.buildInitialScene(path: .BannerMainView)
+                    .tabItem {
+                        Label("배너", systemImage: "megaphone.fill")
+                    }
+                    .tag(Tab.banner)
                 
                 coordinator.buildInitialScene(path: .ManageMainView)
                     .tabItem {

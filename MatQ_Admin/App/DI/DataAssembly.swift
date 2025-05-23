@@ -38,6 +38,11 @@ final class DataAssembly: Assembly {
             return .init(networkService: resolver.resolve(NetworkServiceInterface.self)!)
         }).inObjectScope(.container)
 
+         container.register(BannerDataSourceInterface.self, factory: { (
+            resolver: Resolver
+        ) -> BannerDataSource in
+            return .init(networkService: resolver.resolve(NetworkServiceInterface.self)!)
+        }).inObjectScope(.container)
         
         container.register(ImageDataSourceInterface.self, factory: { (
             resolver: Resolver
@@ -67,6 +72,12 @@ final class DataAssembly: Assembly {
             resolver: Resolver
         ) -> ChallengeRepository in
             return .init(challengeDataSource: resolver.resolve(ChallengeDataSourceInterface.self)!)
+        }).inObjectScope(.container)
+        
+        container.register(BannerRepositoryInterface.self, factory: { (
+            resolver: Resolver
+        ) -> BannerRepository in
+            return .init(bannerDataSource: resolver.resolve(BannerDataSourceInterface.self)!)
         }).inObjectScope(.container)
         
         container.register(ImageRepositoryInterface.self, factory: { (

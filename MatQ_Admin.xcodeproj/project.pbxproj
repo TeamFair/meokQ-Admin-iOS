@@ -12,6 +12,29 @@
 		601048712C652FC20028662D /* UIImage++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601048702C652FC20028662D /* UIImage++.swift */; };
 		6034C29C2DDE2ACE002EE37A /* FetchImagesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C29B2DDE2ACE002EE37A /* FetchImagesUseCase.swift */; };
 		6034C29D2DDE2ACE002EE37A /* FetchImagesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C29B2DDE2ACE002EE37A /* FetchImagesUseCase.swift */; };
+		6034C2A72DDEE95A002EE37A /* GetBannersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2A62DDEE947002EE37A /* GetBannersUseCase.swift */; };
+		6034C2A82DDEE95A002EE37A /* GetBannersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2A62DDEE947002EE37A /* GetBannersUseCase.swift */; };
+		6034C2AA2DDEE9C3002EE37A /* BannerTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2A92DDEE9C3002EE37A /* BannerTarget.swift */; };
+		6034C2AB2DDEE9C3002EE37A /* BannerTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2A92DDEE9C3002EE37A /* BannerTarget.swift */; };
+		6034C2AF2DDEEB2B002EE37A /* BannerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2AC2DDEEB2B002EE37A /* BannerModel.swift */; };
+		6034C2B12DDEEDD5002EE37A /* BannerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2B02DDEEDD0002EE37A /* BannerRepository.swift */; };
+		6034C2B32DDEEDEC002EE37A /* BannerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2B22DDEEDEC002EE37A /* BannerDataSource.swift */; };
+		6034C2B52DDEEFBE002EE37A /* BannerRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2B42DDEEFB2002EE37A /* BannerRepositoryInterface.swift */; };
+		6034C2B62DDEEFBE002EE37A /* BannerRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2B42DDEEFB2002EE37A /* BannerRepositoryInterface.swift */; };
+		6034C2B92DDEF270002EE37A /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2B72DDEF270002EE37A /* Banner.swift */; };
+		6034C2BC2DDEF69A002EE37A /* BannerMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2BB2DDEF697002EE37A /* BannerMainView.swift */; };
+		6034C2BE2DDEF6B3002EE37A /* BannerMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2BD2DDEF6B3002EE37A /* BannerMainViewModel.swift */; };
+		6034C2C02DDEF819002EE37A /* MockBannerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2BF2DDEF819002EE37A /* MockBannerRepository.swift */; };
+		6034C2C12DDEF819002EE37A /* MockBannerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2BF2DDEF819002EE37A /* MockBannerRepository.swift */; };
+		6034C2C32DDEFA8D002EE37A /* BannerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2C22DDEFA8D002EE37A /* BannerItemView.swift */; };
+		6034C2C52DDF1071002EE37A /* PostBannerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2C42DDF1071002EE37A /* PostBannerUseCase.swift */; };
+		6034C2C62DDF1071002EE37A /* PostBannerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2C42DDF1071002EE37A /* PostBannerUseCase.swift */; };
+		6034C2C82DDF14DD002EE37A /* BannerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2C72DDF14DD002EE37A /* BannerDetailView.swift */; };
+		6034C2CA2DDF14E7002EE37A /* BannerDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2C92DDF14E7002EE37A /* BannerDetailViewModel.swift */; };
+		6034C2CC2DDF92EA002EE37A /* PutBannerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2CB2DDF92E9002EE37A /* PutBannerUseCase.swift */; };
+		6034C2CD2DDF92EA002EE37A /* PutBannerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2CB2DDF92E9002EE37A /* PutBannerUseCase.swift */; };
+		6034C2CF2DDF93FF002EE37A /* DeleteBannerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2CE2DDF93FF002EE37A /* DeleteBannerUseCase.swift */; };
+		6034C2D02DDF93FF002EE37A /* DeleteBannerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6034C2CE2DDF93FF002EE37A /* DeleteBannerUseCase.swift */; };
 		603CF4DB2D717CF800A2D19E /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4DA2D717CF800A2D19E /* ImageDetailView.swift */; };
 		603CF4DD2D717ECE00A2D19E /* ImageDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4DC2D717ECE00A2D19E /* ImageDetailViewModel.swift */; };
 		603CF4EB2D79926C00A2D19E /* Binding++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4EA2D79926C00A2D19E /* Binding++.swift */; };
@@ -195,6 +218,22 @@
 		60004FF12C662495009AECF2 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		601048702C652FC20028662D /* UIImage++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage++.swift"; sourceTree = "<group>"; };
 		6034C29B2DDE2ACE002EE37A /* FetchImagesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImagesUseCase.swift; sourceTree = "<group>"; };
+		6034C2A62DDEE947002EE37A /* GetBannersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBannersUseCase.swift; sourceTree = "<group>"; };
+		6034C2A92DDEE9C3002EE37A /* BannerTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTarget.swift; sourceTree = "<group>"; };
+		6034C2AC2DDEEB2B002EE37A /* BannerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerModel.swift; sourceTree = "<group>"; };
+		6034C2B02DDEEDD0002EE37A /* BannerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerRepository.swift; sourceTree = "<group>"; };
+		6034C2B22DDEEDEC002EE37A /* BannerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDataSource.swift; sourceTree = "<group>"; };
+		6034C2B42DDEEFB2002EE37A /* BannerRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerRepositoryInterface.swift; sourceTree = "<group>"; };
+		6034C2B72DDEF270002EE37A /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
+		6034C2BB2DDEF697002EE37A /* BannerMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMainView.swift; sourceTree = "<group>"; };
+		6034C2BD2DDEF6B3002EE37A /* BannerMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMainViewModel.swift; sourceTree = "<group>"; };
+		6034C2BF2DDEF819002EE37A /* MockBannerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBannerRepository.swift; sourceTree = "<group>"; };
+		6034C2C22DDEFA8D002EE37A /* BannerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerItemView.swift; sourceTree = "<group>"; };
+		6034C2C42DDF1071002EE37A /* PostBannerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostBannerUseCase.swift; sourceTree = "<group>"; };
+		6034C2C72DDF14DD002EE37A /* BannerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDetailView.swift; sourceTree = "<group>"; };
+		6034C2C92DDF14E7002EE37A /* BannerDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerDetailViewModel.swift; sourceTree = "<group>"; };
+		6034C2CB2DDF92E9002EE37A /* PutBannerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutBannerUseCase.swift; sourceTree = "<group>"; };
+		6034C2CE2DDF93FF002EE37A /* DeleteBannerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBannerUseCase.swift; sourceTree = "<group>"; };
 		603CF4DA2D717CF800A2D19E /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		603CF4DC2D717ECE00A2D19E /* ImageDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewModel.swift; sourceTree = "<group>"; };
 		603CF4EA2D79926C00A2D19E /* Binding++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding++.swift"; sourceTree = "<group>"; };
@@ -333,6 +372,18 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		6034C2BA2DDEF68D002EE37A /* Banner */ = {
+			isa = PBXGroup;
+			children = (
+				6034C2BB2DDEF697002EE37A /* BannerMainView.swift */,
+				6034C2BD2DDEF6B3002EE37A /* BannerMainViewModel.swift */,
+				6034C2C72DDF14DD002EE37A /* BannerDetailView.swift */,
+				6034C2C92DDF14E7002EE37A /* BannerDetailViewModel.swift */,
+				6034C2C22DDEFA8D002EE37A /* BannerItemView.swift */,
+			);
+			path = Banner;
+			sourceTree = "<group>";
+		};
 		605334602D34194B00599159 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				609428DF2CC9329F00C8D5D6 /* MockQuestRepository.swift */,
+				6034C2BF2DDEF819002EE37A /* MockBannerRepository.swift */,
 				609428E32CC933A800C8D5D6 /* MockImageRepository.swift */,
 				60C0F4382CD1FAD900DB19AB /* MockChallengeRepository.swift */,
 			);
@@ -431,6 +483,7 @@
 				609428DE2CC9328300C8D5D6 /* Mock */,
 				60F27DF82C46039400711A53 /* QuestRepository.swift */,
 				60DB54CC2C73C12600AEDFE9 /* ChallengeRepository.swift */,
+				6034C2B02DDEEDD0002EE37A /* BannerRepository.swift */,
 				60DB54B72C73788900AEDFE9 /* ImageRepository.swift */,
 				60856CE42D1DAADC0048747E /* AuthRepository.swift */,
 			);
@@ -452,6 +505,7 @@
 			children = (
 				608EBF922C3872D700B862CC /* Quest.swift */,
 				60DB54C82C73BD4F00AEDFE9 /* Challenge.swift */,
+				6034C2B72DDEF270002EE37A /* Banner.swift */,
 				603F25712D11C94B00A088E2 /* XpStat.swift */,
 			);
 			path = Entity;
@@ -467,6 +521,10 @@
 				60DB54D02C73C1F900AEDFE9 /* GetChallengeUseCase.swift */,
 				606329922C7483E8000F4513 /* PatchChallengeUseCase.swift */,
 				606329942C748E10000F4513 /* DeleteChallengeUseCase.swift */,
+				6034C2A62DDEE947002EE37A /* GetBannersUseCase.swift */,
+				6034C2C42DDF1071002EE37A /* PostBannerUseCase.swift */,
+				6034C2CB2DDF92E9002EE37A /* PutBannerUseCase.swift */,
+				6034C2CE2DDF93FF002EE37A /* DeleteBannerUseCase.swift */,
 				6034C29B2DDE2ACE002EE37A /* FetchImagesUseCase.swift */,
 			);
 			path = UseCase;
@@ -487,6 +545,7 @@
 				60F27DF22C45FD0E00711A53 /* QuestDataSource.swift */,
 				60DB54C42C73BBD600AEDFE9 /* ChallengeDataSource.swift */,
 				60E696BE2B9A1FC1009DD235 /* ImageDataSource.swift */,
+				6034C2B22DDEEDEC002EE37A /* BannerDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -520,6 +579,7 @@
 				60DB54C62C73BC4D00AEDFE9 /* ChallengeModel.swift */,
 				60E696BA2B9A1BFE009DD235 /* ImageModel.swift */,
 				60856CE22D1DA9C50048747E /* AuthModel.swift */,
+				6034C2AC2DDEEB2B002EE37A /* BannerModel.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -542,6 +602,7 @@
 				60F27DF62C46031A00711A53 /* QuestRepositoryInterface.swift */,
 				60DB54CE2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift */,
 				60DB54B42C73763F00AEDFE9 /* ImageRepositoryInterface.swift */,
+				6034C2B42DDEEFB2002EE37A /* BannerRepositoryInterface.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -564,6 +625,7 @@
 			children = (
 				60E696BC2B9A1ED4009DD235 /* ImageTarget.swift */,
 				60856CE02D1DA9A90048747E /* AuthTarget.swift */,
+				6034C2A92DDEE9C3002EE37A /* BannerTarget.swift */,
 				60F27DF02C45FADC00711A53 /* QuestTarget.swift */,
 				60DB54CA2C73BF5500AEDFE9 /* ChallengeTarget.swift */,
 			);
@@ -667,6 +729,7 @@
 			children = (
 				E5DD825B2B34DCCA00A026C2 /* MainView.swift */,
 				608EBF8B2C38715500B862CC /* Quest */,
+				6034C2BA2DDEF68D002EE37A /* Banner */,
 				60DB54B92C7384B400AEDFE9 /* Manage */,
 				607558812D3554CD0001CF03 /* Image */,
 			);
@@ -844,16 +907,21 @@
 				6094290A2CC95D1000C8D5D6 /* NetworkService.swift in Sources */,
 				6094290D2CC95D1700C8D5D6 /* ImageTarget.swift in Sources */,
 				6094290B2CC95D1200C8D5D6 /* ChallengeTarget.swift in Sources */,
+				6034C2B62DDEEFBE002EE37A /* BannerRepositoryInterface.swift in Sources */,
+				6034C2C62DDF1071002EE37A /* PostBannerUseCase.swift in Sources */,
 				60C0F43A2CD1FB8C00DB19AB /* MockChallengeRepository.swift in Sources */,
 				60A766E62D1DBC0C00928824 /* AuthTarget.swift in Sources */,
 				609428E92CC9361400C8D5D6 /* Quest.swift in Sources */,
 				6094290E2CC95DC600C8D5D6 /* GetChallengeUseCase.swift in Sources */,
 				609428FC2CC9390300C8D5D6 /* Bundle++.swift in Sources */,
+				6034C2A72DDEE95A002EE37A /* GetBannersUseCase.swift in Sources */,
 				609429092CC95D0E00C8D5D6 /* CommonResponse.swift in Sources */,
 				60C0F43B2CD1FBC600DB19AB /* DeleteChallengeUseCase.swift in Sources */,
 				609428F42CC936AD00C8D5D6 /* PostQuestUseCase.swift in Sources */,
 				609429012CC93A7600C8D5D6 /* ImageModel.swift in Sources */,
 				609428E82CC935A600C8D5D6 /* NetworkError.swift in Sources */,
+				6034C2CC2DDF92EA002EE37A /* PutBannerUseCase.swift in Sources */,
+				6034C2AB2DDEE9C3002EE37A /* BannerTarget.swift in Sources */,
 				6034C29D2DDE2ACE002EE37A /* FetchImagesUseCase.swift in Sources */,
 				609428E52CC9341E00C8D5D6 /* MockImageRepository.swift in Sources */,
 				609428F92CC938DA00C8D5D6 /* TargetType.swift in Sources */,
@@ -862,9 +930,11 @@
 				60C0F4372CD1FA6500DB19AB /* DeleteChallengeUseCaseTests.swift in Sources */,
 				60C0F4342CD1413700DB19AB /* QuestRepositoryInterface.swift in Sources */,
 				6094290C2CC95D1400C8D5D6 /* QuestTarget.swift in Sources */,
+				6034C2D02DDF93FF002EE37A /* DeleteBannerUseCase.swift in Sources */,
 				60C0F4352CD1415F00DB19AB /* UIImage++.swift in Sources */,
 				609428EC2CC9363900C8D5D6 /* ImageRepositoryInterface.swift in Sources */,
 				609428FE2CC939B700C8D5D6 /* PutQuestUseCaseTests.swift in Sources */,
+				6034C2C02DDEF819002EE37A /* MockBannerRepository.swift in Sources */,
 				609428FF2CC93A5500C8D5D6 /* Challenge.swift in Sources */,
 				609428EE2CC9365000C8D5D6 /* ChallengeModel.swift in Sources */,
 				60A766E52D1DBC0100928824 /* AuthModel.swift in Sources */,
@@ -904,14 +974,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6034C2C82DDF14DD002EE37A /* BannerDetailView.swift in Sources */,
+				6034C2BE2DDEF6B3002EE37A /* BannerMainViewModel.swift in Sources */,
 				608EBF9B2C393C2600B862CC /* Button.swift in Sources */,
 				60F27DF32C45FD0E00711A53 /* QuestDataSource.swift in Sources */,
 				E5DD82742B3509A700A026C2 /* PopupComponent.swift in Sources */,
 				608EBF8F2C38716900B862CC /* QuestDetailView.swift in Sources */,
 				606329932C7483E8000F4513 /* PatchChallengeUseCase.swift in Sources */,
+				6034C2CA2DDF14E7002EE37A /* BannerDetailViewModel.swift in Sources */,
+				6034C2B12DDEEDD5002EE37A /* BannerRepository.swift in Sources */,
 				60C0F4392CD1FAD900DB19AB /* MockChallengeRepository.swift in Sources */,
 				60DB54C12C7393DB00AEDFE9 /* ManageDetailView.swift in Sources */,
 				60E696B12B98958C009DD235 /* ButtonLabelComponent.swift in Sources */,
+				6034C2C52DDF1071002EE37A /* PostBannerUseCase.swift in Sources */,
+				6034C2CD2DDF92EA002EE37A /* PutBannerUseCase.swift in Sources */,
 				60F27DF12C45FADC00711A53 /* QuestTarget.swift in Sources */,
 				60DB54C72C73BC4D00AEDFE9 /* ChallengeModel.swift in Sources */,
 				6034C29C2DDE2ACE002EE37A /* FetchImagesUseCase.swift in Sources */,
@@ -920,6 +996,7 @@
 				E5DD827B2B350A9E00A026C2 /* NavigationStackRouter.swift in Sources */,
 				603F25722D11C94B00A088E2 /* XpStat.swift in Sources */,
 				60F27DFD2C461B2B00711A53 /* DeleteQuestUseCase.swift in Sources */,
+				6034C2B32DDEEDEC002EE37A /* BannerDataSource.swift in Sources */,
 				608EBF972C390C5200B862CC /* QuestDetailViewModel.swift in Sources */,
 				608EBF952C38758100B862CC /* QuestItemView.swift in Sources */,
 				6073BEC22CA31C3000072FF9 /* String++.swift in Sources */,
@@ -945,6 +1022,7 @@
 				60DA570E2B94132E00EDAF30 /* Endpoint.swift in Sources */,
 				606329952C748E10000F4513 /* DeleteChallengeUseCase.swift in Sources */,
 				60E696A92B97BEAE009DD235 /* DependencyInjector.swift in Sources */,
+				6034C2CF2DDF93FF002EE37A /* DeleteBannerUseCase.swift in Sources */,
 				60DA57132B94152000EDAF30 /* HttpHeaderField.swift in Sources */,
 				60DA57102B94147C00EDAF30 /* TargetType.swift in Sources */,
 				603F25702D119D4E00A088E2 /* SearchTextField.swift in Sources */,
@@ -961,27 +1039,35 @@
 				60DB54BF2C73876600AEDFE9 /* ManageListItemView.swift in Sources */,
 				60DB54C32C73940100AEDFE9 /* ManageDetailViewModel.swift in Sources */,
 				60E696BD2B9A1ED4009DD235 /* ImageTarget.swift in Sources */,
+				6034C2AF2DDEEB2B002EE37A /* BannerModel.swift in Sources */,
 				60E696BF2B9A1FC1009DD235 /* ImageDataSource.swift in Sources */,
+				6034C2B52DDEEFBE002EE37A /* BannerRepositoryInterface.swift in Sources */,
 				605334592D30164000599159 /* KeychainHelper.swift in Sources */,
+				6034C2BC2DDEF69A002EE37A /* BannerMainView.swift in Sources */,
 				608EBF992C39166F00B862CC /* TextFieldComponent.swift in Sources */,
 				60F27DF52C4602DD00711A53 /* GetQuestUseCase.swift in Sources */,
 				60DB54C52C73BBD600AEDFE9 /* ChallengeDataSource.swift in Sources */,
 				60DB54CF2C73C15200AEDFE9 /* ChallengeRepositoryInterface.swift in Sources */,
+				6034C2C12DDEF819002EE37A /* MockBannerRepository.swift in Sources */,
 				603CF4EB2D79926C00A2D19E /* Binding++.swift in Sources */,
 				608EBF8A2C38709800B862CC /* AppInject.swift in Sources */,
 				60856CE52D1DAADC0048747E /* AuthRepository.swift in Sources */,
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
+				6034C2C32DDEFA8D002EE37A /* BannerItemView.swift in Sources */,
 				60DB54B82C73788900AEDFE9 /* ImageRepository.swift in Sources */,
 				60DB54BD2C73852900AEDFE9 /* ManageMainViewModel.swift in Sources */,
 				607558852D3554FE0001CF03 /* ImageMainViewModel.swift in Sources */,
 				607558832D3554E50001CF03 /* ImageMainView.swift in Sources */,
 				60F27DF92C46039400711A53 /* QuestRepository.swift in Sources */,
 				60DB54CB2C73BF5500AEDFE9 /* ChallengeTarget.swift in Sources */,
+				6034C2AA2DDEE9C3002EE37A /* BannerTarget.swift in Sources */,
 				60E696BB2B9A1BFE009DD235 /* ImageModel.swift in Sources */,
 				60E696AD2B97CC88009DD235 /* DataAssembly.swift in Sources */,
 				609428E02CC9329F00C8D5D6 /* MockQuestRepository.swift in Sources */,
+				6034C2B92DDEF270002EE37A /* Banner.swift in Sources */,
 				E5DD827F2B350D7200A026C2 /* NavigationBarComponent.swift in Sources */,
+				6034C2A82DDEE95A002EE37A /* GetBannersUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

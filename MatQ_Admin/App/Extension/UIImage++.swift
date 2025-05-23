@@ -39,6 +39,7 @@ extension UIImage {
 
 enum UIImageSize {
     case small
+    case regular
     case medium
     case large
     case maxWidth
@@ -48,6 +49,8 @@ enum UIImageSize {
         switch self {
         case .small:
             return 48
+        case .regular:
+            return 88
         case .medium:
             return 160
         case .large:
