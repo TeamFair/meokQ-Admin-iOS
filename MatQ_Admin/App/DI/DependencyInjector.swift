@@ -18,6 +18,7 @@ public protocol DependencyResolvable {
     func resolve<T>(_ serviceType: T.Type) -> T
     func resolve<T, Arg>(_ serviceType: T.Type, argument: Arg) -> T
     func resolve<T, Arg1, Arg2>(_ serviceType: T.Type, argument1: Arg1, argument2: Arg2) -> T
+    func resolve<T, Arg1, Arg2, Arg3>(_ serviceType: T.Type, argument1: Arg1, argument2: Arg2, argument3: Arg3) -> T
 }
 
 /// Injector 타입은 DependencyAssemblable, DependencyResolvable 프로토콜을 따름
@@ -51,5 +52,9 @@ public final class DependencyInjector: Injector {
     
     public func resolve<T, Arg1, Arg2>(_ serviceType: T.Type, argument1: Arg1, argument2: Arg2) -> T {
         container.resolve(serviceType, arguments: argument1, argument2)!
+    }
+    
+    public func resolve<T, Arg1, Arg2, Arg3>(_ serviceType: T.Type, argument1: Arg1, argument2: Arg2, argument3: Arg3) -> T {
+        container.resolve(serviceType, arguments: argument1, argument2, argument3)!
     }
 }

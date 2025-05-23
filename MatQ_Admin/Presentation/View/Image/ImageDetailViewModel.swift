@@ -13,9 +13,9 @@ import _PhotosUI_SwiftUI
 final class ImageDetailViewModel: ObservableObject {
     // 타입 >> 이미지 정보 조회, 이미지 등록
     let viewType: ViewType
+    let imageType: ImageType
     
     // 아이템
-    let item: ImageMainViewModelItem
     @Published var editedItems: ImageMainViewModelItem
     
     // 이미지 추가&삭제 Alert 관련
@@ -24,6 +24,7 @@ final class ImageDetailViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var activeAlertType: ActiveAlertType?
     @Published var showQuestMainView: Bool = false
+    @Published var selectedImageType: ImageType
     
     @Published var photosPickerItemForMainImage: PhotosPickerItem?
     
@@ -32,11 +33,13 @@ final class ImageDetailViewModel: ObservableObject {
     
     init(
         viewType: ViewType,
+        imageType: ImageType,
         imageItem: ImageMainViewModelItem,
         imageRepository: ImageRepositoryInterface
     ) {
         self.viewType = viewType
-        self.item = imageItem
+        self.imageType = imageType
+        self.selectedImageType = imageType
         self.editedItems = imageItem
         self.imageRepository = imageRepository
         
@@ -65,8 +68,8 @@ final class ImageDetailViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    func postImage(image: UIImage) {
-        imageRepository.postImage(image: image)
+    func postImage(image: UIImage, type: ImageType) {
+        imageRepository.postImage(image: image, type: type)
             .flatMap { [weak self] imageId -> AnyPublisher<(UIImage, String), Never> in
                 guard let self = self else { return Just((UIImage(), imageId)).eraseToAnyPublisher() }
                 // 이미지 등록 후, 해당 이미지 ID로 이미지를 조회
@@ -115,6 +118,10 @@ final class ImageDetailViewModel: ObservableObject {
                 Just(UIImage()) // 실패한 경우 빈 이미지 반환
             }
             .eraseToAnyPublisher()
+    }
+    
+    func handleChange(type: ImageType) {
+        self.selectedImageType = type
     }
 }
 

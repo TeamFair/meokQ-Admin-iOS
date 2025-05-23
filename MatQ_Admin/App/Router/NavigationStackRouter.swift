@@ -58,11 +58,10 @@ public class NavigationStackCoordinator: ObservableObject {
             injector?.resolve(ManageDetailView.self, argument: challenge)
         case .ImageMainView(let type):
             injector?.resolve(ImageMainView.self, argument: type)
-        case .ImageDetailView(let type, let imageItem):
-            injector?.resolve(ImageDetailView.self, argument1: type, argument2: imageItem)
+        case .ImageDetailView(let type, let imageType, let imageItem):
+            injector?.resolve(ImageDetailView.self, argument1: type, argument2: imageType, argument3: imageItem)
         }
     }
-    
 }
 
 enum Path: Hashable {
@@ -80,7 +79,7 @@ enum Path: Hashable {
     
     //Image
     case ImageMainView(type: ImageMainViewModel.ViewType)
-    case ImageDetailView(type: ImageDetailViewModel.ViewType, imageItem: ImageMainViewModelItem)
+    case ImageDetailView(type: ImageDetailViewModel.ViewType, imageType: ImageType, imageItem: ImageMainViewModelItem)
     
     func hash(into hasher: inout Hasher) {
         switch self {

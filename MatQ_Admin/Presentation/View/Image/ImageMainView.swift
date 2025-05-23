@@ -26,6 +26,8 @@ struct ImageMainView: View {
             NavigationBarComponent(navigationTitle: "이미지", isNotRoot: false)
                 .zIndex(3)
             
+            imageTypeView
+            
             switch vm.viewState {
             case .empty:
                 listEmptyView
@@ -38,7 +40,7 @@ struct ImageMainView: View {
         .safeAreaInset(edge: .bottom) {
             if vm.viewType == .fetchingList {
                 Button {
-                    router.push(.ImageDetailView(type: .publish, imageItem: ImageMainViewModelItem()))
+                    router.push(.ImageDetailView(type: .publish, imageType: vm.selectedImageType, imageItem: ImageMainViewModelItem()))
                 } label: {
                     Text("이미지 등록")
                 }
@@ -53,13 +55,24 @@ struct ImageMainView: View {
         }
     }
     
+    private var imageTypeView: some View {
+        TabComponent(
+            content: $vm.selectedImageType,
+            list: ImageType.allCases
+        )
+        .background(Color.white)
+        .onChange(of: vm.selectedImageType) { _, newValue in
+            vm.handleChange(type: newValue)
+        }
+    }
+    
     private var listEmptyView: some View {
         VStack {
             Text("불러올 이미지가 없어요!")
                 .font(.callout)
                 .foregroundStyle(.textSecondary)
             Button {
-                vm.loadImages()
+                vm.loadImages(type: vm.selectedImageType)
             } label: {
                 Text("재시도")
             }
@@ -70,11 +83,11 @@ struct ImageMainView: View {
     private var imageListView: some View {
         return ScrollView {
             LazyVGrid(columns: gridItems, spacing: contentSpacing) {
-                ForEach(vm.imageList, id: \.imageId) { item in
+                ForEach(vm.imageList[vm.selectedImageType, default: []], id: \.imageId) { item in
                     Button {
                         switch vm.viewType {
                         case .fetchingList:
-                            router.push(.ImageDetailView(type: .edit, imageItem: item))
+                            router.push(.ImageDetailView(type: .edit, imageType: vm.selectedImageType, imageItem: item))
                         case .selectingItem:
                             vm.selectImage(imageId: item.imageId)
                             dismiss()
@@ -90,7 +103,7 @@ struct ImageMainView: View {
         .padding(.horizontal, outerSpacing)
         .refreshable {
             if vm.viewType == .fetchingList {
-                vm.loadImages()
+                vm.loadImages(type: vm.selectedImageType, isRefresh: true)
             }
         }
     }
