@@ -85,12 +85,12 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
         }.store(in: &cancellables)
         
         AuthRepository(networkService: NetworkService()).postAuth(request: PostAuthRequest())
-            .sink(receiveCompletion: { [weak self] completion in
+            .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
                     print("Authorization token saved successfully.")
                 case .failure(let error):
-                    print("Failed with error: \(error.localizedDescription)")
+                    print("Failed with error: \(error.message)")
                 }
             }, receiveValue: { _ in
                 print("Authorization token receiveValue")
@@ -108,8 +108,8 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
                 switch completion {
                 case .finished:
                     self.viewState = self.items.isEmpty ? .empty : .loaded
-                case .failure:
-                    self.error.send("Fail to load Quest")
+                case .failure(let error):
+                    self.error.send("퀘스트 조회 실패 \(error.message)")
                     self.viewState = .empty
                 }
             } receiveValue: { [weak self] result in

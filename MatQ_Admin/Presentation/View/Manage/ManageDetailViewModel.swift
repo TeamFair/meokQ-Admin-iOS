@@ -39,7 +39,7 @@ final class ManageDetailViewModel: ObservableObject {
                     if case let NetworkError.error((_, _, errMessage)) = error {
                         self?.alertMessage = errMessage
                     } else {
-                        self?.alertMessage = error.localizedDescription
+                        self?.alertMessage = error.message
                     }
                     self?.activeAlertType = .result
                     self?.showAlert = true
@@ -67,7 +67,7 @@ final class ManageDetailViewModel: ObservableObject {
                     if case let NetworkError.error((_, _, errMessage)) = error {
                         self?.alertMessage = errMessage
                     } else {
-                        self?.alertMessage = error.localizedDescription
+                        self?.alertMessage = error.message
                     }
                     self?.activeAlertType = .result
                     self?.showAlert = true

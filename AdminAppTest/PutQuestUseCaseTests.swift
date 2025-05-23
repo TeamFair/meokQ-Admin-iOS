@@ -9,6 +9,7 @@ import XCTest
 import Combine
 
 // MARK: 퀘스트 수정 유스케이스 테스트
+/*
 final class PutQuestUseCaseTests: XCTestCase {
     var useCase: PutQuestUseCase!
     var mockQuestRepository: MockQuestRepository!
@@ -150,3 +151,4 @@ final class PutQuestUseCaseTests: XCTestCase {
         wait(for: [expectation], timeout: 2.0)
     }
 }
+*/

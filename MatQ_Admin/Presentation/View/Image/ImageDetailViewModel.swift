@@ -77,7 +77,7 @@ final class ImageDetailViewModel: ObservableObject {
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "이미지 등록 실패"
-                    self?.alertMessage = error.localizedDescription
+                    self?.alertMessage = error.message
                     self?.activeAlertType = .result
                     self?.showAlert = true
                 }
@@ -96,7 +96,7 @@ final class ImageDetailViewModel: ObservableObject {
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "이미지 삭제 실패"
-                    self?.alertMessage = error.localizedDescription
+                    self?.alertMessage = error.message
                     self?.activeAlertType = .result
                     self?.showAlert = true
                 }

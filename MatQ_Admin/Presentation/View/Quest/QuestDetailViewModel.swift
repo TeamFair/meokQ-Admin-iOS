@@ -132,7 +132,7 @@ final class QuestDetailViewModel: ObservableObject {
                 .sink { [weak self] completion in
                     if case .failure(let error) = completion {
                         self?.alertTitle = "퀘스트 추가 실패"
-                        self?.alertMessage = error.localizedDescription
+                        self?.alertMessage = error.message
                         self?.activeAlertType = .result
                         self?.showAlert = true
                     }
@@ -164,7 +164,7 @@ final class QuestDetailViewModel: ObservableObject {
                 .sink { [weak self] completion in
                     if case .failure(let error) = completion {
                         self?.alertTitle = "퀘스트 수정 실패"
-                        self?.alertMessage = error.localizedDescription
+                        self?.alertMessage = error.message
                         self?.activeAlertType = .result
                         self?.showAlert = true
                     }
@@ -183,7 +183,7 @@ final class QuestDetailViewModel: ObservableObject {
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
                     self?.alertTitle = "퀘스트 삭제 실패"
-                    self?.alertMessage = error.localizedDescription
+                    self?.alertMessage = error.message
                     self?.activeAlertType = .result
                     self?.showAlert = true
                 }
