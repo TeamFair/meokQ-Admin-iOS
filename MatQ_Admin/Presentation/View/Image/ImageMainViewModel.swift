@@ -84,13 +84,13 @@ extension ImageMainViewModel {
         }
     }
     
-    enum ViewType {
+    enum ViewType: Hashable {
         case fetchingList
         case selectingItem
     }
 }
 
-struct ImageMainViewModelItem: Equatable {
+struct ImageMainViewModelItem: Hashable {
     var imageId: String
     var image: UIImage?
     

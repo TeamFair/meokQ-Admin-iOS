@@ -126,7 +126,7 @@ final class ImageDetailViewModel: ObservableObject {
 }
 
 extension ImageDetailViewModel {
-    enum ViewType {
+    enum ViewType: Hashable {
         case publish
         case edit
         
