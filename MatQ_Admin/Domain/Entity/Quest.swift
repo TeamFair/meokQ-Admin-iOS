@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Quest {
+struct Quest: Hashable {
     let questId: String
     let mission: Mission
     let rewardList: [RewardResponse]

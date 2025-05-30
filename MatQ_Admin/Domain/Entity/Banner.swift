@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-struct Banner: Equatable {
+struct Banner: Hashable {
     let id: Int
     var imageId: String
     var image: UIImage?

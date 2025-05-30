@@ -10,14 +10,14 @@ import UIKit
 
 final class ImageMainViewModel: ObservableObject {
     
-    private let items: [UIImage]
-    @Published var imageList: [ImageMainViewModelItem] = [] // ImageMainViewModelItem.mockData
+    @Published var imageList: [ImageType: [ImageMainViewModelItem]] = [:] // ImageMainViewModelItem.mockData
     
     @Published var alertTitle: String = ""
     @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
     @Published var activeAlertType: ActiveAlertType?
     @Published var viewType: ViewType
+    @Published var selectedImageType: ImageType = .QUEST_IMAGE
     
     // 이미지 삭제, 추가
     private let fetchImagesUseCase: FetchImagesUseCaseInterface
@@ -33,17 +33,21 @@ final class ImageMainViewModel: ObservableObject {
     
     init(fetchImagesUseCase: FetchImagesUseCaseInterface, type: ImageMainViewModel.ViewType) {
         self.fetchImagesUseCase = fetchImagesUseCase
-        self.items = []
         self.viewType = type
         
-        loadImages()
+        self.loadImages(type: .QUEST_IMAGE)
     }
     
-    func loadImages() {
-        fetchImagesUseCase.execute()
+    func loadImages(type: ImageType, isRefresh: Bool = false) {
+        // 리프레시가 아니고, 기존 이미지가 이미 있다면 요청 안 함
+        if !isRefresh, let existing = imageList[type], !existing.isEmpty {
+            return
+        }
+        
+        fetchImagesUseCase.execute(type: type)
             .catch { _ in Just([]) } // 에러 발생 시 빈 배열로 대체
             .sink(receiveValue: { [weak self] images in
-                self?.imageList = images.map({ ImageMainViewModelItem(imageId: $0.imageId, image: $0.image) })
+                self?.imageList[type, default: []] = images.map({ ImageMainViewModelItem(imageId: $0.imageId, image: $0.image) })
             })
             .store(in: &subscriptions)
     }
@@ -54,6 +58,11 @@ final class ImageMainViewModel: ObservableObject {
             object: nil,
             userInfo: ["imageId": imageId]
         )
+    }
+    
+    func handleChange(type: ImageType) {
+        self.selectedImageType = type
+        self.loadImages(type: type)
     }
 }
 
@@ -75,13 +84,13 @@ extension ImageMainViewModel {
         }
     }
     
-    enum ViewType {
+    enum ViewType: Hashable {
         case fetchingList
         case selectingItem
     }
 }
 
-struct ImageMainViewModelItem: Equatable {
+struct ImageMainViewModelItem: Hashable {
     var imageId: String
     var image: UIImage?
     

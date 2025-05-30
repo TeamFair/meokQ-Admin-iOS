@@ -78,6 +78,7 @@ struct BannerDetailView: View {
             Text("- 하나의 이미지는 하나의 배너에만 사용할 수 있어요.")
             Text("- 배너 등록 후, 수정 화면에서 직접 배너를 활성화해야 해요.")
             Text("- 배너 등록 후, 이미지는 수정할 수 없어요.")
+            Text("- 배너 삭제 시, 이미지도 삭제돼요.")
             Text("- 화면 전환 경로는 **quest · rank · my · approval**로 설정되어 있어요.")
         }
         .font(.subheadline)

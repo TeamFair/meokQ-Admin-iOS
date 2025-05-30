@@ -58,11 +58,10 @@ public class NavigationStackCoordinator: ObservableObject {
             injector?.resolve(ManageDetailView.self, argument: challenge)
         case .ImageMainView(let type):
             injector?.resolve(ImageMainView.self, argument: type)
-        case .ImageDetailView(let type, let imageItem):
-            injector?.resolve(ImageDetailView.self, argument1: type, argument2: imageItem)
+        case .ImageDetailView(let type, let imageType, let imageItem):
+            injector?.resolve(ImageDetailView.self, argument1: type, argument2: imageType, argument3: imageItem)
         }
     }
-    
 }
 
 enum Path: Hashable {
@@ -80,49 +79,5 @@ enum Path: Hashable {
     
     //Image
     case ImageMainView(type: ImageMainViewModel.ViewType)
-    case ImageDetailView(type: ImageDetailViewModel.ViewType, imageItem: ImageMainViewModelItem)
-    
-    func hash(into hasher: inout Hasher) {
-        switch self {
-        case .QuestMainView:
-            hasher.combine("QuestMainView")
-        case .QuestDetailView:
-            hasher.combine("QuestDetailView")
-        case .BannerMainView:
-            hasher.combine("BannerMainView")
-        case .BannerDetailView:
-            hasher.combine("BannerDetailView")
-        case .ManageMainView:
-            hasher.combine("ManageMainView")
-        case .ManageDetailView:
-            hasher.combine("ManageDetailView")
-        case .ImageMainView:
-            hasher.combine("ImageMainView")
-        case .ImageDetailView:
-            hasher.combine("ImageDetailView")
-        }
-    }
-    
-    static func == (lhs: Path, rhs: Path) -> Bool {
-        switch (lhs, rhs) {
-        case (.QuestMainView, .QuestMainView):
-            return true
-        case (.QuestDetailView, .QuestDetailView):
-            return true
-        case (.BannerMainView, .BannerMainView):
-            return true
-        case (.BannerDetailView, .BannerDetailView):
-            return true
-        case (.ManageMainView, .ManageMainView):
-            return true
-        case (.ManageDetailView, .ManageDetailView):
-            return true
-        case (.ImageMainView, .ImageMainView):
-            return true
-        case (.ImageDetailView, .ImageDetailView):
-            return true
-        default:
-            return false
-        }
-    }
+    case ImageDetailView(type: ImageDetailViewModel.ViewType, imageType: ImageType, imageItem: ImageMainViewModelItem)
 }
