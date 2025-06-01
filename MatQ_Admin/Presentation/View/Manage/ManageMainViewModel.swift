@@ -14,41 +14,38 @@ protocol ManageMainViewModelInput {
 
 protocol ManageMainViewModelOutput {
     var items: [ManageMainViewModelItem] { get }
-    var error: AnyPublisher<String, Never> { get }
+    var alertPublisher: PassthroughSubject<AlertItem, Never> { get }
 }
 
 final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOutput, ObservableObject {
     private let getChallengeUseCase: GetChallengeUseCaseInterface
-
+    
     var challengeList: [Challenge] = []
     private var currentPage: Int = 0
     
     @Published var items: [ManageMainViewModelItem] = []
-    @Published var errorMessage: String = ""
+    
     @Published var showAlert = false
-    @Published var viewState: ViewState = .loaded
-    @Published var activeAlertType: ActiveAlertType?
+    @Published var alertItem: AlertItem?
+    var alertPublisher = PassthroughSubject<AlertItem, Never>()
+    
+    @Published var showPortSheet = false
 
-    @AppStorage("port") var port = "8880"
-    @Published var portText = ""
+    @Published var viewState: ViewState = .loaded
     
     private var cancellables = Set<AnyCancellable>()
-    private let errorSubject = CurrentValueSubject<String, Never>("")
-    
-    var error: AnyPublisher<String, Never> {
-        return errorSubject.eraseToAnyPublisher()
-    }
     
     init(getChallengeUseCase: GetChallengeUseCaseInterface) {
         self.getChallengeUseCase = getChallengeUseCase
-        
-        errorSubject
-            .sink { [weak self] errorMessage in
-                if !errorMessage.isEmpty {
-                    self?.errorMessage = errorMessage
-                    self?.activeAlertType = .networkError
-                    self?.showAlert = true
-                }
+        bind()
+    }
+    
+    private func bind() {
+        alertPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] alert in
+                self?.alertItem = alert
+                self?.showAlert = true
             }
             .store(in: &cancellables)
     }
@@ -82,8 +79,16 @@ final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOu
     }
     
     private func handleError(_ error: NetworkError) {
-        errorSubject.send(error.message)
+        alertPublisher.send(AlertStateFactory.simple(title: "신고된 목록 조회 실패", message: error.message))
         viewState = .empty
+    }
+    
+    func showPortChangeSheet() {
+        showPortSheet = true
+    }
+    
+    func onPortChanged() {
+        getReportedList(page: 0)
     }
 }
 
@@ -92,20 +97,6 @@ extension ManageMainViewModel {
         case empty
         case loading
         case loaded
-    }
-    
-    enum ActiveAlertType: Identifiable {
-        case portchange
-        case networkError
-        
-        var id: Int {
-            switch self {
-            case .portchange:
-                return 1
-            case .networkError:
-                return 2
-            }
-        }
     }
 }
 

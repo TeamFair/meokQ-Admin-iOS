@@ -24,7 +24,9 @@ struct ImageMainView: View {
     var body: some View {
         VStack(spacing: 0) {
             NavigationBarComponent(navigationTitle: "이미지", isNotRoot: false)
-                .zIndex(3)
+                .overlay(alignment: .trailing) {
+                    changePortButton
+                }
             
             imageTypeView
             
@@ -50,9 +52,7 @@ struct ImageMainView: View {
             }
         }
         .background(.bgSecondary)
-        .alert(isPresented: $vm.showAlert) {
-            Alert(title: Text("Error"), message: Text(vm.alertMessage), dismissButton: .default(Text("OK")))
-        }
+        .alertItem(vm.alertItem, isPresented: $vm.showAlert)
     }
     
     private var imageTypeView: some View {
@@ -60,7 +60,7 @@ struct ImageMainView: View {
             content: $vm.selectedImageType,
             list: ImageType.allCases
         )
-        .background(Color.white)
+        .background(Color.bg)
         .onChange(of: vm.selectedImageType) { _, newValue in
             vm.handleChange(type: newValue)
         }
@@ -128,8 +128,23 @@ struct ImageMainView: View {
         .background(
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.componentSecondary)
-                .shadow(color: .gray300.opacity(0.2), radius: 10)
+                .shadow(color: .gray300.opacity(0.1), radius: 10)
         )
+    }
+    
+    private var changePortButton: some View {
+        Button {
+            vm.showPortChangeSheet()
+        } label: {
+            Image(systemName: "terminal")
+        }
+        .padding(.trailing, 20)
+        .sheet(isPresented: $vm.showPortSheet) {
+            ServerSelectionSheetView(isPresented: $vm.showPortSheet) { _ in
+                vm.onPortChanged()
+            }
+            .presentationDetents([.height(220)])
+        }
     }
 }
 

@@ -19,17 +19,18 @@ final class ImageDetailViewModel: ObservableObject {
     @Published var editedItems: ImageMainViewModelItem
     
     // 이미지 추가&삭제 Alert 관련
-    @Published var alertTitle: String = ""
-    @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
-    @Published var activeAlertType: ActiveAlertType?
+    @Published var alertItem: AlertItem?
+    @Published var shouldPop: Bool = false
+    private let alertPublisher = PassthroughSubject<AlertItem, Never>()
+    
     @Published var showQuestMainView: Bool = false
     @Published var selectedImageType: ImageType
     
     @Published var photosPickerItemForMainImage: PhotosPickerItem?
     
-    let imageRepository: ImageRepositoryInterface
-    var subscriptions = Set<AnyCancellable>()
+    private let imageRepository: ImageRepositoryInterface
+    private var cancellables = Set<AnyCancellable>()
     
     init(
         viewType: ViewType,
@@ -43,6 +44,21 @@ final class ImageDetailViewModel: ObservableObject {
         self.editedItems = imageItem
         self.imageRepository = imageRepository
         
+        bind()
+        bindPhotosPicker()
+    }
+    
+    private func bind() {
+        alertPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] alert in
+                self?.alertItem = alert
+                self?.showAlert = true
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func bindPhotosPicker() {
         $photosPickerItemForMainImage
             .compactMap { $0 }
             .flatMap { item in
@@ -65,7 +81,7 @@ final class ImageDetailViewModel: ObservableObject {
                     print("❗️이미지 불러오기 실패")
                 }
             }
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
     }
     
     func postImage(image: UIImage, type: ImageType) {
@@ -79,37 +95,28 @@ final class ImageDetailViewModel: ObservableObject {
             }
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
-                    self?.alertTitle = "이미지 등록 실패"
-                    self?.alertMessage = error.message
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
+                    self?.sendAlert(type: .createFailure(error.message))
                 }
             } receiveValue: { [weak self] image, imageId in
-                self?.alertTitle = "이미지 등록 성공"
-                self?.alertMessage = "이미지가 성공적으로 등록되었습니다"
-                self?.activeAlertType = .result
-                self?.showAlert = true
-                self?.editedItems = ImageMainViewModelItem(imageId: imageId, image: image)
+                self?.sendAlert(type: .createSuccess({
+                    self?.editedItems = ImageMainViewModelItem(imageId: imageId, image: image)
+                }))
             }
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
     }
     
     func deleteImage(imageId: String) {
         imageRepository.deleteImage(request: DeleteImageRequest(imageId: imageId))
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
-                    self?.alertTitle = "이미지 삭제 실패"
-                    self?.alertMessage = error.message
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
+                    self?.sendAlert(type: .deleteFailure(error.message))
                 }
             } receiveValue: { [weak self] _ in
-                self?.alertTitle = "이미지 삭제 성공"
-                self?.alertMessage = "이미지가 성공적으로 삭제되었습니다"
-                self?.activeAlertType = .result
-                self?.showAlert = true
+                self?.sendAlert(type: .deleteSuccess({
+                    self?.dismissView()
+                }))
             }
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
     }
     
     private func getImage(imageId: String) -> AnyPublisher<UIImage, Never> {
@@ -122,6 +129,20 @@ final class ImageDetailViewModel: ObservableObject {
     
     func handleChange(type: ImageType) {
         self.selectedImageType = type
+    }
+    
+    func onDeleteButtonTap() {
+        self.sendAlert(type: .deleteConfirmation {
+            self.deleteImage(imageId: self.editedItems.imageId)
+        })
+    }
+    
+    func dismissView() {
+        self.shouldPop = true
+    }
+    
+    private func sendAlert(type: ImageAlertType) {
+        alertPublisher.send(type.alertItem)
     }
 }
 
@@ -145,14 +166,39 @@ extension ImageDetailViewModel {
         }
     }
     
-    enum ActiveAlertType: Identifiable {
-        case delete
-        case result
+    private enum ImageAlertType {
+        case createSuccess(() -> Void)
+        case createFailure(String)
+        case deleteSuccess(() -> Void)
+        case deleteFailure(String)
+        case deleteConfirmation(() -> Void)
         
-        var id: Int {
+        var alertItem: AlertItem {
             switch self {
-            case .delete: 1
-            case .result: 2
+            case .createSuccess(let onConfirm):
+                return AlertStateFactory.simple(
+                    title: "이미지 등록 성공",
+                    message: "이미지가 성공적으로 등록되었습니다",
+                    onConfirm: onConfirm
+                )
+            case .createFailure(let message):
+                return AlertStateFactory.simple(
+                    title: "이미지 등록 실패",
+                    message: message
+                )
+            case .deleteSuccess(let onConfirm):
+                return AlertStateFactory.simple(
+                    title: "이미지 삭제 성공",
+                    message: "이미지가 성공적으로 삭제되었습니다",
+                    onConfirm: onConfirm
+                )
+            case .deleteFailure(let message):
+                return AlertStateFactory.simple(
+                    title: "이미지 삭제 실패",
+                    message: message
+                )
+            case .deleteConfirmation(let onConfirm):
+                return AlertStateFactory.deleteConfirmation(onConfirm: onConfirm)
             }
         }
     }

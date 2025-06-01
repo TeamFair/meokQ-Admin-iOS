@@ -13,13 +13,14 @@ final class BannerMainViewModel: ObservableObject {
     
     @Published var banners: [Banner] = []
     
-    @Published var errorMessage: String = ""
-    @Published var showingAlert = false
-    @Published var showingErrorAlert = false
+    // Alert 관련
+    @Published var showAlert = false
+    @Published var alertItem: AlertItem?
+    let alertPublisher = PassthroughSubject<AlertItem, Never>()
+
     @Published var viewState: ViewState = .loaded
     
-    @AppStorage("port") var port = "8880"
-    @Published var portText = ""
+    @Published var showPortSheet = false
     
     enum ViewState {
         case empty
@@ -27,18 +28,22 @@ final class BannerMainViewModel: ObservableObject {
         case loaded
     }
     
-    var error = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     init(bannerUseCase: GetBannersUseCaseInterface) {
         self.bannerUseCase = bannerUseCase
-        
-        error.sink { [weak self] errorMessage in
-            self?.errorMessage = errorMessage
-            self?.showingErrorAlert = true
-        }.store(in: &cancellables)
-        
+        bind()
         getBanners()
+    }
+    
+    private func bind() {
+        alertPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] alert in
+                self?.alertItem = alert
+                self?.showAlert = true
+            }
+            .store(in: &cancellables)
     }
     
     func getBanners() {
@@ -52,7 +57,7 @@ final class BannerMainViewModel: ObservableObject {
                 case .finished:
                     self.viewState = self.banners.isEmpty ? .empty : .loaded
                 case .failure(let error):
-                    self.error.send("배너 조회 실패\(error.message)")
+                    self.alertPublisher.send(AlertStateFactory.simple(title: "배너 조회 실패", message: error.message))
                     self.viewState = .empty
                 }
             } receiveValue: { [weak self] banners in
@@ -68,5 +73,13 @@ final class BannerMainViewModel: ObservableObject {
         }
         
         return selectedBanner
+    }
+    
+    func showPortChangeSheet() {
+        showPortSheet = true
+    }
+    
+    func onPortChanged() {
+        getBanners()
     }
 }

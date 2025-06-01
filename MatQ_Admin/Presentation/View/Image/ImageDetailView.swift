@@ -17,8 +17,7 @@ struct ImageDetailView: View {
             NavigationBarComponent(navigationTitle: vm.viewType.title, isNotRoot: true)
                 .overlay(alignment: .trailing) {
                     Button {
-                        vm.activeAlertType = .delete
-                        vm.showAlert = true
+                        vm.onDeleteButtonTap()
                     } label: {
                         Image(systemName: "trash")
                             .foregroundStyle(.primaryPurple)
@@ -67,7 +66,6 @@ struct ImageDetailView: View {
                     list: ImageType.allCases
                 )
                 .disabled(vm.viewType == .edit)
-                .background(Color.white)
                 .onChange(of: vm.selectedImageType) { _, newValue in
                     vm.handleChange(type: newValue)
                 }
@@ -105,31 +103,16 @@ struct ImageDetailView: View {
             .sheet(isPresented: $vm.showQuestMainView) {
                 router.buildScene(path: .QuestMainView)
             }
-            .alert(isPresented: $vm.showAlert) {
-                switch vm.activeAlertType {
-                case .delete:
-                    Alert(
-                        title: Text("이미지를 삭제하시겠습니까?"),
-                        message: Text("이미지를 복구할 수 없습니다."),
-                        primaryButton: .cancel(Text("취소")),
-                        secondaryButton: .destructive(Text("삭제")) {
-                            vm.deleteImage(imageId: vm.editedItems.imageId)
-                        }
-                    )
-                case .result:
-                    Alert(
-                        title: Text(vm.alertTitle),
-                        message: Text(vm.alertMessage),
-                        dismissButton: .default(Text("확인")) {
-                            if vm.alertTitle == "이미지 삭제 성공" {
-                                router.pop()
-                            }
-                        }
-                    )
-                case .none:
-                    Alert(title: Text(""))
+            .alertItem(vm.alertItem, isPresented: $vm.showAlert)
+            .onChange(of: vm.shouldPop) { _, shouldPop in
+                if shouldPop {
+                    router.pop()
                 }
             }
         }
     }
+}
+
+#Preview {
+    ImageDetailView(vm: ImageDetailViewModel(viewType: .publish, imageType: .BANNER_IMAGE, imageItem: .mockData[0], imageRepository: MockImageRepository()))
 }

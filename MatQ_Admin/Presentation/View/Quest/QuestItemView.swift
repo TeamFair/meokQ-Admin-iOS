@@ -14,7 +14,7 @@ struct QuestItemView: View {
     let writer: String
     let target: QuestRepeatTarget
     let stats: [XpStat]
-
+    
     var body: some View {
         HStack(spacing: 0){
             Group {
@@ -29,7 +29,7 @@ struct QuestItemView: View {
                 }
             }
             .cornerRadius(8)
-            .padding(.trailing, 8)
+            .padding(.trailing, 6)
             
             Group {
                 if let questImage = mainQuestImage {
@@ -42,18 +42,20 @@ struct QuestItemView: View {
                         .foregroundStyle(.gray100)
                 }
             }
-            .cornerRadius(8)
-            .padding(.trailing, 12)
+            .cornerRadius(6)
+            .padding(.trailing, 10)
             
             VStack(alignment: .leading, spacing: 8) {
                 Text(writer)
                     .font(.system(size: 12, weight: .regular))
                     .foregroundStyle(.gray500)
                     .padding(.bottom, -6)
+                
                 Text(mission.content)
                     .font(.system(size: 15, weight: .bold))
                     .foregroundStyle(.textPrimary)
-                HStack {
+                
+                HStack(spacing: 5) {
                     switch MissionType(rawValue: mission.type) {
                     case .FREE:
                         tagView("📸")
@@ -64,36 +66,29 @@ struct QuestItemView: View {
                     }
                     
                     typeTagView(target)
+                    
                     ForEach(stats, id: \.rawValue) { stat in
                         tagView(stat.korean)
                     }
-                   
-                   
-//                    if mission.type == "OX" {
-//                        
-//                    } else if mission.type == ""
-                    
                 }
             }
-            Spacer()
-            
-//            Image(systemName: "chevron.right")
-//                .foregroundStyle(.gray300)
+            Spacer(minLength: 0)
         }
-        .padding(14)
+        .padding(.leading, 12)
+        .padding(.trailing, 4)
         .frame(height: 98)
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .foregroundStyle(.componentSecondary)
                 .shadow(color: .black.opacity(0.05), radius: 12)
         )
-        .padding(.horizontal, 14)
+        .padding(.horizontal, 16)
         .padding(.vertical, 4)
     }
     
     private func tagView(_ title: String) -> some View {
         Text(title)
-            .font(.system(size: 11, weight: .medium))
+            .font(.system(size: 10, weight: .medium))
             .padding(.vertical, 4)
             .padding(.horizontal, 6)
             .foregroundStyle(.textSecondary)
@@ -105,9 +100,9 @@ struct QuestItemView: View {
     
     private func typeTagView(_ target: QuestRepeatTarget) -> some View {
         Text(target.title)
-            .font(.system(size: 11, weight: .semibold))
+            .font(.system(size: 10, weight: .semibold))
             .padding(.vertical, 4)
-            .padding(.horizontal, 6)
+            .padding(.horizontal, 5)
             .foregroundStyle(Color(target.color).opacity(0.7))
             .background(
                 RoundedRectangle(cornerRadius: 6)
@@ -122,7 +117,7 @@ struct QuestItemView: View {
     VStack {
         QuestItemView(questImage: .testimage, mainQuestImage: .testimage, mission: .init(content: "베트남 음식 도전하기"), writer: "일상 초심자", target: .daily, stats: [.charm, .fun])
         QuestItemView(questImage: .testimage, mainQuestImage: .testimage,  mission: .init(content: "나무 사진 찍기"), writer: "일상 요리사", target: .weekly, stats: [.charm])
-        QuestItemView(questImage: .testimage, mainQuestImage: .testimage, mission: .init(content: "혼밥 자랑하기"), writer: "일상 사냥꾼", target: .monthly, stats: [.charm, .sociability])
+        QuestItemView(questImage: .testimage, mainQuestImage: .testimage, mission: .init(content: "혼밥 자랑하기"), writer: "일상 사냥꾼", target: .monthly, stats: [.charm, .sociability, .fun, .intellect, .strength])
         QuestItemView(questImage: .testimage, mainQuestImage: .testimage, mission: .init(content: "퀴즈", missionType: .WORDS, quizzes: [quiz]), writer: "일상 초심자", target: .none, stats: [.charm, .intellect])
     }
 }

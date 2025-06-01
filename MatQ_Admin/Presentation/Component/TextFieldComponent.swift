@@ -57,19 +57,20 @@ struct SegmentComponent<T: Identifiable & Hashable & StringValue & Equatable>: V
     let list: [T]
     
     var body: some View {
-        HStack {
+        HStack(spacing: 4) {
             ForEach(list, id: \.self) { item in
+                let isSelected = content == item
                 Button {
                     content = item
                 } label: {
                     Text(item.title)
                         .font(.subheadline.weight(.medium))
-                        .foregroundStyle(content == item ? .textPrimary : .textSecondary.opacity(0.4))
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 10)
+                        .foregroundStyle(isSelected ? .textPrimary : .textSecondary.opacity(0.4))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
                         .background(
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(content == item ? .componentSecondary : .clear)
+                                .fill(isSelected ? .componentSecondary : .clear)
                                 .shadow(color: .textSecondary.opacity(0.2), radius: 3)
                         )
                 }
@@ -96,7 +97,7 @@ struct TabComponent<T: Identifiable & Hashable & StringValue & Equatable>: View 
                     content = item
                 } label: {
                     Text(item.title)
-                        .font(.headline)
+                        .font(.subheadline).bold()
                         .bold(content == item)
                         .foregroundStyle(isSelected ? .textPrimary : .textSecondary.opacity(0.4))
                         .padding(.vertical, 10)
@@ -109,7 +110,6 @@ struct TabComponent<T: Identifiable & Hashable & StringValue & Equatable>: View 
                 }
             }
         }
-        .background(Color.clear)
     }
 }
 
