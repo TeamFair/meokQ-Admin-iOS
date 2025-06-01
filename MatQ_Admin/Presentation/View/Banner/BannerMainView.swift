@@ -40,9 +40,7 @@ struct BannerMainView: View {
             .padding(.bottom, 8)
         }
         .background(.bgSecondary)
-        .alert(isPresented: $vm.showingAlert) {
-            Alert(title: Text("Error"), message: Text(vm.errorMessage), dismissButton: .default(Text("OK")))
-        }
+        .alertItem(vm.alertItem, isPresented: $vm.showAlert)
     }
     
     private var bannerListView: some View {
@@ -86,18 +84,18 @@ struct BannerMainView: View {
     
     private var changePortButton: some View {
         Button {
-            vm.showingAlert = true
+            vm.showingPortAlert = true
         } label: {
             Image(systemName: "terminal")
         }
         .padding(.trailing, 20)
-        .alert("포트번호 변경", isPresented: $vm.showingAlert, actions: {
+        .alert("포트번호 변경", isPresented: $vm.showingPortAlert, actions: {
             TextField("\(vm.port)", text: $vm.portText)
             
             Button("변경", action: {
                 vm.port = vm.portText
                 vm.getBanners()
-                vm.showingAlert = false
+                vm.showingPortAlert = false
             })
             .disabled(vm.portText == "")
             

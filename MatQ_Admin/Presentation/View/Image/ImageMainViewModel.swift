@@ -12,10 +12,10 @@ final class ImageMainViewModel: ObservableObject {
     
     @Published var imageList: [ImageType: [ImageMainViewModelItem]] = [:] // ImageMainViewModelItem.mockData
     
-    @Published var alertTitle: String = ""
-    @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
-    @Published var activeAlertType: ActiveAlertType?
+    @Published var alertItem: AlertItem?
+    private let alertPublisher = PassthroughSubject<AlertItem, Never>()
+
     @Published var viewType: ViewType
     @Published var selectedImageType: ImageType = .QUEST_IMAGE
     
@@ -29,13 +29,27 @@ final class ImageMainViewModel: ObservableObject {
         case loaded
     }
     
-    var subscriptions = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
     
     init(fetchImagesUseCase: FetchImagesUseCaseInterface, type: ImageMainViewModel.ViewType) {
         self.fetchImagesUseCase = fetchImagesUseCase
         self.viewType = type
-        
+        self.bind()
         self.loadImages(type: .QUEST_IMAGE)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func bind() {
+        alertPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] alert in
+                self?.alertItem = alert
+                self?.showAlert = true
+            }
+            .store(in: &cancellables)
     }
     
     func loadImages(type: ImageType, isRefresh: Bool = false) {
@@ -45,11 +59,16 @@ final class ImageMainViewModel: ObservableObject {
         }
         
         fetchImagesUseCase.execute(type: type)
-            .catch { _ in Just([]) } // 에러 발생 시 빈 배열로 대체
-            .sink(receiveValue: { [weak self] images in
-                self?.imageList[type, default: []] = images.map({ ImageMainViewModelItem(imageId: $0.imageId, image: $0.image) })
+            .sink(receiveCompletion: { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.alertPublisher.send(AlertStateFactory.simple(title: "이미지 목록 조회 실패", message: error.message))
+                }
+            }, receiveValue: { [weak self] images in
+                self?.imageList[type, default: []] = images.map {
+                    ImageMainViewModelItem(imageId: $0.imageId, image: $0.image)
+                }
             })
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
     }
     
     func selectImage(imageId: String) {
@@ -67,23 +86,6 @@ final class ImageMainViewModel: ObservableObject {
 }
 
 extension ImageMainViewModel {
-    enum ActiveAlertType: Identifiable {
-        case delete
-        case recovery
-        case result
-        
-        var id: Int {
-            switch self {
-            case .delete:
-                return 1
-            case .recovery:
-                return 2
-            case .result:
-                return 3
-            }
-        }
-    }
-    
     enum ViewType: Hashable {
         case fetchingList
         case selectingItem

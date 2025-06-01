@@ -24,7 +24,12 @@ struct QuestDetailView: View {
             }
             .scrollDismissesKeyboard(.immediately)
         }
-        .alert(isPresented: $vm.showAlert, content: alertView)
+        .alertItem(vm.alertItem, isPresented: $vm.showAlert)
+        .onChange(of: vm.shouldPop) { _, shouldPop in
+            if shouldPop {
+                router.pop()
+            }
+        }
         .safeAreaInset(edge: .bottom, content: bottomButton)
     }
     
@@ -355,17 +360,6 @@ struct QuestDetailView: View {
         .disabled(vm.isPrimaryButtonDisabled)
         .padding(.horizontal, 20)
         .padding(.bottom, 8)
-    }
-    
-    private func alertView() -> Alert {
-        switch vm.activeAlertType {
-        case .delete:
-            return Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), primaryButton: .cancel(Text("취소")), secondaryButton: .destructive(Text("삭제")) { vm.deleteData(questId: vm.editedItems.questId, type: vm.selectedDeleteType) })
-        case .result:
-            return Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("확인")) { if vm.alertTitle == "퀘스트 추가 성공" || vm.alertTitle == "퀘스트 삭제 성공" { router.pop() } })
-        case .none:
-            return Alert(title: Text(""))
-        }
     }
 }
 

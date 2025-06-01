@@ -15,20 +15,20 @@ final class BannerDetailViewModel: ObservableObject {
     @Published var editedItems: Banner
     
     // 퀘스트 추가&삭제 Alert 관련
-    @Published var alertTitle: String = ""
-    @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
-    @Published var activeAlertType: ActiveAlertType?
+    @Published var alertItem: AlertItem?
+    @Published var shouldPop: Bool = false
+    private let alertPublisher = PassthroughSubject<AlertItem, Never>()
     
     @Published var showManageImageView: Bool = false
-
+    
     var isPrimaryButtonDisabled: Bool {
         editedItems.title.isEmpty || editedItems.description.isEmpty || editedItems.imageId.isEmpty || (viewType == .edit && initialItem == editedItems)
     }
     
     private var isObserverRegistered = false
-
-    var subscriptions = Set<AnyCancellable>()
+    
+    var cancellables = Set<AnyCancellable>()
     
     private let postBannerUseCase: PostBannerUseCaseInterface
     private let putBannerUseCase: PutBannerUseCaseInterface
@@ -50,78 +50,76 @@ final class BannerDetailViewModel: ObservableObject {
         self.putBannerUseCase = putBannerUseCase
         self.deleteBannerUseCase = deleteBannerUseCase
         self.imageCache = imageCache
-        
+        bind()
         registerImageSelectedObserver()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func bind() {
+        alertPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] alert in
+                self?.alertItem = alert
+                self?.showAlert = true
+            }
+            .store(in: &cancellables)
     }
     
     private func createBanner(with banner: Banner) {
         postBannerUseCase.execute(title: banner.title, description: banner.description, imageId: banner.imageId)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
-                    self?.alertTitle = "배너 추가 실패"
-                    self?.alertMessage = error.message
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
+                    self?.sendAlert(type: .createFailure(error.message))
                 }
             } receiveValue: { [weak self] _ in
-                self?.alertTitle = "배너 추가 성공"
-                self?.alertMessage = "배너가 성공적으로 추가되었습니다"
-                self?.activeAlertType = .result
-                self?.showAlert = true
+                self?.sendAlert(type: .createSuccess {
+                    self?.dismissView()
+                })
             }
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
     }
     
     private func modifyBanner(_ banner: Banner) {
         putBannerUseCase.execute(bannerId: banner.id, title: banner.title, description: banner.description, activeYn: banner.activeYn)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
-                    self?.alertTitle = "배너 수정 실패"
-                    self?.alertMessage = error.message
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
+                    self?.sendAlert(type: .updateFailure(error.message))
                 }
             } receiveValue: { [weak self] _ in
-                self?.alertTitle = "배너 수정 성공"
-                self?.alertMessage = "배너가 성공적으로 수정되었습니다"
-                self?.activeAlertType = .result
-                self?.showAlert = true
+                self?.sendAlert(type: .updateSuccess)
             }
-            .store(in: &subscriptions)
-        
+            .store(in: &cancellables)
     }
     
     func deleteData(bannerId: Int) {
         deleteBannerUseCase.execute(bannerId: bannerId)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
-                    self?.alertTitle = "배너 삭제 실패"
-                    self?.alertMessage = error.message
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
+                    self?.sendAlert(type: .deleteFailure(error.message))
                 }
             } receiveValue: { [weak self] _ in
-                self?.alertTitle = "배너 삭제 성공"
-                self?.alertMessage = "퀘스트가 성공적으로 삭제되었습니다"
-                self?.activeAlertType = .result
-                self?.showAlert = true
+                self?.sendAlert(type: .deleteSuccess {
+                    self?.dismissView()
+                })
             }
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
     }
     
     func onPrimaryButtonTap() {
         if viewType == .edit {
-             modifyBanner(editedItems)
+            modifyBanner(editedItems)
         } else if viewType == .publish {
             createBanner(with: editedItems)
         }
     }
     
-    func onDeleteButtonTap(type: QuestDeleteType) {
-        alertTitle = "배너를 삭제하시겠습니까?"
-        alertMessage = "배너를 복구할 수 없습니다."
-        activeAlertType = .delete
-        showAlert = true
+    func onDeleteButtonTap() {
+        self.sendAlert(type: .deleteConfirmation {
+            self.deleteData(bannerId: self.editedItems.id)
+        })
     }
     
     private func registerImageSelectedObserver() {
@@ -138,6 +136,14 @@ final class BannerDetailViewModel: ObservableObject {
         
         self.editedItems.imageId = imageId
         self.editedItems.image = imageCache.getImage(forKey: imageId)
+    }
+    
+    func dismissView() {
+        self.shouldPop = true
+    }
+    
+    private func sendAlert(type: BannerAlertType) {
+        alertPublisher.send(type.alertItem)
     }
 }
 
@@ -165,16 +171,51 @@ extension BannerDetailViewModel {
         }
     }
     
-    enum ActiveAlertType: Identifiable {
-        case delete
-        case result
+    private enum BannerAlertType {
+        case createSuccess(() -> Void)
+        case createFailure(String)
+        case updateSuccess
+        case updateFailure(String)
+        case deleteSuccess(() -> Void)
+        case deleteFailure(String)
+        case deleteConfirmation(() -> Void)
         
-        var id: Int {
+        var alertItem: AlertItem {
             switch self {
-            case .delete:
-                return 1
-            case .result:
-                return 2
+            case .createSuccess(let onConfirm):
+                return AlertStateFactory.simple(
+                    title: "배너 추가 성공",
+                    message: "배너가 성공적으로 추가되었습니다",
+                    onConfirm: onConfirm
+                )
+            case .createFailure(let message):
+                return AlertStateFactory.simple(
+                    title: "배너 추가 실패",
+                    message: message
+                )
+            case .updateSuccess:
+                return AlertStateFactory.simple(
+                    title: "배너 수정 성공",
+                    message: "배너가 성공적으로 수정되었습니다"
+                )
+            case .updateFailure(let message):
+                return AlertStateFactory.simple(
+                    title: "배너 수정 실패",
+                    message: message
+                )
+            case .deleteSuccess(let onConfirm):
+                return AlertStateFactory.simple(
+                    title: "배너 삭제 성공",
+                    message: "배너가 성공적으로 삭제되었습니다",
+                    onConfirm: onConfirm
+                )
+            case .deleteFailure(let message):
+                return AlertStateFactory.simple(
+                    title: "배너 삭제 실패",
+                    message: message
+                )
+            case .deleteConfirmation(let onConfirm):
+                return AlertStateFactory.deleteConfirmation(onConfirm: onConfirm)
             }
         }
     }

@@ -15,13 +15,7 @@ struct ManageMainView: View {
         VStack(spacing: 0) {
             NavigationBarComponent(navigationTitle: "관리", isNotRoot: false)
                 .overlay(alignment: .trailing) {
-                    Button {
-                        vm.activeAlertType = .portchange
-                        vm.showAlert = true
-                    } label: {
-                        Image(systemName: "terminal")
-                    }
-                    .padding(.trailing, 20)
+                    changePortButton
                 }
             
             switch vm.viewState {
@@ -40,31 +34,24 @@ struct ManageMainView: View {
         .task {
             vm.getReportedList(page: 0)
         }
-        .alert(
-            Text(vm.activeAlertType == .portchange ? "포트번호 변경" : "네트워크 에러"),
-            isPresented: $vm.showAlert,
-            actions: {
-                switch vm.activeAlertType {
-                case .portchange:
-                    TextField("\(vm.port)", text: $vm.portText)
-                    
-                    Button("변경", action: {
-                        vm.port = vm.portText
-                        vm.getReportedList(page: 0)
-                        vm.showAlert = false
-                    })
-                    .disabled(vm.portText == "")
-                    
-                    Button("취소", role: .cancel, action: {})
-                case .networkError:
-                    Button(role: .cancel, action: { }, label: {Text("확인")})
-                case .none:
-                    Button(role: .cancel, action: { }, label: {Text("확인")})
-                }
-            },
-            message: {
-                Text(vm.activeAlertType == .portchange ? "변경할 포트번호을 작성해주세요." : vm.errorMessage)
-            })
+        .alertItem(vm.alertItem, isPresented: $vm.showAlert)
+    }
+    
+    private var changePortButton: some View {
+        Button {
+            vm.showPortChangeAlert()
+        } label: {
+            Image(systemName: "terminal")
+        }
+        .padding(.trailing, 20)
+        .alert("포트번호 변경", isPresented: $vm.showPortAlert, actions: {
+            TextField("\(vm.port)", text: $vm.portText)
+            Button("변경", action: { vm.onConfirmChangePort() })
+                .disabled(vm.portText == "")
+            Button("취소", role: .cancel, action: {})
+        }, message: {
+            Text("변경할 포트번호을 작성해주세요.")
+        })
     }
     
     private var reportListView: some View {

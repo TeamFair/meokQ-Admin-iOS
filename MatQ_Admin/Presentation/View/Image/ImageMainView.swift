@@ -50,9 +50,7 @@ struct ImageMainView: View {
             }
         }
         .background(.bgSecondary)
-        .alert(isPresented: $vm.showAlert) {
-            Alert(title: Text("Error"), message: Text(vm.alertMessage), dismissButton: .default(Text("OK")))
-        }
+        .alertItem(vm.alertItem, isPresented: $vm.showAlert)
     }
     
     private var imageTypeView: some View {

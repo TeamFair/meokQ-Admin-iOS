@@ -43,6 +43,9 @@
 		603CF4EB2D79926C00A2D19E /* Binding++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603CF4EA2D79926C00A2D19E /* Binding++.swift */; };
 		603F25702D119D4E00A088E2 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F256F2D119D4E00A088E2 /* SearchTextField.swift */; };
 		603F25722D11C94B00A088E2 /* XpStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F25712D11C94B00A088E2 /* XpStat.swift */; };
+		604A493C2DE9AC5000082744 /* AlertStateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604A493B2DE9AC5000082744 /* AlertStateFactory.swift */; };
+		604A493D2DE9AC5000082744 /* AlertStateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604A493B2DE9AC5000082744 /* AlertStateFactory.swift */; };
+		604A493E2DE9AC5000082744 /* AlertStateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604A493B2DE9AC5000082744 /* AlertStateFactory.swift */; };
 		604CE8E52D970E960071A978 /* Notification++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604CE8E42D970E960071A978 /* Notification++.swift */; };
 		605334592D30164000599159 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605334582D30164000599159 /* KeychainHelper.swift */; };
 		6053345A2D30170100599159 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605334582D30164000599159 /* KeychainHelper.swift */; };
@@ -244,6 +247,7 @@
 		603CF4EA2D79926C00A2D19E /* Binding++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding++.swift"; sourceTree = "<group>"; };
 		603F256F2D119D4E00A088E2 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		603F25712D11C94B00A088E2 /* XpStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XpStat.swift; sourceTree = "<group>"; };
+		604A493B2DE9AC5000082744 /* AlertStateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertStateFactory.swift; sourceTree = "<group>"; };
 		604CE8E42D970E960071A978 /* Notification++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification++.swift"; sourceTree = "<group>"; };
 		605334582D30164000599159 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		605334612D34196400599159 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
@@ -405,6 +409,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		604A49402DEA037700082744 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				604A493B2DE9AC5000082744 /* AlertStateFactory.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		605334602D34194B00599159 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -473,6 +485,7 @@
 		60DA56FE2B940C9C00EDAF30 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				604A49402DEA037700082744 /* Helpers */,
 				6034C2D22DE0A56C002EE37A /* Extensions */,
 				E5DD82722B35099000A026C2 /* Component */,
 				E5DD82682B3508BF00A026C2 /* View */,
@@ -964,6 +977,7 @@
 				60A766E52D1DBC0100928824 /* AuthModel.swift in Sources */,
 				609428F82CC938CB00C8D5D6 /* Endpoint.swift in Sources */,
 				609428EB2CC9363700C8D5D6 /* ChallengeRepositoryInterface.swift in Sources */,
+				604A493C2DE9AC5000082744 /* AlertStateFactory.swift in Sources */,
 				609429082CC95D0C00C8D5D6 /* HttpHeaderField.swift in Sources */,
 				609428E62CC9342000C8D5D6 /* MockQuestRepository.swift in Sources */,
 				609428D92CC9319400C8D5D6 /* AdminAppTest.swift in Sources */,
@@ -977,6 +991,7 @@
 			files = (
 				60631E062C85E4E6005643B1 /* Network.swift in Sources */,
 				60ECFBCD2C8459800020E24B /* ILSANG_ADMIN_WIDGETBundle.swift in Sources */,
+				604A493E2DE9AC5000082744 /* AlertStateFactory.swift in Sources */,
 				60631E092C85E764005643B1 /* Provider.swift in Sources */,
 				60631E032C85A3AA005643B1 /* Challenge.swift in Sources */,
 				60631DFD2C85A0CA005643B1 /* Bundle++.swift in Sources */,
@@ -1081,6 +1096,7 @@
 				E5DD82762B3509F600A026C2 /* InfoComponent.swift in Sources */,
 				E5DD825A2B34DCCA00A026C2 /* MatQ_AdminApp.swift in Sources */,
 				6034C2C32DDEFA8D002EE37A /* BannerItemView.swift in Sources */,
+				604A493D2DE9AC5000082744 /* AlertStateFactory.swift in Sources */,
 				60DB54B82C73788900AEDFE9 /* ImageRepository.swift in Sources */,
 				60DB54BD2C73852900AEDFE9 /* ManageMainViewModel.swift in Sources */,
 				607558852D3554FE0001CF03 /* ImageMainViewModel.swift in Sources */,

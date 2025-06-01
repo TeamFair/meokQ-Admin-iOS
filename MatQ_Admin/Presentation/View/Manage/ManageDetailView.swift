@@ -13,7 +13,7 @@ struct ManageDetailView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            NavigationBarComponent(navigationTitle: "신고된 챌린지 관리", isNotRoot: true)
+            NavigationBarComponent(navigationTitle: "신고된 도전 내역 관리", isNotRoot: true)
             
             Spacer().frame(height: 16)
             
@@ -46,15 +46,13 @@ struct ManageDetailView: View {
             
             HStack(spacing: 8) {
                 Button {
-                    vm.activeAlertType = .recovery
-                    vm.showAlert = true
+                    vm.onRecoveryButtonTap()
                 } label: {
                     Text("철회")
                 }
                 .ilsangButtonStyle(type: .tertiary)
                 Button {
-                    vm.activeAlertType = .delete
-                    vm.showAlert = true
+                    vm.onDeleteButtonTap()
                 } label: {
                     Text("삭제")
                 }
@@ -62,38 +60,10 @@ struct ManageDetailView: View {
             }
             .padding([.horizontal, .bottom], 20)
         }
-        .alert(isPresented: $vm.showAlert) {
-            switch vm.activeAlertType {
-            case .delete:
-                Alert(
-                    title: Text("챌린지를 삭제하시겠습니까?"),
-                    message: Text("삭제한 챌린지는 복구할 수 없으며 미완료 상태로 변경됩니다."),
-                    primaryButton: .cancel(Text("취소")),
-                    secondaryButton: .destructive(Text("삭제")) {
-                        vm.deleteChallenge(item: vm.item)
-                    }
-                )
-            case .recovery:
-                Alert(
-                    title: Text("챌린지 신고를 철회하시겠습니까?"),
-                    message: Text("챌린지는 완료 상태로 복구됩니다."),
-                    primaryButton: .cancel(Text("취소")),
-                    secondaryButton: .destructive(Text("신고 철회")) {
-                        vm.recoveryChallenge(challengeId: vm.item.challengeId)
-                    }
-                )
-            case .result:
-                Alert(
-                    title: Text(vm.alertTitle),
-                    message: Text(vm.alertMessage),
-                    dismissButton: .default(Text("확인")) {
-                        if vm.alertTitle == "챌린지 신고 철회 성공" || vm.alertTitle == "챌린지 삭제 성공" {
-                            router.pop()
-                        }
-                    }
-                )
-            case .none:
-                Alert(title: Text(""))
+        .alertItem(vm.alertItem, isPresented: $vm.showAlert)
+        .onChange(of: vm.shouldPop) { _, shouldPop in
+            if shouldPop {
+                router.pop()
             }
         }
     }

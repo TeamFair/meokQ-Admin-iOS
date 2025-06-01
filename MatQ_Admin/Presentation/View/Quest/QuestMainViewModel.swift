@@ -5,7 +5,6 @@
 //  Created by Lee Jinhee on 7/6/24.
 //
 
-import Foundation
 import Combine
 import SwiftUI
 
@@ -16,7 +15,7 @@ protocol QuestMainViewModelInput {
 
 protocol QuestMainViewModelOutput {
     var items: [QuestMainViewModelItem] { get }
-    var error: PassthroughSubject<String, Never> { get }
+    var alert: PassthroughSubject<AlertItem, Never> { get }
 }
 
 final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutput, ObservableObject {
@@ -29,7 +28,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
     var filteredItems: [QuestMainViewModelItem] {
         let selectedTypes = selectedType.filter { $0.value == true }.map { $0.key }
         let selectedMissionTypes = selectedMissionType.filter { $0.value == true }.map { $0.key }
-
+        
         let filteredItems = items
             .filter { selectedTypes.contains($0.type) } // 선택된 타입 필터링
             .filter { selectedMissionTypes.contains($0.missionType) } // 선택된 미션 타입 필터링
@@ -52,17 +51,19 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
     @Published var selectedType: [QuestType: Bool] = [.normal: true, .repeat: true, .event: true]
     @Published var selectedMissionType: [MissionType: Bool] = [.WORDS: true, .OX: true, .FREE: true]
     @Published var showPopularOnly = false
-
-    @Published var searchText: String = ""
-    @Published var errorMessage: String = ""
-    @Published var showingAlert = false
-    @Published var showingErrorAlert = false
+    
     @Published var viewState: ViewState = .loaded
     
+    @Published var showAlert = false
+    @Published var alertItem: AlertItem?
+    let alert = PassthroughSubject<AlertItem, Never>()
+    
+    @Published var searchText: String = ""
     @Published var showSearchBar: Bool = true
     @Published var scrollOffset: CGFloat = 0.0
     let scrollThreshold: CGFloat = 20.0 // 임계값 설정
     
+    @Published var showPortAlert = false
     @AppStorage("port") var port = "8880"
     @Published var portText = ""
     
@@ -72,34 +73,37 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
         case loaded
     }
     
-    var error = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
-    
     
     init(questUseCase: GetQuestUseCaseInterface) {
         self.questUseCase = questUseCase
         
-        error.sink { [weak self] errorMessage in
-            self?.errorMessage = errorMessage
-            self?.showingErrorAlert = true
-        }.store(in: &cancellables)
+        bind()
+        
+        getQuestList(page: 0)
+    }
+    
+    private func bind() {
+        alert
+            .receive(on: RunLoop.main)
+            .sink { [weak self] alert in
+                self?.alertItem = alert
+                self?.showAlert = true
+            }
+            .store(in: &cancellables)
         
         AuthRepository(networkService: NetworkService()).postAuth(request: PostAuthRequest())
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
-                    print("Authorization token saved successfully.")
+                    print("✅ [Auth] Authorization token 저장 성공")
                 case .failure(let error):
-                    print("Failed with error: \(error.message)")
+                    print("❌ [Auth] Authorization 실패: \(error.message)")
                 }
-            }, receiveValue: { _ in
-                print("Authorization token receiveValue")
-            })
+            }, receiveValue: { })
             .store(in: &cancellables)
-        
-        getQuestList(page: 0)
     }
-
+    
     func getQuestList(page: Int) {
         viewState = .loading
         questUseCase.execute(page: page)
@@ -109,7 +113,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
                 case .finished:
                     self.viewState = self.items.isEmpty ? .empty : .loaded
                 case .failure(let error):
-                    self.error.send("퀘스트 조회 실패 \(error.message)")
+                    self.alert.send(AlertStateFactory.simple(title: "퀘스트 조회", message: error.message))
                     self.viewState = .empty
                 }
             } receiveValue: { [weak self] result in
@@ -177,7 +181,7 @@ struct QuestMainViewModelItem: Hashable {
     let questId: String
     let mission: Mission
     let writerImageId: String?
-    let writerImage: UIImage? 
+    let writerImage: UIImage?
     let mainImageId: String?
     let mainImage: UIImage?
     let status: String
@@ -193,7 +197,6 @@ struct QuestMainViewModelItem: Hashable {
     }
     var missionType: MissionType {
         return MissionType(rawValue: mission.type) ?? .FREE
-
     }
     
     init(questId: String, mission: Mission, writerImageId: String, writerImage: UIImage?, mainImageId: String, mainImage: UIImage?, status: String, expireDate: String, writer: String, type: QuestType, target: QuestRepeatTarget, popularYn: Bool, xpStats: [XpStat]) {

@@ -14,88 +14,122 @@ final class ManageDetailViewModel: ObservableObject {
     let item: ManageDetailViewModelItem
     
     // 챌린지 철회&삭제 Alert 관련
-    @Published var alertTitle: String = ""
-    @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
-    @Published var activeAlertType: ActiveAlertType?
+    @Published var alertItem: AlertItem?
+    @Published var shouldPop: Bool = false
+    private let alertPublisher = PassthroughSubject<AlertItem, Never>()
     
     let patchChallengeUseCase: PatchChallengeUseCaseInterface
     let deleteChallengeUseCase: DeleteChallengeUseCaseInterface
-
-    var subscriptions = Set<AnyCancellable>()
-
+    
+    var cancellables = Set<AnyCancellable>()
+    
     init(challengeDetail: Challenge, patchChallengeUseCase: PatchChallengeUseCaseInterface, deleteChallengeUseCase: DeleteChallengeUseCaseInterface) {
         self.challengeDetail = challengeDetail
         self.item = ManageDetailViewModelItem(challenge: challengeDetail)
         self.patchChallengeUseCase = patchChallengeUseCase
         self.deleteChallengeUseCase = deleteChallengeUseCase
+        bind()
+    }
+    
+    private func bind() {
+        alertPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] alert in
+                self?.alertItem = alert
+                self?.showAlert = true
+            }
+            .store(in: &cancellables)
     }
     
     func recoveryChallenge(challengeId: String) {
         patchChallengeUseCase.execute(challengeId: challengeId)
             .sink { [weak self] completion in
                 if case .failure(let error) = completion {
-                    self?.alertTitle = "챌린지 신고 철회 실패"
-                    if case let NetworkError.error((_, _, errMessage)) = error {
-                        self?.alertMessage = errMessage
-                    } else {
-                        self?.alertMessage = error.message
-                    }
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
+                    self?.sendAlert(type: .recoveryFailure(error.message))
                 }
             } receiveValue: { [weak self] _ in
-                self?.alertTitle = "챌린지 신고 철회 성공"
-                self?.alertMessage = "퀘스트가 성공적으로 철회되었습니다"
-                self?.activeAlertType = .result
-                self?.showAlert = true
+                self?.sendAlert(type: .recoverySuccess)
             }
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
     }
     
     func deleteChallenge(item: ManageDetailViewModelItem) {
         deleteChallengeUseCase.execute(challengeId: item.challengeId, imageId: item.imageId)
             .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.alertTitle = "챌린지 삭제 성공"
-                    self?.alertMessage = "퀘스트가 성공적으로 삭제되었습니다"
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
-                case .failure(let error):
-                    self?.alertTitle = "챌린지 삭제 실패"
-                    if case let NetworkError.error((_, _, errMessage)) = error {
-                        self?.alertMessage = errMessage
-                    } else {
-                        self?.alertMessage = error.message
-                    }
-                    self?.activeAlertType = .result
-                    self?.showAlert = true
+                if case .failure(let error) = completion {
+                    self?.sendAlert(type: .deleteFailure(error.message))
                 }
-            }, receiveValue: { _ in
+            }, receiveValue: { [weak self] _ in
+                self?.sendAlert(type: .deleteSuccess {
+                    self?.dismissView()
+                })
             })
-            .store(in: &subscriptions)
+            .store(in: &cancellables)
     }
-}
-
-extension ManageDetailViewModel {
-    enum ActiveAlertType: Identifiable {
-        case delete
-        case recovery
-        case result
+    
+    func onRecoveryButtonTap() {
+        self.sendAlert(type: .recoveryConfirmation {
+            self.recoveryChallenge(challengeId: self.item.challengeId)
+        })
+    }
+    
+    func onDeleteButtonTap() {
+        self.sendAlert(type: .deleteConfirmation {
+            self.deleteChallenge(item: self.item)
+        })
+    }
+    
+    private func sendAlert(type: ManageChallengeAlertType) {
+        alertPublisher.send(type.alertItem)
+    }
+    
+    func dismissView() {
+        self.shouldPop = true
+    }
+    
+    private enum ManageChallengeAlertType {
+        case recoveryConfirmation(() -> Void)
+        case recoverySuccess
+        case recoveryFailure(String)
+        case deleteConfirmation(() -> Void)
+        case deleteSuccess(() -> Void)
+        case deleteFailure(String)
         
-        var id: Int {
+        var alertItem: AlertItem {
             switch self {
-            case .delete:
-                return 1
-            case .recovery:
-                return 2
-            case .result:
-                return 3
+            case .recoveryConfirmation(let onConfirm):
+                AlertStateFactory.destructiveConfirmation(
+                    title: "도전 내역 신고 상태를 철회하시겠습니까?",
+                    message: "도전 내역은 완료 상태로 복구됩니다",
+                    onConfirm: onConfirm
+                )
+            case .recoverySuccess:
+                AlertStateFactory.simple(
+                    title: "신고된 도전 내역 철회 성공",
+                    message: "도전 내역이 성공적으로 철회되었습니다"
+                )
+            case .recoveryFailure(let message):
+                AlertStateFactory.simple(
+                    title: "신고된 도전 내역 철회 실패",
+                    message: message
+                )
+            case .deleteConfirmation(let onConfirm):
+                AlertStateFactory.deleteConfirmation(onConfirm: onConfirm)
+            case .deleteSuccess(let onConfirm):
+                AlertStateFactory.simple(
+                    title: "신고된 도전 내역 삭제 성공",
+                    message: "도전 내역이 성공적으로 삭제되었습니다",
+                    onConfirm: onConfirm
+                )
+            case .deleteFailure(let message):
+                AlertStateFactory.simple(
+                    title: "신고된 도전 내역 삭제 실패",
+                    message: message
+                )
             }
         }
     }
-    
 }
 
 struct ManageDetailViewModelItem: Equatable {
@@ -106,7 +140,7 @@ struct ManageDetailViewModelItem: Equatable {
     let status: String
     let createdAt: String
     let userNickname: String
-
+    
     
     init(challengeId: String, questTitle: String, imageId: String?, image: UIImage?, status: String, createdAt: String, userNickname: String) {
         self.challengeId = challengeId
