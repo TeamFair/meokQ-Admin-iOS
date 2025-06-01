@@ -63,9 +63,7 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
     @Published var scrollOffset: CGFloat = 0.0
     let scrollThreshold: CGFloat = 20.0 // 임계값 설정
     
-    @Published var showPortAlert = false
-    @AppStorage("port") var port = "8880"
-    @Published var portText = ""
+    @Published var showPortSheet = false
     
     enum ViewState {
         case empty
@@ -174,6 +172,14 @@ final class QuestMainViewModel: QuestMainViewModelInput, QuestMainViewModelOutpu
                 scrollOffset = offset
             }
         }
+    }
+    
+    func showPortChangeSheet() {
+        showPortSheet = true
+    }
+    
+    func onPortChanged() {
+        getQuestList(page: 0)
     }
 }
 

@@ -20,9 +20,7 @@ final class BannerMainViewModel: ObservableObject {
 
     @Published var viewState: ViewState = .loaded
     
-    @Published var showingPortAlert = false
-    @AppStorage("port") var port = "8880"
-    @Published var portText = ""
+    @Published var showPortSheet = false
     
     enum ViewState {
         case empty
@@ -75,5 +73,13 @@ final class BannerMainViewModel: ObservableObject {
         }
         
         return selectedBanner
+    }
+    
+    func showPortChangeSheet() {
+        showPortSheet = true
+    }
+    
+    func onPortChanged() {
+        getBanners()
     }
 }

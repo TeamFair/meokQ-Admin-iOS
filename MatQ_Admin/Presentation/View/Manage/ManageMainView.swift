@@ -39,19 +39,17 @@ struct ManageMainView: View {
     
     private var changePortButton: some View {
         Button {
-            vm.showPortChangeAlert()
+            vm.showPortChangeSheet()
         } label: {
             Image(systemName: "terminal")
         }
         .padding(.trailing, 20)
-        .alert("포트번호 변경", isPresented: $vm.showPortAlert, actions: {
-            TextField("\(vm.port)", text: $vm.portText)
-            Button("변경", action: { vm.onConfirmChangePort() })
-                .disabled(vm.portText == "")
-            Button("취소", role: .cancel, action: {})
-        }, message: {
-            Text("변경할 포트번호을 작성해주세요.")
-        })
+        .sheet(isPresented: $vm.showPortSheet) {
+            ServerSelectionSheetView(isPresented: $vm.showPortSheet) { _ in
+                vm.onPortChanged()
+            }
+            .presentationDetents([.height(220)])
+        }
     }
     
     private var reportListView: some View {

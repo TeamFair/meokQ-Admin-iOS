@@ -29,11 +29,9 @@ final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOu
     @Published var alertItem: AlertItem?
     var alertPublisher = PassthroughSubject<AlertItem, Never>()
     
+    @Published var showPortSheet = false
+
     @Published var viewState: ViewState = .loaded
-    
-    @Published var showPortAlert = false
-    @AppStorage("port") var port = "8880"
-    @Published var portText = ""
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -85,14 +83,12 @@ final class ManageMainViewModel: ManageMainViewModelInput, ManageMainViewModelOu
         viewState = .empty
     }
     
-    func showPortChangeAlert() {
-        showPortAlert = true
+    func showPortChangeSheet() {
+        showPortSheet = true
     }
     
-    func onConfirmChangePort() {
-        port = portText
+    func onPortChanged() {
         getReportedList(page: 0)
-        showAlert = false
     }
 }
 

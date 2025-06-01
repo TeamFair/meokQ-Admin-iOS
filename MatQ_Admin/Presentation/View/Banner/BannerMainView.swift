@@ -15,7 +15,6 @@ struct BannerMainView: View {
     var body: some View {
         VStack(spacing: 0) {
             NavigationBarComponent(navigationTitle: "배너", isNotRoot: false)
-                .zIndex(5)
                 .overlay(alignment: .trailing) {
                     changePortButton
                 }
@@ -84,25 +83,17 @@ struct BannerMainView: View {
     
     private var changePortButton: some View {
         Button {
-            vm.showingPortAlert = true
+            vm.showPortChangeSheet()
         } label: {
             Image(systemName: "terminal")
         }
         .padding(.trailing, 20)
-        .alert("포트번호 변경", isPresented: $vm.showingPortAlert, actions: {
-            TextField("\(vm.port)", text: $vm.portText)
-            
-            Button("변경", action: {
-                vm.port = vm.portText
-                vm.getBanners()
-                vm.showingPortAlert = false
-            })
-            .disabled(vm.portText == "")
-            
-            Button("취소", role: .cancel, action: {})
-        }, message: {
-            Text("변경할 포트번호을 작성해주세요.")
-        })
+        .sheet(isPresented: $vm.showPortSheet) {
+            ServerSelectionSheetView(isPresented: $vm.showPortSheet) { _ in
+                vm.onPortChanged()
+            }
+            .presentationDetents([.height(220)])
+        }
     }
 }
 

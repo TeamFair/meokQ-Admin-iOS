@@ -15,7 +15,7 @@ final class ImageMainViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var alertItem: AlertItem?
     private let alertPublisher = PassthroughSubject<AlertItem, Never>()
-
+    @Published var showPortSheet = false
     @Published var viewType: ViewType
     @Published var selectedImageType: ImageType = .QUEST_IMAGE
     
@@ -82,6 +82,15 @@ final class ImageMainViewModel: ObservableObject {
     func handleChange(type: ImageType) {
         self.selectedImageType = type
         self.loadImages(type: type)
+    }
+    
+    func showPortChangeSheet() {
+        showPortSheet = true
+    }
+    
+    func onPortChanged() {
+        imageList = [:]
+        loadImages(type: self.selectedImageType, isRefresh: true)
     }
 }
 
