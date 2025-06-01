@@ -58,7 +58,7 @@ struct ImageMainView: View {
             content: $vm.selectedImageType,
             list: ImageType.allCases
         )
-        .background(Color.white)
+        .background(Color.bg)
         .onChange(of: vm.selectedImageType) { _, newValue in
             vm.handleChange(type: newValue)
         }
@@ -126,7 +126,7 @@ struct ImageMainView: View {
         .background(
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.componentSecondary)
-                .shadow(color: .gray300.opacity(0.2), radius: 10)
+                .shadow(color: .gray300.opacity(0.1), radius: 10)
         )
     }
 }
